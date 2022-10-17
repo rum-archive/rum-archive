@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css" />
+  <script src="/js/main.js" />
+  <title>Datasets</title>
+</head>
+<body>
+  <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://rum-archive.com">
+      <img-todo src="/assets/logo.png" width="112" height="28" />
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-main">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbar-main" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item has-text-weight-bold">
+        <a href="/">RUM Archive</a>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/docs/">
+          Documentation
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/docs/methodology">
+            Methodology
+          </a>
+          <a class="navbar-item" href="/docs/querying">
+            Querying
+          </a>
+          <a class="navbar-item" href="/docs/tables">
+            Tables
+          </a>
+          <a class="navbar-item" href="/docs/samples">
+            Samples
+          </a>
+          <a class="navbar-item" href="/docs/tips">
+            Tips
+          </a>
+          <a class="navbar-item" href="/docs/release-notes">
+            Release  Notes
+          </a>
+        </div>
+      </div>
+
+      <a href="/datasets" class="navbar-item">
+        Datasets
+      </a>
+
+      <a href="/contribute" class="navbar-item">
+        Contribute!
+      </a>
+
+      <a href="https://github.com/rum-archive/rum-archive" class="navbar-item">
+        Github
+      </a>
+
+      <a href="/about" class="navbar-item">
+        About
+      </a>
+    </div>
+  </div>
+</nav>
+</header>
+  <main>
+    
+<article class="page-layout">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-10 is-offset-1">
+        <div class="content mt-5">
+          <h1>Datasets</h1>
+          
+            <h2>Table of Contents</h2>
+            <aside>
+              <div class="toc" >
+        <ul><li><a href="#contributing">Contributing</a></li><li><a href="#akamai-mpulse-rum">Akamai mPulse RUM</a></li></ul>
+      </div>
+            </aside>
+          
+          <h2 id="contributing" tabindex="-1">Contributing</h2>
+<p>Want to contribute your own data to the RUM Archive?  See the <a href="/contribute">contributing guide</a>.</p>
+<h2 id="akamai-mpulse-rum" tabindex="-1">Akamai mPulse RUM</h2>
+<p><a href="https://www.akamai.com/products/mpulse-real-user-monitoring">Akamai mPulse</a> is a RUM product that maps user behavior
+to business performance as it's happening. With mPulse you can collect detailed business and performance data directly
+from your users' browser in real time, and then drill down for a closer look at the performance of all your resources
+across all of your page views to identify the root cause of latencies and lost revenue.</p>
+<p>Technical Details:</p>
+<ul>
+<li>Data License: &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/4.0/&quot;&gt;CC BY SA 4.0&lt;/a&gt;</li>
+<li>Data aggregation cadence: <strong>Daily</strong></li>
+<li>Data release cadence: <strong>Monthly</strong></li>
+<li>Page Loads: <strong>Yes</strong>
+<ul>
+<li>Sampling: A random percentage of normalized data from mPulse's top 100 customers</li>
+<li>Size: Approximately 200 million page loads aggregated per day</li>
+</ul>
+</li>
+<li>Resources: <strong>Yes</strong>
+<ul>
+<li>Sampling: Top 2,000 resource URLs that were fetched by multiple customers</li>
+</ul>
+</li>
+<li>Google BigQuery project: <code>akamai-mpulse-rumarchive</code>
+<ul>
+<li>Dataset: <code>rumarchive</code></li>
+<li>Page Loads table: <code>rumarchive_pageloads</code></li>
+<li>Resources table: <code>rumarchive_resources</code></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+  </main>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Sponsored by <a href="https://akamai.com">Akamai</a>.
+        The website content is licensed
+        <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,22 @@
+---
+layout: layouts/base.njk
+---
+
+<article class="page-layout">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-10 is-offset-1">
+        <div class="content mt-5">
+          <h1>{{ title }}</h1>
+          {% if content | toc %}
+            <h2>Table of Contents</h2>
+            <aside>
+              {{ content | toc | safe }}
+            </aside>
+          {% endif %}
+          {{ content | safe }}
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

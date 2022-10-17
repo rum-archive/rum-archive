@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css" />
+  <script src="/js/main.js" />
+  <title>Tables</title>
+</head>
+<body>
+  <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://rum-archive.com">
+      <img-todo src="/assets/logo.png" width="112" height="28" />
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-main">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbar-main" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item has-text-weight-bold">
+        <a href="/">RUM Archive</a>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/docs/">
+          Documentation
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/docs/methodology">
+            Methodology
+          </a>
+          <a class="navbar-item" href="/docs/querying">
+            Querying
+          </a>
+          <a class="navbar-item" href="/docs/tables">
+            Tables
+          </a>
+          <a class="navbar-item" href="/docs/samples">
+            Samples
+          </a>
+          <a class="navbar-item" href="/docs/tips">
+            Tips
+          </a>
+          <a class="navbar-item" href="/docs/release-notes">
+            Release  Notes
+          </a>
+        </div>
+      </div>
+
+      <a href="/datasets" class="navbar-item">
+        Datasets
+      </a>
+
+      <a href="/contribute" class="navbar-item">
+        Contribute!
+      </a>
+
+      <a href="https://github.com/rum-archive/rum-archive" class="navbar-item">
+        Github
+      </a>
+
+      <a href="/about" class="navbar-item">
+        About
+      </a>
+    </div>
+  </div>
+</nav>
+</header>
+  <main>
+    
+<article class="page-layout">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-10 is-offset-1">
+        <div class="content mt-5">
+          <h1>Tables</h1>
+          
+            <h2>Table of Contents</h2>
+            <aside>
+              <div class="toc" >
+        <ul><li><a href="#page-loads">Page Loads</a></li><li><a href="#resources">Resources</a></li></ul>
+      </div>
+            </aside>
+          
+          <h2 id="page-loads" tabindex="-1">Page Loads</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dimension</th>
+<th style="text-align:left">Example Values</th>
+<th style="text-align:right">Cardinality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Source</td>
+<td style="text-align:left"><code>mpulse</code></td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:left">Site</td>
+<td style="text-align:left">(NULL for mPulse)</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">Date</td>
+<td style="text-align:left">2022-01-01</td>
+<td style="text-align:right">(grows each day)</td>
+</tr>
+<tr>
+<td style="text-align:left">DeviceType</td>
+<td style="text-align:left"><code>Mobile</code> <code>Desktop</code> <code>Tablet</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:left">UserAgentFamily</td>
+<td style="text-align:left"><code>Chrome</code> <code>Mobile Safari</code></td>
+<td style="text-align:right">~100</td>
+</tr>
+<tr>
+<td style="text-align:left">UserAgentVersion</td>
+<td style="text-align:left"><code>99</code> <code>12</code></td>
+<td style="text-align:right">~350</td>
+</tr>
+<tr>
+<td style="text-align:left">DeviceModel</td>
+<td style="text-align:left"><code>Apple iPhone</code> <code>Samsung Android 11</code></td>
+<td style="text-align:right">~2000</td>
+</tr>
+<tr>
+<td style="text-align:left">OS</td>
+<td style="text-align:left"><code>Android OS</code> <code>Windows</code> <code>iOS</code></td>
+<td style="text-align:right">~30</td>
+</tr>
+<tr>
+<td style="text-align:left">OS Version</td>
+<td style="text-align:left"><code>10</code> <code>15</code></td>
+<td style="text-align:right">~75</td>
+</tr>
+<tr>
+<td style="text-align:left">Beacon Type</td>
+<td style="text-align:left"><code>page view</code> <code>spa_hard</code></td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td style="text-align:left">COUNTRY</td>
+<td style="text-align:left"><code>US</code> <code>GB</code> <code>GB</code></td>
+<td style="text-align:right">~230</td>
+</tr>
+<tr>
+<td style="text-align:left">VISIBILITYSTATE</td>
+<td style="text-align:left"><code>visible</code> <code>hidden</code> <code>partial</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:left">NAVIGATIONTYPE</td>
+<td style="text-align:left"><code>navigate</code> <code>back_forward</code> <code>reload</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:left">PROTOCOL</td>
+<td style="text-align:left"><code>h2</code> <code>http/1.1</code> h3</td>
+<td style="text-align:right">~10</td>
+</tr>
+<tr>
+<td style="text-align:left">IPVERSION</td>
+<td style="text-align:left"><code>IPv4</code> <code>IPv6</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:left">LANDINGPAGE</td>
+<td style="text-align:left"><code>true</code> <code>false</code></td>
+<td style="text-align:right">3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="resources" tabindex="-1">Resources</h2>
+<p>ResourceTiming
+​</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+  </main>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Sponsored by <a href="https://akamai.com">Akamai</a>.
+        The website content is licensed
+        <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
