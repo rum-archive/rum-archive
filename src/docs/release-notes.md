@@ -6,5 +6,4 @@ tags: docs
 order: 5
 ---
 
-## 2022-10
-* The RUM Archive is open for business!
+{% include "../../../CHANGELOG.md" %}
