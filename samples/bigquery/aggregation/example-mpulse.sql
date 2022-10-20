@@ -213,7 +213,7 @@ WITH bucket_query AS (
             WHEN tti > 60000 THEN 60000
             ELSE tti
         END AS tti,
-        
+
         CASE
             WHEN (redirectTime IS NULL OR redirectTime < 0) THEN NULL
             WHEN redirectTime = 0 THEN 0
@@ -230,28 +230,28 @@ WITH bucket_query AS (
     --
     -- Tables
     --
-    FROM {{PAGE_LOADS_TABLE}}
-    
+    FROM %PAGE_LOADS_TABLE%
+
          -- apply some sort of sampling
-         SAMPLE ROW ({{BEACON_PCT}})
+         SAMPLE ROW (%BEACON_PCT%)
 
     --
     -- Clauses
     --
-    
+
     -- exporting a day at a time
-    WHERE TIMESTAMP BETWEEN DATE_PART('EPOCH_MILLISECOND', TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
-                        AND (DATE_PART('EPOCH_MILLISECOND', TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000')) + 86400000 - 1)
-                        
+    WHERE TIMESTAMP BETWEEN DATE_PART('EPOCH_MILLISECOND', TO_TIMESTAMP('%DATE% 00:00:00.00 -0000'))
+                        AND (DATE_PART('EPOCH_MILLISECOND', TO_TIMESTAMP('%DATE% 00:00:00.00 -0000')) + 86400000 - 1)
+
     -- only specific types of interactions
-    AND beaconTypeName IN ('page view', 'spa_hard', 'spa_soft')
-    
+    AND beaconTypeName IN ('page view', 'spa_hard', 'spa')
+
     -- skip any rows that don't measure a Page Load Time
     AND pageLoadTime IS NOT NULL
     AND pageLoadTime > 0
-    
+
     -- this query is run multiple times, one for each app exported in the dataset
-    AND appid = {{APP_ID}}
+    AND appid = %APP_ID%
 )
 SELECT  -- dimensions
         'mpulse' AS source,
@@ -1675,4 +1675,4 @@ USING (
     ipVersion,
     landingPage
 )
-WHERE beacons >= {{MIN_BEACON_COUNT}}
+WHERE beacons >= %MIN_BEACON_COUNT%

@@ -1,4 +1,4 @@
-CREATE TABLE `{{project}}.{{dataset}}.{{prefix}}-resources`
+CREATE TABLE `%PROJECT%.%DATASET%.%PREFIX%-resources`
 (
     DATE:DATE,
     URL:STRING,
