@@ -6,28 +6,87 @@ tags: docs
 order: 2
 ---
 
+## Overview
+
+The RUM Archive specifies two types of tables:
+
+* **Page Loads**: Browser page load experiences
+* **Resources**: Third party resource fetches
+
 ## Page Loads
 
-| Dimension        | Example Values                      |      Cardinality |
-|:-----------------|:------------------------------------|-----------------:|
-| Source           | `mpulse`                            |                1 |
-| Site             | (NULL for mPulse)                   |                0 |
-| Date             | 2022-01-01                          | (grows each day) |
-| DeviceType       | `Mobile` `Desktop` `Tablet`         |                3 |
-| UserAgentFamily  | `Chrome` `Mobile Safari`            |             ~100 |
-| UserAgentVersion | `99` `12`                           |             ~350 |
-| DeviceModel      | `Apple iPhone` `Samsung Android 11` |            ~2000 |
-| OS               | `Android OS` `Windows` `iOS`        |              ~30 |
-| OS Version       | `10` `15`                           |              ~75 |
-| Beacon Type      | `page view` `spa_hard`              |                2 |
-| COUNTRY          | `US` `GB` `GB`                      |             ~230 |
-| VISIBILITYSTATE  | `visible` `hidden` `partial`        |                3 |
-| NAVIGATIONTYPE   | `navigate` `back_forward` `reload`  |                3 |
-| PROTOCOL         | `h2` `http/1.1` h3                  |              ~10 |
-| IPVERSION        | `IPv4` `IPv6`                       |                3 |
-| LANDINGPAGE      | `true` `false`                      |                3 |
+Page Loads represent browser navigation experiences, whether from a traditional Multi-Page App (MPA) or Single-Page App (SPA).  SPA navigations can be broken down into both Hard Navigations (the first navigation to the page) and Soft Navigations (in-page route changes).
+
+Data is aggregated for each date.
+
+### Schema
+
+```sql
+{% include "../../../samples/bigquery/schemas/create-table-page-loads.sql" %}
+```
+
+### Dimensions
+
+The dimensions below are characteristics of the Page Load experience.
+
+The _Cardinality_ column is an estimate from the mPulse dataset.
+
+| Dimension        | Description                       | Example values                      |      Cardinality |
+|:-----------------|:----------------------------------|:------------------------------------|-----------------:|
+| SOURCE           | Source of the data, e.g. provider | `mpulse`                            |                1 |
+| SITE             | Site being measured               | `example.com` `(multiple)`          |                1 |
+| DATE             | Date of aggregation               | `2022-01-01`                        | (grows each day) |
+| DEVICETYPE       | Device type                       | `Mobile` `Desktop` `Tablet`         |                3 |
+| USERAGENTFAMILY  | User Agent family                 | `Chrome` `Mobile Safari`            |             ~100 |
+| USERAGENTVERSION | User Agent major version          | `99` `12`                           |             ~350 |
+| DEVICEMODEL      | Device model                      | `Apple iPhone` `Samsung Android 11` |            ~2000 |
+| OS               | Operating System family           | `Android OS` `Windows` `iOS`        |              ~30 |
+| OSVERSION        | Operation System major verison    | `10` `15`                           |              ~75 |
+| BEACONTYPE       | Beacon type                       | `page view` `spa hard` `spa`        |                2 |
+| COUNTRY          | Country                           | `US` `GB` `GB`                      |             ~230 |
+| VISIBILITYSTATE  | Visibility state                  | `visible` `hidden` `partial`        |                3 |
+| NAVIGATIONTYPE   | Navigation type                   | `navigate` `back forward` `reload`  |                3 |
+| PROTOCOL         | HTTP protocol                     | `h2` `http/1.1` `h3`                |              ~10 |
+| IPVERSION        | IP version                        | `IPv4` `IPv6`                       |                3 |
+| LANDINGPAGE      | Landing page                      | `true` `false`                      |                3 |
+
+### Timers and Metrics
+
+Each Timer or Metric has 4 columns:
+
+* `*HISTOGRAM` (JSON): [Histogram](/docs/methodology#histogram-format)
+* `*AVG` (FLOAT64): Weighted average
+* `*SUMLN` (FLOAT64): Sum of the natural logarithms
+* `*COUNT` (INTEGER): Number of measurements taken for this timer or metric
+
+| Timer or Metric                 | Column Name Prefix |
+|:--------------------------------|:-------------------|
+| Page Load Time                  | `PLT`              |
+| DNS                             | `DNS`              |
+| TCP                             | `TCP`              |
+| TLS                             | `TLS`              |
+| Time to First Byte              | `TTFB`             |
+| First Contentful Paint          | `FCP`              |
+| Largest Contentful Paint        | `LCP`              |
+| Round Trip Time                 | `RTT`              |
+| Rage Clicks                     | `RAGECLICKS`       |
+| Cumulative Layout Shift (*1000) | `CLS`              |
+| First Input Delay               | `FID`              |
+| Interaction to Next Paint       | `INP`              |
+| Total Blocking Time             | `TBT`              |
+| Time to Interactive             | `TTI`              |
+| Redirect                        | `REDIRECT`         |
 
 ## Resources
 
-ResourceTiming
+TODO
+
+### Schema
+
+```sql
+{% include "../../../samples/bigquery/schemas/create-table-resources.sql" %}
+```
+
+### Dimensions
 ​
+### Timers and Metrics

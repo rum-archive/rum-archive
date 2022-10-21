@@ -15,3 +15,5 @@ TODO:
 ## Data sets shouldn't be compared
 
 ## Raw numbers don't matter, relative percentages do
+
+## Limiting BigQuery expenses

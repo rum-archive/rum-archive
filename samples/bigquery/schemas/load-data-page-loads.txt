@@ -1,7 +1,0 @@
-LOAD DATA INTO `{{project}}.{{dataset}}.{{prefix}}-page-loads`
-FROM FILES (
-  format = 'CSV',
-  field_delimiter = '\t',
-  skip_leading_rows = 1,
-  uris = ['gs://{{bucket}}/{{file}}.tsv'])
-;

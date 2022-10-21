@@ -1,4 +1,4 @@
-CREATE TABLE `{{project}}.{{dataset}}.{{prefix}}-page-loads`
+CREATE TABLE `%PROJECT%.%DATASET%.%PREFIX%-page-loads`
 (
     SOURCE STRING,
     SITE STRING,
