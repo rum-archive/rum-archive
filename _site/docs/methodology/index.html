@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css" />
-  <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet" />
   <script src="/js/main.js"></script>
   <title>RUM Archive - Methodology</title>
 </head>
@@ -88,7 +87,7 @@
             <h2>Table of Contents</h2>
             <aside>
               <div class="toc" >
-        <ul><li><a href="#overview">Overview</a></li><li><a href="#aggregation">Aggregation</a><ul><li><a href="#minimum-count-threshold">Minimum Count Threshold</a></li><li><a href="#histogram-bucketing">Histogram Bucketing</a></li><li><a href="#histogram-format">Histogram Format</a></li></ul></li><li><a href="#example-aggregation-queries">Example Aggregation Queries</a></li><li><a href="#exporting">Exporting</a></li><li><a href="#querying">Querying</a></li></ul>
+        <ul><li><a href="#overview">Overview</a></li><li><a href="#aggregation">Aggregation</a><ul><li><a href="#minimum-count-threshold">Minimum Count Threshold</a></li><li><a href="#histogram-bucketing">Histogram Bucketing</a></li><li><a href="#histogram-format">Histogram Format</a></li><li><a href="#page-loads-histogram-buckets">Page Loads Histogram Buckets</a></li><li><a href="#resources-histogram-buckets">Resources Histogram Buckets</a></li></ul></li><li><a href="#example-aggregation-queries">Example Aggregation Queries</a></li><li><a href="#exporting">Exporting</a></li><li><a href="#querying">Querying</a></li></ul>
       </div>
             </aside>
           
@@ -173,7 +172,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 <li>Bucket # 102, which represents data between 11,000ms and 11,999ms has a single value, of 11,679ms.</li>
 <li>Bucket # 106, which represents data between 15,000ms and 15,999ms has a 2 values, with a mean of 15,876ms.</li>
 </ul>
-<h4 id="page-loads-histogram-buckets" tabindex="-1">Page Loads Histogram Buckets</h4>
+<h3 id="page-loads-histogram-buckets" tabindex="-1">Page Loads Histogram Buckets</h3>
 <p>Page Loads have following bucket histogram definitions:
 ​</p>
 <table>
@@ -342,7 +341,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 </tbody>
 </table>
-<h4 id="resources-histogram-buckets" tabindex="-1">Resources Histogram Buckets</h4>
+<h3 id="resources-histogram-buckets" tabindex="-1">Resources Histogram Buckets</h3>
 <p>Resource Fetches have following bucket histogram definitions:</p>
 <table>
 <thead>
@@ -436,7 +435,9 @@ on the combined Histograms, one can calculate the approximate percentile for any
 <h2 id="exporting" tabindex="-1">Exporting</h2>
 <p>Once RUM Archive data has been generated, it should be exported to CSV or TSV and loaded into a Google BigQuery dataset.</p>
 <p>The schemas for Page Loads and Resources tables are available in the <a href="https://github.com/rum-archive/rum-archive/tree/main/samples/bigquery/schemas">rum-archive Github repository</a>.</p>
-<p>A convenient way to import TSV files into BigQuery is by uploading those files to a Google Cloud Storage bucket, then executing a <code>LOAD DATA INTO</code> command:</p>
+<p>A convenient way to import TSV files into BigQuery is by uploading those files to a Google Cloud Storage bucket:</p>
+<pre class="language-bash"><code class="language-bash">gsutil <span class="token parameter variable">-m</span> <span class="token function">cp</span> <span class="token parameter variable">-Z</span> <span class="token parameter variable">-n</span> *.tsv gs://%BUCKET%/</code></pre>
+<p>Then executing a BigQuery <code>LOAD DATA INTO</code> command:</p>
 <pre class="language-sql"><code class="language-sql"><span class="token keyword">LOAD</span> <span class="token keyword">DATA</span> <span class="token keyword">INTO</span> <span class="token identifier"><span class="token punctuation">`</span>%PROJECT%.%DATASET%.%PREFIX%-page-loads<span class="token punctuation">`</span></span><br><span class="token keyword">FROM</span> FILES <span class="token punctuation">(</span><br>  format <span class="token operator">=</span> <span class="token string">'CSV'</span><span class="token punctuation">,</span><br>  field_delimiter <span class="token operator">=</span> <span class="token string">'\t'</span><span class="token punctuation">,</span><br>  skip_leading_rows <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span><br>  uris <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'gs://%BUCKET%/%FILE%.tsv'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><br><span class="token punctuation">;</span><br></code></pre>
 <h2 id="querying" tabindex="-1">Querying</h2>
 <p>Please see the <a href="/docs/querying">Querying</a> guide for how to query RUM Archive data.</p>

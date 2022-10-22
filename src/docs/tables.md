@@ -13,6 +13,8 @@ The RUM Archive specifies two types of tables:
 * **Page Loads**: Browser page load experiences
 * **Resources**: Third party resource fetches
 
+All tables are **partitioned** by the `DATE` column to assist with reducing the amount of data queried.  We [suggest](/docs/tips) you limit all queries to a specific date (or date range) to limit your BigQuery query costs.
+
 ## Page Loads
 
 Page Loads represent browser navigation experiences, whether from a traditional Multi-Page App (MPA) or Single-Page App (SPA).  SPA navigations can be broken down into both Hard Navigations (the first navigation to the page) and Soft Navigations (in-page route changes).

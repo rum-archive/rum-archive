@@ -119,7 +119,7 @@ In the above example, there are 6 values:
 * Bucket # 102, which represents data between 11,000ms and 11,999ms has a single value, of 11,679ms.
 * Bucket # 106, which represents data between 15,000ms and 15,999ms has a 2 values, with a mean of 15,876ms.
 
-#### Page Loads Histogram Buckets
+### Page Loads Histogram Buckets
 
 Page Loads have following bucket histogram definitions:
 ​
@@ -141,7 +141,7 @@ Page Loads have following bucket histogram definitions:
 | Time to Interactive             | `ttiHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
 | Redirect                        | `redirectHistogram`   |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
 
-#### Resources Histogram Buckets
+### Resources Histogram Buckets
 
 Resource Fetches have following bucket histogram definitions:
 
@@ -167,7 +167,13 @@ Once RUM Archive data has been generated, it should be exported to CSV or TSV an
 
 The schemas for Page Loads and Resources tables are available in the [rum-archive Github repository](https://github.com/rum-archive/rum-archive/tree/main/samples/bigquery/schemas).
 
-A convenient way to import TSV files into BigQuery is by uploading those files to a Google Cloud Storage bucket, then executing a `LOAD DATA INTO` command:
+A convenient way to import TSV files into BigQuery is by uploading those files to a Google Cloud Storage bucket:
+
+```bash
+gsutil -m cp -Z -n *.tsv gs://%BUCKET%/
+```
+
+Then executing a BigQuery `LOAD DATA INTO` command:
 
 ```sql
 {% include "../../../samples/bigquery/schemas/load-data-page-loads.sql" %}

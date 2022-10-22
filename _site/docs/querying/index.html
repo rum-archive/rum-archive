@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css" />
-  <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet" />
   <script src="/js/main.js"></script>
   <title>RUM Archive - Querying</title>
 </head>
@@ -85,7 +84,249 @@
         <div class="content mt-5 mb-5">
           <h1>Querying</h1>
           
-          <p>TODO</p>
+            <h2>Table of Contents</h2>
+            <aside>
+              <div class="toc" >
+        <ul><li><a href="#introduction">Introduction</a></li><li><a href="#datasets">Datasets</a></li><li><a href="#accessing-bigquery">Accessing BigQuery</a></li><li><a href="#aggregation">Aggregation</a><ul><li><a href="#high-level-example">High-Level Example</a></li></ul></li><li><a href="#querying">Querying</a><ul><li><a href="#aggregating">Aggregating</a></li><li><a href="#grouping">Grouping</a></li><li><a href="#filtering">Filtering</a></li></ul></li><li><a href="#calculations">Calculations</a><ul><li><a href="#relative-weights">Relative Weights</a></li><li><a href="#combined-histograms">Combined Histograms</a></li><li><a href="#approximate-percentiles">Approximate Percentiles</a></li><li><a href="#weighted-averages">Weighted Averages</a></li><li><a href="#weighted-geometric-means">Weighted Geometric Means</a></li></ul></li></ul>
+      </div>
+            </aside>
+          
+          <h2 id="introduction" tabindex="-1">Introduction</h2>
+<p>RUM Archive datasets are stored in <a href="https://cloud.google.com/bigquery">Google BigQuery</a>.</p>
+<p>To execute queries against RUM Achive datasets, you will need a Google account.</p>
+<p><strong>Note</strong>: BigQuery has costs for storage and querying.  You'll want to review what's available in the <a href="https://cloud.google.com/bigquery/pricing#free-tier">free tier</a>, and estimate how much querying the RUM Archive may cost.  You can read our <a href="/docs/tips#limiting-bigquery-costs">tips</a> on how to reduce your BigQuery costs.</p>
+<h2 id="datasets" tabindex="-1">Datasets</h2>
+<p>Each provider of RUM Archive data will store their datasets in a different location.</p>
+<p>Review the <a href="/datasets">datasets</a> documentation for information on where each dataset is located within BigQuery.</p>
+<p>The rest of this guide will assume you're querying against the <a href="/datasets/#akamai-mpulse-rum">Akamai mPulse RUM dataset</a>.</p>
+<h2 id="accessing-bigquery" tabindex="-1">Accessing BigQuery</h2>
+<p>The first step in querying RUM Archive data is gaining access to Google BigQuery and the desired datasets.</p>
+<p>Follow the steps below to link (or create) a BigQuery project to the desired RUM Archive datasets.</p>
+<ol>
+<li>Log into the <a href="https://console.cloud.google.com/start">Google Cloud Projects</a> starting page:</li>
+</ol>
+<p><img src="/assets/querying-step-1.jpg" alt="Logging into Google Cloud"></p>
+<ol start="2">
+<li>Create a new, or use an existing Project:</li>
+</ol>
+<p><img src="/assets/querying-step-2.jpg" alt="Creating a new Google Cloud Project"></p>
+<ol start="3">
+<li>You can name a new Google Cloud Project whatever you wish:</li>
+</ol>
+<p><img src="/assets/querying-step-3.jpg" alt="Creating a new Google Cloud Project"></p>
+<ol start="4">
+<li>Head over to the <a href="https://console.cloud.google.com/bigquery">BigQuery Console</a> for your new project:</li>
+</ol>
+<p><img src="/assets/querying-step-4.jpg" alt="Google BigQuery Console"></p>
+<ol start="5">
+<li>We're going to add the desired <a href="/datasets">datasets</a> to your BigQuery console.  Click on <em>+ Add Data</em> and select <em>Star a project by name</em>:</li>
+</ol>
+<p><img src="/assets/querying-step-5.jpg" alt="Adding Data"></p>
+<ol start="6">
+<li>
+<p>The shared BigQuery project name should be listed in the <a href="/datasets">dataset</a> definitions.</p>
+<p>In this case, we'll add the <a href="/datasets/#akamai-mpulse-rum">Akamai mPulse RUM dataset</a> which is under the <code>akamai-mpulse-rumarchive</code> project:</p>
+</li>
+</ol>
+<p><img src="/assets/querying-step-6.jpg" alt="Starring the BigQuery project"></p>
+<ol start="7">
+<li>You should now see the desired dataset starred in your BigQuery Console:</li>
+</ol>
+<p><img src="/assets/querying-step-7.jpg" alt="BigQuery project starred"></p>
+<p>You're all set, and ready to query RUM Archive data.</p>
+<h2 id="aggregation" tabindex="-1">Aggregation</h2>
+<p>All of the data represented in RUM Archive BigQuery tables is <strong>aggregated</strong>.  This means that each row represents <em>more than one</em> datapoint.  In fact, some rows can represent hundreds, thousands or millions of datapoints.</p>
+<p>To understand how the aggregated rows are generated, please review the <a href="/docs/methodology/#aggregation">methodology guide</a>.</p>
+<p>When querying RUM Archive data, you will be executing standard BigQuery SQL queries against these pre-aggregated rows of data.  From those rows, you should be able to execute any of the <a href="#calculations">calculations</a> listed below.</p>
+<h3 id="high-level-example" tabindex="-1">High-Level Example</h3>
+<p>To illustrate how RUM Archive data is stored with a simple example, please consider 4 unique page loads, using two dimensions (User Agent Family, Country) that track a single Timer (Page Load Time):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Page Load #</th>
+<th style="text-align:left">User Agent Family</th>
+<th style="text-align:left">Country</th>
+<th style="text-align:right">Page Load Time (ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">Chrome</td>
+<td style="text-align:left">US</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">Chrome</td>
+<td style="text-align:left">DE</td>
+<td style="text-align:right">200</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">Safari</td>
+<td style="text-align:left">US</td>
+<td style="text-align:right">300</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">Safari</td>
+<td style="text-align:left">US</td>
+<td style="text-align:right">350</td>
+</tr>
+</tbody>
+</table>
+<p>Stored in RUM Archive format, there are 3 unique tuples of dimensions, so there would be 3 rows of aggregated data:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">User Agent Family</th>
+<th style="text-align:left">Country</th>
+<th style="text-align:left">PLTCount</th>
+<th style="text-align:left">PLTHistogram</th>
+<th style="text-align:right">PLTAvg</th>
+<th style="text-align:right">PLTSumLn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Chrome</td>
+<td style="text-align:left">US</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left"><code>{&quot;1&quot;:[100,1]}</code></td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">4.605</td>
+</tr>
+<tr>
+<td style="text-align:left">Chrome</td>
+<td style="text-align:left">DE</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left"><code>{&quot;2&quot;:[200,1]}</code></td>
+<td style="text-align:right">200</td>
+<td style="text-align:right">5.298</td>
+</tr>
+<tr>
+<td style="text-align:left">Safari</td>
+<td style="text-align:left">US</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left"><code>{&quot;3&quot;:[325,2]}</code></td>
+<td style="text-align:right">325</td>
+<td style="text-align:right">11.561</td>
+</tr>
+</tbody>
+</table>
+<p>With data in this format, one can <a href="#calculations">calculate</a> many statistics such as any (approximate) percentile, averages, and geometric means.</p>
+<p>More information:</p>
+<ul>
+<li><a href="/docs/methodology/#histogram-format">Histogram format</a></li>
+<li><a href="/docs/methodology/#histogram-bucketing">Histogram bucketing</a></li>
+</ul>
+<h2 id="querying" tabindex="-1">Querying</h2>
+<p>Each row will contain <strong>dimensions</strong>, <strong>counts</strong> and <strong>timers/metrics</strong>.</p>
+<ul>
+<li><strong>Dimensions</strong> are used to <strong>aggregate</strong>, <strong>filter</strong> and <strong>group by</strong> data.</li>
+<li><strong>Counts</strong> are used to understand relative weights of each dimension, and used in most of the statistical calculations</li>
+<li>Each <strong>Timer and Metric</strong> has several columns associated with it to aid in the statistical calculations below</li>
+</ul>
+<p>For details on how each RUM Archive table is structured, please see the <a href="/docs/tables">tables</a> documentation.</p>
+<p><strong>Note</strong>: Most RUM Archive queries should be limited to a single <code>DATE</code> (or range) as the RUM Archive tables are partitioned by it.  If you exclude a <code>DATE</code> clause, you will be scanning an entire dataset, which can be costly.</p>
+<h3 id="aggregating" tabindex="-1">Aggregating</h3>
+<p>Since RUM Archive data is pre-aggregated, you can apply standard SQL commands to the <code>BEACONS</code> (overall matches) and <code>xyzCOUNT</code> columns to understand relative totals of the data.</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token keyword">ROWCOUNT</span><span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">as</span> BEACONCOUNT<br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2022-09-01"</span></code></pre>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">[</span><span class="token punctuation">{</span><br>  <span class="token property">"rowCount"</span><span class="token operator">:</span> <span class="token string">"1535341"</span><span class="token punctuation">,</span><br>  <span class="token property">"beaconCount"</span><span class="token operator">:</span> <span class="token string">"268409228"</span><br><span class="token punctuation">}</span><span class="token punctuation">]</span></code></pre>
+<p>So with the <a href="/datasets/#akamai-mpulse-rum">Akamai mPulse RUM dataset</a> on <code>2022-09-01</code>, there are 1.5 million aggregation rows that represent 268 million page loads (from the <strong>sampled</strong> and <strong>aggregated</strong> data set).</p>
+<h3 id="grouping" tabindex="-1">Grouping</h3>
+<p>RUM Archive data can utilize standard <code>GROUP BY</code> SQL clauses to group data.</p>
+<p>For example, to look at the distinct HTTP Protocol (<code>PROTOCOL</code>) dimensions for one day:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  PROTOCOL<br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2022-09-01"</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> PROTOCOL</code></pre>
+<p><img src="/assets/querying-grouping-1.jpg" alt="Query Grouping"></p>
+<h3 id="filtering" tabindex="-1">Filtering</h3>
+<p>RUM Archive data can utilize standard <code>WHERE</code> SQL clauses to filter dimensions.</p>
+<p>For example, to filter to just <code>COUNTRY = 'US'</code>:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  PROTOCOL<span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">as</span> COUNT<br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2022-09-01"</span><br>    <span class="token operator">AND</span> COUNTRY <span class="token operator">=</span> <span class="token string">'US'</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> PROTOCOL<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">DESC</span></code></pre>
+<p><img src="/assets/querying-filtering-1.jpg" alt="Query Filtering"></p>
+<h2 id="calculations" tabindex="-1">Calculations</h2>
+<p>From these rows and columns, you should be able to calculate:</p>
+<ul>
+<li>Relative weights (popularity) of dimensions within the dataset</li>
+<li>Statistics about each timer and metric:
+<ul>
+<li>Approximate histograms</li>
+<li>Approximate percentiles (for all percentiles 0 through 100)</li>
+<li>Weighted averages</li>
+<li>Geometric means</li>
+</ul>
+</li>
+</ul>
+<h3 id="relative-weights" tabindex="-1">Relative Weights</h3>
+<p>An important aspect of RUM Archive data is that many <a href="/datasets">datasets</a> will provide <strong>sampled</strong> data.</p>
+<p>As a result, the <code>BEACONS</code> and <code>xyzCOUNT</code> columns do not represent 100% of the data that happened in the real world.  One should not look at a <code>BEACONS</code> count of 100 and assume there were exactly 100 experiences that match the dimensions on that <code>DATE</code>.</p>
+<p>What can be understood from the <code>BEACONS</code> and <code>xyzCOUNT</code> columns is relative weighting -- that is, for a single <code>DATE</code>, if you look at all matching values for a Dimension and <strong>compare them</strong> to other matching values, you can understand the relative weighting for that day of the dimension.</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  PROTOCOL<span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">as</span> COUNT<br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2022-09-01"</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> PROTOCOL<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">DESC</span></code></pre>
+<p><img src="/assets/querying-relative-weights-1.jpg" alt="Relative Weights"></p>
+<h3 id="combined-histograms" tabindex="-1">Combined Histograms</h3>
+<p>For each row, each timer and metric in the RUM Archive contains a histogram of values based on <a href="/docs/methodology#histogram-bucketing">fixed-sized buckets</a>.</p>
+<p>You can combine multiple row's histograms to calcluate a histogram (frequency distribution) for aggregated rows.</p>
+<p>The <code>akamai-mpulse-rumarchive</code> project provides a public BigQuery function <code>COMBINE_HISTOGRAMS()</code> that can combine multiple row's histograms into a combined histogram:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token operator">OR</span> <span class="token keyword">REPLACE</span> <span class="token keyword">FUNCTION</span> <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.COMBINE_HISTOGRAMS<span class="token punctuation">`</span></span><span class="token punctuation">(</span><br>    histograms ARRAY<span class="token operator">&lt;</span>STRING<span class="token operator">></span><br><span class="token punctuation">)</span><br><span class="token keyword">RETURNS</span> STRING<br><span class="token keyword">LANGUAGE</span> js<br><span class="token keyword">AS</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
+<p>The <code>COMBINE_HISTOGRAMS()</code> function takes a single argument:</p>
+<ul>
+<li><code>histograms ARRAY&lt;STRING&gt;</code>:  You can utilize the BigQuery <code>ARRAY_AGG()</code> function to pass in the timer or metric <code>xyzHistogram</code> column of choice</li>
+</ul>
+<p>Example:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  COUNTRY<span class="token punctuation">,</span><br>        <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token keyword">ROWCOUNT</span><span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">AS</span> BEACONCOUNT<span class="token punctuation">,</span><br>        <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.COMBINE_HISTOGRAMS<span class="token punctuation">`</span></span><span class="token punctuation">(</span>ARRAY_AGG<span class="token punctuation">(</span>PLTHISTOGRAM<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> PLTHISTOGRAM<br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2022-09-01"</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> COUNTRY<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">DESC</span></code></pre>
+<p><img src="/assets/querying-combined-histograms-1.jpg" alt="Combined Histograms"></p>
+<p>Note the use of the BigQuery <code>ARRAY_AGG()</code> to pass the <code>PLTHISTOGRAM</code> column to the <code>COMBINE_HISTOGRAMS()</code> function.</p>
+<h3 id="approximate-percentiles" tabindex="-1">Approximate Percentiles</h3>
+<p>By <a href="#combined-histograms">Combining Histograms</a> of multiple rows, approximate percentiles can be calculated for the matched data.</p>
+<p>The <code>akamai-mpulse-rumarchive</code> project provides a public BigQuery function <code>PERCENTILE_APPROX()</code> that can calculate the approximate percentile for any matching rows.</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token operator">OR</span> <span class="token keyword">REPLACE</span> <span class="token keyword">FUNCTION</span> <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX<span class="token punctuation">`</span></span><span class="token punctuation">(</span><br>    histograms ARRAY<span class="token operator">&lt;</span>STRING<span class="token operator">></span><span class="token punctuation">,</span><br>    percentiles ARRAY<span class="token operator">&lt;</span>FLOAT64<span class="token operator">></span><span class="token punctuation">,</span><br>    highPrecisionBucketWidth <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    includeZero <span class="token keyword">BOOL</span><span class="token punctuation">)</span><br><span class="token keyword">RETURNS</span> STRING<br><span class="token keyword">LANGUAGE</span> js<br><span class="token keyword">AS</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
+<p>The <code>PERCENTILE_APPROX()</code> function takes several arguments:</p>
+<ul>
+<li><code>histograms ARRAY&lt;STRING&gt;</code>:  You can utilize the BigQuery <code>ARRAY_AGG()</code> function to pass in the timer or metric <code>xyzHistogram</code> column of choice</li>
+<li><code>percentiles ARRAY&lt;FLOAT64&gt;</code>: An array of percentiles you'd like calculated
+<ul>
+<li>A single value in the array (e.g. <code>[0.5]</code>) will return an <code>INTEGER</code> result</li>
+<li>Multiple values in the array (e.g. <code>[0.25, 0.5, 0.75]</code>) will return a JSON map of input percentiles to their calculations</li>
+</ul>
+</li>
+<li><code>highPrecisionBucketWidth INTEGER</code>: The width of the timer or metric's <a href="docs/methodology/#page-loads-histogram-buckets">High Precision bucket</a>, i.e. <code>100</code> for Page Load Time</li>
+<li><code>includeZero BOOL</code>: Whether or not to include <code>0</code> values in the percentile calculation</li>
+</ul>
+<p>Example:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  COUNTRY<span class="token punctuation">,</span><br>        <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token keyword">ROWCOUNT</span><span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">AS</span> BEACONCOUNT<span class="token punctuation">,</span><br>        <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX<span class="token punctuation">`</span></span><span class="token punctuation">(</span><br>          ARRAY_AGG<span class="token punctuation">(</span>PLTHISTOGRAM<span class="token punctuation">)</span><span class="token punctuation">,</span><br>          <span class="token punctuation">[</span><span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.25</span><span class="token punctuation">,</span> <span class="token number">0.50</span><span class="token punctuation">,</span> <span class="token number">0.75</span><span class="token punctuation">,</span> <span class="token number">0.90</span><span class="token punctuation">,</span> <span class="token number">0.95</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>          <span class="token number">100</span><span class="token punctuation">,</span><br>          <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token keyword">as</span> PERCENTILES<span class="token punctuation">,</span><br>        <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX<span class="token punctuation">`</span></span><span class="token punctuation">(</span><br>          ARRAY_AGG<span class="token punctuation">(</span>PLTHISTOGRAM<span class="token punctuation">)</span><span class="token punctuation">,</span><br>          <span class="token punctuation">[</span><span class="token number">0.50</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>          <span class="token number">100</span><span class="token punctuation">,</span><br>          <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token keyword">as</span> MEDIAN<br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2022-09-01"</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> COUNTRY<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">DESC</span></code></pre>
+<p><img src="/assets/querying-approximate-percentiles-1.jpg" alt="Approximate Percentiles"></p>
+<p><code>includeZero</code> determines whether or not to include <code>0</code> values in the percentile calculation.  If set to <code>false</code>, percentile calculations will start at values greater than <code>0</code>.</p>
+<p>For some timers or metrics, it may make sense ot include zeros, such as Cumulative Layout Shift (CLS), where a value of <code>0</code> is valid and considered &quot;good&quot;.</p>
+<p>For example, setting <code>includeZero</code> for metrics like CLS will affect the results:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  COUNTRY<span class="token punctuation">,</span><br>        <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token keyword">ROWCOUNT</span><span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">AS</span> BEACONCOUNT<span class="token punctuation">,</span><br>        PARSE_NUMERIC<span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX<span class="token punctuation">`</span></span><span class="token punctuation">(</span><br>          ARRAY_AGG<span class="token punctuation">(</span>CLSHISTOGRAM<span class="token punctuation">)</span><span class="token punctuation">,</span><br>          <span class="token punctuation">[</span><span class="token number">0.50</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>          <span class="token number">10</span><span class="token punctuation">,</span><br>          <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000</span> <span class="token keyword">as</span> MEDIAN_WITHOUT_ZEROS<span class="token punctuation">,</span> <span class="token comment">-- includeZero: false</span><br>        PARSE_NUMERIC<span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX<span class="token punctuation">`</span></span><span class="token punctuation">(</span><br>          ARRAY_AGG<span class="token punctuation">(</span>CLSHISTOGRAM<span class="token punctuation">)</span><span class="token punctuation">,</span><br>          <span class="token punctuation">[</span><span class="token number">0.50</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>          <span class="token number">10</span><span class="token punctuation">,</span><br>          <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000</span> <span class="token keyword">as</span> MEDIAN_WITH_ZEROS <span class="token comment">-- includeZero: true</span><br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2022-09-01"</span><br>    <span class="token operator">AND</span> CLSCOUNT <span class="token operator">></span> <span class="token number">0</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> COUNTRY<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">DESC</span></code></pre>
+<p>A few differences from the last query:</p>
+<ul>
+<li><code>includeZero</code> is set to <code>true</code> for one of the columns, <code>false</code> for the other</li>
+<li>CLS has a <a href="docs/methodology/#page-loads-histogram-buckets">High Width</a> of <code>10</code></li>
+<li>CLS should be divided by <code>1000</code>, and utilizes <code>PARSE_NUMERIC()</code> to do so</li>
+<li>The <code>CLSCOUNT</code> clause ensures the query only looks at rows that had a CLS calculation</li>
+</ul>
+<p><img src="/assets/querying-approximate-percentiles-2.jpg" alt="Approximate Percentiles for CLS with includeZero"></p>
+<h3 id="weighted-averages" tabindex="-1">Weighted Averages</h3>
+<p>Each timer and metric contains two columns that can be used to calculate a <a href="https://en.wikipedia.org/wiki/Weighted_arithmetic_mean">weighted average (weighted arithmetic mean)</a>.</p>
+<p><strong>Note</strong>: We generally don't recommend using averages when looking at performance metrics, as the distributions tend to be normal (or lognormal), and outliers can affect the data.  Use <a href="#approximate-percentiles">approximate percentiles</a> instead.  For a longer explanation, <a href="https://speedcurve.com">SpeedCurve</a> has a <a href="https://support.speedcurve.com/docs/average-median-percentiles">great article on Averages, medians &amp; percentiles</a>.</p>
+<ul>
+<li>A <code>xyzCOUNT</code> column</li>
+<li>A <code>xyzAVG</code> column</li>
+</ul>
+<p>Example calculating the weighted average of Page Load Time by Country (and comparing it to the Median, so you can see how they differ):</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  COUNTRY<span class="token punctuation">,</span><br>        <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token keyword">ROWCOUNT</span><span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">AS</span> BEACONCOUNT<span class="token punctuation">,</span><br>        <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token function">SUM</span><span class="token punctuation">(</span>PLTAVG <span class="token operator">*</span> PLTCOUNT<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token function">SUM</span><span class="token punctuation">(</span>PLTCOUNT<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> PLTAVG<span class="token punctuation">,</span><br>        <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX<span class="token punctuation">`</span></span><span class="token punctuation">(</span><br>          ARRAY_AGG<span class="token punctuation">(</span>PLTHISTOGRAM<span class="token punctuation">)</span><span class="token punctuation">,</span><br>          <span class="token punctuation">[</span><span class="token number">0.50</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>          <span class="token number">100</span><span class="token punctuation">,</span><br>          <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token keyword">as</span> PLTMEDIAN<br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2022-09-01"</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> COUNTRY<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">DESC</span></code></pre>
+<p><img src="/assets/querying-weighted-averages-1.jpg" alt="Weighted Averages"></p>
+<h3 id="weighted-geometric-means" tabindex="-1">Weighted Geometric Means</h3>
+<p>Each timer and metric contains two columns that can be used to calculate a <a href="https://en.wikipedia.org/wiki/Weighted_geometric_mean">weighted geometric mean</a>.</p>
+<ul>
+<li>A <code>xyzCOUNT</code> column</li>
+<li>A <code>xyzSUMLN</code> column</li>
+</ul>
+<p>Example calculating the weighted geometric mean of Page Load Time by Country (and comparing it to the weighted geometric mean, and Median, so you can see how they differ):</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  COUNTRY<span class="token punctuation">,</span><br>        <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> <span class="token keyword">ROWCOUNT</span><span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">AS</span> BEACONCOUNT<span class="token punctuation">,</span><br>        <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token function">SUM</span><span class="token punctuation">(</span>PLTAVG <span class="token operator">*</span> PLTCOUNT<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token function">SUM</span><span class="token punctuation">(</span>PLTCOUNT<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> PLTAVG<span class="token punctuation">,</span><br>        <span class="token function">ROUND</span><span class="token punctuation">(</span>EXP<span class="token punctuation">(</span><span class="token function">SUM</span><span class="token punctuation">(</span>PLTSUMLN<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token function">SUM</span><span class="token punctuation">(</span>PLTCOUNT<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> PLTGEOMEAN<span class="token punctuation">,</span><br>        <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX<span class="token punctuation">`</span></span><span class="token punctuation">(</span><br>          ARRAY_AGG<span class="token punctuation">(</span>PLTHISTOGRAM<span class="token punctuation">)</span><span class="token punctuation">,</span><br>          <span class="token punctuation">[</span><span class="token number">0.50</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>          <span class="token number">100</span><span class="token punctuation">,</span><br>          <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token keyword">as</span> PLTMEDIAN<br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2022-09-01"</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> COUNTRY<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">DESC</span></code></pre>
+<p><img src="/assets/querying-weighted-geometric-means-1.jpg" alt="Weighted Averages"></p>
 
         </div>
       </div>

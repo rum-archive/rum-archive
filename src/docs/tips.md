@@ -12,8 +12,18 @@ TODO:
 
 ## Outliers are excluded
 
+## Zeroes matter (or not?)
+
 ## Data sets shouldn't be compared
 
 ## Raw numbers don't matter, relative percentages do
 
-## Limiting BigQuery expenses
+## Limiting BigQuery costs
+
+by-date
+preview data queried in BQ console
+
+## BigQuery UDF Out of Memory
+
+subquery
+geomean

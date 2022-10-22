@@ -1,33 +1,22 @@
+//
+// Other imports
+//
+@use 'prism-okaidia.css';
+
 @charset "utf-8";
 
-// Customization
+//
+// Bulma Customization
+//
+@import "../../node_modules/bulma/sass/utilities/initial-variables";
 
-// You can easily customize Bulma with your own variables.
-// Just uncomment the following block to see the result.
-
-
-// // 1. Import the initial variables
- @import "../../node_modules/bulma/sass/utilities/initial-variables";
-
-// // 2. Set your own initial variables - try it
-
-// // Add purple
- // $pink: #8034fc;
-// // Update the sans-serif font family
-// $family-sans-serif: "Helvetica", "Arial", sans-serif;
-
+// variables
 $blue: #017ac6;
 
-// // 3. Set the derived variables
-
-// // Use the new pink as the primary color
-// try it - change the first heading
+// derived
 $primary: $blue;
 
-// // 4. Import the rest of Bulma
-
-
-// Import only what you need from Bulma
+// only import the Bulma files we need
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";
 @import "../../node_modules/bulma/sass/layout/_all.sass";
@@ -45,4 +34,5 @@ $primary: $blue;
 @import "../../node_modules/bulma/sass/helpers/spacing.sass";
 @import "../../node_modules/bulma/sass/helpers/typography.sass";
 
+// Full import:
 // @import "../../node_modules/bulma/bulma";
