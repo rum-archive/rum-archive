@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css" />
+  <script src="/js/main.js"></script>
+  <title>RUM Archive - Tables</title>
+</head>
+<body>
+  <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://rum-archive.com">
+      <img-todo src="/assets/logo.png" width="112" height="28" />
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-main">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbar-main" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item has-text-weight-bold">
+        <a href="/">RUM Archive</a>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/docs/">
+          Documentation
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/docs/methodology">
+            Methodology
+          </a>
+          <a class="navbar-item" href="/docs/querying">
+            Querying
+          </a>
+          <a class="navbar-item" href="/docs/tables">
+            Tables
+          </a>
+          <a class="navbar-item" href="/docs/samples">
+            Samples
+          </a>
+          <a class="navbar-item" href="/docs/tips">
+            Tips
+          </a>
+          <a class="navbar-item" href="/docs/release-notes">
+            Release  Notes
+          </a>
+        </div>
+      </div>
+
+      <a href="/datasets" class="navbar-item">
+        Datasets
+      </a>
+
+      <a href="/contribute" class="navbar-item">
+        Contribute!
+      </a>
+
+      <a href="https://github.com/rum-archive/rum-archive" class="navbar-item">
+        Github
+      </a>
+
+      <a href="/about" class="navbar-item">
+        About
+      </a>
+    </div>
+  </div>
+</nav>
+</header>
+  <main>
+    
+<article class="page-layout">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-10 is-offset-1">
+        <div class="content mt-5 mb-5">
+          <h1>Tables</h1>
+          
+            <h2>Table of Contents</h2>
+            <aside>
+              <div class="toc" >
+        <ul><li><a href="#overview">Overview</a></li><li><a href="#page-loads">Page Loads</a><ul><li><a href="#schema">Schema</a></li><li><a href="#dimensions">Dimensions</a></li><li><a href="#timers-and-metrics">Timers and Metrics</a></li></ul></li><li><a href="#resources">Resources</a><ul><li><a href="#schema-1">Schema</a></li><li><a href="#dimensions-1">Dimensions</a></li><li><a href="#timers-and-metrics-1">Timers and Metrics</a></li></ul></li></ul>
+      </div>
+            </aside>
+          
+          <h2 id="overview" tabindex="-1">Overview</h2>
+<p>The RUM Archive specifies two types of tables:</p>
+<ul>
+<li><strong>Page Loads</strong>: Browser page load experiences</li>
+<li><strong>Resources</strong>: Third party resource fetches</li>
+</ul>
+<p>All tables are <strong>partitioned</strong> by the <code>DATE</code> column to assist with reducing the amount of data queried.  We <a href="/docs/tips">suggest</a> you limit all queries to a specific date (or date range) to limit your BigQuery query costs.</p>
+<h2 id="page-loads" tabindex="-1">Page Loads</h2>
+<p>Page Loads represent browser navigation experiences, whether from a traditional Multi-Page App (MPA) or Single-Page App (SPA).  SPA navigations can be broken down into both Hard Navigations (the first navigation to the page) and Soft Navigations (in-page route changes).</p>
+<p>Data is aggregated for each date.</p>
+<h3 id="schema" tabindex="-1">Schema</h3>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token identifier"><span class="token punctuation">`</span>%PROJECT%.%DATASET%.%PREFIX%-page-loads<span class="token punctuation">`</span></span><br><span class="token punctuation">(</span><br>    SOURCE STRING<span class="token punctuation">,</span><br>    SITE STRING<span class="token punctuation">,</span><br>    <span class="token keyword">DATE</span> <span class="token keyword">DATE</span><span class="token punctuation">,</span><br>    DEVICETYPE STRING<span class="token punctuation">,</span><br>    USERAGENTFAMILY STRING<span class="token punctuation">,</span><br>    USERAGENTVERSION STRING<span class="token punctuation">,</span><br>    DEVICEMODEL STRING<span class="token punctuation">,</span><br>    OS STRING<span class="token punctuation">,</span><br>    OSVERSION STRING<span class="token punctuation">,</span><br>    BEACONTYPE STRING<span class="token punctuation">,</span><br>    COUNTRY STRING<span class="token punctuation">,</span><br>    VISIBILITYSTATE STRING<span class="token punctuation">,</span><br>    NAVIGATIONTYPE STRING<span class="token punctuation">,</span><br>    PROTOCOL STRING<span class="token punctuation">,</span><br>    IPVERSION STRING<span class="token punctuation">,</span><br>    LANDINGPAGE <span class="token keyword">BOOLEAN</span><span class="token punctuation">,</span><br>    BEACONS <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    PLTHISTOGRAM STRING<span class="token punctuation">,</span><br>    PLTAVG FLOAT64<span class="token punctuation">,</span><br>    PLTSUMLN FLOAT64<span class="token punctuation">,</span><br>    PLTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    DNSHISTOGRAM STRING<span class="token punctuation">,</span><br>    DNSAVG FLOAT64<span class="token punctuation">,</span><br>    DNSSUMLN FLOAT64<span class="token punctuation">,</span><br>    DNSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    TCPAVG FLOAT64<span class="token punctuation">,</span><br>    TCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    TCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    TLSAVG FLOAT64<span class="token punctuation">,</span><br>    TLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    TLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTFBHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTFBAVG FLOAT64<span class="token punctuation">,</span><br>    TTFBSUMLN FLOAT64<span class="token punctuation">,</span><br>    TTFBCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    FCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    FCPAVG FLOAT64<span class="token punctuation">,</span><br>    FCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    FCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPAVG FLOAT64<span class="token punctuation">,</span><br>    LCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    RTTHISTOGRAM STRING<span class="token punctuation">,</span><br>    RTTAVG FLOAT64<span class="token punctuation">,</span><br>    RTTSUMLN FLOAT64<span class="token punctuation">,</span><br>    RTTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    RAGECLICKSHISTOGRAM STRING<span class="token punctuation">,</span><br>    RAGECLICKSAVG FLOAT64<span class="token punctuation">,</span><br>    RAGECLICKSSUMLN FLOAT64<span class="token punctuation">,</span><br>    RAGECLICKSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    CLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    CLSAVG FLOAT64<span class="token punctuation">,</span><br>    CLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    CLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    FIDHISTOGRAM STRING<span class="token punctuation">,</span><br>    FIDAVG FLOAT64<span class="token punctuation">,</span><br>    FIDSUMLN FLOAT64<span class="token punctuation">,</span><br>    FIDCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TBTHISTOGRAM STRING<span class="token punctuation">,</span><br>    TBTAVG FLOAT64<span class="token punctuation">,</span><br>    TBTSUMLN FLOAT64<span class="token punctuation">,</span><br>    TBTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTIHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTIAVG FLOAT64<span class="token punctuation">,</span><br>    TTISUMLN FLOAT64<span class="token punctuation">,</span><br>    TTICOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    REDIRECTHISTOGRAM STRING<span class="token punctuation">,</span><br>    REDIRECTAVG FLOAT64<span class="token punctuation">,</span><br>    REDIRECTSUMLN FLOAT64<span class="token punctuation">,</span><br>    REDIRECTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPAVG FLOAT64<span class="token punctuation">,</span><br>    INPSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPCOUNT <span class="token keyword">INTEGER</span><br><span class="token punctuation">)</span> <span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> <span class="token keyword">DATE</span><br><span class="token punctuation">;</span><br></code></pre>
+<h3 id="dimensions" tabindex="-1">Dimensions</h3>
+<p>The dimensions below are characteristics of the Page Load experience.</p>
+<p>The <em>Cardinality</em> column is an estimate from the mPulse dataset.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dimension</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Example values</th>
+<th style="text-align:right">Cardinality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">Source of the data, e.g. provider</td>
+<td style="text-align:left"><code>mpulse</code></td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:left">SITE</td>
+<td style="text-align:left">Site being measured</td>
+<td style="text-align:left"><code>example.com</code> <code>(multiple)</code></td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:left">DATE</td>
+<td style="text-align:left">Date of aggregation</td>
+<td style="text-align:left"><code>2022-01-01</code></td>
+<td style="text-align:right">(grows each day)</td>
+</tr>
+<tr>
+<td style="text-align:left">DEVICETYPE</td>
+<td style="text-align:left">Device type</td>
+<td style="text-align:left"><code>Mobile</code> <code>Desktop</code> <code>Tablet</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:left">USERAGENTFAMILY</td>
+<td style="text-align:left">User Agent family</td>
+<td style="text-align:left"><code>Chrome</code> <code>Mobile Safari</code></td>
+<td style="text-align:right">~100</td>
+</tr>
+<tr>
+<td style="text-align:left">USERAGENTVERSION</td>
+<td style="text-align:left">User Agent major version</td>
+<td style="text-align:left"><code>99</code> <code>12</code></td>
+<td style="text-align:right">~350</td>
+</tr>
+<tr>
+<td style="text-align:left">DEVICEMODEL</td>
+<td style="text-align:left">Device model</td>
+<td style="text-align:left"><code>Apple iPhone</code> <code>Samsung Android 11</code></td>
+<td style="text-align:right">~2000</td>
+</tr>
+<tr>
+<td style="text-align:left">OS</td>
+<td style="text-align:left">Operating System family</td>
+<td style="text-align:left"><code>Android OS</code> <code>Windows</code> <code>iOS</code></td>
+<td style="text-align:right">~30</td>
+</tr>
+<tr>
+<td style="text-align:left">OSVERSION</td>
+<td style="text-align:left">Operation System major verison</td>
+<td style="text-align:left"><code>10</code> <code>15</code></td>
+<td style="text-align:right">~75</td>
+</tr>
+<tr>
+<td style="text-align:left">BEACONTYPE</td>
+<td style="text-align:left">Beacon type</td>
+<td style="text-align:left"><code>page view</code> <code>spa hard</code> <code>spa</code></td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td style="text-align:left">COUNTRY</td>
+<td style="text-align:left">Country</td>
+<td style="text-align:left"><code>US</code> <code>GB</code> <code>GB</code></td>
+<td style="text-align:right">~230</td>
+</tr>
+<tr>
+<td style="text-align:left">VISIBILITYSTATE</td>
+<td style="text-align:left">Visibility state</td>
+<td style="text-align:left"><code>visible</code> <code>hidden</code> <code>partial</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:left">NAVIGATIONTYPE</td>
+<td style="text-align:left">Navigation type</td>
+<td style="text-align:left"><code>navigate</code> <code>back forward</code> <code>reload</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:left">PROTOCOL</td>
+<td style="text-align:left">HTTP protocol</td>
+<td style="text-align:left"><code>h2</code> <code>http/1.1</code> <code>h3</code></td>
+<td style="text-align:right">~10</td>
+</tr>
+<tr>
+<td style="text-align:left">IPVERSION</td>
+<td style="text-align:left">IP version</td>
+<td style="text-align:left"><code>IPv4</code> <code>IPv6</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:left">LANDINGPAGE</td>
+<td style="text-align:left">Landing page</td>
+<td style="text-align:left"><code>true</code> <code>false</code></td>
+<td style="text-align:right">3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="timers-and-metrics" tabindex="-1">Timers and Metrics</h3>
+<p>Each Timer or Metric has 4 columns:</p>
+<ul>
+<li><code>*HISTOGRAM</code> (JSON): <a href="/docs/methodology#histogram-format">Histogram</a></li>
+<li><code>*AVG</code> (FLOAT64): Weighted average</li>
+<li><code>*SUMLN</code> (FLOAT64): Sum of the natural logarithms</li>
+<li><code>*COUNT</code> (INTEGER): Number of measurements taken for this timer or metric</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Timer or Metric</th>
+<th style="text-align:left">Column Name Prefix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Page Load Time</td>
+<td style="text-align:left"><code>PLT</code></td>
+</tr>
+<tr>
+<td style="text-align:left">DNS</td>
+<td style="text-align:left"><code>DNS</code></td>
+</tr>
+<tr>
+<td style="text-align:left">TCP</td>
+<td style="text-align:left"><code>TCP</code></td>
+</tr>
+<tr>
+<td style="text-align:left">TLS</td>
+<td style="text-align:left"><code>TLS</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Time to First Byte</td>
+<td style="text-align:left"><code>TTFB</code></td>
+</tr>
+<tr>
+<td style="text-align:left">First Contentful Paint</td>
+<td style="text-align:left"><code>FCP</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Largest Contentful Paint</td>
+<td style="text-align:left"><code>LCP</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Round Trip Time</td>
+<td style="text-align:left"><code>RTT</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Rage Clicks</td>
+<td style="text-align:left"><code>RAGECLICKS</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Cumulative Layout Shift (*1000)</td>
+<td style="text-align:left"><code>CLS</code></td>
+</tr>
+<tr>
+<td style="text-align:left">First Input Delay</td>
+<td style="text-align:left"><code>FID</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Interaction to Next Paint</td>
+<td style="text-align:left"><code>INP</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Total Blocking Time</td>
+<td style="text-align:left"><code>TBT</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Time to Interactive</td>
+<td style="text-align:left"><code>TTI</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Redirect</td>
+<td style="text-align:left"><code>REDIRECT</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="resources" tabindex="-1">Resources</h2>
+<p>TODO</p>
+<h3 id="schema-1" tabindex="-1">Schema</h3>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token identifier"><span class="token punctuation">`</span>%PROJECT%.%DATASET%.%PREFIX%-resources<span class="token punctuation">`</span></span><br><span class="token punctuation">(</span><br>    <span class="token keyword">DATE</span> <span class="token keyword">DATE</span><span class="token punctuation">,</span><br>    URL STRING<span class="token punctuation">,</span><br>    DEVICETYPE STRING<span class="token punctuation">,</span><br>    USERAGENTFAMILY STRING<span class="token punctuation">,</span><br>    USERAGENTVERSION STRING<span class="token punctuation">,</span><br>    DEVICEMODEL STRING<span class="token punctuation">,</span><br>    OS STRING<span class="token punctuation">,</span><br>    OSVERSION STRING<span class="token punctuation">,</span><br>    COUNTRY STRING<span class="token punctuation">,</span><br>    PROTOCOL STRING<span class="token punctuation">,</span><br>    INITIATORTYPE STRING<span class="token punctuation">,</span><br>    ASSETTYPE STRING<span class="token punctuation">,</span><br>    TOTALHISTOGRAM STRING<span class="token punctuation">,</span><br>    TOTALAVG FLOAT64<span class="token punctuation">,</span><br>    TOTALSUMLN FLOAT64<span class="token punctuation">,</span><br>    TOTALCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    DNSHISTOGRAM STRING<span class="token punctuation">,</span><br>    DNSAVG FLOAT64<span class="token punctuation">,</span><br>    DNSSUMLN FLOAT64<span class="token punctuation">,</span><br>    DNSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    TCPAVG FLOAT64<span class="token punctuation">,</span><br>    TCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    TCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    TLSAVG FLOAT64<span class="token punctuation">,</span><br>    TLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    TLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTFBHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTFBAVG FLOAT64<span class="token punctuation">,</span><br>    TTFBSUMLN FLOAT64<span class="token punctuation">,</span><br>    TTFBCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    DOWNLOADHISTOGRAM STRING<span class="token punctuation">,</span><br>    DOWNLOADAVG FLOAT64<span class="token punctuation">,</span><br>    DOWNLOADSUMLN FLOAT64<span class="token punctuation">,</span><br>    DOWNLOADCOUNT <span class="token keyword">INTEGER</span><br><span class="token punctuation">)</span> <span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> <span class="token keyword">DATE</span><br><span class="token punctuation">;</span><br></code></pre>
+<h3 id="dimensions-1" tabindex="-1">Dimensions</h3>
+<p>​</p>
+<h3 id="timers-and-metrics-1" tabindex="-1">Timers and Metrics</h3>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+  </main>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Sponsored by <a href="https://akamai.com">Akamai</a>.
+        The website content is licensed
+        <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
