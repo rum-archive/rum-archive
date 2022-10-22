@@ -16,7 +16,7 @@ across all of your page views to identify the root cause of latencies and lost r
 
 Technical Details:
 
-* Data License: <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY SA 4.0</a>
+* Data License: [CC BY SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 * Data aggregation cadence: **Daily**
 * Data release cadence: **Monthly**
 * Page Loads: **Yes**
