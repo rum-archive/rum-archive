@@ -16,9 +16,10 @@ across all of your page views to identify the root cause of latencies and lost r
 
 Technical Details:
 
-* Data License: [CC BY SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
-* Data aggregation cadence: **Daily**
-* Data release cadence: **Monthly**
+* License: [CC BY SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
+* Collected via: [boomerang.js](https://github.com/akamai/boomerang)
+* Aggregation cadence: **Daily**
+* Release cadence: **Monthly**
 * Page Loads: **Yes**
     * Sampling: A random percentage of normalized data from mPulse's top 100 customers
     * Size: Approximately 200 million page loads aggregated per day
