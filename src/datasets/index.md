@@ -20,6 +20,10 @@ Technical Details:
 * Collected via: [boomerang.js](https://github.com/akamai/boomerang)
 * Aggregation cadence: **Daily**
 * Release cadence: **Monthly**
+* Available dates:
+    * `2021-10-01`, `2021-11-01`, `2021-12-01`
+    * `2022-01-01`, `2022-02-01`, `2022-03-01`, `2022-04-01`, `2022-05-01`, `2022-06-01`, `2022-07-01`, `2022-08-01`
+    * `2022-09-01` (onward, daily)
 * Page Loads: **Yes**
     * Sampling: A random percentage of normalized data from mPulse's top 100 customers
     * Size: Approximately 200 million page loads aggregated per day
