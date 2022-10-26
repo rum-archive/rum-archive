@@ -87,22 +87,52 @@
             <h2>Table of Contents</h2>
             <aside>
               <div class="toc" >
-        <ul><li><a href="#data-is-sampled">Data is sampled</a></li><li><a href="#outliers-are-excluded">Outliers are excluded</a></li><li><a href="#zeroes-matter-(or-not%3F)">Zeroes matter (or not?)</a></li><li><a href="#data-sets-shouldn't-be-compared">Data sets shouldn't be compared</a></li><li><a href="#raw-numbers-don't-matter%2C-relative-percentages-do">Raw numbers don't matter, relative percentages do</a></li><li><a href="#limiting-bigquery-costs">Limiting BigQuery costs</a></li><li><a href="#bigquery-udf-out-of-memory">BigQuery UDF Out of Memory</a></li></ul>
+        <ul><li><a href="#data-is-sampled">Data is sampled</a></li><li><a href="#counts-should-only-be-used-for-relative-percentages">Counts should only be used for relative percentages</a></li><li><a href="#outliers-are-excluded">Outliers are excluded</a></li><li><a href="#zeroes-matter-(or-not)">Zeroes matter (or not)</a></li><li><a href="#data-sets-should-not-be-compared">Data sets should not be compared</a></li><li><a href="#limiting-bigquery-costs">Limiting BigQuery costs</a></li><li><a href="#bigquery-udf-out-of-memory">BigQuery UDF Out of Memory</a></li></ul>
       </div>
             </aside>
           
-          <p>TODO:</p>
-<h2 id="data-is-sampled" tabindex="-1">Data is sampled</h2>
+          <h2 id="data-is-sampled" tabindex="-1">Data is sampled</h2>
+<p>All of the data in the RUM Archive is <strong>sampled</strong>.</p>
+<p>The sampling rate may not be publicly disclosed, so <code>BEACONS</code> counts should only be used for <a href="#counts-should-only-be-used-for-relative-percentages"><em>relative</em> weighting</a> for that day.</p>
+<p>The sampling rate <em>may</em> also change from day-to-day.</p>
+<p><em>Relative</em></p>
+<h2 id="counts-should-only-be-used-for-relative-percentages" tabindex="-1">Counts should only be used for relative percentages</h2>
+<p>Since the <a href="#data-is-sampled">data is sampled</a>, absolute counts of <code>BEACONS</code> should only be used to compare data on the same <code>DATE</code> in a single dataset.</p>
+<p>As the sampling rate may change from day-to-day, absolute count comparisons <em>between days</em> should not be used, only <em>relative weights</em>.</p>
+<p>See the <a href="/docs/samples/#dimension-popularity-(as-a-percentage-of-total)">sample queryies</a> for examples of how to calculate relative weights.</p>
 <h2 id="outliers-are-excluded" tabindex="-1">Outliers are excluded</h2>
-<h2 id="zeroes-matter-(or-not%3F)" tabindex="-1">Zeroes matter (or not?)</h2>
-<h2 id="data-sets-shouldn't-be-compared" tabindex="-1">Data sets shouldn't be compared</h2>
-<h2 id="raw-numbers-don't-matter%2C-relative-percentages-do" tabindex="-1">Raw numbers don't matter, relative percentages do</h2>
+<p>All of the data in the RUM Archive is <a href="#data-is-sampled">sampled</a>, <a href="/docs/methodology/#aggregation">aggregated</a>, and only rows that meet the <a href="/docs/methodology/#minimum-count-threshold">Minimum Count Threshold</a> are included.</p>
+<p>The downside of appling a Minimum Count Threshold is that <strong>outliers</strong>, by definition, will be discarded and not represented
+in the queryable dataset.</p>
+<p>Discarding outliers <strong>will affect</strong> the accuracy of queries.  For example, in the mPulse dataset, we estimate that discarding any tuples with less than 5 hits could affect 50th percentile (median) calculations by around 2.9% and 95th percentile calculations by 7%.  Please take this into consideration when querying the data.</p>
+<h2 id="zeroes-matter-(or-not)" tabindex="-1">Zeroes matter (or not)</h2>
+<p>When querying Timer or Metric percentiles via the <a href="/docs/querying/#approximate-percentiles"><code>PERCENTILE_APPROX</code></a> function, you will need to consider whether you want to include &quot;zeros&quot; in the percentile calculation.</p>
+<p>For some Timers or Metrics, including zeros makes sense.  For example, Cumulative Layout Shifts can have a value of <code>0.0</code>, meaning no shifts happened.  This is <strong>good</strong> and represents the ideal page load (no shifts).  Including zeros will likely &quot;shift&quot; the <code>PERCENTILE_APPROX</code> calculation left (lower), by including those <code>0.0</code> page loads.</p>
+<p>For other Timers like DNS, you may want to include or exclude zeros:</p>
+<ul>
+<li>If you're including zeros, you're including all page loads, even those that had no DNS lookup time (e.g. because DNS was cached).  This would be done to understand the percentile of DNS time for <strong>all</strong> of your page visits, whether or not they had to do a DNS lookup.</li>
+<li>If you're <strong>not</strong> including zeros, you're only including page loads that had a DNS lookup (e.g. excluding those that had DNS cached).  This would be done to understand the DNS lookup time <strong>when</strong> DNS had to be queried.</li>
+</ul>
+<h2 id="data-sets-should-not-be-compared" tabindex="-1">Data sets should not be compared</h2>
+<p>Each <a href="/datasets">dataset</a> comes from a different website (or set of websites), and is using a different collection, sampling and aggregation methodology.</p>
+<p>As a result, datasets shouldn't be directly compared to one another unless you're looking at specific things that would not be affected by those caveats (such as understanding the relative weighting of Browser or Device Types seen).</p>
 <h2 id="limiting-bigquery-costs" tabindex="-1">Limiting BigQuery costs</h2>
-<p>by-date
-preview data queried in BQ console</p>
+<p>RUM Archive <a href="/tables">tables</a> are partitioned by <code>DATE</code> to aid in reducing query costs.  When you're issuing a BigQuery query, you should almost always be using a <code>DATE</code> clause.</p>
+<p>If you don't include a <code>DATE</code> clause, BigQuery may have to query the entire dataset.  Some datasets could be 100s of GBs or larger.</p>
+<p>For example, a single day in the <a href="/datasets">mPulse RUM dataset</a> should only be 3-5 GB.  After a year of data, the entire mPulse dataset could be 2 TB or larger.</p>
+<p>You may want to review what's available in the <a href="https://cloud.google.com/bigquery/pricing#free-tier">BigQuery free tier</a>, to try to stay under those limits.  With 1 TB of free queries, you should be able to run a few hundred queries against the mPulse dataset, when using a <code>DATE</code> filter.</p>
+<p>BigQuery has an estimated query cost (in bytes) in the upper-right corner of the BigQuery console:</p>
+<p><img src="/assets/tips-limiting-bigquery-costs-1.png" alt="Estimating BigQuery costs"></p>
 <h2 id="bigquery-udf-out-of-memory" tabindex="-1">BigQuery UDF Out of Memory</h2>
-<p>subquery
-geomean</p>
+<p>When using the <a href="docs/querying/#approximate-percentiles"><code>PERCENTILE_APPROX</code></a> function, BigQuery may run out of memory:</p>
+<p><img src="/assets/tips-bigquery-udf-out-of-memory-1.png" alt="Estimating BigQuery costs"></p>
+<p>This is because <code>PERCENTILE_APPROX</code> is a JavaScript function (UDF), and it is combining histograms to calculate the approximate percentile for each output row.  Sometimes, this work is too costly and BigQuery will run out of memory.</p>
+<p>There are a few approaches to workaround this:</p>
+<ol>
+<li>Utilize <code>WHERE</code> clauses to filter to a subset of the data (see <a href="/docs/samples/#page-load-time-by-country">this example</a>)</li>
+<li>Issue a subquery against a high-cardinality dimension to break the dataset down first (see <a href="/docs/samples/#page-load-time-by-country-(using-a-subquery)">this example</a>)</li>
+<li>Export the data and run your own queries or aggregation</li>
+</ol>
 
         </div>
       </div>

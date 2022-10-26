@@ -81,14 +81,4 @@ Each Timer or Metric has 4 columns:
 
 ## Resources
 
-TODO
-
-### Schema
-
-```sql
-{% include "../../../samples/bigquery/schemas/create-table-resources.sql" %}
-```
-
-### Dimensions
-​
-### Timers and Metrics
+**Coming soon!**
