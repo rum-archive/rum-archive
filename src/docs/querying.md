@@ -229,6 +229,8 @@ Note the use of the BigQuery `ARRAY_AGG()` to pass the `PLTHISTOGRAM` column to 
 
 ### Approximate Percentiles
 
+**NOTE**: `PERCENTILE_APPROX()` is in the process of being open-sourced and will be available shortly.
+
 By [Combining Histograms](#combined-histograms) of multiple rows, approximate percentiles can be calculated for the matched data.
 
 The `akamai-mpulse-rumarchive` project provides a public BigQuery function `PERCENTILE_APPROX()` that can calculate the approximate percentile for any matching rows.
