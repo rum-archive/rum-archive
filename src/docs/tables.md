@@ -33,6 +33,8 @@ The dimensions below are characteristics of the Page Load experience.
 
 The _Cardinality_ column is an estimate from the mPulse dataset.
 
+<div class="table-container">
+
 | Dimension        | Description                       | Example values                      |      Cardinality |
 |:-----------------|:----------------------------------|:------------------------------------|-----------------:|
 | SOURCE           | Source of the data, e.g. provider | `mpulse`                            |                1 |
@@ -52,6 +54,8 @@ The _Cardinality_ column is an estimate from the mPulse dataset.
 | IPVERSION        | IP version                        | `IPv4` `IPv6`                       |                3 |
 | LANDINGPAGE      | Landing page                      | `true` `false`                      |                3 |
 
+</div>
+
 ### Timers and Metrics
 
 Each Timer or Metric has 4 columns:
@@ -60,6 +64,8 @@ Each Timer or Metric has 4 columns:
 * `*AVG` (FLOAT64): Weighted average
 * `*SUMLN` (FLOAT64): Sum of the natural logarithms
 * `*COUNT` (INTEGER): Number of measurements taken for this timer or metric
+
+<div class="table-container">
 
 | Timer or Metric                 | Column Name Prefix |
 |:--------------------------------|:-------------------|
@@ -78,6 +84,8 @@ Each Timer or Metric has 4 columns:
 | Total Blocking Time             | `TBT`              |
 | Time to Interactive             | `TTI`              |
 | Redirect                        | `REDIRECT`         |
+
+</div>
 
 ## Resources
 

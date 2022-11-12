@@ -81,7 +81,7 @@
   <div class="container">
     <div class="columns">
       <div class="column is-10 is-offset-1">
-        <div class="content mt-5 mb-5">
+        <div class="content m-5">
           <h1>Querying</h1>
           
             <h2>Table of Contents</h2>
@@ -140,6 +140,7 @@
 <p>When querying RUM Archive data, you will be executing standard BigQuery SQL queries against these pre-aggregated rows of data.  From those rows, you should be able to execute any of the <a href="#calculations">calculations</a> listed below.</p>
 <h3 id="high-level-example" tabindex="-1">High-Level Example</h3>
 <p>To illustrate how RUM Archive data is stored with a simple example, please consider 4 unique page loads, using two dimensions (User Agent Family, Country) that track a single Timer (Page Load Time):</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -176,7 +177,9 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>Stored in RUM Archive format, there are 3 unique tuples of dimensions, so there would be 3 rows of aggregated data:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -215,6 +218,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>With data in this format, one can <a href="#calculations">calculate</a> many statistics such as any (approximate) percentile, averages, and geometric means.</p>
 <p>More information:</p>
 <ul>

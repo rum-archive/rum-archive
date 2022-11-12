@@ -123,6 +123,8 @@ In the above example, there are 6 values:
 
 Page Loads have following bucket histogram definitions:
 ​
+<div class="table-container">
+
 | Metric                          | Column Name           | High Width (ms) | High Min (ms) | High Max (ms) | Low Width (ms) | Low Min (ms) | Low Max (ms) |
 |:--------------------------------|:----------------------|----------------:|--------------:|--------------:|---------------:|-------------:|-------------:|
 | Page Load Time                  | `pltHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
@@ -141,9 +143,13 @@ Page Loads have following bucket histogram definitions:
 | Time to Interactive             | `ttiHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
 | Redirect                        | `redirectHistogram`   |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
 
+</div>
+
 ### Resources Histogram Buckets
 
 Resource Fetches have following bucket histogram definitions:
+
+<div class="table-container">
 
 | Metric             | Column Name             | High Width (ms) | High Min (ms) | High Max (ms) | Low Width (ms) | Low Min (ms) | Low Max (ms) |
 |:-------------------|:------------------------|----------------:|--------------:|--------------:|---------------:|-------------:|-------------:|
@@ -154,6 +160,8 @@ Resource Fetches have following bucket histogram definitions:
 | Time to First Byte | `ttfbHistogram`         |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
 | Download           | `downloadHistogram`     |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
 | Transfer Size      | `transferSizeHistogram` |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
+
+</div>
 
 ## Example Aggregation Queries
 

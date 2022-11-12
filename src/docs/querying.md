@@ -72,6 +72,8 @@ When querying RUM Archive data, you will be executing standard BigQuery SQL quer
 
 To illustrate how RUM Archive data is stored with a simple example, please consider 4 unique page loads, using two dimensions (User Agent Family, Country) that track a single Timer (Page Load Time):
 
+<div class="table-container">
+
 | Page Load # | User Agent Family | Country | Page Load Time (ms) |
 |:------------|:------------------|:--------|--------------------:|
 | 1           | Chrome            | US      |                 100 |
@@ -79,13 +81,19 @@ To illustrate how RUM Archive data is stored with a simple example, please consi
 | 3           | Safari            | US      |                 300 |
 | 4           | Safari            | US      |                 350 |
 
+</div>
+
 Stored in RUM Archive format, there are 3 unique tuples of dimensions, so there would be 3 rows of aggregated data:
+
+<div class="table-container">
 
 | User Agent Family | Country | PLTCount | PLTHistogram    | PLTAvg | PLTSumLn |
 |:------------------|:--------|:---------|:----------------|-------:|---------:|
 | Chrome            | US      | 1        | `{"1":[100,1]}` |    100 |    4.605 |
 | Chrome            | DE      | 1        | `{"2":[200,1]}` |    200 |    5.298 |
 | Safari            | US      | 2        | `{"3":[325,2]}` |    325 |   11.561 |
+
+</div>
 
 With data in this format, one can [calculate](#calculations) many statistics such as any (approximate) percentile, averages, and geometric means.
 

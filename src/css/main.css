@@ -172,7 +172,7 @@ pre[class*=language-] {
   width: 0.625em;
 }
 
-.title:not(:last-child),
+.table-container:not(:last-child), .table:not(:last-child), .title:not(:last-child),
 .subtitle:not(:last-child), .content:not(:last-child) {
   margin-bottom: 1.5rem;
 }
@@ -2616,6 +2616,174 @@ table th {
 }
 .subtitle.is-7 {
   font-size: 0.75rem;
+}
+
+.table {
+  background-color: hsl(0deg, 0%, 100%);
+  color: hsl(0deg, 0%, 21%);
+}
+.table td,
+.table th {
+  border: 1px solid hsl(0deg, 0%, 86%);
+  border-width: 0 0 1px;
+  padding: 0.5em 0.75em;
+  vertical-align: top;
+}
+.table td.is-white,
+.table th.is-white {
+  background-color: hsl(0deg, 0%, 100%);
+  border-color: hsl(0deg, 0%, 100%);
+  color: hsl(0deg, 0%, 4%);
+}
+.table td.is-black,
+.table th.is-black {
+  background-color: hsl(0deg, 0%, 4%);
+  border-color: hsl(0deg, 0%, 4%);
+  color: hsl(0deg, 0%, 100%);
+}
+.table td.is-light,
+.table th.is-light {
+  background-color: hsl(0deg, 0%, 96%);
+  border-color: hsl(0deg, 0%, 96%);
+  color: rgba(0, 0, 0, 0.7);
+}
+.table td.is-dark,
+.table th.is-dark {
+  background-color: hsl(0deg, 0%, 21%);
+  border-color: hsl(0deg, 0%, 21%);
+  color: #fff;
+}
+.table td.is-primary,
+.table th.is-primary {
+  background-color: #017ac6;
+  border-color: #017ac6;
+  color: #fff;
+}
+.table td.is-link,
+.table th.is-link {
+  background-color: #017ac6;
+  border-color: #017ac6;
+  color: #fff;
+}
+.table td.is-info,
+.table th.is-info {
+  background-color: hsl(207deg, 61%, 53%);
+  border-color: hsl(207deg, 61%, 53%);
+  color: #fff;
+}
+.table td.is-success,
+.table th.is-success {
+  background-color: hsl(153deg, 53%, 53%);
+  border-color: hsl(153deg, 53%, 53%);
+  color: #fff;
+}
+.table td.is-warning,
+.table th.is-warning {
+  background-color: hsl(44deg, 100%, 77%);
+  border-color: hsl(44deg, 100%, 77%);
+  color: rgba(0, 0, 0, 0.7);
+}
+.table td.is-danger,
+.table th.is-danger {
+  background-color: hsl(348deg, 86%, 61%);
+  border-color: hsl(348deg, 86%, 61%);
+  color: #fff;
+}
+.table td.is-narrow,
+.table th.is-narrow {
+  white-space: nowrap;
+  width: 1%;
+}
+.table td.is-selected,
+.table th.is-selected {
+  background-color: #017ac6;
+  color: #fff;
+}
+.table td.is-selected a,
+.table td.is-selected strong,
+.table th.is-selected a,
+.table th.is-selected strong {
+  color: currentColor;
+}
+.table td.is-vcentered,
+.table th.is-vcentered {
+  vertical-align: middle;
+}
+.table th {
+  color: hsl(0deg, 0%, 21%);
+}
+.table th:not([align]) {
+  text-align: left;
+}
+.table tr.is-selected {
+  background-color: #017ac6;
+  color: #fff;
+}
+.table tr.is-selected a,
+.table tr.is-selected strong {
+  color: currentColor;
+}
+.table tr.is-selected td,
+.table tr.is-selected th {
+  border-color: #fff;
+  color: currentColor;
+}
+.table thead {
+  background-color: transparent;
+}
+.table thead td,
+.table thead th {
+  border-width: 0 0 2px;
+  color: hsl(0deg, 0%, 21%);
+}
+.table tfoot {
+  background-color: transparent;
+}
+.table tfoot td,
+.table tfoot th {
+  border-width: 2px 0 0;
+  color: hsl(0deg, 0%, 21%);
+}
+.table tbody {
+  background-color: transparent;
+}
+.table tbody tr:last-child td,
+.table tbody tr:last-child th {
+  border-bottom-width: 0;
+}
+.table.is-bordered td,
+.table.is-bordered th {
+  border-width: 1px;
+}
+.table.is-bordered tr:last-child td,
+.table.is-bordered tr:last-child th {
+  border-bottom-width: 1px;
+}
+.table.is-fullwidth {
+  width: 100%;
+}
+.table.is-hoverable tbody tr:not(.is-selected):hover {
+  background-color: hsl(0deg, 0%, 98%);
+}
+.table.is-hoverable.is-striped tbody tr:not(.is-selected):hover {
+  background-color: hsl(0deg, 0%, 98%);
+}
+.table.is-hoverable.is-striped tbody tr:not(.is-selected):hover:nth-child(even) {
+  background-color: hsl(0deg, 0%, 96%);
+}
+.table.is-narrow td,
+.table.is-narrow th {
+  padding: 0.25em 0.5em;
+}
+.table.is-striped tbody tr:not(.is-selected):nth-child(even) {
+  background-color: hsl(0deg, 0%, 98%);
+}
+
+.table-container {
+  -webkit-overflow-scrolling: touch;
+  overflow: auto;
+  overflow-y: hidden;
+  max-width: 100%;
 }
 
 .navbar {

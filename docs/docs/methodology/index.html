@@ -81,7 +81,7 @@
   <div class="container">
     <div class="columns">
       <div class="column is-10 is-offset-1">
-        <div class="content mt-5 mb-5">
+        <div class="content m-5">
           <h1>Methodology</h1>
           
             <h2>Table of Contents</h2>
@@ -175,6 +175,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 <h3 id="page-loads-histogram-buckets" tabindex="-1">Page Loads Histogram Buckets</h3>
 <p>Page Loads have following bucket histogram definitions:
 ​</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -341,8 +342,10 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 </tbody>
 </table>
+</div>
 <h3 id="resources-histogram-buckets" tabindex="-1">Resources Histogram Buckets</h3>
 <p>Resource Fetches have following bucket histogram definitions:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -429,6 +432,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="example-aggregation-queries" tabindex="-1">Example Aggregation Queries</h2>
 <p>Generating data in this format can be done with standard SQL queries.</p>
 <p>The exact SQL will depend on the schema of the source table, but the mPulse Dataset provides an example SQL query in the <a href="https://github.com/rum-archive/rum-archive/tree/main/samples/bigquery/aggregation">rum-archive Github repository</a>.</p>

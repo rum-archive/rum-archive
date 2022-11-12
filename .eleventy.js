@@ -39,7 +39,10 @@ module.exports = function (eleventyConfig) {
   // Markdown
   eleventyConfig.setLibrary(
     'md',
-    markdownIt().use(markdownItAnchor)
+    markdownIt({
+      html: true,
+      linkify: true,
+    }).use(markdownItAnchor)
   );
 
   eleventyConfig.addFilter("highlight", function(content, language) {
