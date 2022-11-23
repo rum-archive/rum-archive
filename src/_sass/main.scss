@@ -12,9 +12,11 @@
 
 // variables
 $blue: #017ac6;
+$green: #006a80;
 
 // derived
-$primary: $blue;
+$primary: $green;
+$link: $green;
 
 // only import the Bulma files we need
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
