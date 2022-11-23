@@ -12,6 +12,7 @@ Special thanks to the following contributors for their inspiration and work in t
 
 * Buddy Brewer
 * Paul Calvano
+* Cliff Crocker
 * Simon Hearne
 * Nic Jansma
 * Philip Tellis
