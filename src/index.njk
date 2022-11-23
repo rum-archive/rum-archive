@@ -4,5 +4,12 @@ layout: layouts/base.njk
 ---
 
 <div class="content container m-5">
-  {% renderFile "./README.md" %}
+  <div class="columns">
+    <div class="column is-one-third has-text-centered">
+      <img src="assets/rum-archive-logo.svg" style="max-height: 300px"/>
+    </div>
+    <div class="column is-two-thirds">
+      {% renderFile "./README.md" %}
+    </div>
+  </div>
 </div>
