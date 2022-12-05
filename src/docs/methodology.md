@@ -60,7 +60,7 @@ unique hits will be discarded.
 This threshold is intended to ensure individual experiences are not directly represented within the sample set.  If the
 Minimum Count Threshold was 1, rows with a Count of 1 would represent an individual experience.
 
-The downside of appling a Minimum Count Threshold is that **outliers**, by definition, will be discarded and not represented
+The downside of applying a Minimum Count Threshold is that **outliers**, by definition, will be discarded and not represented
 in the queryable dataset.
 
 Discarding outliers **will affect** the accuracy of queries.  For example, in the mPulse dataset, we estimate that discarding any tuples with less than 5 hits could affect 50th percentile (median) calculations by around 2.9% and 95th percentile calculations by 7%.  Please take this into consideration when querying the data.
@@ -77,7 +77,7 @@ All Histograms contain 152 buckets:
 
 * Zero values: 1 bucket (bucket 0)
 * High precision: 100 buckets (buckets 1-100)
-* Low precision: 50 buckets (buckets 101-50)
+* Low precision: 50 buckets (buckets 101-150)
 * Anything higher than the Max: 1 bucket (bucket 151)
 
 High precision buckets are on the low end of the expected value range, and represent values where the impact of the metric

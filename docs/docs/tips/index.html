@@ -109,7 +109,7 @@
 <p>See the <a href="/docs/samples/#dimension-popularity-(as-a-percentage-of-total)">sample queryies</a> for examples of how to calculate relative weights.</p>
 <h2 id="outliers-are-excluded" tabindex="-1">Outliers are excluded</h2>
 <p>All of the data in the RUM Archive is <a href="#data-is-sampled">sampled</a>, <a href="/docs/methodology/#aggregation">aggregated</a>, and only rows that meet the <a href="/docs/methodology/#minimum-count-threshold">Minimum Count Threshold</a> are included.</p>
-<p>The downside of appling a Minimum Count Threshold is that <strong>outliers</strong>, by definition, will be discarded and not represented
+<p>The downside of applying a Minimum Count Threshold is that <strong>outliers</strong>, by definition, will be discarded and not represented
 in the queryable dataset.</p>
 <p>Discarding outliers <strong>will affect</strong> the accuracy of queries.  For example, in the mPulse dataset, we estimate that discarding any tuples with less than 5 hits could affect 50th percentile (median) calculations by around 2.9% and 95th percentile calculations by 7%.  Please take this into consideration when querying the data.</p>
 <h2 id="zeroes-matter-(or-not)" tabindex="-1">Zeroes matter (or not)</h2>
