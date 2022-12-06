@@ -21,16 +21,16 @@ Technical Details:
 * Aggregation cadence: **Daily**
 * Release cadence: **Monthly**
 * Page Loads: **Yes**
-    * Sampling: A random percentage of normalized data from mPulse's top 100 customers
-    * Size: Approximately 200 million page loads aggregated per day
+  * Sampling: A random percentage of normalized data from mPulse's top 100 customers
+  * Size: Approximately 200 million page loads aggregated per day
 * Resources: **Yes**
-    * Sampling: Top 2,000 resource URLs that were fetched by multiple customers
+  * Sampling: Top 2,000 resource URLs that were fetched by multiple customers
 * Google BigQuery project: `akamai-mpulse-rumarchive`
-    * Dataset: `rumarchive`
-    * Page Loads table: `rumarchive_pageloads`
-        * Available dates:
-            * `2021-10-01`, `2021-11-01`, `2021-12-01`
-            * `2022-01-01`, `2022-02-01`, `2022-03-01`, `2022-04-01`, `2022-05-01`, `2022-06-01`, `2022-07-01`, `2022-08-01`
-            * `2022-09-01` (onward, daily)
-    * Resources table: `rumarchive_resources`
-        * Available dates: (coming soon!)
+  * Dataset: `rumarchive`
+  * Page Loads table: `rumarchive_pageloads`
+    * Available dates:
+      * `2021-10-01`, `2021-11-01`, `2021-12-01`
+      * `2022-01-01`, `2022-02-01`, `2022-03-01`, `2022-04-01`, `2022-05-01`, `2022-06-01`, `2022-07-01`, `2022-08-01`
+      * `2022-09-01` (onward, daily)
+  * Resources table: `rumarchive_resources`
+    * Available dates: (coming soon!)

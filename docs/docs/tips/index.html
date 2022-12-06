@@ -102,11 +102,10 @@
 <p>All of the data in the RUM Archive is <strong>sampled</strong>.</p>
 <p>The sampling rate may not be publicly disclosed, so <code>BEACONS</code> counts should only be used for <a href="#counts-should-only-be-used-for-relative-percentages"><em>relative</em> weighting</a> for that day.</p>
 <p>The sampling rate <em>may</em> also change from day-to-day.</p>
-<p><em>Relative</em></p>
 <h2 id="counts-should-only-be-used-for-relative-percentages" tabindex="-1">Counts should only be used for relative percentages</h2>
 <p>Since the <a href="#data-is-sampled">data is sampled</a>, absolute counts of <code>BEACONS</code> should only be used to compare data on the same <code>DATE</code> in a single dataset.</p>
 <p>As the sampling rate may change from day-to-day, absolute count comparisons <em>between days</em> should not be used, only <em>relative weights</em>.</p>
-<p>See the <a href="/docs/samples/#dimension-popularity-(as-a-percentage-of-total)">sample queryies</a> for examples of how to calculate relative weights.</p>
+<p>See the <a href="/docs/samples/#dimension-popularity-(as-a-percentage-of-total)">sample queries</a> for examples of how to calculate relative weights.</p>
 <h2 id="outliers-are-excluded" tabindex="-1">Outliers are excluded</h2>
 <p>All of the data in the RUM Archive is <a href="#data-is-sampled">sampled</a>, <a href="/docs/methodology/#aggregation">aggregated</a>, and only rows that meet the <a href="/docs/methodology/#minimum-count-threshold">Minimum Count Threshold</a> are included.</p>
 <p>The downside of applying a Minimum Count Threshold is that <strong>outliers</strong>, by definition, will be discarded and not represented
@@ -137,7 +136,7 @@ in the queryable dataset.</p>
 <p>There are a few approaches to workaround this:</p>
 <ol>
 <li>Utilize <code>WHERE</code> clauses to filter to a subset of the data (see <a href="/docs/samples/#page-load-time-by-country">this example</a>)</li>
-<li>Issue a subquery against a high-cardinality dimension to break the dataset down first (see <a href="/docs/samples/#page-load-time-by-country-(using-a-subquery)">this example</a>)</li>
+<li>Issue a sub-query against a high-cardinality dimension to break the dataset down first (see <a href="/docs/samples/#page-load-time-by-country-(using-a-subquery)">this example</a>)</li>
 <li>Export the data and run your own queries or aggregation</li>
 </ol>
 

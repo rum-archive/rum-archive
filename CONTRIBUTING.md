@@ -1,3 +1,5 @@
+# Contributing to the RUM Archive
+
 We are happy to see that you are looking to help us
 improve the RUM Archive!  In order to ensure this goes as
 easy and quickly as possible, please follow the
@@ -27,5 +29,6 @@ Please ensure that your code changes or additions
 match the current coding style used by the project.
 
 ## License
+
 By contributing, you agree that your contributions
 will be licensed under the Apache 2.0 license.

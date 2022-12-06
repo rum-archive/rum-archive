@@ -14,15 +14,13 @@ The sampling rate may not be publicly disclosed, so `BEACONS` counts should only
 
 The sampling rate _may_ also change from day-to-day.
 
-_Relative_
-
 ## Counts should only be used for relative percentages
 
 Since the [data is sampled](#data-is-sampled), absolute counts of `BEACONS` should only be used to compare data on the same `DATE` in a single dataset.
 
 As the sampling rate may change from day-to-day, absolute count comparisons _between days_ should not be used, only _relative weights_.
 
-See the [sample queryies](/docs/samples/#dimension-popularity-(as-a-percentage-of-total)) for examples of how to calculate relative weights.
+See the [sample queries](/docs/samples/#dimension-popularity-(as-a-percentage-of-total)) for examples of how to calculate relative weights.
 
 ## Outliers are excluded
 
@@ -75,5 +73,5 @@ This is because `PERCENTILE_APPROX` is a JavaScript function (UDF), and it is co
 There are a few approaches to workaround this:
 
 1. Utilize `WHERE` clauses to filter to a subset of the data (see [this example](/docs/samples/#page-load-time-by-country))
-2. Issue a subquery against a high-cardinality dimension to break the dataset down first (see [this example](/docs/samples/#page-load-time-by-country-(using-a-subquery)))
+2. Issue a sub-query against a high-cardinality dimension to break the dataset down first (see [this example](/docs/samples/#page-load-time-by-country-(using-a-subquery)))
 3. Export the data and run your own queries or aggregation

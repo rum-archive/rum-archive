@@ -1,0 +1,32 @@
+{
+    "cSpell.words": [
+        "BEACONCOUNT",
+        "BEACONTYPE",
+        "CLSCOUNT",
+        "CLSHISTOGRAM",
+        "Contentful",
+        "datapoint",
+        "datapoints",
+        "DEVICEMODEL",
+        "DEVICETYPE",
+        "IPVERSION",
+        "LANDINGPAGE",
+        "mpulse",
+        "navigations",
+        "NAVIGATIONTYPE",
+        "OSVERSION",
+        "PLTAVG",
+        "PLTCOUNT",
+        "PLTHISTOGRAM",
+        "PLTSUMLN",
+        "RAGECLICKS",
+        "rumarchive",
+        "Subquery",
+        "SUMLN",
+        "TTFB",
+        "USERAGENTFAMILY",
+        "USERAGENTVERSION",
+        "VISIBILITYSTATE",
+        "Wayback"
+    ]
+}

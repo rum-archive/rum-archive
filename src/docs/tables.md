@@ -45,7 +45,7 @@ The _Cardinality_ column is an estimate from the mPulse dataset.
 | USERAGENTVERSION | User Agent major version          | `99` `12`                           |             ~350 |
 | DEVICEMODEL      | Device model                      | `Apple iPhone` `Samsung Android 11` |            ~2000 |
 | OS               | Operating System family           | `Android OS` `Windows` `iOS`        |              ~30 |
-| OSVERSION        | Operation System major verison    | `10` `15`                           |              ~75 |
+| OSVERSION        | Operation System major version    | `10` `15`                           |              ~75 |
 | BEACONTYPE       | Beacon type                       | `page view` `spa hard` `spa`        |                2 |
 | COUNTRY          | Country                           | `US` `GB` `GB`                      |             ~230 |
 | VISIBILITYSTATE  | Visibility state                  | `visible` `hidden` `partial`        |                3 |

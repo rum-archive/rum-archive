@@ -3,7 +3,7 @@ title: Contribute
 layout: layouts/page.njk
 ---
 
-There are at least 3 ways you can contibute to the RUM Archive:
+There are at least 3 ways you can contribute to the RUM Archive:
 
 1. If you're interested in sharing your own RUM data, please consider releasing it in the same format as the RUM Archive!
     * Any individual, website, organization or RUM provider should be able to generate aggregated RUM data in the same

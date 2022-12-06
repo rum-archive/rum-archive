@@ -128,7 +128,7 @@ hits, page loads or fetches represented within the queryable data.</p>
 <p>With the data exported in this format, anyone wanting to combine, aggregate, slice, filter or group by any of the available
 dimensions can also calculate statistics about the Timers and Metrics for that group of data:</p>
 <ul>
-<li>By using the <strong>Histogram</strong> columns, queries can calculate <strong>approxiamte percentiles</strong> of the data (from 0th to 100th).</li>
+<li>By using the <strong>Histogram</strong> columns, queries can calculate <strong>approximate percentiles</strong> of the data (from 0th to 100th).</li>
 <li>By using the <strong>Avg</strong> columns and <strong>Count</strong> columns, queries can calculate the <strong>average</strong> of data.</li>
 <li>By using the <strong>SumLn</strong> and <strong>Count</strong> columns, queries can calculate the <strong>geometric mean</strong> of data.</li>
 </ul>
@@ -138,7 +138,7 @@ dimensions can also calculate statistics about the Timers and Metrics for that g
 <p><img src="/assets/methodology-timers.png" alt="BigQuery example of Page Load Rows"></p>
 <h3 id="minimum-count-threshold" tabindex="-1">Minimum Count Threshold</h3>
 <p>Some datasets may have a Minimum Count Threshold for aggregated data.  For example, the mPulse <a href="/datasets">dataset</a> has
-a Minimum Count Threhold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by <strong>at least</strong> 5
+a Minimum Count Threshold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by <strong>at least</strong> 5
 unique hits will be discarded.</p>
 <p>This threshold is intended to ensure individual experiences are not directly represented within the sample set.  If the
 Minimum Count Threshold was 1, rows with a Count of 1 would represent an individual experience.</p>
@@ -148,7 +148,7 @@ in the queryable dataset.</p>
 <h3 id="histogram-bucketing" tabindex="-1">Histogram Bucketing</h3>
 <p>RUM Archive tables contain several Histogram columns, one for each timer or metric that is aggregated.</p>
 <p>These Histogram columns are used to <a href="/docs/querying">calculate</a> approximate percentiles of the data.</p>
-<p>Each Histogram is a frequency distribution of datapoints for that timer/metric, according to the bucket widths decribed below.</p>
+<p>Each Histogram is a frequency distribution of datapoints for that timer/metric, according to the bucket widths described below.</p>
 <p>All Histograms contain 152 buckets:</p>
 <ul>
 <li>Zero values: 1 bucket (bucket 0)</li>

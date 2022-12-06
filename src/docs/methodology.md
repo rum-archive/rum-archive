@@ -32,14 +32,14 @@ The goal of aggregation is twofold:
 In order to generate queryable aggregated data, each RUM Archive table shares a common pattern in the columns it contains:
 
 * Multiple **Dimensions** that describe the aggregate data, such as date, browser, geographic region, or protocol
-    * Each row represents a unique tuple of those dimensions
+  * Each row represents a unique tuple of those dimensions
 * A **Count** of the number of datapoints that match that unique tuple
 * **Timer or Metrics** that are aggregated into Histograms and other statistics like Avg or SumLn
 
 With the data exported in this format, anyone wanting to combine, aggregate, slice, filter or group by any of the available
 dimensions can also calculate statistics about the Timers and Metrics for that group of data:
 
-* By using the **Histogram** columns, queries can calculate **approxiamte percentiles** of the data (from 0th to 100th).
+* By using the **Histogram** columns, queries can calculate **approximate percentiles** of the data (from 0th to 100th).
 * By using the **Avg** columns and **Count** columns, queries can calculate the **average** of data.
 * By using the **SumLn** and **Count** columns, queries can calculate the **geometric mean** of data.
 
@@ -54,7 +54,7 @@ Looking at a few further columns for the same rows, you can see the Page Load Ti
 ### Minimum Count Threshold
 
 Some datasets may have a Minimum Count Threshold for aggregated data.  For example, the mPulse [dataset](/datasets) has
-a Minimum Count Threhold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by **at least** 5
+a Minimum Count Threshold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by **at least** 5
 unique hits will be discarded.
 
 This threshold is intended to ensure individual experiences are not directly represented within the sample set.  If the
@@ -71,7 +71,7 @@ RUM Archive tables contain several Histogram columns, one for each timer or metr
 
 These Histogram columns are used to [calculate](/docs/querying) approximate percentiles of the data.
 
-Each Histogram is a frequency distribution of datapoints for that timer/metric, according to the bucket widths decribed below.
+Each Histogram is a frequency distribution of datapoints for that timer/metric, according to the bucket widths described below.
 
 All Histograms contain 152 buckets:
 

@@ -100,7 +100,7 @@
           
           <h2 id="introduction" tabindex="-1">Introduction</h2>
 <p>RUM Archive datasets are stored in <a href="https://cloud.google.com/bigquery">Google BigQuery</a>.</p>
-<p>To execute queries against RUM Achive datasets, you will need a Google account.</p>
+<p>To execute queries against RUM Archive datasets, you will need a Google account.</p>
 <p><strong>Note</strong>: BigQuery has costs for storage and querying.  You'll want to review what's available in the <a href="https://cloud.google.com/bigquery/pricing#free-tier">free tier</a>, and estimate how much querying the RUM Archive may cost.  You can read our <a href="/docs/tips#limiting-bigquery-costs">tips</a> on how to reduce your BigQuery costs.</p>
 <h2 id="datasets" tabindex="-1">Datasets</h2>
 <p>Each provider of RUM Archive data will store their datasets in a different location.</p>
@@ -110,36 +110,21 @@
 <p>The first step in querying RUM Archive data is gaining access to Google BigQuery and the desired datasets.</p>
 <p>Follow the steps below to link (or create) a BigQuery project to the desired RUM Archive datasets.</p>
 <ol>
-<li>Log into the <a href="https://console.cloud.google.com/start">Google Cloud Projects</a> starting page:</li>
+<li>Log into the <a href="https://console.cloud.google.com/start">Google Cloud Projects</a> starting page:<br>
+<img src="/assets/querying-step-1.jpg" alt="Logging into Google Cloud"></li>
+<li>Create a new, or use an existing Project:<br>
+<img src="/assets/querying-step-2.jpg" alt="Creating a new Google Cloud Project"></li>
+<li>You can name a new Google Cloud Project whatever you wish:<br>
+<img src="/assets/querying-step-3.jpg" alt="Creating a new Google Cloud Project"></li>
+<li>Head over to the <a href="https://console.cloud.google.com/bigquery">BigQuery Console</a> for your new project:<br>
+<img src="/assets/querying-step-4.jpg" alt="Google BigQuery Console"></li>
+<li>We're going to add the desired <a href="/datasets">datasets</a> to your BigQuery console.  Click on <em>+ Add Data</em> and select <em>Star a project by name</em>:<br>
+<img src="/assets/querying-step-5.jpg" alt="Adding Data"></li>
+<li>The shared BigQuery project name should be listed in the <a href="/datasets">dataset</a> definitions.  In this case, we'll add the <a href="/datasets/#akamai-mpulse-rum">Akamai mPulse RUM dataset</a> which is under the <code>akamai-mpulse-rumarchive</code> project:<br>
+<img src="/assets/querying-step-6.jpg" alt="Starring the BigQuery project"></li>
+<li>You should now see the desired dataset starred in your BigQuery Console:<br>
+<img src="/assets/querying-step-7.jpg" alt="BigQuery project starred"></li>
 </ol>
-<p><img src="/assets/querying-step-1.jpg" alt="Logging into Google Cloud"></p>
-<ol start="2">
-<li>Create a new, or use an existing Project:</li>
-</ol>
-<p><img src="/assets/querying-step-2.jpg" alt="Creating a new Google Cloud Project"></p>
-<ol start="3">
-<li>You can name a new Google Cloud Project whatever you wish:</li>
-</ol>
-<p><img src="/assets/querying-step-3.jpg" alt="Creating a new Google Cloud Project"></p>
-<ol start="4">
-<li>Head over to the <a href="https://console.cloud.google.com/bigquery">BigQuery Console</a> for your new project:</li>
-</ol>
-<p><img src="/assets/querying-step-4.jpg" alt="Google BigQuery Console"></p>
-<ol start="5">
-<li>We're going to add the desired <a href="/datasets">datasets</a> to your BigQuery console.  Click on <em>+ Add Data</em> and select <em>Star a project by name</em>:</li>
-</ol>
-<p><img src="/assets/querying-step-5.jpg" alt="Adding Data"></p>
-<ol start="6">
-<li>
-<p>The shared BigQuery project name should be listed in the <a href="/datasets">dataset</a> definitions.</p>
-<p>In this case, we'll add the <a href="/datasets/#akamai-mpulse-rum">Akamai mPulse RUM dataset</a> which is under the <code>akamai-mpulse-rumarchive</code> project:</p>
-</li>
-</ol>
-<p><img src="/assets/querying-step-6.jpg" alt="Starring the BigQuery project"></p>
-<ol start="7">
-<li>You should now see the desired dataset starred in your BigQuery Console:</li>
-</ol>
-<p><img src="/assets/querying-step-7.jpg" alt="BigQuery project starred"></p>
 <p>You're all set, and ready to query RUM Archive data.</p>
 <h2 id="aggregation" tabindex="-1">Aggregation</h2>
 <p>All of the data represented in RUM Archive BigQuery tables is <strong>aggregated</strong>.  This means that each row represents <em>more than one</em> datapoint.  In fact, some rows can represent hundreds, thousands or millions of datapoints.</p>
@@ -277,7 +262,7 @@
 <p><img src="/assets/querying-relative-weights-1.jpg" alt="Relative Weights"></p>
 <h3 id="combined-histograms" tabindex="-1">Combined Histograms</h3>
 <p>For each row, each timer and metric in the RUM Archive contains a histogram of values based on <a href="/docs/methodology#histogram-bucketing">fixed-sized buckets</a>.</p>
-<p>You can combine multiple row's histograms to calcluate a histogram (frequency distribution) for aggregated rows.</p>
+<p>You can combine multiple row's histograms to calculate a histogram (frequency distribution) for aggregated rows.</p>
 <p>The <code>akamai-mpulse-rumarchive</code> project provides a public BigQuery function <code>COMBINE_HISTOGRAMS()</code> that can combine multiple row's histograms into a combined histogram:</p>
 <pre class="language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token operator">OR</span> <span class="token keyword">REPLACE</span> <span class="token keyword">FUNCTION</span> <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.COMBINE_HISTOGRAMS<span class="token punctuation">`</span></span><span class="token punctuation">(</span><br>    histograms ARRAY<span class="token operator">&lt;</span>STRING<span class="token operator">></span><br><span class="token punctuation">)</span><br><span class="token keyword">RETURNS</span> STRING<br><span class="token keyword">LANGUAGE</span> js<br><span class="token keyword">AS</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
 <p>The <code>COMBINE_HISTOGRAMS()</code> function takes a single argument:</p>
@@ -321,7 +306,7 @@
 <p><img src="/assets/querying-approximate-percentiles-2.jpg" alt="Approximate Percentiles for CLS with includeZero"></p>
 <h3 id="weighted-averages" tabindex="-1">Weighted Averages</h3>
 <p>Each timer and metric contains two columns that can be used to calculate a <a href="https://en.wikipedia.org/wiki/Weighted_arithmetic_mean">weighted average (weighted arithmetic mean)</a>.</p>
-<p><strong>Note</strong>: We generally don't recommend using averages when looking at performance metrics, as the distributions tend to be normal (or lognormal), and outliers can affect the data.  Use <a href="#approximate-percentiles">approximate percentiles</a> instead.  For a longer explanation, <a href="https://speedcurve.com">SpeedCurve</a> has a <a href="https://support.speedcurve.com/docs/average-median-percentiles">great article on Averages, medians &amp; percentiles</a>.</p>
+<p><strong>Note</strong>: We generally don't recommend using averages when looking at performance metrics, as the distributions tend to be normal (or log-normal), and outliers can affect the data.  Use <a href="#approximate-percentiles">approximate percentiles</a> instead.  For a longer explanation, <a href="https://speedcurve.com">SpeedCurve</a> has a <a href="https://support.speedcurve.com/docs/average-median-percentiles">great article on Averages, medians &amp; percentiles</a>.</p>
 <ul>
 <li>A <code>xyzCOUNT</code> column</li>
 <li>A <code>xyzAVG</code> column</li>
