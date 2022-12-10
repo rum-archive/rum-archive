@@ -50,7 +50,7 @@ As a result, datasets shouldn't be directly compared to one another unless you'r
 
 ## Limiting BigQuery costs
 
-RUM Archive [tables](/tables) are partitioned by `DATE` to aid in reducing query costs.  When you're issuing a BigQuery query, you should almost always be using a `DATE` clause.
+RUM Archive [tables](/docs/tables) are partitioned by `DATE` to aid in reducing query costs.  When you're issuing a BigQuery query, you should almost always be using a `DATE` clause.
 
 If you don't include a `DATE` clause, BigQuery may have to query the entire dataset.  Some datasets could be 100s of GBs or larger.
 
