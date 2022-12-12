@@ -12,7 +12,7 @@ The RUM Archive datasets contain aggregated Real User Monitoring (RUM) data from
 
 Each public [dataset](/datasets) publishes aggregated data to [Google BigQuery](https://cloud.google.com/bigquery) tables.
 
-Two types of [tables](/tables) are described within the RUM Archive:
+Two types of [tables](/docs/tables) are described within the RUM Archive:
 
 * **Page Loads**: Browser page load experiences
 * **Resources**: Third party resource fetches
