@@ -123,7 +123,7 @@ in the queryable dataset.</p>
 <p>Each <a href="/datasets">dataset</a> comes from a different website (or set of websites), and is using a different collection, sampling and aggregation methodology.</p>
 <p>As a result, datasets shouldn't be directly compared to one another unless you're looking at specific things that would not be affected by those caveats (such as understanding the relative weighting of Browser or Device Types seen).</p>
 <h2 id="limiting-bigquery-costs" tabindex="-1">Limiting BigQuery costs</h2>
-<p>RUM Archive <a href="/tables">tables</a> are partitioned by <code>DATE</code> to aid in reducing query costs.  When you're issuing a BigQuery query, you should almost always be using a <code>DATE</code> clause.</p>
+<p>RUM Archive <a href="/docs/tables">tables</a> are partitioned by <code>DATE</code> to aid in reducing query costs.  When you're issuing a BigQuery query, you should almost always be using a <code>DATE</code> clause.</p>
 <p>If you don't include a <code>DATE</code> clause, BigQuery may have to query the entire dataset.  Some datasets could be 100s of GBs or larger.</p>
 <p>For example, a single day in the <a href="/datasets">mPulse RUM dataset</a> should only be 3-5 GB.  After a year of data, the entire mPulse dataset could be 2 TB or larger.</p>
 <p>You may want to review what's available in the <a href="https://cloud.google.com/bigquery/pricing#free-tier">BigQuery free tier</a>, to try to stay under those limits.  With 1 TB of free queries, you should be able to run a few hundred queries against the mPulse dataset, when using a <code>DATE</code> filter.</p>
