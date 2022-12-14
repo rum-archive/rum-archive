@@ -1,0 +1,35 @@
+---
+layout: layouts/base.njk
+---
+
+<article class="page-layout">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-10 is-offset-1">
+        <div class="content m-5">
+          <h1>{{ title }}</h1>
+          <p class="is-italic">By {{ author }} on <time class="" datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time></p>
+          {% if toc and content | toc %}
+            <h2>Table of Contents</h2>
+            <aside>
+              {{ content | toc | safe }}
+            </aside>
+            <hr />
+          {% endif %}
+          {{ content | safe }}
+        </div>
+      </div>
+    </div>
+    {%- if collections.blog %}
+    {%- set nextBlog = collections.blog | getNextCollectionItem(page) %}
+    {%- set previousBlog = collections.blog | getPreviousCollectionItem(page) %}
+    {%- if nextBlog or previousBlog %}
+    <hr>
+    <div class="content m-10 has-text-centered m-5">
+      {%- if previousBlog %}<a href="{{ previousBlog.url | url }}">&larr; {{ previousBlog.data.title }}</a>{% endif %}
+      {%- if nextBlog %}<a href="{{ nextBlog.url | url }}">{{ nextBlog.data.title }} &rarr;</a>{% endif %}
+    </div>
+    {%- endif %}
+    {%- endif %}
+  </div>
+</article>

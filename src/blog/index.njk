@@ -1,0 +1,41 @@
+---
+title: Blog
+description: Blog
+layout: layouts/base.njk
+---
+
+<article class="page-layout">
+  <div class="container">
+    <div class="content m-5">
+      <h1>RUM Archive Blog</h1>
+      <div class="columns">
+        <div class="column is-two-thirds">
+          {% for blog in collections.blog | sort(false, false, 'data.date') %}
+            {% if loop.index0 < 9 %}
+              <div class="box">
+                <h2>
+                  <a href="{{ blog.url }}">{{ blog.data.title }}</a>
+                </h2>
+                <p class="is-italic">By {{ blog.data.author }} (<time class="" datetime="{{ blog.data.date | htmlDateString }}">{{ blog.data.date | readableDate }}</time>)</p>
+                <div class="content">
+                  {{ blog.data.description }}
+                </div>
+                <a href="{{ blog.url }}">Read More &rarr;</a>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="column is-one-third">
+          <h3>All Posts</h3>
+          <ul>
+          {% for blog in collections.blog | sort(false, false, 'data.date') %}
+            <li>
+              <a href="{{ blog.url }}">{{ blog.data.title }}</a> ({{ blog.data.date | readableDate }})
+            </li>
+          {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

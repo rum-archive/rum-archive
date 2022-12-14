@@ -7,6 +7,7 @@ const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const Prism = require('prismjs');
+const { DateTime } = require('luxon');
 
 // load Prism languages
 const loadLanguages = require('prismjs/components/');
@@ -46,8 +47,17 @@ module.exports = function (eleventyConfig) {
     }).use(markdownItAnchor)
   );
 
+  // filters
   eleventyConfig.addFilter("highlight", function(content, language) {
     return pairedShortcode(content, language);
+  });
+
+  eleventyConfig.addFilter("readableDate", dateObj => {
+    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("dd LLL yyyy");
+  });
+
+  eleventyConfig.addFilter('htmlDateString', (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat('yyyy-LL-dd');
   });
 
   return {

@@ -24,6 +24,7 @@ $link: $green;
 @import "../../node_modules/bulma/sass/layout/_all.sass";
 
 @import "../../node_modules/bulma/sass/elements/button.sass";
+@import "../../node_modules/bulma/sass/elements/box.sass";
 @import "../../node_modules/bulma/sass/elements/container.sass";
 @import "../../node_modules/bulma/sass/elements/content.sass";
 @import "../../node_modules/bulma/sass/elements/title.sass";
@@ -34,6 +35,7 @@ $link: $green;
 
 @import "../../node_modules/bulma/sass/grid/columns.sass";
 
+@import "../../node_modules/bulma/sass/helpers/color.sass";
 @import "../../node_modules/bulma/sass/helpers/spacing.sass";
 @import "../../node_modules/bulma/sass/helpers/typography.sass";
 
