@@ -1,3 +1,12 @@
+---
+title: RUM Archive and Benford's Law
+date: 2023-01-24
+description: 
+layout: layouts/blog.njk
+tags: blog
+author: amitsingh
+toc: true
+---
 The Akamai mPulse team studies Real User Monitoring (RUM) data to help our customers understand how to optimize website performance and how user behavior may be altered by changes to configurations or resource requests on their site.  As a data scientist on the mPulse team, I search for patterns in our data and identify problem areas on customer websites in order to recommend actional improvements toward the end user experience.
 
 Typically, I work with a specific customer’s dataset at any given time.  However, there are cases where it is more appropriate to use an anonymized, aggregated dataset across many customers in order to investigate a change or patterns occurring across the web.
