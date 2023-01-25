@@ -21,7 +21,21 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
-  eleventyConfig.addPassthroughCopy({ "src/_favicon": "/" })
+  eleventyConfig.addPassthroughCopy({ "src/_favicon": "/" });
+
+  // recommended per https://www.highcharts.com/docs/accessibility/accessibility-module
+  eleventyConfig.addPassthroughCopy({"node_modules/highcharts/highstock.js": "js/highcharts/highstock.js"});
+  eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/exporting.js": "js/highcharts/exporting.js"});
+  eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/export-data.js": "js/highcharts/export-data.js"});
+  eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/accessibility.js": "js/highcharts/accessibility.js"});
+
+  // only during local development when running 11ty dev server
+  if ( process.env.npm_lifecycle_script.includes("--serve") ) {
+    eleventyConfig.addPassthroughCopy({"node_modules/highcharts/highstock.js.map": "js/highcharts/highstock.js.map"});
+    eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/exporting.js.map": "js/highcharts/exporting.js.map"});
+    eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/export-data.js.map": "js/highcharts/export-data.js.map"});
+    eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/accessibility.js.map": "js/highcharts/accessibility.js.map"});
+  }
 
   // watch targets
   eleventyConfig.addWatchTarget("src/_javascript/");
