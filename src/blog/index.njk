@@ -10,17 +10,32 @@ layout: layouts/base.njk
       <h1>RUM Archive Blog</h1>
       <div class="columns">
         <div class="column is-two-thirds">
-          {% for blog in collections.blog | sort(false, false, 'data.date') %}
+          {% for blog in collections.blog | sort(true, false, 'data.date') %}
             {% if loop.index0 < 9 %}
               <div class="box">
-                <h2>
-                  <a href="{{ blog.url }}">{{ blog.data.title }}</a>
-                </h2>
-                <p class="is-italic">By {{ blog.data.author }} (<time class="" datetime="{{ blog.data.date | htmlDateString }}">{{ blog.data.date | readableDate }}</time>)</p>
-                <div class="content">
-                  {{ blog.data.description }}
-                </div>
-                <a href="{{ blog.url }}">Read More &rarr;</a>
+                <article class="media">
+                  <div class="media-left">
+                    <figure class="image is-128x128">
+                      <a href="{{ blog.url }}">
+                        <img src="{{ blog.data.thumbnail }}" alt="{{ blog.data.title }}" width="128" height="128" />
+                      </a>
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <div class="content">
+                      <h2>
+                        <a href="{{ blog.url }}">{{ blog.data.title }}</a>
+                      </h2>
+                      <p>
+                        <p class="is-italic">By {{ blog.data.author }} (<time class="" datetime="{{ blog.data.date | htmlDateString }}">{{ blog.data.date | readableDate }}</time>)</p>
+                        <div class="content">
+                          {{ blog.data.description }}
+                        </div>
+                        <a href="{{ blog.url }}">Read More &rarr;</a>
+                      </p>
+                    </div>
+                  </div>
+                </article>
               </div>
             {% endif %}
           {% endfor %}

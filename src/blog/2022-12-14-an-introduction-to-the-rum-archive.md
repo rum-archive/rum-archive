@@ -6,6 +6,7 @@ layout: layouts/blog.njk
 tags: blog
 author: nic
 toc: true
+thumbnail: /assets/rum-archive-logo.svg
 ---
 
 A few weeks ago at [performance.now()](https://perfnow.nl/), we were able to announce the initial availability of a new public dataset of RUM data - the [**RUM Archive**](https://rumarchive.com).

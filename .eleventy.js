@@ -5,6 +5,7 @@ const { EleventyRenderPlugin } = require("@11ty/eleventy");
 const pluginTOC = require("eleventy-plugin-toc");
 const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
+const markdownItFootnote = require('markdown-it-footnote');
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const Prism = require('prismjs');
 const { DateTime } = require('luxon');
@@ -21,6 +22,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
+  eleventyConfig.addPassthroughCopy("src/blog/**/*.png");
   eleventyConfig.addPassthroughCopy({ "src/_favicon": "/" })
 
   // watch targets
@@ -45,6 +47,7 @@ module.exports = function (eleventyConfig) {
       html: true,
       linkify: true,
     }).use(markdownItAnchor)
+      .use(markdownItFootnote)
   );
 
   // filters
