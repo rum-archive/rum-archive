@@ -1,3 +1,7 @@
+## Version 1.1 (2023-01)
+
+* The RUM Archive's mPulse dataset has a breaking change in the `rageClicksHistogram` column (starting 2023-01-01), see the [blog post](/blog/2023-03-16-mpulse-january-data-rage-clicks-change) for details.
+
 ## Version 1.0 (2022-10)
 
 * The RUM Archive is open for business!

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css" />
   <script src="/js/main.js"></script>
-  <title>RUM Archive - Release Notes</title>
+  <title>RUM Archive - mPulse RUM Data Loaded through February 2023 + Rage Clicks Breaking Change</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -93,26 +93,47 @@
     <div class="columns">
       <div class="column is-10 is-offset-1">
         <div class="content m-5">
-          <h1>Release Notes</h1>
+          <h1>mPulse RUM Data Loaded through February 2023 + Rage Clicks Breaking Change</h1>
+          <p class="is-italic">By nic on <time class="" datetime="2023-03-16">16 Mar 2023</time></p>
           
             <h2>Table of Contents</h2>
             <aside>
               <div class="toc" >
-        <ul><li><a href="#version-1.1-(2023-01)">Version 1.1 (2023-01)</a></li><li><a href="#version-1.0-(2022-10)">Version 1.0 (2022-10)</a></li></ul>
+        <ul><li><a href="#latest-mpulse-rum-data-loaded">Latest mPulse RUM Data Loaded</a></li><li><a href="#breaking-change-to-rageclickshistogram">Breaking Change to rageClicksHistogram</a></li></ul>
       </div>
             </aside>
+            <hr />
           
-          <h2 id="version-1.1-(2023-01)" tabindex="-1">Version 1.1 (2023-01)</h2>
+          <h2 id="latest-mpulse-rum-data-loaded" tabindex="-1">Latest mPulse RUM Data Loaded</h2>
+<p>We've completed an export of mPulse daily RUM data into the BigQuery <a href="/datasets/#akamai-mpulse-rum"><code>akamai-mpulse-rumarchive</code></a> project up through 2023-02-28.  This brings the RUM Archive's <a href="/datasets/#akamai-mpulse-rum">mPulse dataset</a> to a running total of 180 straight days of data available since 2022-09-01.  (There is also first-of-month data going back to 2021-10-01).</p>
+<p>We have plans to automate this process so that the mPulse RUM data is added on a weekly or daily cadence, but it is currently a manual process that we do at the end of each month.  We are currently able to release each new month's data within a few days of the end of the month.</p>
+<h2 id="breaking-change-to-rageclickshistogram" tabindex="-1">Breaking Change to <code>rageClicksHistogram</code></h2>
+<p>Starting with the RUM Archive's mPulse dataset from 2023-01-01, there is a <em>breaking change</em> to the <code>rageClicksHistogram</code> column.</p>
+<p>For mPulse RUM data from 2021-10-01 through 2022-12-31, the column <code>rageClicksHistogram</code> had histogram bucket numbers off-by-one from what was intended.</p>
+<p>For review, all of the other <a href="/docs/tables/">Timers'</a> <a href="/docs/methodology/#histogram-format">histograms</a> like PLT, DNS, etc are:</p>
 <ul>
-<li>The RUM Archive's mPulse dataset has a breaking change in the <code>rageClicksHistogram</code> column (starting 2023-01-01), see the <a href="/blog/2023-03-16-mpulse-january-data-rage-clicks-change">blog post</a> for details.</li>
+<li>Bucket 0 should contain values where that timer was 0</li>
+<li>Bucket 1 should contain values for the first high-precision bucket (e.g. 1-100ms for PLT)</li>
+<li>Bucket 2-100 should contain the rest of the high-precision values</li>
+<li>Buckets 101-150 should contain the low-precision values</li>
+<li>Bucket 151 is any data outside of the low-precision range</li>
 </ul>
-<h2 id="version-1.0-(2022-10)" tabindex="-1">Version 1.0 (2022-10)</h2>
+<p>However for Rage Clicks, which is the only &quot;metric&quot; (a count) we've exported so far, we had mistakenly exported the buckets as follows (until 2022-12-31):</p>
 <ul>
-<li>The RUM Archive is open for business!</li>
+<li>Bucket 0 if Rage Clicks were zero (which we skip)</li>
+<li>Bucket 1 is unused</li>
+<li>Bucket 2-100 is if Rage Click count is 1-99</li>
+<li>Bucket 101-150 is Rage Click Count 100-600</li>
+<li>Bucket 151 is &gt;600</li>
 </ul>
+<p>This bucket mapping is a bug we've fixed: Bucket 1 is essentially unused.  We should have just used buckets 1-100 for Rage Click counts of 1-100 to simplify things, instead of Buckets 2-100 mapping to clicks of 1-99.</p>
+<p>We've made a change to the data exported to the <code>rageClicksHistogram</code> column in the <code>akamai-mpulse-rumarchive</code> project starting <code>2023-01-0</code>.  Buckets 1-100 now reflect data for Rage Clicks of values 1-100.</p>
 
         </div>
       </div>
+    </div>
+    <hr>
+    <div class="content m-10 has-text-centered m-5"><a href="/blog/2023-01-24-rum-archive-benfords-law/">&larr; RUM Archive and Benford&#39;s Law</a>
     </div>
   </div>
 </article>

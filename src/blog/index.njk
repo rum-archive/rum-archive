@@ -43,7 +43,7 @@ layout: layouts/base.njk
         <div class="column is-one-third">
           <h3>All Posts</h3>
           <ul>
-          {% for blog in collections.blog | sort(false, false, 'data.date') %}
+          {% for blog in collections.blog | sort(true, false, 'data.date') %}
             <li>
               <a href="{{ blog.url }}">{{ blog.data.title }}</a> ({{ blog.data.date | readableDate }})
             </li>

@@ -135,7 +135,7 @@ Page Loads have following bucket histogram definitions:
 | First Contentful Paint          | `fcpHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
 | Largest Contentful Paint        | `lcpHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
 | Round Trip Time                 | `rttHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| Rage Clicks                     | `rageClicksHistogram` |               1 |             0 |           100 |             10 |          101 |          600 |
+| Rage Clicks [<sup>_1_</sup>](#page-loads-histogram-buckets-notes)                     | `rageClicksHistogram` |               1 |             0 |           100 |             10 |          101 |          600 |
 | Cumulative Layout Shift (*1000) | `clsHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
 | First Input Delay               | `fidHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
 | Interaction to Next Paint       | `inpHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
@@ -144,6 +144,11 @@ Page Loads have following bucket histogram definitions:
 | Redirect                        | `redirectHistogram`   |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
 
 </div>
+
+<a name="page-loads-histogram-buckets-notes"></a>
+Notes:
+
+1. `rageClicksHistogram` was changed on 2023-01-01, see the [blog post](/blog/2023-03-16-mpulse-january-data-rage-clicks-change) for details.
 
 ### Resources Histogram Buckets
 
