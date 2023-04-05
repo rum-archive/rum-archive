@@ -24,6 +24,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/_favicon": "/" });
 
   // recommended per https://www.highcharts.com/docs/accessibility/accessibility-module
+  // TODO: currently, I can't have both these files map to js/highcharts, while ALSO having already an existing src/js/highcharts/ dir with other scripts in it
+  //  --> figure out why and clean up (dirty fix for now is to have src/js/charts/ instead of src/js/highcharts/)
   eleventyConfig.addPassthroughCopy({"node_modules/highcharts/highstock.js": "js/highcharts/highstock.js"});
   eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/exporting.js": "js/highcharts/exporting.js"});
   eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/export-data.js": "js/highcharts/export-data.js"});
