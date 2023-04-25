@@ -44,7 +44,12 @@ function timeseriesFromData(data, metric, options, start, end){
   // Ensure null values are filtered out.
   data = data.filter(o => getUnformattedPrimaryMetric(o, options) !== null);
 
-  drawTimeseries(data, options);
+  if ( options.timeseries && options.timeseries.length > 1 ) {
+    drawTimeseries2(options.timeseries, options);
+  }
+  else {
+    drawTimeseries(data, options);
+  }
   drawTimeseriesTable(data, options, [options.min, options.max]);
 }
 
@@ -150,6 +155,64 @@ function getPrimaryFieldName(o, options) {
 function getUnformattedPrimaryMetric(o, options) {
   const field = getPrimaryFieldName(o, options);
   return o[field];
+}
+
+function drawTimeseries2(seriesInput, options) {
+  // data = data.map(toNumeric);
+  // const desktop = data.filter(isDesktop);
+  // const mobile = data.filter(isMobile);
+
+  const series = [];
+
+  for( const serie of seriesInput ) {
+    if ( serie.fields ) {
+      serie.fields.forEach(field => {
+        // + before the field to convert to numeric
+        series.push(getLineSeries(serie.name, serie.data.map(o => [parseFloat(o.timestamp), parseFloat(o[field])]), serie.color));
+      });
+    }
+    else {
+      series.push(getLineSeries(serie.name, serie.data.map(toLine), serie.color));
+      series.push(getAreaSeries(serie.name, serie.data.map(toIQR),  serie.color));
+    }
+  }
+
+
+  // if (desktop.length) {
+  //   if (options.timeseries && options.timeseries.fields) {
+  //     options.timeseries.fields.forEach(field => {
+  //       series.push(getLineSeries('Desktop', desktop.map(o => [o.timestamp, o[field]]), Colors.DESKTOP));
+  //     });
+  //   } else {
+  //     series.push(getLineSeries('Desktop', desktop.map(toLine), Colors.DESKTOP));
+  //     series.push(getAreaSeries('Desktop', desktop.map(toIQR), Colors.DESKTOP));
+  //   }
+  // }
+  // if (mobile.length) {
+  //   if (options.timeseries && options.timeseries.fields) {
+  //     options.timeseries.fields.forEach(field => {
+  //       series.push(getLineSeries('Mobile', mobile.map(o => [o.timestamp, o[field]]), Colors.MOBILE));
+  //     });
+  //   } else {
+  //     series.push(getLineSeries('Mobile', mobile.map(toLine), Colors.MOBILE));
+  //     series.push(getAreaSeries('Mobile', mobile.map(toIQR), Colors.MOBILE));
+  //   }
+  // }
+
+  if (!series.length) {
+    console.error('No timeseries data to draw', data, options);
+    return;
+  }
+
+  console.log("SERIES TO SHOW", series);
+
+  const changeLogURL = options.changeLogURL || "/static/json/changelog.json";
+
+  getFlagSeries(changeLogURL)
+    .then(flagSeries => series.push(flagSeries))
+    // If the getFlagSeries request fails (503), catch so we can still draw the chart
+    .catch(console.error)
+    .then(_ => drawChart(options, series));
 }
 
 function drawTimeseries(data, options) {
@@ -330,7 +393,7 @@ const getFlagSeries = (changeLogURL) => loadChangelog(changeLogURL).then(data =>
 });
 
 function drawChart(options, series) {
-  
+
   const chart = Highcharts.stockChart(options.chartId, {
     metric: options.metric,
     type: 'timeseries',
@@ -545,3 +608,22 @@ const formatters = {
 //   }).forEach(td => td && row.appendChild(td));
 //   return row;
 // };
+
+// export default {
+//   timeseriesFromData: timeseriesFromData,
+//   timeseriesFromURL: timeseriesFromURL,
+//   Colors: Colors
+// };
+
+
+// module.exports = {
+//   timeseriesFromData: timeseriesFromData,
+//   timeseriesFromURL: timeseriesFromURL,
+//   Colors: Colors
+// };
+
+export {
+  timeseriesFromData as fromData,
+  timeseriesFromURL as fromURL,
+  Colors
+}
