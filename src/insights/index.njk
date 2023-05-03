@@ -46,7 +46,9 @@ Testing basic highcharts setup
     // import HighCharts from "/js/charts/timeseries.js";
 
     import * as TimeSeries from "/js/charts/timeseries.js"; 
-    import * as Donuts from "/js/charts/donuts.js"
+    import * as Donuts from "/js/charts/donuts.js";
+
+    const piecolors = [ TimeSeries.Colors.RUMARCHIVE_MAIN[0], TimeSeries.Colors.RUMARCHIVE_MAIN[1], TimeSeries.Colors.RUMARCHIVE_SECONDARY[5] ];
 
     {
         const options = {};
@@ -62,7 +64,7 @@ Testing basic highcharts setup
 
           // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
           datapoints = datapoints.sort((a, b) => { return parseFloat(b[valueKey]) - parseFloat(a[valueKey]) } ); // desc sort
-          datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.RUMARCHIVE_HEX[idx]; return val; } );
+          datapoints = datapoints.map( (val, idx) => { val.color = piecolors[idx]; return val; } );
 
           options.chartId = "donut0";
           options.name = "Navigation types on Desktop";
@@ -77,7 +79,7 @@ Testing basic highcharts setup
 
           // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
           datapoints = datapoints.sort((a, b) => { return parseFloat(b[valueKey]) - parseFloat(a[valueKey]) } ); // desc sort
-          datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.RUMARCHIVE_HEX[idx]; return val; } );
+          datapoints = datapoints.map( (val, idx) => { val.color = piecolors[idx]; return val; } );
 
           options.chartId = "donut1";
           options.name = "Navigation types on Mobile";
@@ -102,7 +104,7 @@ Testing basic highcharts setup
 
           // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
           datapoints = datapoints.sort((a, b) => { return parseFloat(b[valueKey]) - parseFloat(a[valueKey]) } ); // desc sort
-          datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.RUMARCHIVE_HEX[idx]; return val; } );
+          datapoints = datapoints.map( (val, idx) => { val.color = piecolors[idx]; return val; } );
 
           options.chartId = "donut2";
           options.name = "Visibility states on Desktop";
@@ -117,7 +119,7 @@ Testing basic highcharts setup
 
           // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
           datapoints = datapoints.sort((a, b) => { return parseFloat(b[valueKey]) - parseFloat(a[valueKey]) } ); // desc sort
-          datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.RUMARCHIVE_HEX[idx]; return val; } );
+          datapoints = datapoints.map( (val, idx) => { val.color = piecolors[idx]; return val; } );
 
           options.chartId = "donut3";
           options.name = "Visibility states on Mobile";
@@ -142,7 +144,7 @@ Testing basic highcharts setup
 
           // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
           datapoints = datapoints.sort((a, b) => { return parseFloat(b[valueKey]) - parseFloat(a[valueKey]) } ); // desc sort
-          datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.RUMARCHIVE_HEX[idx]; return val; } );
+          datapoints = datapoints.map( (val, idx) => { val.color = piecolors[idx]; return val; } );
 
           options.chartId = "donut4";
           options.name = "Landing page on Desktop";
@@ -157,7 +159,7 @@ Testing basic highcharts setup
 
           // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
           datapoints = datapoints.sort((a, b) => { return parseFloat(b[valueKey]) - parseFloat(a[valueKey]) } ); // desc sort
-          datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.RUMARCHIVE_HEX[idx]; return val; } );
+          datapoints = datapoints.map( (val, idx) => { val.color = piecolors[idx]; return val; } );
 
           options.chartId = "donut5";
           options.name = "Landing page on Mobile";
