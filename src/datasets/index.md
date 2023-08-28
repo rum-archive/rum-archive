@@ -31,6 +31,6 @@ Technical Details:
     * Available dates:
       * `2021-10-01`, `2021-11-01`, `2021-12-01`
       * `2022-01-01`, `2022-02-01`, `2022-03-01`, `2022-04-01`, `2022-05-01`, `2022-06-01`, `2022-07-01`, `2022-08-01`
-      * `2022-09-01` (onward, daily), through `2023-02-28`
+      * `2022-09-01` (onward, daily), through `2023-07-31`
   * Resources table: `rumarchive_resources`
     * Available dates: (coming soon!)
