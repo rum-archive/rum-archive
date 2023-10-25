@@ -1,4 +1,4 @@
-# RUM Archive (beta!)
+# RUM Archive
 
 The **RUM Archive** is a publicly available and [queryable](https://rumarchive.com/docs/querying) dataset of anonymized Real User Monitoring (RUM) page loads
 and resource fetches.
