@@ -75,3 +75,39 @@ There are a few approaches to workaround this:
 1. Utilize `WHERE` clauses to filter to a subset of the data (see [this example](/docs/samples/#page-load-time-by-country))
 2. Issue a sub-query against a high-cardinality dimension to break the dataset down first (see [this example](/docs/samples/#page-load-time-by-country-(using-a-subquery)))
 3. Export the data and run your own queries or aggregation
+
+## Not Every Timer is Available on Every Row
+
+When generating [aggregated data](/docs/methodology/#aggregation) for BigQuery, the aggregation query contains a `WHERE` clause to only include rows that contain a Page Load Time.
+
+Every timer, including Page Load Time, but also the other timers such as [DNS or Largest Contentful Paint](/docs/tables/#timers-and-metrics) has 4 columns associated with it: `*HISTOGRAM`, `*AVG`, `*SUMLN` and `*COUNT`.  The last column, `*COUNT` records how frequently that timer appeared for that row's tuples of data.
+
+Since the aggregation is pivoted on Page Load Time being available, you can expect the `BEACONS` column (how many page loads the row represents) to equal the `PLTCOUNT` exactly.  However, other timers may not be on every Page Load beacon.  For example:
+
+* Events like Rage Clicks may not always happen
+* Timers like LCP may not have been recorded if the browser doesn't support the metric
+
+As a result, for the non-PLT timers, you may see a `*COUNT` column _lower_ than the `BEACONS` and `PLTCOUNT` columns.
+
+As an example, if you see `BEACONS == PLTCOUNT == 100` and `DNSCOUNT == 10` that means that DNS data was only recorded on 10% of the page loads represented by that row.
+
+Here are the timer counts and the percentage of beacons they were on, for one day's worth of data (2023-09-30):
+
+| Column | Count | % of Total|
+|:---------|----:|------:|
+| `BEACONS`         | 169,613,083 | 100.0% |
+| `PLTCOUNT`        | 169,613,083 | 100.0% |
+| `DNSCOUNT`        | 169,228,821 | 99.8%  |
+| `TCPCOUNT`        | 169,225,189 | 99.8%  |
+| `TLSCOUNT`        | 169,212,909 | 99.8%  |
+| `TTFBCOUNT`       | 169,226,039 | 99.8%  |
+| `FCPCOUNT`        | 105,779,526 | 62.4%  |
+| `LCPCOUNT`        |  47,348,328 | 27.9%  |
+| `RTTCOUNT`        | 113,954,652 | 67.2%  |
+| `RAGECLICKSCOUNT` |   1,607,443 | 0.9%   |
+| `CLSCOUNT`        |  31,071,715 | 18.3%  |
+| `FIDCOUNT`        |  22,833,581 | 13.5%  |
+| `INPCOUNT`        |   5,806,935 | 3.4%   |
+| `TBTCOUNT`        |  46,063,946 | 27.2%  |
+| `TTICOUNT`        |  64,364,940 | 37.9%  |
+| `REDIRECTCOUNT`   |  10,954,288 | 6.5%   |

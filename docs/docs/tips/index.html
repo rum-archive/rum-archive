@@ -99,7 +99,7 @@
             <h2>Table of Contents</h2>
             <aside>
               <div class="toc" >
-        <ul><li><a href="#data-is-sampled">Data is sampled</a></li><li><a href="#counts-should-only-be-used-for-relative-percentages">Counts should only be used for relative percentages</a></li><li><a href="#outliers-are-excluded">Outliers are excluded</a></li><li><a href="#zeroes-matter-(or-not)">Zeroes matter (or not)</a></li><li><a href="#data-sets-should-not-be-compared">Data sets should not be compared</a></li><li><a href="#limiting-bigquery-costs">Limiting BigQuery costs</a></li><li><a href="#bigquery-udf-out-of-memory">BigQuery UDF Out of Memory</a></li></ul>
+        <ul><li><a href="#data-is-sampled">Data is sampled</a></li><li><a href="#counts-should-only-be-used-for-relative-percentages">Counts should only be used for relative percentages</a></li><li><a href="#outliers-are-excluded">Outliers are excluded</a></li><li><a href="#zeroes-matter-(or-not)">Zeroes matter (or not)</a></li><li><a href="#data-sets-should-not-be-compared">Data sets should not be compared</a></li><li><a href="#limiting-bigquery-costs">Limiting BigQuery costs</a></li><li><a href="#bigquery-udf-out-of-memory">BigQuery UDF Out of Memory</a></li><li><a href="#not-every-timer-is-available-on-every-row">Not Every Timer is Available on Every Row</a></li></ul>
       </div>
             </aside>
           
@@ -144,6 +144,108 @@ in the queryable dataset.</p>
 <li>Issue a sub-query against a high-cardinality dimension to break the dataset down first (see <a href="/docs/samples/#page-load-time-by-country-(using-a-subquery)">this example</a>)</li>
 <li>Export the data and run your own queries or aggregation</li>
 </ol>
+<h2 id="not-every-timer-is-available-on-every-row" tabindex="-1">Not Every Timer is Available on Every Row</h2>
+<p>When generating <a href="/docs/methodology/#aggregation">aggregated data</a> for BigQuery, the aggregation query contains a <code>WHERE</code> clause to only include rows that contain a Page Load Time.</p>
+<p>Every timer, including Page Load Time, but also the other timers such as <a href="/docs/tables/#timers-and-metrics">DNS or Largest Contentful Paint</a> has 4 columns associated with it: <code>*HISTOGRAM</code>, <code>*AVG</code>, <code>*SUMLN</code> and <code>*COUNT</code>.  The last column, <code>*COUNT</code> records how frequently that timer appeared for that row's tuples of data.</p>
+<p>Since the aggregation is pivoted on Page Load Time being available, you can expect the <code>BEACONS</code> column (how many page loads the row represents) to equal the <code>PLTCOUNT</code> exactly.  However, other timers may not be on every Page Load beacon.  For example:</p>
+<ul>
+<li>Events like Rage Clicks may not always happen</li>
+<li>Timers like LCP may not have been recorded if the browser doesn't support the metric</li>
+</ul>
+<p>As a result, for the non-PLT timers, you may see a <code>*COUNT</code> column <em>lower</em> than the <code>BEACONS</code> and <code>PLTCOUNT</code> columns.</p>
+<p>As an example, if you see <code>BEACONS == PLTCOUNT == 100</code> and <code>DNSCOUNT == 10</code> that means that DNS data was only recorded on 10% of the page loads represented by that row.</p>
+<p>Here are the timer counts and the percentage of beacons they were on, for one day's worth of data (2023-09-30):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Column</th>
+<th style="text-align:right">Count</th>
+<th style="text-align:right">% of Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>BEACONS</code></td>
+<td style="text-align:right">169,613,083</td>
+<td style="text-align:right">100.0%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>PLTCOUNT</code></td>
+<td style="text-align:right">169,613,083</td>
+<td style="text-align:right">100.0%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>DNSCOUNT</code></td>
+<td style="text-align:right">169,228,821</td>
+<td style="text-align:right">99.8%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>TCPCOUNT</code></td>
+<td style="text-align:right">169,225,189</td>
+<td style="text-align:right">99.8%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>TLSCOUNT</code></td>
+<td style="text-align:right">169,212,909</td>
+<td style="text-align:right">99.8%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>TTFBCOUNT</code></td>
+<td style="text-align:right">169,226,039</td>
+<td style="text-align:right">99.8%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>FCPCOUNT</code></td>
+<td style="text-align:right">105,779,526</td>
+<td style="text-align:right">62.4%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>LCPCOUNT</code></td>
+<td style="text-align:right">47,348,328</td>
+<td style="text-align:right">27.9%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>RTTCOUNT</code></td>
+<td style="text-align:right">113,954,652</td>
+<td style="text-align:right">67.2%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>RAGECLICKSCOUNT</code></td>
+<td style="text-align:right">1,607,443</td>
+<td style="text-align:right">0.9%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CLSCOUNT</code></td>
+<td style="text-align:right">31,071,715</td>
+<td style="text-align:right">18.3%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>FIDCOUNT</code></td>
+<td style="text-align:right">22,833,581</td>
+<td style="text-align:right">13.5%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>INPCOUNT</code></td>
+<td style="text-align:right">5,806,935</td>
+<td style="text-align:right">3.4%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>TBTCOUNT</code></td>
+<td style="text-align:right">46,063,946</td>
+<td style="text-align:right">27.2%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>TTICOUNT</code></td>
+<td style="text-align:right">64,364,940</td>
+<td style="text-align:right">37.9%</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIRECTCOUNT</code></td>
+<td style="text-align:right">10,954,288</td>
+<td style="text-align:right">6.5%</td>
+</tr>
+</tbody>
+</table>
 
         </div>
       </div>
