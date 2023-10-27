@@ -18,6 +18,32 @@ class Colors {
   // static get MOBILE() {  return Colors.HTTPARCHIVE_HEX[1]; } 
   static get DESKTOP() { return Colors.RUMARCHIVE_HEX[0]; }
   static get MOBILE() {  return Colors.RUMARCHIVE_HEX[1]; } 
+  static get TABLET() {  return Colors.RUMARCHIVE_SECONDARY[3]; } 
+
+  static get LIST(){
+    return [
+      this.RUMARCHIVE_MAIN[0],
+      this.RUMARCHIVE_MAIN[1],
+      this.RUMARCHIVE_SECONDARY[1],
+      this.RUMARCHIVE_SECONDARY[3],
+      this.RUMARCHIVE_SECONDARY[5],
+      this.RUMARCHIVE_MAIN[2],
+      this.RUMARCHIVE_MAIN[3],
+      this.RUMARCHIVE_SECONDARY[0],
+      this.RUMARCHIVE_SECONDARY[2],
+      this.RUMARCHIVE_SECONDARY[4],
+      this.RUMARCHIVE_MAIN[0], // note: starts again here, that's intentional for now... we don't have more colors
+      this.RUMARCHIVE_MAIN[1],
+      this.RUMARCHIVE_SECONDARY[1],
+      this.RUMARCHIVE_SECONDARY[3],
+      this.RUMARCHIVE_SECONDARY[5],
+      this.RUMARCHIVE_MAIN[2],
+      this.RUMARCHIVE_MAIN[3],
+      this.RUMARCHIVE_SECONDARY[0],
+      this.RUMARCHIVE_SECONDARY[2],
+      this.RUMARCHIVE_SECONDARY[4]
+    ];
+  }
 
   static RUMARCHIVE_MAIN = [
     "#006a80", // dark cyan, the palmtree
@@ -35,6 +61,13 @@ class Colors {
     "#CC9514", // dark orange
     "#089688", // green
   ];
+
+  static RUMARCHIVE_ORANGE_1 = Colors.RUMARCHIVE_MAIN[1];
+  static RUMARCHIVE_ORANGE_2 = Colors.RUMARCHIVE_MAIN[3];
+  static RUMARCHIVE_BLUE_1   = Colors.RUMARCHIVE_MAIN[0];
+  static RUMARCHIVE_BLUE_2   = Colors.RUMARCHIVE_SECONDARY[1];
+  static RUMARCHIVE_SCARLET  = Colors.RUMARCHIVE_SECONDARY[3];
+  static RUMARCHIVE_GREEN   = Colors.RUMARCHIVE_SECONDARY[5];
 
   // TODO: map these colors to actual hex values to be used
   // these should be the WebPageTest colors for the same metrics in the waterfalls, also used in mPulse
@@ -79,11 +112,52 @@ class Metric {
   }
 }
 
+async function timeseriesFromDataWithDefaults( queryName, chartElementID, metricFieldName, graphTitle, timeseriesCreationCallback ) {
+  // used to set sensible defaults for a typical metric-based graphs that shows percentages for a couple of timeseries
+
+  // TODO: move this endpoint selection logic to a more central location!
+  const FORCE_EXTERNAL_DATA = false;
+  let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/insights_v1/data-output/";
+
+  if ( window.location.href.includes("localhost") && !FORCE_EXTERNAL_DATA ) {
+    // allow for easy local testing
+    // launch a basic python http server in the rum-insights-data dir with `python3 -m http.server 9000`
+    DATA_BASE_URL = "http://localhost:9000/data-output/";
+  }
+
+  let response = await fetch(DATA_BASE_URL + queryName + ".json");
+  let rumarchiveData = await response.json();
+
+  const options = {};
+  options.chartId = chartElementID;
+  options.histogram = { enabled: false };
+  options.metric = metricFieldName;
+  options.type = "%";
+
+  options.yMax = 100;
+
+  // user can pass this in to do actual calculation of the timeseries
+  // TODO: provide a default implementation for this as well, based on the metricFieldName
+  options.timeseries = timeseriesCreationCallback( rumarchiveData, metricFieldName );
+
+  // options.id = "device";
+  options.name = graphTitle;
+
+  timeseriesFromData(rumarchiveData, metricFieldName, options, rumarchiveData[0].date, rumarchiveData[rumarchiveData.length - 1].date );
+}
+
 function timeseriesFromData(data, metric, options, start, end){
   let [YYYY, MM, DD] = start.split('_');
   options.min = Date.UTC(YYYY, MM - 1, DD);
   [YYYY, MM, DD] = end.split('_');
   options.max = Date.UTC(YYYY, MM - 1, DD);
+
+  if ( !options.dataArchive ) {
+    options.dataArchive = {
+      name: "RUM Archive",
+      URL: "https://rumarchive.com/"
+    };
+  }
 
   // Ensure null values are filtered out.
   data = data.filter(o => getUnformattedPrimaryMetric(o, options) !== null);
@@ -250,13 +324,15 @@ function drawTimeseries2(seriesInput, options) {
 
   console.log("SERIES TO SHOW", series);
 
-  const changeLogURL = options.changeLogURL || "/static/json/changelog.json";
+  // const changeLogURL = options.changeLogURL || "/static/json/changelog.json";
 
-  getFlagSeries(changeLogURL)
-    .then(flagSeries => series.push(flagSeries))
-    // If the getFlagSeries request fails (503), catch so we can still draw the chart
-    .catch(console.error)
-    .then(_ => drawChart(options, series));
+  // getFlagSeries(changeLogURL)
+  //   .then(flagSeries => series.push(flagSeries))
+  //   // If the getFlagSeries request fails (503), catch so we can still draw the chart
+  //   .catch(console.error)
+  //   .then(_ => drawChart(options, series));
+  
+  drawChart(options, series);
 }
 
 function drawTimeseries(data, options) {
@@ -469,36 +545,44 @@ function drawChart(options, series) {
       useHTML: true,
       borderColor: 'rgba(247,247,247,0.85)',
       formatter: function() {
-        function getChangelog(changelog) {
-          if (!changelog) return '';
-          return `<p class="changelog">${changelog.title}</p>`;
-        }
+        // function getChangelog(changelog) {
+        //   if (!changelog) return '';
+        //   return `<p class="changelog">${changelog.title}</p>`;
+        // }
 
-        const changelog = flags[this.x];
+        // const changelog = flags[this.x];
         const tooltip = `<p style="font-size: smaller; text-align: center;">${Highcharts.dateFormat('%b %e, %Y', this.x)}</p>`;
 
-        // Handle changelog tooltips first.
-        if (!this.points) {
-          return `${tooltip} ${getChangelog(changelog)}`
-        }
+        // // Handle changelog tooltips first.
+        // if (!this.points) {
+        //   return `${tooltip} ${getChangelog(changelog)}`
+        // }
+
+        // console.log("TimeSeries:drawChart : tooltip:formatter : ", this, this.points);
 
         function getRow(points) {
-          if (!points.length) return '';
+          if (!points.length) 
+            return '';
           let label;
           let data;
-          if (options.timeseries && options.timeseries.fields) {
-            label = points[0].series.name;
-            const formatter = formatters[options.timeseries.fields[0]];
-            if (formatter) {
-              data = formatter(points[0].point.y);
-            } else {
-              data = points[0].point.y.toFixed(1);
-            }
-          } else {
-            const [median] = points;
-            label = `Median ${median.series.name}`;
-            data = median.point.y.toFixed(1);
-          }
+          // if (options.timeseries && options.timeseries.fields) {
+          //   label = points[0].series.name;
+          //   const formatter = formatters[options.timeseries.fields[0]];
+          //   if (formatter) {
+          //     data = formatter(points[0].point.y);
+          //   } else {
+          //     data = points[0].point.y.toFixed(1);
+          //   }
+          // } 
+          // else {
+          //   const [median] = points;
+          //   label = `Median ${median.series.name}`;
+          //   data = median.point.y.toFixed(1);
+          // }
+
+          label = points[0].series.name;
+          data = points[0].point.y.toFixed(1);
+
           const metric = new Metric(options, data);
           return `<td>
             <p style="text-transform: uppercase; font-size: 10px;">
@@ -509,16 +593,25 @@ function drawChart(options, series) {
             </p>
           </td>`;
         }
-        const desktop = this.points.filter(o => o.series.name == 'Desktop');
-        const mobile = this.points.filter(o => o.series.name == 'Mobile');
+
+        // const desktop = this.points.filter(o => o.series.name == 'Desktop');
+        // const mobile = this.points.filter(o => o.series.name == 'Mobile');
+
+        let rows = "";
+        for ( let point of this.points ) {
+          // assumption is that we have a single point per series/line we're drawing here
+          rows += getRow([point])
+        }
+
+        // console.log(rows);
+
         return `${tooltip}
         <table cellpadding="5" style="text-align: center;">
           <tr>
-            ${getRow(desktop)}
-            ${getRow(mobile)}
+            ${rows}
           </tr>
-        </table>
-        ${getChangelog(changelog)}`;
+        </table>`;
+        // ${getChangelog(changelog)}`;
       }
     },
     rangeSelector: {
@@ -676,6 +769,7 @@ const formatters = {
 // };
 
 export {
+  timeseriesFromDataWithDefaults as fromDataWithDefaults,
   timeseriesFromData as fromData,
   timeseriesFromURL as fromURL,
   Colors

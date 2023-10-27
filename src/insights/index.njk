@@ -4,13 +4,119 @@ description: RUM Insights home
 layout: layouts/page.njk
 ---
 
-Testing basic highcharts setup 
+<h2>Introduction</h2>
 
-{# <script src="/js/charts/timeseries.js"></script> #}
-<script src="/js/highcharts/highstock.js"></script>
-<script src="/js/highcharts/exporting.js"></script>
-<script src="/js/highcharts/export-data.js"></script>
-<script src="/js/highcharts/accessibility.js"></script>
+<p>
+This page captures a collection of basic visualizations for the data contained in the RUM Archive. 
+It's goal is to allow users to get a feel for the most important insights that can be gained from the data, without having to execute SQL queries themselves.
+</p> 
+
+<p>
+These diagrams will be updated once per month, when data from the previous month is uploaded to the RUM Archive dataset. 
+</p> 
+
+{# 
+<ul>
+  <li><a href="#devos-marketshare">User agent and OS Market Shares</a></li>
+</ul> #}
+
+<p>
+If you have ideas about additional graphs or new features, let us know on <a href="https://github.com/rum-archive/rum-archive">GitHub</a>.
+</p>
+
+
+
+
+
+<!-- TODO: merge these into a single file --> 
+<script src="/js/highcharts/highstock.js" defer></script>
+<script src="/js/highcharts/exporting.js" defer></script>
+<script src="/js/highcharts/export-data.js" defer></script>
+<script src="/js/highcharts/accessibility.js" defer></script>
+
+<section class="doclist mt-3 pt-3">
+
+  <h2 id="#marketshares">Market Shares</h2>
+  <p>
+  It is important to know which devices, operating systems and browsers your visitors are using to access your sites, as hardware power and feature support can differ widely. 
+  This helps you better optimize your sites for your target audience.
+  </p>
+
+<h3 id="#device-marketshare">Device Type</h3>
+
+    <p class="pt-5 pb-5">
+      The following graphs show the usage of different Device Types (RUM Archive currently only tracks 3 device types).
+    </p> 
+    
+  <div class="container">
+    <div id="marketshare_devicetypes">
+    </div>
+  </div>
+
+<h3 id="#device-marketshare">Operating System</h3>
+
+    <p class="pt-5 pb-5">
+      The following graphs show the usage of different Operating Systems for Desktop and Mobile devices (OSes with &lt; 1% usage share have been filtered out).
+    </p> 
+  <div class="container">
+    <div class="columns">
+      <div class="column" id="marketshare_os_desktop">
+      </div>
+      <div class="column" id="marketshare_os_mobile">
+      </div>
+    </div>
+  </div>
+
+<h3 id="#ua-marketshare">Browser</h3>
+
+    <p class="pt-5 pb-5">
+      The following charts show the usage of different Browsers / User Agents for Desktop and Mobile devices (entries with &lt; 1% usage share have been filtered out). The data shown is from September 1st 2023.
+    </p> 
+    <div class="columns">
+      <div class="column" id="marketshare_browser_desktop">
+      </div>
+      <div class="column" id="marketshare_browser_mobile">
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column" id="marketshare_browsergrouped_desktop">
+      </div>
+      <div class="column" id="marketshare_browsergrouped_mobile">
+      </div>
+    </div>
+
+    
+    <p class="pt-5">
+      For Web Performance, the so-called "Core Web Vitals" (CWVs) are key metrics. 
+      One of these CWVs is the "Largest Contentful Paint", which measures when the main element on a page (a large image or piece of text) is shown on the screen.
+    </p> 
+    <p>
+      However, not all browsers support measuring the CWVs; only Chromium-based browsers currently have full implementations. 
+      Interestingly, <a href="https://developer.chrome.com/docs/crux/methodology/#user-eligibility">this excludes browsers like Chrome Mobile on iOS</a>, 
+      as internally that is actually based on Apple's browser stack called WebKit (as Apple notoriously does not allow other browser stacks on iOS).
+    </p> 
+    <p>
+      Additionally, Google uses their own measurements of the CWV to drive search result ranking in a project called the <a href"https://developer.chrome.com/docs/crux/">Chrome UX report (CrUX)</a>. 
+      The CrUX dataset is even more restrictive: it only uses CWV measurements from Google-owned browsers on supported platforms (mainly Chrome on Desktop and Android) and only from users who opt-in.
+      As such, CrUX potentially gives an incomplete or even unrealistic view of the CWV metrics in the wild.
+    </p> 
+    <p>
+      In the following diagrams, we aim to illustrate the market share of CWV-capable browsers, as well as the market share of browsers contributing to the CrUX dataset. 
+    </p> 
+    <p class="pb-5">
+      On a final important note, the RUMArchive dataset does include (a small amount of) CWV measurements for browsers that don't actually support it (like Safari). 
+      This is most likely due to bots, attackers or debugging setups that spoof the user agent info that RUM Archive tracks. As such, a small amount of noise is to be taken into account when interpreting these results. 
+    </p> 
+    <div class="columns">
+      <div class="column" id="marketshare_cwvbrowser_desktop">
+      </div>
+      <div class="column" id="marketshare_cwvbrowser_mobile">
+      </div>
+    </div>
+  </div>
+</section>
+
+<h2 id="#old">OLD EXAMPLES, REMOVE</h2>
 
 <section class="doclist mt-3 pt-3">
   <div class="columns">
@@ -67,14 +173,273 @@ Testing basic highcharts setup
 
     const piecolors = [ TimeSeries.Colors.RUMARCHIVE_MAIN[0], TimeSeries.Colors.RUMARCHIVE_MAIN[1], TimeSeries.Colors.RUMARCHIVE_SECONDARY[5] ];
 
-    const FORCE_EXTERNAL_DATA = true;
+    const FORCE_EXTERNAL_DATA = false;
     let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/insights_v1/data-output/";
 
     if ( window.location.href.includes("localhost") && !FORCE_EXTERNAL_DATA ) {
       // allow for easy local testing
       // launch a basic python http server in the rum-insights-data dir with `python3 -m http.server 9000`
-      DATA_BASE_URL = "https://localhost:9000/data-output/";
+      DATA_BASE_URL = "http://localhost:9000/data-output/";
     }
+
+      {# async function renderDeviceTypeTimeseries() {
+        try {
+          const metricFieldName = "device";
+
+          let response = await fetch(DATA_BASE_URL + "devicetype.json");
+          let rumarchiveData = await response.json();
+        
+          rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.percent) > 1) );
+
+          const options = {};
+          options.chartId = "marketshare_devicetypes";
+          options.histogram = { enabled: false };
+          options.metric = metricFieldName;
+
+          // need to give the graphing setup a list of timeseries, each with their own data and color
+          // we want to generate these automatically from the data
+          // 1. extract individual metricFieldValues (e.g., extract all individual device types)
+          let metricValues = new Set();
+          for ( let row of rumarchiveData )
+            metricValues.add( row[metricFieldName] );
+
+          options.timeseries = [];
+          for ( let metricValue of metricValues ) {
+            let timeSerie = {
+              name: metricValue,
+              data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
+              fields: ["percent"],
+              color: (metricValue === "Desktop") ? TimeSeries.Colors.DESKTOP : ( (metricValue === "Mobile") ? TimeSeries.Colors.MOBILE : TimeSeries.Colors.TABLET )
+            };
+
+            options.timeseries.push( timeSerie );
+          }
+
+          options.type = "%";
+
+          options.id = "device";
+          options.name = "Device Type";
+
+          options.yMax = 100;
+
+          TimeSeries.fromData(rumarchiveData, metricFieldName, options, rumarchiveData[0].date, rumarchiveData[rumarchiveData.length - 1].date );
+        }
+        catch(e) {
+          console.error(e);
+          return;
+        }
+    } #}
+    
+
+    function getDeviceTypeTimeseries(rumarchiveData, metricFieldName) {
+      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.percent) > 1) );
+
+      let output = [];
+
+      // need to give the graphing setup a list of timeseries, each with their own data and color
+      // we want to generate these automatically from the data
+      // 1. extract individual metricFieldValues (e.g., extract all individual device types)
+      let metricValues = new Set();
+      for ( let row of rumarchiveData )
+        metricValues.add( row[metricFieldName] );
+
+      for ( let metricValue of metricValues ) {
+        let timeSerie = {
+          name: metricValue,
+          data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
+          fields: ["percent"],
+          color: (metricValue === "Desktop") ? TimeSeries.Colors.DESKTOP : ( (metricValue === "Mobile") ? TimeSeries.Colors.MOBILE : TimeSeries.Colors.TABLET )
+        };
+
+        output.push( timeSerie );
+      }
+
+      return output;
+    }
+
+    TimeSeries.fromDataWithDefaults( "devicetype", "marketshare_devicetypes", "device", "Device Type", getDeviceTypeTimeseries );
+    // renderDeviceTypeTimeseries();
+
+
+    async function renderOSTimeseries(clientType, chartId, chartName) {
+        try {
+          const metricFieldName = "os";
+
+          let response = await fetch(DATA_BASE_URL + "os_devicetype.json");
+          let rumarchiveData = await response.json();
+        
+          rumarchiveData = rumarchiveData.filter( datapoint => (datapoint.client === clientType) && (parseFloat(datapoint.percent) > 0.5) );
+
+          const options = {};
+          options.chartId = chartId;
+          options.histogram = { enabled: false };
+          options.metric = metricFieldName;
+
+          // need to give the graphing setup a list of timeseries, each with their own data and color
+          // we want to generate these automatically from the data
+          // 1. extract individual metricFieldValues (e.g., extract all individual device types)
+          let metricValues = new Set();
+          for ( let row of rumarchiveData )
+            metricValues.add( row[metricFieldName] );
+
+          let osColors = TimeSeries.Colors.LIST;
+
+          options.timeseries = [];
+          for ( const [idx, metricValue] of [...metricValues].entries() ) {
+            let timeSerie = {
+              name: metricValue,
+              data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
+              fields: ["percent"],
+              color: osColors[idx]
+            };
+
+            options.timeseries.push( timeSerie );
+          }
+
+          options.type = "%";
+
+          options.id = "os";
+          options.name = chartName;
+
+          options.yMax = 100;
+
+          TimeSeries.fromData(rumarchiveData, metricFieldName, options, rumarchiveData[0].date, rumarchiveData[rumarchiveData.length - 1].date );
+        }
+        catch(e) {
+          console.error(e);
+          return;
+        }
+    }
+    
+    renderOSTimeseries("desktop", "marketshare_os_desktop", "Desktop Operating System");
+    renderOSTimeseries("mobile", "marketshare_os_mobile", "Mobile Operating System");
+
+
+    async function renderBrowserPiechart(clientType, chartId, chartName) {
+      const options = {};
+
+      const metricFieldName = "useragent";
+
+      let response = await fetch(DATA_BASE_URL + "LCPCount_useragentfamily_" + clientType + ".json");
+      let rumarchiveData = await response.json();
+
+      // this data is a bit different:
+      // - always contains only data for a single devicetype (no need to filter on device)
+      // - split into two datasets: one with each individual browser, one with them grouped
+      /*{
+        "individual": [
+          {"device":"desktop","date":"2023_09_01","cwvpercent":"0.1","useragentpercent":"0.0","useragent":"Chromium"}
+        ],
+        "grouped", [
+          {"device":"desktop","date":"2023_09_01","useragentgroup":"Others","cwvpercent":"0.4","useragentpercent":"1.2"}
+        ]
+      }*/
+
+      // normally, we need the individual measurements and use the "useragentpercent" as the value
+      rumarchiveData = rumarchiveData.individual;
+
+      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.useragentpercent) > 0.5) );
+
+      let datapoints = rumarchiveData;
+      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
+      datapoints = datapoints.sort((a, b) => { return parseFloat(b["useragentpercent"]) - parseFloat(a["useragentpercent"]) } ); // desc sort
+      datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.LIST[idx]; return val; } );
+
+      options.chartId = chartId;
+      options.name = chartName;
+
+      options.datapoints = datapoints;
+      options.datapointFieldname = "useragentpercent";
+
+      Donuts.fromData( metricFieldName, options );
+
+    }
+
+    renderBrowserPiechart("desktop", "marketshare_browser_desktop", "Desktop browsers");
+    renderBrowserPiechart("mobile", "marketshare_browser_mobile", "Mobile browsers");
+
+
+    async function renderBrowserGroupedPiechart(clientType, chartId, chartName) {
+      const options = {};
+
+      const metricFieldName = "useragentgroup";
+
+      let response = await fetch(DATA_BASE_URL + "LCPCount_useragentfamily_" + clientType + ".json");
+      let rumarchiveData = await response.json();
+
+      // normally, we need the individual measurements and use the "useragentpercent" as the value
+      rumarchiveData = rumarchiveData.grouped;
+
+      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.useragentpercent) > 0.5) );
+
+      let datapoints = rumarchiveData;
+      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
+      datapoints = datapoints.sort((a, b) => { return parseFloat(b["useragentpercent"]) - parseFloat(a["useragentpercent"]) } ); // desc sort
+      datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.LIST[idx]; return val; } );
+
+      console.log("DONUTS", datapoints);
+
+      // manual override to keep colors semantically consistent
+      if ( clientType === "mobile" ) {
+        datapoints.filter( (p) => p.useragentgroup == "Webkit (Safari, no CWV)" )[0].color = TimeSeries.Colors.RUMARCHIVE_ORANGE_1;
+        datapoints.filter( (p) => p.useragentgroup == "Webkit (Others, no CWV)" )[0].color = TimeSeries.Colors.RUMARCHIVE_ORANGE_2;
+      }
+      else {
+        datapoints.filter( (p) => p.useragentgroup == "Safari" )[0].color   = TimeSeries.Colors.RUMARCHIVE_ORANGE_1;
+        datapoints.filter( (p) => p.useragentgroup == "Firefox" )[0].color  = TimeSeries.Colors.RUMARCHIVE_SCARLET;
+      }
+
+      datapoints.filter( (p) => p.useragentgroup == "Chrome (CWV + CrUX)" )[0].color     = TimeSeries.Colors.RUMARCHIVE_BLUE_1;
+      datapoints.filter( (p) => p.useragentgroup == "Chromium (CWV, no CrUX)" )[0].color = TimeSeries.Colors.RUMARCHIVE_BLUE_2;
+      datapoints.filter( (p) => p.useragentgroup == "Others" )[0].color                  = TimeSeries.Colors.RUMARCHIVE_GREEN;
+
+      options.chartId = chartId;
+      options.name = chartName;
+
+      options.datapoints = datapoints;
+      options.datapointFieldname = "useragentpercent";
+
+      Donuts.fromData( metricFieldName, options );
+    }
+
+    renderBrowserGroupedPiechart("desktop", "marketshare_browsergrouped_desktop", "Desktop browsers (grouped)");
+    renderBrowserGroupedPiechart("mobile", "marketshare_browsergrouped_mobile", "Mobile browsers (grouped)");
+
+    // TODO: inject another graph that shows useragentpercent grouped (for perfnow) and maybe ungrouped cwvpercent as well (first that, then grouped for better understanding)
+
+    async function renderBrowserCruxPiechart(clientType, chartId, chartName) {
+      const options = {};
+
+      const metricFieldName = "useragentgroup";
+
+      let response = await fetch(DATA_BASE_URL + "LCPCount_useragentfamily_" + clientType + ".json");
+      let rumarchiveData = await response.json();
+
+      rumarchiveData = rumarchiveData.grouped;
+
+      // rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.cwvpercent) > 0.5) );
+
+      let datapoints = rumarchiveData;
+      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
+      datapoints = datapoints.sort((a, b) => { return parseFloat(b["cwvpercent"]) - parseFloat(a["cwvpercent"]) } ); // desc sort
+      datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.LIST[idx]; return val; } );
+
+      options.chartId = chartId;
+      options.name = chartName;
+
+      options.datapoints = datapoints;
+      options.datapointFieldname = "cwvpercent";
+
+      Donuts.fromData( metricFieldName, options );
+    }
+
+
+    renderBrowserCruxPiechart("desktop", "marketshare_cwvbrowser_desktop", "Desktop browsers that support CWV");
+    renderBrowserCruxPiechart("mobile", "marketshare_cwvbrowser_mobile", "Mobile browsers that support CWV");
+    
+
+
+/* OLD CHARTS */
 
     {
       const options = {};

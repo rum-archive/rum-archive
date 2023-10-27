@@ -12,7 +12,7 @@ function retarget( data, groundTruth ) {
 
     let output = [];
 
-    console.log("Retarget start", data, groundTruth);
+    // console.log("Retarget start", data, groundTruth);
 
     for ( let i = 0; i < groundTruth.length; ++i ){
         const currentX = groundTruth[i][0];
@@ -66,7 +66,7 @@ function retarget( data, groundTruth ) {
             }
 
             // console.log( "remapping", currentX, lowerIndex, higherIndex, data[lowerIndex], data[higherIndex] );
-            console.log( "remapping", currentX, "is between", data[lowerIndex][0], "<", currentX, "<", data[higherIndex][0] );
+            // console.log( "remapping", currentX, "is between", data[lowerIndex][0], "<", currentX, "<", data[higherIndex][0] );
 
             // output.push( data[i] ); // TODO: CHANGE!!!
             output.push( [ currentX, data[i][1] ] ); // TODO: calculate actual interpolated data[i]
@@ -88,7 +88,7 @@ function areaFromData(metricName, options){
 
     let series = [ options.series[0] ];
 
-    console.log("Retargeting", options.series);
+    // console.log("Retargeting", options.series);
 
     let groundTruth = options.series[0];
     for ( let i = 1; i < options.series.length; ++i ) {
@@ -96,7 +96,7 @@ function areaFromData(metricName, options){
         series.push( options.series[i] );
     }
 
-    console.log( "histogram data", series );
+    // console.log( "histogram data", series );
 
     Highcharts.chart(options.chartId, {
         chart: {
