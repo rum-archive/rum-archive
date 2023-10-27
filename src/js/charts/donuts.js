@@ -111,7 +111,11 @@ function drawDonut(options, inputData) {
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %' //,
+                    // alignTo: 'plotEdges'
+                },
+                style: {
+                    textOverflow: 'clip'
                 }
             }
         },
