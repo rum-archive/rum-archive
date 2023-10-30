@@ -19,3 +19,7 @@ Special thanks to the following contributors for their inspiration and work in t
 * Nic Jansma
 * Philip Tellis
 * Tim Vereecke
+
+## Credits
+
+* Icons via [openmoji.org](https://openmoji.org)

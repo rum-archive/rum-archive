@@ -1,12 +1,12 @@
 ---
 title: RUM Archive One Year Anniversary
-date: 2023-11-01
+date: 2023-11-01 00:00:00
 description: The RUM Archive celebrates one year of data!  We're announcing a new RUM Insights tab, as well as a preview of a Third-Party Resource dataset.
 layout: layouts/blog.njk
 tags: blog
 author: Nic Jansma
 toc: true
-thumbnail: /blog/2023-11-01-rum-archive-one-year-anniversary.png
+thumbnail: /blog/2023-11-01-rum-archive-one-year-anniversary.svg
 ---
 
 ## Latest mPulse RUM Data Loaded
@@ -17,3 +17,4 @@ This brings the RUM Archive's [mPulse dataset](/datasets/#akamai-mpulse-rum) to 
 
 ## One Year Anniversary!
 
+TODO
