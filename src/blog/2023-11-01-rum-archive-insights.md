@@ -1,5 +1,5 @@
 ---
-title: RUM Archive Third-Party Resource Data
+title: RUM Insights
 date: 2023-11-01 00:00:01
 description: We've added some graphs and visualizations of RUM Archive data into a new Insights tab!
 layout: layouts/blog.njk
