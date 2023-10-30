@@ -120,34 +120,36 @@
             </aside>
             <hr />
           
-          <p>The RUM Archive was released a year ago during the <a href="https://perfnow.nl/">performance.now() 2022</a> conference in Amsterdam!  Let's review what's happened with the project over the last year, and then we can share some exciting new features we're adding.</p>
+          <p>The RUM Archive was released about a year ago during the <a href="https://perfnow.nl/">performance.now() 2022</a> conference in Amsterdam!  Let's review what's happened with the project over the last year, and then we can share some exciting new features we're adding.</p>
 <p>First, a few notes on our October data release.</p>
 <h2 id="latest-mpulse-rum-data-loaded" tabindex="-1">Latest mPulse RUM Data Loaded</h2>
 <p>We've completed an export of mPulse daily RUM data into the BigQuery <a href="/datasets/#akamai-mpulse-rum"><code>akamai-mpulse-rumarchive</code></a> project up through 2023-10-31.</p>
 <p>This brings the RUM Archive's <a href="/datasets/#akamai-mpulse-rum">mPulse dataset</a> to a running total of 425 straight days of data available since 2022-09-01.  (There is also first-of-month data going back to 2021-10-01).</p>
-<p>We plan to continue this daily export of the mPulse RUM data for the forseeable future.  Right now, we're updating the BigQuery tables approximately on a monthly cadence, where we release the previous month's data by the first few days of the next month.  We plan on automating this process further so that daily data can be uploaded on a daily cadence.</p>
+<p>We plan to continue this daily export of the mPulse RUM data for the forseeable future.  Right now, we're updating the BigQuery tables roughly on a monthly cadence, where we release the previous month's data by the first few days of the next month.  We plan on automating this process further so that we can upload data on a daily cadence.</p>
 <h2 id="rum-archive-data-in-the-wild" tabindex="-1">RUM Archive Data In the Wild</h2>
 <p>One of our stated goals of the project is to make RUM data freely available so web performance nerds can use it for their own research.</p>
 <p>We've received a lot of support for the project since its release, and look forward to making it better based on the community's feedback.</p>
 <p>We know of a few places where RUM Archive data has been used, let's take a look!</p>
-<p><a href="https://twitter.com/anniesullie">Annie Sullivan</a> was able to query the RUM Archive's data on Rage Clicks as part of research the Chrome Speed Metrics team was doing on whether to standardize the definition of a &quot;rage click&quot;:</p>
+<p><a href="https://twitter.com/anniesullie">Annie Sullivan</a> was able to query the RUM Archive's data on Rage Clicks as part of research the Chrome Speed Metrics team was doing on rage clicks:</p>
 <div class="eleventy-plugin-embed-twitter"><blockquote id="tweet-1621521096788049922" class="twitter-tweet"><a href="https://twitter.com/anniesullie/status/1621521096788049922"></a></blockquote></div><script src="https://platform.twitter.com/widgets.js" charset="utf-8" async></script>
-<p>Our very own <a href="https://twitter.com/TimVereecke">Tim Vereecke</a> has used the RUM Archive data in his presentation titled <em>Noise Cancelling RUM</em> that's given at <a href="https://www.p99conf.io/agenda/">P99</a>, <a href="https://www.welovespeed.com/en/2023/speakers/#tim_vereecke">We Love Speed</a> and <a href="https://perfnow.nl/speakers">perf.now()</a>:</p>
+<p>Our very own <a href="https://twitter.com/TimVereecke">Tim Vereecke</a> has used the RUM Archive data in his presentation titled <em>Noise Cancelling RUM</em> that's been given at <a href="https://www.p99conf.io/agenda/">P99</a>, <a href="https://www.welovespeed.com/en/2023/speakers/#tim_vereecke">We Love Speed</a> and soon at <a href="https://perfnow.nl/speakers">perf.now() 2023</a>:</p>
 <div class="eleventy-plugin-embed-twitter"><blockquote id="tweet-1598261516897202176" class="twitter-tweet"><a href="https://twitter.com/TimVereecke/status/1598261516897202176"></a></blockquote></div>
-<p><a href="https://twitter.com/HenriHelvetica">Henri Helvetica</a> also interviewed <a href="https://twitter.com/nicj">Nic Jansma</a> for an introduction to using the RUM Archive:</p>
+<p><a href="https://twitter.com/HenriHelvetica">Henri Helvetica</a> also interviewed <a href="https://twitter.com/nicj">Nic Jansma</a> for an exploration on how to use and query the RUM Archive:</p>
 <div id="zH7XmsWmRCo" class="eleventy-plugin-youtube-embed" style="position:relative;width:100%;padding-top: 56.25%;"><iframe style="position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;" width="100%" height="100%" frameborder="0" title="Embedded YouTube video" src="https://www.youtube-nocookie.com/embed/zH7XmsWmRCo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 <p>Are <strong>you</strong> using the RUM Archive data in an interesting way?  <a href="https://twitter.com/RUMArchive">Let us know</a>!</p>
 <h2 id="rum-insights" tabindex="-1">RUM Insights</h2>
 <p>Until now, the <a href="https://rumarchive.com">rumarchive.com</a> domain has been mostly a documentation website, with instructions on how you can query the BigQuery RUM data and a few example SQL queries.</p>
 <p>We're now announcing a section for the site called <a href="/insights"><em>RUM Insights</em></a>!</p>
 <img src="/blog/2023-11-01-rum-archive-one-year-anniversary-insights.png" style="width: 50%; height: auto"/>
-<p><a href="/insights">RUM Insights</a> captures a collection of basic visualizations for the data contained in the RUM Archive. It's goal is to allow users to get a feel for the most important insights that can be gained from the data, without having to execute SQL queries themselves.</p>
-<p>For more details, check out our <a href="/blog/2023-11-01-rum-archive-insights">blog post</a> on the topic!</p>
+<p><a href="/insights">RUM Insights</a> captures a collection of basic visualizations for the data contained in the RUM Archive.  It's goal is to allow users to get a feel for the most important insights that can be gained from the data, without having to execute SQL queries themselves.</p>
+<p>For more details, check out <a href="https://twitter.com/programmingart">Robin Marx</a>'s <a href="/blog/2023-11-01-rum-archive-insights">blog post</a> on the topic or head straight into the <a href="/insights">Insights</a>!</p>
 <h2 id="third-party-resource-dataset-preview" tabindex="-1">Third-Party Resource Dataset Preview</h2>
-<p>We've been working on new dataset to complement the mPulse Page Load dataset: <a href="/docs/tables/#third-party-resources">Third-Party Resources</a>.</p>
-<p>mPulse and boomerang.js capture <a href="https://www.w3.org/TR/resource-timing/">ResourceTiming</a> data for all of the sub-resources (such as JavaScript, CSS, images, etc) on the page, on every mPulse Page Load beacon.</p>
-<p>With this data, in aggregate, we can easily spot third-party components (those loaded by multiple domains) such as libraries, analytics scripts, widgets, fonts, etc.</p>
-<p>We're going to start exporting the Top &gt;500 third-party resources we see each day, similar to how we share Page Load data.  Each third-party resource URL will have information on its popularity, performance and size.  These URL trends should be trackable over time as well.</p>
+<p>We've been working on new dataset to complement the <a href="/datasets/#akamai-mpulse-rum">mPulse</a> Page Load dataset: <a href="/docs/tables/#third-party-resources">Third-Party Resources</a>.</p>
+<p>mPulse and boomerang.js capture <a href="https://www.w3.org/TR/resource-timing/">ResourceTiming</a> data for all of the sub-resources (such as JavaScript, CSS, images, etc) on the page, on every mPulse Page Load beacon.  This data is compressed and beaconed to the mPulse back-end for our customers' analytics.</p>
+<p>With this data, in aggregate across all of our customers, we can easily spot third-party components (those loaded by multiple domains) such as libraries, analytics scripts, widgets, fonts, etc.</p>
+<p>We're going to begin exporting the Top &gt;500 third-party resources we see each day, similar to how we share Page Load data.  Each third-party resource URL will have information on its <a href="/docs/tables/#third-party-resources">popularity, performance and size</a>.  These URL trends should be trackable over time as well.</p>
+<p>TODO sample query and results from Top 10 URLs</p>
+<p>This data is available in preview form right now, and we'd love to get more feedback from the community.</p>
 <p>For more details, check out our <a href="/blog/2023-11-01-rum-archive-third-party-resource-dataset">blog post</a> on the topic!</p>
 <p>That's all for this month, thanks for checking us out!</p>
 
