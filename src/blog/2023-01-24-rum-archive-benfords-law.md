@@ -4,7 +4,7 @@ date: 2023-01-24
 description: As a data scientist on the mPulse team, I search for patterns in our data and identify problem areas on customer websites in order to recommend actionable improvements toward the end user experience.
 layout: layouts/blog.njk
 tags: blog
-author: amitsingh
+author: Amit Singh
 toc: true
 thumbnail: /blog/2023-01-24-rum-archive-benfords-law/predicted_actual_bar_charts.png
 ---
@@ -104,17 +104,17 @@ Here are the results:
 
 ![Predicted Actual Bar Charts](predicted_actual_bar_charts.png)
 
-| first_digit | predicted_freq     | actual_freq     |
-|:------------|:-------------------|:----------------|
-| 1           | 0.301              |  0.2662         |
-| 2           | 0.1761             | 0.1498          |
-| 3           | 0.1249             | 0.1225          |
-| 4           | 0.0969             | 0.1068          |
-| 5           | 0.0792             | 0.0946          |
-| 6           | 0.0669             | 0.0826          |
-| 7           | 0.058              | 0.070           |
-| 8           | 0.0512             | 0.0587          |
-| 9           | 0.0458             | 0.0488          |
+| first_digit | predicted_freq | actual_freq |
+|:------------|---------------:|------------:|
+| 1           |         0.3010 |      0.2662 |
+| 2           |         0.1761 |      0.1498 |
+| 3           |         0.1249 |      0.1225 |
+| 4           |         0.0969 |      0.1068 |
+| 5           |         0.0792 |      0.0946 |
+| 6           |         0.0669 |      0.0826 |
+| 7           |         0.0580 |      0.0700 |
+| 8           |         0.0512 |      0.0587 |
+| 9           |         0.0458 |      0.0488 |
 
 While there are some discrepancies, it appears by and large that **Benford’s Law does hold** for `PLTAVG` within the RUM Archive data.  There are many different types of user experiences captured in this data - slow pages, fast pages, and everything in between. It is reasonable to conclude that the leading digit for each data point is random.  And yet the results indicate that the RUM Archive data follows this very predictable pattern that appears time and time again.  With this knowledge, we can reasonably expect that many of the other fields[^8] available to us would follow this expected Benfordian pattern.
 

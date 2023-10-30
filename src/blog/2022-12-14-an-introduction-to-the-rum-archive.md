@@ -4,7 +4,7 @@ date: 2022-12-14
 description: A discussion of our motivation for the project, what kind of data the RUM Archive contains, how you can access it, its limitations, and some ideas for what it could be used for
 layout: layouts/blog.njk
 tags: blog
-author: nic
+author: Nic Jansma
 toc: true
 thumbnail: /assets/rum-archive-logo.svg
 ---
@@ -70,16 +70,16 @@ ORDER BY COUNT(*) DESC
 
 The output may be:
 
-| protocol | count     |
-|:---------|:----------|
-| h2       | 101340387 |
-| null     | 31832102  |
-| http/1.1 | 5978377   |
-| h3       | 134570    |
-| h3-29    | 145       |
-| http/1.0 | 277       |
-| http/1   | 352       |
-| unknown  | 88        |
+| protocol |       count |
+|:---------|------------:|
+| h2       | 101,340,387 |
+| null     |  31,832,102 |
+| http/1.1 |   5,978,377 |
+| h3       |     134,570 |
+| h3-29    |         145 |
+| http/1.0 |         277 |
+| http/1   |         352 |
+| unknown  |          88 |
 
 You can see in the mPulse dataset (on 2022-09-01), H2 navigations dwarf the rest.
 
