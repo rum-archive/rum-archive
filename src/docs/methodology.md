@@ -125,23 +125,23 @@ Page Loads have following bucket histogram definitions:
 ​
 <div class="table-container">
 
-| Metric                          | Column Name           | High Width (ms) | High Min (ms) | High Max (ms) | Low Width (ms) | Low Min (ms) | Low Max (ms) |
-|:--------------------------------|:----------------------|----------------:|--------------:|--------------:|---------------:|-------------:|-------------:|
-| Page Load Time                  | `pltHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
-| DNS                             | `dnsHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| TCP                             | `tcpHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| TLS                             | `tlsHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| Time to First Byte              | `ttfbHistogram`       |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| First Contentful Paint          | `fcpHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
-| Largest Contentful Paint        | `lcpHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
-| Round Trip Time                 | `rttHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| Rage Clicks [<sup>_1_</sup>](#page-loads-histogram-buckets-notes)                     | `rageClicksHistogram` |               1 |             0 |           100 |             10 |          101 |          600 |
-| Cumulative Layout Shift (*1000) | `clsHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| First Input Delay               | `fidHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| Interaction to Next Paint       | `inpHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| Total Blocking Time             | `tbtHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
-| Time to Interactive             | `ttiHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
-| Redirect                        | `redirectHistogram`   |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| Metric                                                            | Column Name           | High Width (ms) | High Min (ms) | High Max (ms) | Low Width (ms) | Low Min (ms) | Low Max (ms) |
+|:------------------------------------------------------------------|:----------------------|----------------:|--------------:|--------------:|---------------:|-------------:|-------------:|
+| Page Load Time                                                    | `pltHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
+| DNS                                                               | `dnsHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| TCP                                                               | `tcpHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| TLS                                                               | `tlsHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| Time to First Byte                                                | `ttfbHistogram`       |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| First Contentful Paint                                            | `fcpHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
+| Largest Contentful Paint                                          | `lcpHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
+| Round Trip Time                                                   | `rttHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| Rage Clicks [<sup>_1_</sup>](#page-loads-histogram-buckets-notes) | `rageClicksHistogram` |               1 |             0 |           100 |             10 |          101 |          600 |
+| Cumulative Layout Shift (*1000)                                   | `clsHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| First Input Delay                                                 | `fidHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| Interaction to Next Paint                                         | `inpHistogram`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| Total Blocking Time                                               | `tbtHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
+| Time to Interactive                                               | `ttiHistogram`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
+| Redirect                                                          | `redirectHistogram`   |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
 
 </div>
 

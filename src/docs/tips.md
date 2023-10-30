@@ -93,21 +93,21 @@ As an example, if you see `BEACONS == PLTCOUNT == 100` and `DNSCOUNT == 10` that
 
 Here are the timer counts and the percentage of beacons they were on, for one day's worth of data (2023-09-30):
 
-| Column | Count | % of Total|
-|:---------|----:|------:|
-| `BEACONS`         | 169,613,083 | 100.0% |
-| `PLTCOUNT`        | 169,613,083 | 100.0% |
-| `DNSCOUNT`        | 169,228,821 | 99.8%  |
-| `TCPCOUNT`        | 169,225,189 | 99.8%  |
-| `TLSCOUNT`        | 169,212,909 | 99.8%  |
-| `TTFBCOUNT`       | 169,226,039 | 99.8%  |
-| `FCPCOUNT`        | 105,779,526 | 62.4%  |
-| `LCPCOUNT`        |  47,348,328 | 27.9%  |
-| `RTTCOUNT`        | 113,954,652 | 67.2%  |
-| `RAGECLICKSCOUNT` |   1,607,443 | 0.9%   |
-| `CLSCOUNT`        |  31,071,715 | 18.3%  |
-| `FIDCOUNT`        |  22,833,581 | 13.5%  |
-| `INPCOUNT`        |   5,806,935 | 3.4%   |
-| `TBTCOUNT`        |  46,063,946 | 27.2%  |
-| `TTICOUNT`        |  64,364,940 | 37.9%  |
-| `REDIRECTCOUNT`   |  10,954,288 | 6.5%   |
+| Column            |       Count | % of Total |
+|:------------------|------------:|-----------:|
+| `BEACONS`         | 169,613,083 |     100.0% |
+| `PLTCOUNT`        | 169,613,083 |     100.0% |
+| `DNSCOUNT`        | 169,228,821 |      99.8% |
+| `TCPCOUNT`        | 169,225,189 |      99.8% |
+| `TLSCOUNT`        | 169,212,909 |      99.8% |
+| `TTFBCOUNT`       | 169,226,039 |      99.8% |
+| `FCPCOUNT`        | 105,779,526 |      62.4% |
+| `LCPCOUNT`        |  47,348,328 |      27.9% |
+| `RTTCOUNT`        | 113,954,652 |      67.2% |
+| `RAGECLICKSCOUNT` |   1,607,443 |       0.9% |
+| `CLSCOUNT`        |  31,071,715 |      18.3% |
+| `FIDCOUNT`        |  22,833,581 |      13.5% |
+| `INPCOUNT`        |   5,806,935 |       3.4% |
+| `TBTCOUNT`        |  46,063,946 |      27.2% |
+| `TTICOUNT`        |  64,364,940 |      37.9% |
+| `REDIRECTCOUNT`   |  10,954,288 |       6.5% |
