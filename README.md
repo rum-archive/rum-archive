@@ -4,7 +4,7 @@ The **RUM Archive** is a publicly available and [queryable](https://rumarchive.c
 and resource fetches.
 
 Taking inspiration from projects like the [Wayback Machine](https://archive.org) and the [HTTP Archive](https://httparchive.org),
-we aim to make RUM data available for researchers to analyze trends in market share and performance analytics.
+we aim to make RUM data freely available for researchers to analyze trends in market share and performance analytics.
 
 Want to query this data?  Check out the [documentation](https://rumarchive.com/docs) for details on how to access it.
 

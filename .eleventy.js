@@ -9,6 +9,7 @@ const markdownItFootnote = require('markdown-it-footnote');
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const Prism = require('prismjs');
 const { DateTime } = require('luxon');
+const embedEverything = require("eleventy-plugin-embed-everything");
 
 // load Prism languages
 const loadLanguages = require('prismjs/components/');
@@ -56,6 +57,7 @@ module.exports = function (eleventyConfig) {
     ul: true
   });
   eleventyConfig.addPlugin(syntaxHighlight);
+  eleventyConfig.addPlugin(embedEverything);
 
   // Markdown
   eleventyConfig.setLibrary(

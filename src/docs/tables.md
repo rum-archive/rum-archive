@@ -87,6 +87,6 @@ Each Timer or Metric has 4 columns:
 
 </div>
 
-## Resources
+## Third-Party Resources
 
 **Coming soon!**
