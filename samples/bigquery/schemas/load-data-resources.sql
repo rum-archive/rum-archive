@@ -1,6 +1,6 @@
-CREATE TABLE `%PROJECT%.%DATASET%.%PREFIX%_resources`
+LOAD DATA INTO `%PROJECT%.%DATASET%.%PREFIX%_resources`
 (
-    SOURCE STRING,
+        SOURCE STRING,
     SITE STRING,
     DATE DATE,
     URLGROUP STRING,
@@ -69,5 +69,11 @@ CREATE TABLE `%PROJECT%.%DATASET%.%PREFIX%_resources`
     TRANSFERSIZEAVG FLOAT64,
     TRANSFERSIZESUMLN FLOAT64,
     TRANSFERSIZECOUNT INTEGER
-) PARTITION BY DATE
+)
+FROM FILES (
+  format = 'CSV',
+  field_delimiter = '\t',
+  skip_leading_rows = 1,
+  uris = ['gs://%BUCKET%/%FILE%.tsv']
+)
 ;
