@@ -16,6 +16,7 @@ Special thanks to the following contributors for their inspiration and work in t
 * Paul Calvano
 * Cliff Crocker
 * Simon Hearne
+* Robin Marx
 * Nic Jansma
 * Philip Tellis
 * Tim Vereecke
