@@ -1,6 +1,7 @@
 ## Version 1.2 (2023-11)
 
-* Third-Party Resource data is now available, see the [blog post](/blog/2023-11-01-rum-archive-third-party-resource-dataset) for details.
+* Third-Party Resource data is now available, see the [blog post](/blog/2023-11-01-rum-archive-third-party-resource-data) for details.
+* The mPulse Page Load dataset had incorrect `*AVG` column calculations.  Those columns have been `NULL`ed out for all data prior to 2023-11-01.
 
 ## Version 1.1 (2023-01)
 

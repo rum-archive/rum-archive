@@ -1,7 +1,7 @@
 ---
 title: RUM Archive One Year Anniversary
 date: 2023-11-01 00:00:00
-description: The RUM Archive was announced one year ago!  We're announcing a new feature called RUM Insights, as well as a preview of a Third-Party Resource dataset.
+description: The RUM Archive was announced one year ago!  We're announcing a new feature called RUM Insights, as well as a preview of Third-Party Resource data.
 layout: layouts/blog.njk
 tags: blog
 author: Nic Jansma
@@ -55,20 +55,67 @@ We're now announcing a section for the site called [_RUM Insights_](/insights)!
 
 For more details, check out [Robin Marx](https://twitter.com/programmingart)'s [blog post](/blog/2023-11-01-rum-archive-insights) on the topic or head straight into the [Insights](/insights)!
 
-## Third-Party Resource Dataset Preview
+## Third-Party Resource Data Preview
 
 We've been working on new dataset to complement the [mPulse](/datasets/#akamai-mpulse-rum) Page Load dataset: [Third-Party Resources](/docs/tables/#third-party-resources).
 
-mPulse and boomerang.js capture [ResourceTiming](https://www.w3.org/TR/resource-timing/) data for all of the sub-resources (such as JavaScript, CSS, images, etc) on the page, on every mPulse Page Load beacon.  This data is compressed and beaconed to the mPulse back-end for our customers' analytics.
+mPulse and boomerang.js capture [ResourceTiming](https://www.w3.org/TR/resource-timing/) data for all of the sub-resources (such as JavaScript, CSS, images, etc) on on every mPulse Page Load beacon.  This data is compressed and beaconed to mPulse for our customers' analytics.
 
-With this data, in aggregate across all of our customers, we can easily spot third-party components (those loaded by multiple domains) such as libraries, analytics scripts, widgets, fonts, etc.
+With this data, in aggregate across all of our customers, we can easily spot third-party components (those loaded by multiple customers' domains) such as libraries, analytics scripts, widgets, fonts, etc.
 
-We're going to begin exporting the Top &gt;500 third-party resources we see each day, similar to how we share Page Load data.  Each third-party resource URL will have information on its [popularity, performance and size](/docs/tables/#third-party-resources).  These URL trends should be trackable over time as well.
+We're going to begin exporting the Top 500+ third-party resources we see each day, similar to how we share Page Load data.  Each third-party resource URL will have information on its [popularity, performance and size](/docs/tables/#third-party-resources).  These URL trends should be trackable over time as well.
 
-TODO sample query and results from Top 10 URLs
+For example, here are the Top 10 third-party URLs on 2023-10-15:
+
+```sql
+SELECT  URL,
+        SUM(FETCHES) AS FETCHES
+FROM    akamai-mpulse-rumarchive.rumarchive.rumarchive_resources
+WHERE   DATE = '2023-10-15'
+GROUP BY URL
+ORDER BY SUM(FETCHES) DESC
+LIMIT 10
+```
+
+| Rank | URL                                               |    FETCHES |
+|-----:|---------------------------------------------------|-----------:|
+|    1 | `https://www.googletagmanager.com/gtag/js`        | 14,191,855 |
+|    2 | `https://www.googletagmanager.com/gtm.js`         |  9,077,607 |
+|    3 | `https://www.facebook.com/tr/`                    |  7,848,302 |
+|    4 | `https://www.google-analytics.com/j/collect`      |  7,835,923 |
+|    5 | `https://www.google-analytics.com/collect`        |  6,579,589 |
+|    6 | `https://www.google-analytics.com/analytics.js`   |  4,645,448 |
+|    7 | `https://stats.g.doubleclick.net/j/collect`       |  3,755,276 |
+|    8 | `https://analytics.google.com/g/collect`          |  3,296,602 |
+|    9 | `https://c.go-mpulse.net/api/config.json`         |  2,673,639 |
+|   10 | `https://securepubads.g.doubleclick.net/pcs/view` |  2,544,007 |
+
+And here are the most common [initiatorTypes](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/initiatorType) for the tracked third-party resources:
+
+```sql
+SELECT  INITIATORTYPE,
+        COUNT(*) AS CNT
+FROM    akamai-mpulse-rumarchive.rumarchive.rumarchive_resources
+WHERE   DATE = '2023-10-15'
+GROUP BY INITIATORTYPE
+ORDER BY CNT DESC
+```
+
+| INITIATORTYPE    |     CNT |
+|:-----------------|--------:|
+| `img`            | 421,072 |
+| `script`         | 283,536 |
+| `xmlhttprequest` | 184,936 |
+| `beacon`         |  76,421 |
+| `fetch`          |  68,216 |
+| `iframe`         |  59,296 |
+| `other`          |  42,581 |
+| `link`           |  16,156 |
+| `css`            |  10,844 |
+| (null)           |     565 |
+
+Those are just a few of the insights that can be gleamed from our third-party resource data.  We're looking forward to see what other people find!
 
 This data is available in preview form right now, and we'd love to get more feedback from the community.
 
-For more details, check out our [blog post](/blog/2023-11-01-rum-archive-third-party-resource-dataset) on the topic!
-
-That's all for this month, thanks for checking us out!
+For more details, check out our [blog post](/blog/2023-11-01-rum-archive-third-party-resource-data) on the topic!

@@ -115,7 +115,7 @@
             <h2>Table of Contents</h2>
             <aside>
               <div class="toc" >
-        <ul><li><a href="#latest-mpulse-rum-data-loaded">Latest mPulse RUM Data Loaded</a></li><li><a href="#rum-archive-data-in-the-wild">RUM Archive Data In the Wild</a></li><li><a href="#rum-insights">RUM Insights</a></li><li><a href="#third-party-resource-dataset-preview">Third-Party Resource Dataset Preview</a></li></ul>
+        <ul><li><a href="#latest-mpulse-rum-data-loaded">Latest mPulse RUM Data Loaded</a></li><li><a href="#rum-archive-data-in-the-wild">RUM Archive Data In the Wild</a></li><li><a href="#rum-insights">RUM Insights</a></li><li><a href="#third-party-resource-data-preview">Third-Party Resource Data Preview</a></li></ul>
       </div>
             </aside>
             <hr />
@@ -143,15 +143,129 @@
 <img src="/blog/2023-11-01-rum-archive-one-year-anniversary-insights.png" style="width: 50%; height: auto"/>
 <p><a href="/insights">RUM Insights</a> captures a collection of basic visualizations for the data contained in the RUM Archive.  It's goal is to allow users to get a feel for the most important insights that can be gained from the data, without having to execute SQL queries themselves.</p>
 <p>For more details, check out <a href="https://twitter.com/programmingart">Robin Marx</a>'s <a href="/blog/2023-11-01-rum-archive-insights">blog post</a> on the topic or head straight into the <a href="/insights">Insights</a>!</p>
-<h2 id="third-party-resource-dataset-preview" tabindex="-1">Third-Party Resource Dataset Preview</h2>
+<h2 id="third-party-resource-data-preview" tabindex="-1">Third-Party Resource Data Preview</h2>
 <p>We've been working on new dataset to complement the <a href="/datasets/#akamai-mpulse-rum">mPulse</a> Page Load dataset: <a href="/docs/tables/#third-party-resources">Third-Party Resources</a>.</p>
-<p>mPulse and boomerang.js capture <a href="https://www.w3.org/TR/resource-timing/">ResourceTiming</a> data for all of the sub-resources (such as JavaScript, CSS, images, etc) on the page, on every mPulse Page Load beacon.  This data is compressed and beaconed to the mPulse back-end for our customers' analytics.</p>
-<p>With this data, in aggregate across all of our customers, we can easily spot third-party components (those loaded by multiple domains) such as libraries, analytics scripts, widgets, fonts, etc.</p>
-<p>We're going to begin exporting the Top &gt;500 third-party resources we see each day, similar to how we share Page Load data.  Each third-party resource URL will have information on its <a href="/docs/tables/#third-party-resources">popularity, performance and size</a>.  These URL trends should be trackable over time as well.</p>
-<p>TODO sample query and results from Top 10 URLs</p>
+<p>mPulse and boomerang.js capture <a href="https://www.w3.org/TR/resource-timing/">ResourceTiming</a> data for all of the sub-resources (such as JavaScript, CSS, images, etc) on on every mPulse Page Load beacon.  This data is compressed and beaconed to mPulse for our customers' analytics.</p>
+<p>With this data, in aggregate across all of our customers, we can easily spot third-party components (those loaded by multiple customers' domains) such as libraries, analytics scripts, widgets, fonts, etc.</p>
+<p>We're going to begin exporting the Top 500+ third-party resources we see each day, similar to how we share Page Load data.  Each third-party resource URL will have information on its <a href="/docs/tables/#third-party-resources">popularity, performance and size</a>.  These URL trends should be trackable over time as well.</p>
+<p>For example, here are the Top 10 third-party URLs on 2023-10-15:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  URL<span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>FETCHES<span class="token punctuation">)</span> <span class="token keyword">AS</span> FETCHES<br><span class="token keyword">FROM</span>    akamai<span class="token operator">-</span>mpulse<span class="token operator">-</span>rumarchive<span class="token punctuation">.</span>rumarchive<span class="token punctuation">.</span>rumarchive_resources<br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2023-10-15'</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> URL<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> <span class="token function">SUM</span><span class="token punctuation">(</span>FETCHES<span class="token punctuation">)</span> <span class="token keyword">DESC</span><br><span class="token keyword">LIMIT</span> <span class="token number">10</span></code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Rank</th>
+<th>URL</th>
+<th style="text-align:right">FETCHES</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td><code>https://www.googletagmanager.com/gtag/js</code></td>
+<td style="text-align:right">14,191,855</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td><code>https://www.googletagmanager.com/gtm.js</code></td>
+<td style="text-align:right">9,077,607</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td><code>https://www.facebook.com/tr/</code></td>
+<td style="text-align:right">7,848,302</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td><code>https://www.google-analytics.com/j/collect</code></td>
+<td style="text-align:right">7,835,923</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td><code>https://www.google-analytics.com/collect</code></td>
+<td style="text-align:right">6,579,589</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td><code>https://www.google-analytics.com/analytics.js</code></td>
+<td style="text-align:right">4,645,448</td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td><code>https://stats.g.doubleclick.net/j/collect</code></td>
+<td style="text-align:right">3,755,276</td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td><code>https://analytics.google.com/g/collect</code></td>
+<td style="text-align:right">3,296,602</td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td><code>https://c.go-mpulse.net/api/config.json</code></td>
+<td style="text-align:right">2,673,639</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td><code>https://securepubads.g.doubleclick.net/pcs/view</code></td>
+<td style="text-align:right">2,544,007</td>
+</tr>
+</tbody>
+</table>
+<p>And here are the most common <a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/initiatorType">initiatorTypes</a> for the tracked third-party resources:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span>  INITIATORTYPE<span class="token punctuation">,</span><br>        <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">AS</span> CNT<br><span class="token keyword">FROM</span>    akamai<span class="token operator">-</span>mpulse<span class="token operator">-</span>rumarchive<span class="token punctuation">.</span>rumarchive<span class="token punctuation">.</span>rumarchive_resources<br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2023-10-15'</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> INITIATORTYPE<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> CNT <span class="token keyword">DESC</span></code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">INITIATORTYPE</th>
+<th style="text-align:right">CNT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>img</code></td>
+<td style="text-align:right">421,072</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>script</code></td>
+<td style="text-align:right">283,536</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>xmlhttprequest</code></td>
+<td style="text-align:right">184,936</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>beacon</code></td>
+<td style="text-align:right">76,421</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fetch</code></td>
+<td style="text-align:right">68,216</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>iframe</code></td>
+<td style="text-align:right">59,296</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>other</code></td>
+<td style="text-align:right">42,581</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>link</code></td>
+<td style="text-align:right">16,156</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>css</code></td>
+<td style="text-align:right">10,844</td>
+</tr>
+<tr>
+<td style="text-align:left">(null)</td>
+<td style="text-align:right">565</td>
+</tr>
+</tbody>
+</table>
+<p>Those are just a few of the insights that can be gleamed from our third-party resource data.  We're looking forward to see what other people find!</p>
 <p>This data is available in preview form right now, and we'd love to get more feedback from the community.</p>
-<p>For more details, check out our <a href="/blog/2023-11-01-rum-archive-third-party-resource-dataset">blog post</a> on the topic!</p>
-<p>That's all for this month, thanks for checking us out!</p>
+<p>For more details, check out our <a href="/blog/2023-11-01-rum-archive-third-party-resource-data">blog post</a> on the topic!</p>
 
         </div>
       </div>
