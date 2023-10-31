@@ -114,7 +114,7 @@
             <h2>Table of Contents</h2>
             <aside>
               <div class="toc" >
-        <ul><li><a href="#overview">Overview</a></li><li><a href="#aggregation">Aggregation</a><ul><li><a href="#minimum-count-threshold">Minimum Count Threshold</a></li><li><a href="#histogram-bucketing">Histogram Bucketing</a></li><li><a href="#histogram-format">Histogram Format</a></li><li><a href="#page-loads-histogram-buckets">Page Loads Histogram Buckets</a></li><li><a href="#resources-histogram-buckets">Resources Histogram Buckets</a></li></ul></li><li><a href="#example-aggregation-queries">Example Aggregation Queries</a></li><li><a href="#exporting">Exporting</a></li><li><a href="#querying">Querying</a></li></ul>
+        <ul><li><a href="#overview">Overview</a></li><li><a href="#aggregation">Aggregation</a><ul><li><a href="#minimum-count-threshold">Minimum Count Threshold</a></li><li><a href="#histogram-bucketing">Histogram Bucketing</a></li><li><a href="#histogram-format">Histogram Format</a></li><li><a href="#page-loads-histogram-buckets">Page Loads Histogram Buckets</a></li><li><a href="#third-party-resource-histogram-buckets">Third-Party Resource Histogram Buckets</a></li></ul></li><li><a href="#example-aggregation-queries">Example Aggregation Queries</a></li><li><a href="#exporting">Exporting</a></li><li><a href="#querying">Querying</a></li></ul>
       </div>
             </aside>
           
@@ -219,7 +219,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 <tbody>
 <tr>
 <td style="text-align:left">Page Load Time</td>
-<td style="text-align:left"><code>pltHistogram</code></td>
+<td style="text-align:left"><code>PLTHISTOGRAM</code></td>
 <td style="text-align:right">100</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">10,000</td>
@@ -229,7 +229,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">DNS</td>
-<td style="text-align:left"><code>dnsHistogram</code></td>
+<td style="text-align:left"><code>DNSHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -239,7 +239,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">TCP</td>
-<td style="text-align:left"><code>tcpHistogram</code></td>
+<td style="text-align:left"><code>TCPHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -249,7 +249,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">TLS</td>
-<td style="text-align:left"><code>tlsHistogram</code></td>
+<td style="text-align:left"><code>TLSHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -259,7 +259,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">Time to First Byte</td>
-<td style="text-align:left"><code>ttfbHistogram</code></td>
+<td style="text-align:left"><code>TTFBHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -269,7 +269,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">First Contentful Paint</td>
-<td style="text-align:left"><code>fcpHistogram</code></td>
+<td style="text-align:left"><code>FCPHISTOGRAM</code></td>
 <td style="text-align:right">100</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">10,000</td>
@@ -279,7 +279,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">Largest Contentful Paint</td>
-<td style="text-align:left"><code>lcpHistogram</code></td>
+<td style="text-align:left"><code>LCPHISTOGRAM</code></td>
 <td style="text-align:right">100</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">10,000</td>
@@ -289,7 +289,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">Round Trip Time</td>
-<td style="text-align:left"><code>rttHistogram</code></td>
+<td style="text-align:left"><code>RTTHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -299,7 +299,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">Rage Clicks <a href="#page-loads-histogram-buckets-notes"><sup><em>1</em></sup></a></td>
-<td style="text-align:left"><code>rageClicksHistogram</code></td>
+<td style="text-align:left"><code>RAGECLICKSHISTOGRAM</code></td>
 <td style="text-align:right">1</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">100</td>
@@ -309,7 +309,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">Cumulative Layout Shift (*1000)</td>
-<td style="text-align:left"><code>clsHistogram</code></td>
+<td style="text-align:left"><code>CLSHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -319,7 +319,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">First Input Delay</td>
-<td style="text-align:left"><code>fidHistogram</code></td>
+<td style="text-align:left"><code>FIDHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -329,7 +329,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">Interaction to Next Paint</td>
-<td style="text-align:left"><code>inpHistogram</code></td>
+<td style="text-align:left"><code>INPHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -339,7 +339,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">Total Blocking Time</td>
-<td style="text-align:left"><code>tbtHistogram</code></td>
+<td style="text-align:left"><code>TBTHISTOGRAM</code></td>
 <td style="text-align:right">100</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">10,000</td>
@@ -349,7 +349,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">Time to Interactive</td>
-<td style="text-align:left"><code>ttiHistogram</code></td>
+<td style="text-align:left"><code>TTIHISTOGRAM</code></td>
 <td style="text-align:right">100</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">10,000</td>
@@ -359,7 +359,7 @@ on the combined Histograms, one can calculate the approximate percentile for any
 </tr>
 <tr>
 <td style="text-align:left">Redirect</td>
-<td style="text-align:left"><code>redirectHistogram</code></td>
+<td style="text-align:left"><code>REDIRECTHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -375,36 +375,26 @@ Notes:</p>
 <ol>
 <li><code>rageClicksHistogram</code> was changed on 2023-01-01, see the <a href="/blog/2023-03-16-mpulse-january-data-rage-clicks-change">blog post</a> for details.</li>
 </ol>
-<h3 id="resources-histogram-buckets" tabindex="-1">Resources Histogram Buckets</h3>
-<p>Resource Fetches have following bucket histogram definitions:</p>
+<h3 id="third-party-resource-histogram-buckets" tabindex="-1">Third-Party Resource Histogram Buckets</h3>
+<p>Third-Party Resource fetches have following bucket histogram definitions:</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
 <th style="text-align:left">Metric</th>
 <th style="text-align:left">Column Name</th>
-<th style="text-align:right">High Width (ms)</th>
-<th style="text-align:right">High Min (ms)</th>
-<th style="text-align:right">High Max (ms)</th>
-<th style="text-align:right">Low Width (ms)</th>
-<th style="text-align:right">Low Min (ms)</th>
-<th style="text-align:right">Low Max (ms)</th>
+<th style="text-align:right">High Width (ms/b)</th>
+<th style="text-align:right">High Min (ms/b)</th>
+<th style="text-align:right">High Max (ms/b)</th>
+<th style="text-align:right">Low Width (ms/b)</th>
+<th style="text-align:right">Low Min (ms/b)</th>
+<th style="text-align:right">Low Max (ms/b)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">Total</td>
-<td style="text-align:left"><code>totalHistogram</code></td>
-<td style="text-align:right">10</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">10,00</td>
-<td style="text-align:right">100</td>
-<td style="text-align:right">1,001</td>
-<td style="text-align:right">6,000</td>
-</tr>
-<tr>
-<td style="text-align:left">DNS</td>
-<td style="text-align:left"><code>dnsHistogram</code></td>
+<td style="text-align:left">Total Time</td>
+<td style="text-align:left"><code>TOTALHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -413,8 +403,8 @@ Notes:</p>
 <td style="text-align:right">6,000</td>
 </tr>
 <tr>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left"><code>tcpHistogram</code></td>
+<td style="text-align:left">DNS Time</td>
+<td style="text-align:left"><code>DNSHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -423,8 +413,38 @@ Notes:</p>
 <td style="text-align:right">6,000</td>
 </tr>
 <tr>
-<td style="text-align:left">TLS</td>
-<td style="text-align:left"><code>tlsHistogram</code></td>
+<td style="text-align:left">TCP Time</td>
+<td style="text-align:left"><code>TCPHISTOGRAM</code></td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">1,001</td>
+<td style="text-align:right">6,000</td>
+</tr>
+<tr>
+<td style="text-align:left">TLS Time</td>
+<td style="text-align:left"><code>TLSHISTOGRAM</code></td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">1,001</td>
+<td style="text-align:right">6,000</td>
+</tr>
+<tr>
+<td style="text-align:left">Request Time</td>
+<td style="text-align:left"><code>REQUESTHISTOGRAM</code></td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">1,001</td>
+<td style="text-align:right">6,000</td>
+</tr>
+<tr>
+<td style="text-align:left">Response Time</td>
+<td style="text-align:left"><code>RESPONSEHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -434,7 +454,7 @@ Notes:</p>
 </tr>
 <tr>
 <td style="text-align:left">Time to First Byte</td>
-<td style="text-align:left"><code>ttfbHistogram</code></td>
+<td style="text-align:left"><code>TTFBHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
@@ -443,28 +463,73 @@ Notes:</p>
 <td style="text-align:right">6,000</td>
 </tr>
 <tr>
-<td style="text-align:left">Download</td>
-<td style="text-align:left"><code>downloadHistogram</code></td>
+<td style="text-align:left">Download Time</td>
+<td style="text-align:left"><code>DOWNLOADHISTOGRAM</code></td>
 <td style="text-align:right">10</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">1,000</td>
 <td style="text-align:right">100</td>
 <td style="text-align:right">1,001</td>
 <td style="text-align:right">6,000</td>
+</tr>
+<tr>
+<td style="text-align:left">Redirect Time</td>
+<td style="text-align:left"><code>REDIRECTHISTOGRAM</code></td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">1,001</td>
+<td style="text-align:right">6,000</td>
+</tr>
+<tr>
+<td style="text-align:left">Cached<a href="#resources-histogram-buckets-notes"><sup><em>1</em></sup></a></td>
+<td style="text-align:left"><code>CACHEDHISTOGRAM</code></td>
+<td style="text-align:right">-</td>
+<td style="text-align:right">-</td>
+<td style="text-align:right">-</td>
+<td style="text-align:right">-</td>
+<td style="text-align:right">-</td>
+<td style="text-align:right">-</td>
+</tr>
+<tr>
+<td style="text-align:left">Encoded Body Size</td>
+<td style="text-align:left"><code>ENCODEDSIZEHISTOGRAM</code></td>
+<td style="text-align:right">1000</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">100,000</td>
+<td style="text-align:right">10,000</td>
+<td style="text-align:right">100,001</td>
+<td style="text-align:right">600,000</td>
+</tr>
+<tr>
+<td style="text-align:left">Decoded Body Size</td>
+<td style="text-align:left"><code>DECODEDSIZEHISTOGRAM</code></td>
+<td style="text-align:right">1000</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">100,000</td>
+<td style="text-align:right">10,000</td>
+<td style="text-align:right">100,001</td>
+<td style="text-align:right">600,000</td>
 </tr>
 <tr>
 <td style="text-align:left">Transfer Size</td>
-<td style="text-align:left"><code>transferSizeHistogram</code></td>
-<td style="text-align:right">100</td>
+<td style="text-align:left"><code>TRANSFERSIZEHISTOGRAM</code></td>
+<td style="text-align:right">1000</td>
 <td style="text-align:right">0</td>
+<td style="text-align:right">100,000</td>
 <td style="text-align:right">10,000</td>
-<td style="text-align:right">1,000</td>
-<td style="text-align:right">10,001</td>
-<td style="text-align:right">60,000</td>
+<td style="text-align:right">100,001</td>
+<td style="text-align:right">600,000</td>
 </tr>
 </tbody>
 </table>
 </div>
+<p><a name="resources-histogram-buckets-notes"></a>
+Notes:</p>
+<ol>
+<li><code>cached</code> is boolean (either <code>0</code> or <code>1</code>)</li>
+</ol>
 <h2 id="example-aggregation-queries" tabindex="-1">Example Aggregation Queries</h2>
 <p>Generating data in this format can be done with standard SQL queries.</p>
 <p>The exact SQL will depend on the schema of the source table, but the mPulse Dataset provides an example SQL query in the <a href="https://github.com/rum-archive/rum-archive/tree/main/samples/bigquery/aggregation">rum-archive Github repository</a>.</p>

@@ -28,11 +28,11 @@ Our aim is to have RUM data available for researchers to analyze trends in marke
 To start with, the RUM Archive primarily contains two types of data:
 
 * **Page Loads**: Browser page load experiences
-* **Resources**: Third party resource fetches
+* **Resources**: Third-party resource fetches
 
 [Page Loads](/docs/tables/#page-loads) represent browser navigation experiences, whether from a traditional Multi-Page App (MPA) or Single-Page App (SPA). SPA navigations can be broken down into both Hard Navigations (the first navigation to the page) and Soft Navigations (in-page route changes).
 
-[Resources](/docs/tables/#resources) (coming soon) will track individual asset (URL) fetches of third-party resources, that happened during a Page Load.  We will only be tracking URLs that are seeing on multiple sites, to ensure first-party assets are not tracked.
+[Resources](/docs/tables/#third-party-resources) (coming soon) will track individual asset (URL) fetches of third-party resources, that happened during a Page Load.  We will only be tracking URLs that are seeing on multiple sites, to ensure first-party assets are not tracked.
 
 All data in the RUM Archive is is sampled and aggregated, which protects the privacy of individuals.
 
