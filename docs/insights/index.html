@@ -153,7 +153,7 @@ Note that we intentionally do not include interpretations of the data here, as t
     </p> 
     
   <div class="container">
-    <div id="marketshare_devicetypes">
+    <div id="marketshare_devicetypes" class="box">
     </div>
   </div>
 
@@ -163,7 +163,7 @@ Note that we intentionally do not include interpretations of the data here, as t
     The following graphs show the usage of different Operating Systems for Desktop and Mobile devices (OSes with &lt; 1% usage share have been filtered out).
   </p> 
   <div class="container">
-    <div class="columns">
+    <div class="columns box">
       <div class="column" id="marketshare_os_desktop">
       </div>
       <div class="column" id="marketshare_os_mobile">
@@ -178,14 +178,14 @@ Note that we intentionally do not include interpretations of the data here, as t
       The data shown is from September 1st 2023.
     </p> 
 
-    <div class="columns">
+    <div class="columns box">
       <div class="column" id="marketshare_browser_desktop">
       </div>
       <div class="column" id="marketshare_browser_mobile">
       </div>
     </div>
     <!--
-    <div class="columns">
+    <div class="columns box">
       <div class="column" id="marketshare_browsergrouped_desktop">
       </div>
       <div class="column" id="marketshare_browsergrouped_mobile">
@@ -214,7 +214,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       On a final important note, the RUMArchive dataset does include (a small amount of) CWV measurements for browsers that don't actually support it (like Safari). 
       This is most likely due to bots, attackers or debugging setups that spoof the user agent info that RUM Archive tracks. As such, a small amount of noise is to be taken into account when interpreting these results. 
     </p> 
-    <div class="columns">
+    <div class="columns box">
       <div class="column" id="marketshare_cwvbrowser_desktop">
       </div>
       <div class="column" id="marketshare_cwvbrowser_mobile">
@@ -245,7 +245,7 @@ Note that we intentionally do not include interpretations of the data here, as t
         <li>Back-forward is when the user uses the back and forward buttons to navigate in their history.</li> 
       </ul>
       
-      <div class="columns">
+      <div class="columns box">
         <div class="column" id="navigationtype_desktop">
         </div>
         <div class="column" id="navigationtype_mobile">
@@ -264,7 +264,7 @@ Note that we intentionally do not include interpretations of the data here, as t
         <li>Partial is when the page load starts hidden, but the user switches to the still rendering page before it's done (for example, they rapidly switch to a background tab).</li> 
       </ul>
       
-    <div class="columns">
+    <div class="columns box">
       <div class="column" id="visibilitystate_desktop">
       </div>
       <div class="column" id="visibilitystate_mobile">
@@ -283,7 +283,7 @@ Note that we intentionally do not include interpretations of the data here, as t
         A session is typically (though not always) defined as a series of navigations separate by no more than 30 minutes (after 30 minutes, the session automatically ends and the next navigation starts a new session).
       </p>
       
-    <div class="columns">
+    <div class="columns box">
       <div class="column" id="landingpage_desktop">
       </div>
       <div class="column" id="landingpage_mobile">
@@ -298,7 +298,7 @@ Note that we intentionally do not include interpretations of the data here, as t
           SPA navigations can be broken down into both Hard Navigations (the first navigation to the page) and Soft Navigations (in-page route changes). 
         </p> 
         
-      <div class="columns">
+      <div class="columns box">
         <div class="column" id="spa_desktop">
         </div>
         <div class="column" id="spa_mobile">

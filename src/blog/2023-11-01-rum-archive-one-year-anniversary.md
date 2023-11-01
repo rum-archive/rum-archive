@@ -49,7 +49,7 @@ Until now, the [rumarchive.com](https://rumarchive.com) domain has been mostly a
 
 We're now announcing a section for the site called [_RUM Insights_](/insights)!
 
-<img src="/blog/2023-11-01-rum-archive-one-year-anniversary-insights.png" style="width: 50%; height: auto"/>
+<img src="/blog/2023-11-01-rum-archive-one-year-anniversary-insights.png" style="width: 50%; height: auto" class="box mx-auto" />
 
 [RUM Insights](/insights) captures a collection of basic visualizations for the data contained in the RUM Archive.  It's goal is to allow users to get a feel for the most important insights that can be gained from the data, without having to execute SQL queries themselves.
 
