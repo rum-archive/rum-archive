@@ -4,14 +4,16 @@ date: 2023-03-16
 description: mPulse daily RUM data for January and February 2023 has been loaded, along with a breaking change to the Rage Clicks column.
 layout: layouts/blog.njk
 tags: blog
-author: nic
+author: Nic Jansma
 toc: true
 thumbnail: /blog/2023-03-16-mpulse-january-data-rage-clicks-change.png
 ---
 
 ## Latest mPulse RUM Data Loaded
 
-We've completed an export of mPulse daily RUM data into the BigQuery [`akamai-mpulse-rumarchive`](/datasets/#akamai-mpulse-rum) project up through 2023-02-28.  This brings the RUM Archive's [mPulse dataset](/datasets/#akamai-mpulse-rum) to a running total of 180 straight days of data available since 2022-09-01.  (There is also first-of-month data going back to 2021-10-01).
+We've completed an export of mPulse daily RUM data into the BigQuery [`akamai-mpulse-rumarchive`](/datasets/#akamai-mpulse-rum) project up through 2023-02-28.
+
+This brings the RUM Archive's [mPulse dataset](/datasets/#akamai-mpulse-rum) to a running total of 180 straight days of data available since 2022-09-01.  (There is also first-of-month data going back to 2021-10-01).
 
 We have plans to automate this process so that the mPulse RUM data is added on a weekly or daily cadence, but it is currently a manual process that we do at the end of each month.  We are currently able to release each new month's data within a few days of the end of the month.
 

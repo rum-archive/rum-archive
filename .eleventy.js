@@ -9,6 +9,7 @@ const markdownItFootnote = require('markdown-it-footnote');
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const Prism = require('prismjs');
 const { DateTime } = require('luxon');
+const embedEverything = require("eleventy-plugin-embed-everything");
 
 // load Prism languages
 const loadLanguages = require('prismjs/components/');
@@ -23,7 +24,24 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/blog/**/*.png");
+  eleventyConfig.addPassthroughCopy("src/blog/**/*.svg");
   eleventyConfig.addPassthroughCopy({ "src/_favicon": "/" })
+
+  // recommended per https://www.highcharts.com/docs/accessibility/accessibility-module
+  // TODO: currently, I can't have both these files map to js/highcharts, while ALSO having already an existing src/js/highcharts/ dir with other scripts in it
+  //  --> figure out why and clean up (dirty fix for now is to have src/js/charts/ instead of src/js/highcharts/)
+  eleventyConfig.addPassthroughCopy({"node_modules/highcharts/highstock.js": "js/highcharts/highstock.js"});
+  eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/exporting.js": "js/highcharts/exporting.js"});
+  eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/export-data.js": "js/highcharts/export-data.js"});
+  eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/accessibility.js": "js/highcharts/accessibility.js"});
+
+  // only during local development when running 11ty dev server
+  if ( process.env.npm_lifecycle_script.includes("--serve") ) {
+    eleventyConfig.addPassthroughCopy({"node_modules/highcharts/highstock.js.map": "js/highcharts/highstock.js.map"});
+    eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/exporting.js.map": "js/highcharts/exporting.js.map"});
+    eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/export-data.js.map": "js/highcharts/export-data.js.map"});
+    eleventyConfig.addPassthroughCopy({"node_modules/highcharts/modules/accessibility.js.map": "js/highcharts/accessibility.js.map"});
+  }
 
   // watch targets
   eleventyConfig.addWatchTarget("src/_javascript/");
@@ -39,6 +57,7 @@ module.exports = function (eleventyConfig) {
     ul: true
   });
   eleventyConfig.addPlugin(syntaxHighlight);
+  eleventyConfig.addPlugin(embedEverything);
 
   // Markdown
   eleventyConfig.setLibrary(

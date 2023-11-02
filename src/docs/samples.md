@@ -21,7 +21,7 @@ To understand the unique values available for each dimension, you can run a `DIS
 ```sql
 SELECT  DISTINCT DEVICEMODEL
 FROM    `akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads`
-WHERE   date = '2022-09-01'
+WHERE   DATE = '2022-09-01'
 ORDER BY DEVICEMODEL ASC
 ```
 
@@ -39,7 +39,7 @@ For example, this shows the counts of each Device Type in the mPulse dataset for
 SELECT  DEVICETYPE,
         SUM(BEACONS) AS BEACONCOUNT
 FROM    `akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads`
-WHERE   date = '2022-09-01'
+WHERE   DATE = '2022-09-01'
 GROUP BY DEVICETYPE
 ORDER BY BEACONCOUNT DESC
 ```
@@ -57,10 +57,10 @@ SELECT  DEVICETYPE,
           SUM(BEACONS) /
             (SELECT SUM(BEACONS)
              FROM `akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads`
-             WHERE date = '2022-09-01')
+             WHERE DATE = '2022-09-01')
         ) AS BEACONPCT
 FROM    `akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads`
-WHERE   date = '2022-09-01'
+WHERE   DATE = '2022-09-01'
 GROUP BY DEVICETYPE
 ORDER BY BEACONCOUNT DESC
 ```

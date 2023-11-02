@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css" />
+  <script src="/js/main.js"></script>
+  <title>RUM Archive - RUM Insights</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#006a80">
+  <meta name="msapplication-TileColor" content="#006a80">
+  <meta name="theme-color" content="#006a80">
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RUM Archive - RUM Insights">
+  <meta property="og:image" content="https://rumarchive.com/assets/rum-archive-banner-facebook-1200x630.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="rumarchive.com">
+  <meta name="twitter:title" content="RUM Archive - RUM Insights">
+  <meta name="twitter:image" content="https://rumarchive.com/assets/rum-archive-banner-twitter-1600x900.png">
+  <script>(function(){if(window.BOOMR&&(window.BOOMR.version||window.BOOMR.snippetExecuted)){return}window.BOOMR=window.BOOMR||{};window.BOOMR.snippetStart=(new Date).getTime();window.BOOMR.snippetExecuted=true;window.BOOMR.snippetVersion=15;window.BOOMR.url="//c.go-mpulse.net/boomerang/S4RHZ-UABWM-G9DGN-GKRY7-DUGEG";var e=document.currentScript||document.getElementsByTagName("script")[0],a=e.parentNode,s=false,t=3e3;function n(){if(s){return}var e=document.createElement("script");e.id="boomr-scr-as";e.src=window.BOOMR.url;e.async=true;a.appendChild(e);s=true}function i(e){s=true;var t,i=document,n,o,d,r=window;window.BOOMR.snippetMethod=e?"if":"i";n=function(e,t){var n=i.createElement("script");n.id=t||"boomr-if-as";n.src=window.BOOMR.url;BOOMR_lstart=(new Date).getTime();e=e||i.body;e.appendChild(n)};if(!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [678]\./)){window.BOOMR.snippetMethod="s";n(a,"boomr-async");return}o=document.createElement("IFRAME");o.src="about:blank";o.title="";o.role="presentation";o.loading="eager";d=(o.frameElement||o).style;d.width=0;d.height=0;d.border=0;d.display="none";a.appendChild(o);try{r=o.contentWindow;i=r.document.open()}catch(e){t=document.domain;o.src="javascript:var d=document.open();d.domain='"+t+"';void 0;";r=o.contentWindow;i=r.document.open()}r._boomrl=function(){n()};if(r.addEventListener){r.addEventListener("load",r._boomrl,false)}else if(r.attachEvent){r.attachEvent("onload",r._boomrl)}i.close()}var o=document.createElement("link");if(o.relList&&typeof o.relList.supports==="function"&&o.relList.supports("preload")&&"as"in o){window.BOOMR.snippetMethod="p";o.href=window.BOOMR.url;o.rel="preload";o.as="script";o.addEventListener("load",n);o.addEventListener("error",function(){i(true)});setTimeout(function(){if(!s){i(true)}},t);BOOMR_lstart=(new Date).getTime();a.appendChild(o)}else{i(false)}function d(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(window.addEventListener){window.addEventListener("load",d,false)}else if(window.attachEvent){window.attachEvent("onload",d)}})();</script>
+</head>
+<body>
+  <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/assets/rum-archive-logo-square.svg" width="28" height="28" />
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-main">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbar-main" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item has-text-weight-bold">
+        <a href="/">RUM Archive</a>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/docs/">
+          Documentation
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/docs/methodology">
+            Methodology
+          </a>
+          <a class="navbar-item" href="/docs/querying">
+            Querying
+          </a>
+          <a class="navbar-item" href="/docs/tables">
+            Tables
+          </a>
+          <a class="navbar-item" href="/docs/samples">
+            Samples
+          </a>
+          <a class="navbar-item" href="/docs/tips">
+            Tips
+          </a>
+          <a class="navbar-item" href="/docs/release-notes">
+            Release  Notes
+          </a>
+        </div>
+      </div>
+
+      <a href="/datasets" class="navbar-item">
+        Datasets
+      </a>
+
+      <a href="/blog" class="navbar-item">
+        Blog
+      </a>
+
+      <a href="/insights" class="navbar-item">
+        Insights
+      </a>
+
+      <a href="/contribute" class="navbar-item">
+        Contribute!
+      </a>
+
+      <a href="https://github.com/rum-archive/rum-archive" class="navbar-item">
+        Github
+      </a>
+
+      <a href="/about" class="navbar-item">
+        About
+      </a>
+    </div>
+  </div>
+</nav>
+</header>
+  <main>
+    
+<article class="page-layout">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-10 is-offset-1">
+        <div class="content m-5">
+          <h1>RUM Insights</h1>
+          
+            <h2>Table of Contents</h2>
+            <aside>
+              <div class="toc" >
+        <ul><li><a href="#marketshares">Market Shares</a><ul><li><a href="#device-marketshare">Device Type</a></li><li><a href="#os-marketshare">Operating System</a></li><li><a href="#ua-marketshare">Browser</a></li></ul></li><li><a href="#navigation-aspects">Navigational Aspects</a><ul><li><a href="#navigationtype-aspect">Navigation Types</a></li><li><a href="#visibilitystate-aspect">Visibility State</a></li><li><a href="#landingpage-aspect">Landing Page</a></li><li><a href="#spa-aspect">Multi vs Single Page Apps</a></li></ul></li><li><a href="#about">About RUM Insights</a></li></ul>
+      </div>
+            </aside>
+          
+          
+<h2>Introduction</h2>
+
+<p>
+This page captures a collection of basic visualizations for the data contained in the RUM Archive. 
+It's goal is to allow users to get a feel for the most important insights that can be gained from the data, without having to execute SQL queries themselves.
+</p>
+
+<p>
+Note that we intentionally do not include interpretations of the data here, as this can often be quite nuanced. For that, look at our <a href="/blog">regular blog posts</a> that discuss RUM Insights in depth. 
+</p>
+
+
+<!-- TODO: merge these into a single file --> 
+<script src="/js/highcharts/highstock.js" defer></script>
+<script src="/js/highcharts/exporting.js" defer></script>
+<script src="/js/highcharts/export-data.js" defer></script>
+<script src="/js/highcharts/accessibility.js" defer></script>
+
+<section class="doclist mt-3 pt-3">
+
+  <h2 id="marketshares">Market Shares</h2>
+
+    <p>
+      It is important to know which devices, operating systems and browsers your visitors are using to access your sites, as hardware power and feature support can differ widely. 
+      This helps you better optimize your sites for your target audience.
+    </p>
+
+  <h3 id="device-marketshare">Device Type</h3>
+
+    <p>
+      The following graphs show the usage of different Device Types (RUM Archive currently only tracks 3 device types).
+    </p> 
+    
+  <div class="container">
+    <div id="marketshare_devicetypes" class="box">
+    </div>
+  </div>
+
+  <h3 id="os-marketshare">Operating System</h3>
+
+  <p>
+    The following graphs show the usage of different Operating Systems for Desktop and Mobile devices (OSes with &lt; 1% usage share have been filtered out).
+  </p> 
+  <div class="container">
+    <div class="columns box">
+      <div class="column" id="marketshare_os_desktop">
+      </div>
+      <div class="column" id="marketshare_os_mobile">
+      </div>
+    </div>
+  </div>
+
+  <h3 id="ua-marketshare">Browser</h3>
+
+    <p>
+      The following charts show the usage of different Browsers / User Agents for Desktop and Mobile devices (entries with &lt; 1% usage share have been filtered out). 
+      The data shown is from September 1st 2023.
+    </p> 
+
+    <div class="columns box">
+      <div class="column" id="marketshare_browser_desktop">
+      </div>
+      <div class="column" id="marketshare_browser_mobile">
+      </div>
+    </div>
+    <!--
+    <div class="columns box">
+      <div class="column" id="marketshare_browsergrouped_desktop">
+      </div>
+      <div class="column" id="marketshare_browsergrouped_mobile">
+      </div>
+    </div>
+
+    
+    <p class="pt-5">
+      For Web Performance, the so-called "Core Web Vitals" (CWVs) are key metrics. 
+      One of these CWVs is the "Largest Contentful Paint", which measures when the main element on a page (a large image or piece of text) is shown on the screen.
+    </p> 
+    <p>
+      However, not all browsers support measuring the CWVs; only Chromium-based browsers currently have full implementations. 
+      Interestingly, <a href="https://developer.chrome.com/docs/crux/methodology/#user-eligibility">this excludes browsers like Chrome Mobile on iOS</a>, 
+      as internally that is actually based on Apple's browser stack called WebKit (as Apple notoriously does not allow other browser stacks on iOS).
+    </p> 
+    <p>
+      Additionally, Google uses their own measurements of the CWV to drive search result ranking in a project called the <a href"https://developer.chrome.com/docs/crux/">Chrome UX report (CrUX)</a>. 
+      The CrUX dataset is even more restrictive: it only uses CWV measurements from Google-owned browsers on supported platforms (mainly Chrome on Desktop and Android) and only from users who opt-in.
+      As such, CrUX potentially gives an incomplete or even unrealistic view of the CWV metrics in the wild.
+    </p> 
+    <p>
+      In the following diagrams, we aim to illustrate the market share of CWV-capable browsers, as well as the market share of browsers contributing to the CrUX dataset. 
+    </p> 
+    <p class="pb-5">
+      On a final important note, the RUMArchive dataset does include (a small amount of) CWV measurements for browsers that don't actually support it (like Safari). 
+      This is most likely due to bots, attackers or debugging setups that spoof the user agent info that RUM Archive tracks. As such, a small amount of noise is to be taken into account when interpreting these results. 
+    </p> 
+    <div class="columns box">
+      <div class="column" id="marketshare_cwvbrowser_desktop">
+      </div>
+      <div class="column" id="marketshare_cwvbrowser_mobile">
+      </div>
+    </div>
+    -->
+
+  <h2 id="navigation-aspects">Navigational Aspects</h2>
+
+    <p>
+      While for performance measurements and optimization we often focus on a full page load in its own tab (often as first page in a session) not all navigations are of course like that. 
+      In this section, we explore other types of navigations and how often they occur within the RUM Archive dataset.
+    </p>
+
+    <p>
+      The data shown is from September 1st 2023.
+    </p>
+
+    <h3 id="navigationtype-aspect">Navigation Types</h3>
+    
+      <p>
+        The following graphs show the usage of different <a href="https://techdocs.akamai.com/mpulse-boomerang/docs/whats-in-an-mpulse-beacon#top-level-fields">Navigation Types</a>. 
+      </p> 
+
+      <ul>
+        <li>Navigation is a typical navigation by for example clicking on a link.</li>
+        <li>Reload is when the user manually reloads the page.</li> 
+        <li>Back-forward is when the user uses the back and forward buttons to navigate in their history.</li> 
+      </ul>
+      
+      <div class="columns box">
+        <div class="column" id="navigationtype_desktop">
+        </div>
+        <div class="column" id="navigationtype_mobile">
+        </div>
+      </div>
+
+    <h3 id="visibilitystate-aspect">Visibility State</h3>
+
+      <p>
+        The following graphs show the usage of different <a href="https://techdocs.akamai.com/mpulse-boomerang/docs/whats-in-an-mpulse-beacon#visibility-state">Visibility States</a>. 
+      </p> 
+
+      <ul>
+        <li>Visible typically means the user watched the page load happen.</li>
+        <li>Hidden is for example when the user clicks to open the page in a new (yet hidden) tab.</li> 
+        <li>Partial is when the page load starts hidden, but the user switches to the still rendering page before it's done (for example, they rapidly switch to a background tab).</li> 
+      </ul>
+      
+    <div class="columns box">
+      <div class="column" id="visibilitystate_desktop">
+      </div>
+      <div class="column" id="visibilitystate_mobile">
+      </div>
+    </div>
+
+    <h3 id="landingpage-aspect">Landing Page</h3>
+
+      <p>
+        The following graphs show how many navigations were to a site's <a href="https://techdocs.akamai.com/mpulse-boomerang/docs/whats-in-an-mpulse-beacon#debugging-info-and-timestamps">Landing Page</a>. 
+      </p> 
+      <p>
+        A landing page is the first page a user visits during a new "session" on a given website. This does not always have to be the "homepage", as it can be any page of a site, as long as it is the first a user visits.
+      </p>
+      <p> 
+        A session is typically (though not always) defined as a series of navigations separate by no more than 30 minutes (after 30 minutes, the session automatically ends and the next navigation starts a new session).
+      </p>
+      
+    <div class="columns box">
+      <div class="column" id="landingpage_desktop">
+      </div>
+      <div class="column" id="landingpage_mobile">
+      </div>
+    </div>
+
+
+    <h3 id="spa-aspect">Multi vs Single Page Apps</h3>
+
+        <p>
+          The following graphs show the amount of (typical) "multi-page app" (MPA) loads versus "single-page app" (SPA) loads. 
+          SPA navigations can be broken down into both Hard Navigations (the first navigation to the page) and Soft Navigations (in-page route changes). 
+        </p> 
+        
+      <div class="columns box">
+        <div class="column" id="spa_desktop">
+        </div>
+        <div class="column" id="spa_mobile">
+        </div>
+      </div>
+
+
+  <h2 id="about">About RUM Insights</h2>
+    <p>
+      RUM Insights is intended to grow into a wide collection of default visualizations of the underlying RUM Archive data, updated once a month. 
+      The current version is limited to just a few graphs for some key data. 
+      If you have ideas about additional graphs or new features, let us know on <a href="https://github.com/rum-archive/rum-archive">GitHub</a>.
+    </p>
+    <p>
+      The BigQuery queries used to generate data for these graphs and their outputs can be found in the separate <a href="https://github.com/rum-archive/rum-insights-data/tree/insights_v1/queries">rum-insights-data GitHub repository</a>.
+    </p>
+
+
+</section>
+
+<script type="module">
+
+    // import HighCharts from "/js/charts/timeseries.js";
+
+    import * as TimeSeries from "/js/charts/timeseries.js"; 
+    import * as Donuts from "/js/charts/donuts.js";
+    import * as Area from "/js/charts/area.js";
+
+    // 3 colors with good contrast, since we often have piecharts with exactly 2 or 3 entries
+    const piecolors = [ TimeSeries.Colors.RUMARCHIVE_MAIN[0], TimeSeries.Colors.RUMARCHIVE_MAIN[1], TimeSeries.Colors.RUMARCHIVE_SECONDARY[5] ];
+
+    const FORCE_EXTERNAL_DATA = false;
+    let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/insights_v1/data-output/";
+
+    if ( window.location.href.includes("localhost") && !FORCE_EXTERNAL_DATA ) {
+      // allow for easy local testing
+      // launch a basic python http server in the rum-insights-data dir with `python3 -m http.server 9000`
+      DATA_BASE_URL = "http://localhost:9000/data-output/";
+    }
+
+      
+    
+
+    function getDeviceTypeTimeseries(rumarchiveData, metricFieldName) {
+      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.percent) > 1) );
+
+      let output = [];
+
+      // need to give the graphing setup a list of timeseries, each with their own data and color
+      // we want to generate these automatically from the data
+      // 1. extract individual metricFieldValues (e.g., extract all individual device types)
+      let metricValues = new Set();
+      for ( let row of rumarchiveData )
+        metricValues.add( row[metricFieldName] );
+
+      for ( let metricValue of metricValues ) {
+        let timeSerie = {
+          name: metricValue,
+          data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
+          fields: ["percent"],
+          color: (metricValue === "Desktop") ? TimeSeries.Colors.DESKTOP : ( (metricValue === "Mobile") ? TimeSeries.Colors.MOBILE : TimeSeries.Colors.TABLET )
+        };
+
+        output.push( timeSerie );
+      }
+
+      return output;
+    }
+
+    TimeSeries.fromDataWithDefaults( "devicetype", "marketshare_devicetypes", "device", "Device Type", getDeviceTypeTimeseries );
+    // renderDeviceTypeTimeseries();
+
+
+    async function renderOSTimeseries(clientType, chartId, chartName) {
+        try {
+          const metricFieldName = "os";
+
+          let response = await fetch(DATA_BASE_URL + "os_devicetype.json");
+          let rumarchiveData = await response.json();
+        
+          rumarchiveData = rumarchiveData.filter( datapoint => (datapoint.client === clientType) && (parseFloat(datapoint.percent) > 0.5) );
+
+          const options = {};
+          options.chartId = chartId;
+          options.histogram = { enabled: false };
+          options.metric = metricFieldName;
+
+          // need to give the graphing setup a list of timeseries, each with their own data and color
+          // we want to generate these automatically from the data
+          // 1. extract individual metricFieldValues (e.g., extract all individual device types)
+          let metricValues = new Set();
+          for ( let row of rumarchiveData )
+            metricValues.add( row[metricFieldName] );
+
+          let osColors = TimeSeries.Colors.LIST;
+
+          options.timeseries = [];
+          for ( const [idx, metricValue] of [...metricValues].entries() ) {
+            let timeSerie = {
+              name: metricValue,
+              data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
+              fields: ["percent"],
+              color: osColors[idx]
+            };
+
+            options.timeseries.push( timeSerie );
+          }
+
+          options.type = "%";
+
+          options.id = "os";
+          options.name = chartName;
+
+          options.yMax = 100;
+
+          TimeSeries.fromData(rumarchiveData, metricFieldName, options, rumarchiveData[0].date, rumarchiveData[rumarchiveData.length - 1].date );
+        }
+        catch(e) {
+          console.error(e);
+          return;
+        }
+    }
+    
+    renderOSTimeseries("desktop", "marketshare_os_desktop", "Desktop Operating System");
+    renderOSTimeseries("mobile", "marketshare_os_mobile", "Mobile Operating System");
+
+
+    async function renderBrowserPiechart(clientType, chartId, chartName) {
+      const options = {};
+
+      const metricFieldName = "useragent";
+
+      let response = await fetch(DATA_BASE_URL + "LCPCount_useragentfamily_" + clientType + ".json");
+      let rumarchiveData = await response.json();
+
+      // this data is a bit different:
+      // - always contains only data for a single devicetype (no need to filter on device)
+      // - split into two datasets: one with each individual browser, one with them grouped
+      /*{
+        "individual": [
+          {"device":"desktop","date":"2023_09_01","cwvpercent":"0.1","useragentpercent":"0.0","useragent":"Chromium"}
+        ],
+        "grouped", [
+          {"device":"desktop","date":"2023_09_01","useragentgroup":"Others","cwvpercent":"0.4","useragentpercent":"1.2"}
+        ]
+      }*/
+
+      // normally, we need the individual measurements and use the "useragentpercent" as the value
+      rumarchiveData = rumarchiveData.individual;
+
+      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.useragentpercent) > 0.5) );
+
+      let datapoints = rumarchiveData;
+      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
+      datapoints = datapoints.sort((a, b) => { return parseFloat(b["useragentpercent"]) - parseFloat(a["useragentpercent"]) } ); // desc sort
+      datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.LIST[idx]; return val; } );
+
+      options.chartId = chartId;
+      options.name = chartName;
+
+      options.datapoints = datapoints;
+      options.datapointFieldname = "useragentpercent";
+
+      Donuts.fromData( metricFieldName, options );
+
+    }
+
+    renderBrowserPiechart("desktop", "marketshare_browser_desktop", "Desktop browsers");
+    renderBrowserPiechart("mobile", "marketshare_browser_mobile", "Mobile browsers");
+
+
+    async function renderBrowserGroupedPiechart(clientType, chartId, chartName) {
+      const options = {};
+
+      const metricFieldName = "useragentgroup";
+
+      let response = await fetch(DATA_BASE_URL + "LCPCount_useragentfamily_" + clientType + ".json");
+      let rumarchiveData = await response.json();
+
+      // normally, we need the individual measurements and use the "useragentpercent" as the value
+      rumarchiveData = rumarchiveData.grouped;
+
+      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.useragentpercent) > 0.5) );
+
+      let datapoints = rumarchiveData;
+      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
+      datapoints = datapoints.sort((a, b) => { return parseFloat(b["useragentpercent"]) - parseFloat(a["useragentpercent"]) } ); // desc sort
+      datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.LIST[idx]; return val; } );
+
+      console.log("DONUTS", datapoints);
+
+      // manual override to keep colors semantically consistent
+      if ( clientType === "mobile" ) {
+        datapoints.filter( (p) => p.useragentgroup == "Webkit (Safari, no CWV)" )[0].color = TimeSeries.Colors.RUMARCHIVE_ORANGE_1;
+        datapoints.filter( (p) => p.useragentgroup == "Webkit (Others, no CWV)" )[0].color = TimeSeries.Colors.RUMARCHIVE_ORANGE_2;
+      }
+      else {
+        datapoints.filter( (p) => p.useragentgroup == "Safari" )[0].color   = TimeSeries.Colors.RUMARCHIVE_ORANGE_1;
+        datapoints.filter( (p) => p.useragentgroup == "Firefox" )[0].color  = TimeSeries.Colors.RUMARCHIVE_SCARLET;
+      }
+
+      datapoints.filter( (p) => p.useragentgroup == "Chrome (CWV + CrUX)" )[0].color     = TimeSeries.Colors.RUMARCHIVE_BLUE_1;
+      datapoints.filter( (p) => p.useragentgroup == "Chromium (CWV, no CrUX)" )[0].color = TimeSeries.Colors.RUMARCHIVE_BLUE_2;
+      datapoints.filter( (p) => p.useragentgroup == "Others" )[0].color                  = TimeSeries.Colors.RUMARCHIVE_GREEN;
+
+      options.chartId = chartId;
+      options.name = chartName;
+
+      options.datapoints = datapoints;
+      options.datapointFieldname = "useragentpercent";
+
+      Donuts.fromData( metricFieldName, options );
+    }
+
+    renderBrowserGroupedPiechart("desktop", "marketshare_browsergrouped_desktop", "Desktop browsers (grouped)");
+    renderBrowserGroupedPiechart("mobile", "marketshare_browsergrouped_mobile", "Mobile browsers (grouped)");
+
+    // TODO: inject another graph that shows useragentpercent grouped (for perfnow) and maybe ungrouped cwvpercent as well (first that, then grouped for better understanding)
+
+    async function renderBrowserCruxPiechart(clientType, chartId, chartName) {
+      const options = {};
+
+      const metricFieldName = "useragentgroup";
+
+      let response = await fetch(DATA_BASE_URL + "LCPCount_useragentfamily_" + clientType + ".json");
+      let rumarchiveData = await response.json();
+
+      rumarchiveData = rumarchiveData.grouped;
+
+      // rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.cwvpercent) > 0.5) );
+
+      let datapoints = rumarchiveData;
+      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
+      datapoints = datapoints.sort((a, b) => { return parseFloat(b["cwvpercent"]) - parseFloat(a["cwvpercent"]) } ); // desc sort
+      datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.LIST[idx]; return val; } );
+
+      options.chartId = chartId;
+      options.name = chartName;
+
+      options.datapoints = datapoints;
+      options.datapointFieldname = "cwvpercent";
+
+      Donuts.fromData( metricFieldName, options );
+    }
+
+
+    renderBrowserCruxPiechart("desktop", "marketshare_cwvbrowser_desktop", "Desktop browsers that support CWV");
+    renderBrowserCruxPiechart("mobile", "marketshare_cwvbrowser_mobile", "Mobile browsers that support CWV");
+    
+
+    async function renderNavigationTypePiechart(clientType, chartId, chartName) {
+      const options = {};
+
+      const metricFieldName = "navigationtype";
+
+      let response = await fetch(DATA_BASE_URL + "navigationtype_devicetype.json");
+      let rumarchiveData = await response.json();
+
+      const valueKey = "percent";
+
+      // the dataset contains data for each month, but for the piechart here, we only want to latest
+      const date = "2023_09_01"; // TODO: make flexible by auto-selecting the latest date (by looking at timestamps, or assuming it's the last one?)
+      let datapoints = rumarchiveData.filter( point => point.date == date && point.client == clientType );
+
+      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
+      datapoints = datapoints.sort((a, b) => { return parseFloat(b[valueKey]) - parseFloat(a[valueKey]) } ); // desc sort
+      datapoints = datapoints.map( (val, idx) => { val.color = piecolors[idx]; return val; } );
+
+      options.chartId = chartId;
+      options.name = chartName;
+      options.datapoints = datapoints;
+      options.datapointFieldname = valueKey;
+
+      Donuts.fromData( metricFieldName, options );
+    }
+
+    renderNavigationTypePiechart("desktop", "navigationtype_desktop", "Navigation Types (Desktop)");
+    renderNavigationTypePiechart("mobile", "navigationtype_mobile", "Navigation Types (Mobile)");
+
+    async function renderVisibilityStatePiechart(clientType, chartId, chartName) {
+      const options = {};
+
+      const metricFieldName = "visibilitystate";
+
+      let response = await fetch(DATA_BASE_URL + "visibilitystate_devicetype.json");
+      let rumarchiveData = await response.json();
+
+      const valueKey = "percent";
+
+      // the dataset contains data for each month, but for the piechart here, we only want to latest
+      const date = "2023_09_01"; // TODO: make flexible by auto-selecting the latest date (by looking at timestamps, or assuming it's the last one?)
+      let datapoints = rumarchiveData.filter( point => point.date == date && point.client == clientType );
+
+      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
+      datapoints = datapoints.sort((a, b) => { return parseFloat(b[valueKey]) - parseFloat(a[valueKey]) } ); // desc sort
+      datapoints = datapoints.map( (val, idx) => { val.color = piecolors[idx]; return val; } );
+
+      options.chartId = chartId;
+      options.name = chartName;
+      options.datapoints = datapoints;
+      options.datapointFieldname = valueKey;
+
+      Donuts.fromData( metricFieldName, options );
+    }
+
+    renderVisibilityStatePiechart("desktop", "visibilitystate_desktop", "Visibility States (Desktop)");
+    renderVisibilityStatePiechart("mobile", "visibilitystate_mobile", "Visibility States (Mobile)");
+
+    async function renderLandingPagePiechart(clientType, chartId, chartName) {
+      const options = {};
+
+      const metricFieldName = "landingpage";
+
+      let response = await fetch(DATA_BASE_URL + "landingpage_devicetype.json");
+      let rumarchiveData = await response.json();
+
+      const valueKey = "percent";
+
+      // the dataset contains data for each month, but for the piechart here, we only want to latest
+      const date = "2023_09_01"; // TODO: make flexible by auto-selecting the latest date (by looking at timestamps, or assuming it's the last one?)
+      let datapoints = rumarchiveData.filter( point => point.date == date && point.client == clientType );
+
+      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
+      datapoints = datapoints.sort((a, b) => { return parseFloat(b[valueKey]) - parseFloat(a[valueKey]) } ); // desc sort
+      datapoints = datapoints.map( (val, idx) => { val.color = piecolors[idx]; return val; } );
+
+      options.chartId = chartId;
+      options.name = chartName;
+      options.datapoints = datapoints;
+      options.datapointFieldname = valueKey;
+
+      Donuts.fromData( metricFieldName, options );
+    }
+
+    renderLandingPagePiechart("desktop", "landingpage_desktop", "Landing Page (Desktop)");
+    renderLandingPagePiechart("mobile", "landingpage_mobile", "Landing Page (Mobile)");
+
+
+    async function renderBeaconTypePiechart(clientType, chartId, chartName) {
+      const options = {};
+
+      const metricFieldName = "beacontype";
+
+      let response = await fetch(DATA_BASE_URL + "beacontype_devicetype.json");
+      let rumarchiveData = await response.json();
+
+      const valueKey = "percent";
+
+      // the dataset contains data for each month, but for the piechart here, we only want to latest
+      const date = "2023_09_01"; // TODO: make flexible by auto-selecting the latest date (by looking at timestamps, or assuming it's the last one?)
+      let datapoints = rumarchiveData.filter( point => point.date == date && point.client == clientType );
+
+      // TODO: allow bfcache if the amount picks up (right now, only 0.1% max, looks weird)
+      datapoints = datapoints.filter( point => point.beacontype !== "bfcache" );
+
+      // want to assign the same colors to the same thing, even if the distributions are different, so have to do that manually
+      datapoints = datapoints.sort((a, b) => { return parseFloat(b[valueKey]) - parseFloat(a[valueKey]) } ); // desc sort
+      // datapoints = datapoints.map( (val, idx) => { val.color = piecolors[idx]; return val; } );
+
+      const mpa = datapoints.filter( p => p.beacontype === "page view" )[0];
+      mpa.color = piecolors[0];
+      mpa.beacontype = "MPA";
+
+      const spah = datapoints.filter( p => p.beacontype === "spa" )[0];
+      spah.color = piecolors[1];
+      spah.beacontype = "SPA (hard)";
+
+      const spas = datapoints.filter( p => p.beacontype === "spa hard" )[0];
+      spas.color = piecolors[2];
+      spas.beacontype = "SPA (soft)";
+
+      // datapoints.filter( p => p.beacontype === "bfcache" )[0].color = TimeSeries.Colors.RUMARCHIVE_BLUE_2;
+
+      options.chartId = chartId;
+      options.name = chartName;
+      options.datapoints = datapoints;
+      options.datapointFieldname = valueKey;
+
+      Donuts.fromData( metricFieldName, options );
+    }
+
+    renderBeaconTypePiechart("desktop", "spa_desktop", "MPA vs SPA (Desktop)");
+    renderBeaconTypePiechart("mobile", "spa_mobile", "MPA vs SPA (Mobile)");
+
+</script>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+  </main>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Sponsored by <a href="https://akamai.com">Akamai</a>.
+        The website content is licensed
+        <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+      </p>
+      <p>
+        <a href="https://twitter.com/RUMArchive">twitter</a> -
+        <a rel="me" href="https://webperf.social/@rumarchive">mastodon</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
