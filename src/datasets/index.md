@@ -32,7 +32,7 @@ Technical Details:
     * Available dates:
       * `2021-10-01`, `2021-11-01`, `2021-12-01`
       * `2022-01-01`, `2022-02-01`, `2022-03-01`, `2022-04-01`, `2022-05-01`, `2022-06-01`, `2022-07-01`, `2022-08-01`
-      * `2022-09-01` (onward, daily), through `2023-09-30`
+      * `2022-09-01` (onward, daily), through `2023-10-31`
   * Resources table: `rumarchive_resources`
     * Available dates: `2023-10-15` (onward, daily) through `2023-10-31`
 * Known issues:
