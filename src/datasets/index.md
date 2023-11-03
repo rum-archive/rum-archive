@@ -36,5 +36,7 @@ Technical Details:
       * `2022-09-01` (onward, daily), through `2023-10-31`
   * Resources table: `rumarchive_resources`
     * Available dates: `2023-10-15` (onward, daily) through `2023-10-31`
+* Additional information:
+  * User Agent parsing is done via the [`ua-parser`](https://github.com/ua-parser/) library, using the [`regexes.yaml`](https://github.com/ua-parser/uap-core/blob/master/regexes.yaml) rules
 * Known issues:
   * Resources table's `protocol` column is not set
