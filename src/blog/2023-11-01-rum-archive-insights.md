@@ -41,9 +41,7 @@ Let's take a look at which devices, operating systems and browsers we see in the
 
 Akamai's Boomerang currently tracks three different types of devices: Desktop, Mobile and Tablet. As we can see in the image, we have a rather outsized representation of Mobile visitors, having nearly twice as many visitors (61% mobile vs 34% desktop) loading pages on their phones.
 
-It is important to note that this distribution is not necessarily representative for all websites and countries. Akamai's customers are somewhat biased to the richer, western countries, meaning their end users will probably have more and especially newer mobile devices available.
-
-Still, it is undeniable that mobile visits have only gained in importance the past few years, and optimizing for mobile performance should be on the top of your to-do list.
+It is important to note that this distribution is not necessarily representative for all websites and countries, as Akamai's customers are somewhat biased to the richer, western countries. Still, it is undeniable that mobile visits have only gained in importance the past few years, and optimizing for mobile performance should be on the top of your to-do list.
 
 Note that there are also some interesting fluctuations in the data, where sometimes mobile goes up to 70%. We have yet to research where these are coming from (potentially because we're currently sampling different days of the week for the visualizations).
 
@@ -55,7 +53,7 @@ Looking at the different Operating Systems, we see that on Desktop Windows is st
 
 <img src="/blog/2023-11-01-rum-archive-insights/timeseries-of-mobile-os.svg" alt="Mobile OS" class="box mx-auto" />
 
-The results for Mobile confirm the bias towards richer countries I mentioned above: iOS is very dominant, representing over 60% of all mobile page loads, leaving Android behind at about 35%. Other mobile Operating Systems didn't manage to get over 1% market share and are not shown in the diagram.
+The results for Mobile confirm the bias towards richer countries I mentioned above: iPhones running iOS are very dominant, representing over 60% of all mobile page loads, leaving Android behind at about 35%. Other mobile Operating Systems didn't manage to get over 1% market share and are not shown in the diagram.
 
 Again though, this does not mean you should disregard Android and focus all efforts on iOS: in some countries, there are definitely more Android users and you should use your own RUM data to identify who your end users are.
 
@@ -85,11 +83,11 @@ As such, if your end-users are coming mostly from iOS (which is clearly the case
 
 To give an indication of how large this problem is, we've grouped the browsers that support the CWVs together. Then we've split them out into browsers whose data is present in CrUX (basically only Google's Chrome itself) and other Chromium-based browsers (which do support the CWVs, but whose data is not included in CrUX).
 
-<img src="/blog/2023-11-01-rum-archive-insights/cwv-desktop.svg" alt="Desktop CWV Support" class="box mx-auto" />
+<img src="/blog/2023-11-01-rum-archive-insights/cwv-desktop-grouped.png" alt="Desktop CWV Support" class="box mx-auto" style="max-width: 600px;" />
 
 As you can see, on Desktop CrUX, covers about 67% of all page loads in the RUM Archive, which is probably enough to give a good general approximation.
 
-<img src="/blog/2023-11-01-rum-archive-insights/cwv-mobile.svg" alt="Mobile CWV Support" class="box mx-auto" />
+<img src="/blog/2023-11-01-rum-archive-insights/cwv-mobile-grouped.png" alt="Mobile CWV Support" class="box mx-auto" style="max-width: 600px;" />
 
 However, on Mobile, CrUX only covers 34% of all page loads, all on Android. As such, a large majority of  end users that are routed through Akamai are not captured in CrUX, and Akamai customers should take care to test their sites on iOS and Safari through other means.
 
@@ -123,7 +121,7 @@ Pages do not always load in a fully visible state. Currently, we track three dif
 
 * **Visible** typically means the user watched the page load happen.
 * **Hidden** is for example when the user clicks to open the page in a new (yet hidden) tab.
-* **Partial** is when the page load starts hidden, but the user switches to the still rendering page before it's done (for example, they rapidly switch to a background tab).
+* **Partial** is when the page load starts hidden, but the user switches to the still rendering page before it's done (for example, they rapidly switch to a background tab). The inverse is also possible, where the user switches away from the page before it's fully rendered.
 
 <img src="/blog/2023-11-01-rum-archive-insights/visibility-states-desktop.svg" alt="Desktop Visibility" class="box mx-auto" />
 
