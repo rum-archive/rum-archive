@@ -313,7 +313,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       If you have ideas about additional graphs or new features, let us know on <a href="https://github.com/rum-archive/rum-archive">GitHub</a>.
     </p>
     <p>
-      The BigQuery queries used to generate data for these graphs and their outputs can be found in the separate <a href="https://github.com/rum-archive/rum-insights-data/tree/insights_v1/queries">rum-insights-data GitHub repository</a>.
+      The BigQuery queries used to generate data for these graphs and their outputs can be found in the separate <a href="https://github.com/rum-archive/rum-insights-data/tree/main/queries">rum-insights-data GitHub repository</a>.
     </p>
 
 
@@ -331,7 +331,7 @@ Note that we intentionally do not include interpretations of the data here, as t
     const piecolors = [ TimeSeries.Colors.RUMARCHIVE_MAIN[0], TimeSeries.Colors.RUMARCHIVE_MAIN[1], TimeSeries.Colors.RUMARCHIVE_SECONDARY[5] ];
 
     const FORCE_EXTERNAL_DATA = false;
-    let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/insights_v1/data-output/";
+    let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/main/data-output/";
 
     if ( window.location.href.includes("localhost") && !FORCE_EXTERNAL_DATA ) {
       // allow for easy local testing
