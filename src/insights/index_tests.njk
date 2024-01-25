@@ -1,0 +1,178 @@
+---
+title: RUM Insights
+description: RUM Insights home
+layout: layouts/page.njk
+---
+
+<h2>Introduction</h2>
+
+<p>
+This page captures a collection of basic visualizations for the data contained in the RUM Archive. 
+It's goal is to allow users to get a feel for the most important insights that can be gained from the data, without having to execute SQL queries themselves.
+</p>
+
+<p>
+Note that we intentionally do not include interpretations of the data here, as this can often be quite nuanced. For that, look at our <a href="/blog">regular blog posts</a> that discuss RUM Insights in depth. 
+</p>
+
+
+<!-- TODO: merge these into a single file --> 
+<script src="/js/highcharts/highstock.js" defer></script>
+<script src="/js/highcharts/exporting.js" defer></script>
+<script src="/js/highcharts/export-data.js" defer></script>
+<script src="/js/highcharts/accessibility.js" defer></script>
+
+<section class="doclist mt-3 pt-3">
+    
+  <div class="container">
+    <div id="protocol" class="box">
+    </div>
+  </div>
+
+  <div class="container">
+    <select id="userAgentSelect">
+    </select>
+    <div id="ua_version" class="box">
+    </div>
+  </div>
+
+</section>
+
+<script type="module">
+
+    import * as TimeSeries from "/js/charts/timeseries.js"; 
+    import * as Donuts from "/js/charts/donuts.js";
+    import * as Area from "/js/charts/area.js";
+
+    // 3 colors with good contrast, since we often have piecharts with exactly 2 or 3 entries
+    const piecolors = [ TimeSeries.Colors.RUMARCHIVE_MAIN[0], TimeSeries.Colors.RUMARCHIVE_MAIN[1], TimeSeries.Colors.RUMARCHIVE_SECONDARY[5] ];
+
+    const FORCE_EXTERNAL_DATA = false;
+    let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/main/data-output/";
+
+    if ( window.location.href.includes("localhost") && !FORCE_EXTERNAL_DATA ) {
+      // allow for easy local testing
+      // launch a basic python http server in the rum-insights-data dir with `python3 -m http.server 9000`
+      DATA_BASE_URL = "http://localhost:9000/data-output/";
+    }
+
+    
+    // returns e.g., "2023_12_01"
+    function findLastDate(dataPoints) {
+      // want to find the most recent datapoint in the file
+      // for now, we don't actually parse the dates, but just assume the final entry in the list of dataPoints is part of the most recent batch
+      if ( dataPoints && dataPoints.length > 0 && dataPoints[ dataPoints.length - 1].date ) {
+        return dataPoints[ dataPoints.length - 1].date;
+      }
+      else {
+        console.error("findLastDate: no 'date' property found on dataPoints, defaulting to 2023_12_01!", dataPoints);
+        return "2023_12_01";
+      }
+    }
+
+    function getProtocolTimeseries(rumarchiveData, metricFieldName) {
+      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.percent) > 1) );
+
+      let output = [];
+
+      let nameMapping = {
+        "h2": "http/2",
+        "h3": "http/3",
+        "http/1.1": "http/1.1"
+      };
+
+      // need to give the graphing setup a list of timeseries, each with their own data and color
+      // we want to generate these automatically from the data
+      // 1. extract individual metricFieldValues (e.g., extract all individual device types)
+      let metricValues = new Set();
+      for ( let row of rumarchiveData )
+        metricValues.add( row[metricFieldName] );
+
+      for ( const [idx, metricValue] of [...metricValues].entries() ) {
+        let timeSerie = {
+          name: metricValue === null ? "unknown" : (nameMapping[metricValue] ? nameMapping[metricValue] : metricValue ),
+          data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
+          fields: ["percent"],
+          color: TimeSeries.Colors.LIST[idx]
+        };
+
+        output.push( timeSerie );
+      }
+
+      return output;
+    }
+
+// async function timeseriesFromDataWithDefaults( queryName, chartElementID, metricFieldName, graphTitle, timeseriesCreationCallback )
+    TimeSeries.fromDataWithDefaults( "protocol", "protocol", "protocol", "HTTP Versions", getProtocolTimeseries );
+
+
+    let GLOBAL_selectedUserAgent = "";
+
+    async function loadUserAgentSelectOptions() {
+
+      let response = await fetch(DATA_BASE_URL + "useragentversion_useragentfamily_devicetype.json");
+      let rumarchiveData = await response.json();
+    
+      // need to extract the unique useragentfamily_devicetype values
+      let useragents = new Set();
+      for( let row of rumarchiveData ) {
+        useragents.add( row.client + "_" + row.family );
+      }
+
+      useragents = Array.from( useragents ).sort();
+
+      const selectBox = document.getElementById("userAgentSelect");
+      for ( let useragent of useragents ) {
+        const option = document.createElement("option");
+        const split = useragent.split("_");
+        option.text = split[0] + " : " + split[1];
+        option.value = useragent;
+        selectBox.add(option);
+      }
+
+      selectBox.addEventListener("change", (event) => {
+        GLOBAL_selectedUserAgent = event.target.value;
+        TimeSeries.fromDataWithDefaults( "useragentversion_useragentfamily_devicetype", "ua_version", "version", GLOBAL_selectedUserAgent.split("_")[1] + " Versions", getUserAgentTimeSeries );
+      });
+
+      // load the default (first entry in the list)
+      GLOBAL_selectedUserAgent =  rumarchiveData[0].client + "_" + rumarchiveData[0].family;
+      TimeSeries.fromDataWithDefaults( "useragentversion_useragentfamily_devicetype", "ua_version", "version", rumarchiveData[0].family + " Versions", getUserAgentTimeSeries );
+
+    }
+
+    loadUserAgentSelectOptions();
+
+    function getUserAgentTimeSeries(rumarchiveData, metricFieldName) {
+      const [deviceType, useragentFamily] = GLOBAL_selectedUserAgent.split("_");
+      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.percent) > 1) );
+      rumarchiveData = rumarchiveData.filter( datapoint => datapoint.family === useragentFamily && datapoint.client === deviceType );
+
+      console.log("Showing user agent ", GLOBAL_selectedUserAgent, rumarchiveData);
+
+      let output = [];
+
+      // need to give the graphing setup a list of timeseries, each with their own data and color
+      // we want to generate these automatically from the data
+      // 1. extract individual metricFieldValues (e.g., extract all individual device types)
+      let metricValues = new Set();
+      for ( let row of rumarchiveData )
+        metricValues.add( row[metricFieldName] );
+
+      for ( const [idx, metricValue] of [...metricValues].entries() ) {
+        let timeSerie = {
+          name: metricValue,
+          data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
+          fields: ["percent"],
+          color: TimeSeries.Colors.LIST[idx]
+        };
+
+        output.push( timeSerie );
+      }
+
+      return output;
+    }
+
+
+
+</script>
