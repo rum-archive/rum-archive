@@ -460,7 +460,8 @@ const getLineSeries = (name, data, color) => ({
   zIndex: 1,
   marker: {
     enabled: false
-  }
+  },
+  showInNavigator: true
 });
 const getAreaSeries = (name, data, color, opacity=0.1) => ({
   name,
