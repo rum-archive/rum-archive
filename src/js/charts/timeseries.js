@@ -117,7 +117,7 @@ async function timeseriesFromDataWithDefaults( queryName, chartElementID, metric
 
   // TODO: move this endpoint selection logic to a more central location!
   const FORCE_EXTERNAL_DATA = false;
-  let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/insights_v1/data-output/";
+  let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/main/data-output/";
 
   if ( window.location.href.includes("localhost") && !FORCE_EXTERNAL_DATA ) {
     // allow for easy local testing

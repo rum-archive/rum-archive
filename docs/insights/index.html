@@ -175,7 +175,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
     <p>
       The following charts show the usage of different Browsers / User Agents for Desktop and Mobile devices (entries with &lt; 1% usage share have been filtered out). 
-      The data shown is from September 1st 2023.
+      The data shown is from December 1st 2023.
     </p> 
 
     <div class="columns box">
@@ -230,7 +230,7 @@ Note that we intentionally do not include interpretations of the data here, as t
     </p>
 
     <p>
-      The data shown is from September 1st 2023.
+      The data shown is from December 1st 2023.
     </p>
 
     <h3 id="navigationtype-aspect">Navigation Types</h3>
@@ -313,7 +313,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       If you have ideas about additional graphs or new features, let us know on <a href="https://github.com/rum-archive/rum-archive">GitHub</a>.
     </p>
     <p>
-      The BigQuery queries used to generate data for these graphs and their outputs can be found in the separate <a href="https://github.com/rum-archive/rum-insights-data/tree/insights_v1/queries">rum-insights-data GitHub repository</a>.
+      The BigQuery queries used to generate data for these graphs and their outputs can be found in the separate <a href="https://github.com/rum-archive/rum-insights-data/tree/main/queries">rum-insights-data GitHub repository</a>.
     </p>
 
 
@@ -331,7 +331,7 @@ Note that we intentionally do not include interpretations of the data here, as t
     const piecolors = [ TimeSeries.Colors.RUMARCHIVE_MAIN[0], TimeSeries.Colors.RUMARCHIVE_MAIN[1], TimeSeries.Colors.RUMARCHIVE_SECONDARY[5] ];
 
     const FORCE_EXTERNAL_DATA = false;
-    let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/insights_v1/data-output/";
+    let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/main/data-output/";
 
     if ( window.location.href.includes("localhost") && !FORCE_EXTERNAL_DATA ) {
       // allow for easy local testing
@@ -341,6 +341,18 @@ Note that we intentionally do not include interpretations of the data here, as t
 
       
     
+    // returns e.g., "2023_12_01"
+    function findLastDate(dataPoints) {
+      // want to find the most recent datapoint in the file
+      // for now, we don't actually parse the dates, but just assume the final entry in the list of dataPoints is part of the most recent batch
+      if ( dataPoints && dataPoints.length > 0 && dataPoints[ dataPoints.length - 1].date ) {
+        return dataPoints[ dataPoints.length - 1].date;
+      }
+      else {
+        console.error("findLastDate: no 'date' property found on dataPoints, defaulting to 2023_12_01!", dataPoints);
+        return "2023_12_01";
+      }
+    }
 
     function getDeviceTypeTimeseries(rumarchiveData, metricFieldName) {
       rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.percent) > 1) );
@@ -470,83 +482,12 @@ Note that we intentionally do not include interpretations of the data here, as t
     renderBrowserPiechart("mobile", "marketshare_browser_mobile", "Mobile browsers");
 
 
-    async function renderBrowserGroupedPiechart(clientType, chartId, chartName) {
-      const options = {};
+    
 
-      const metricFieldName = "useragentgroup";
-
-      let response = await fetch(DATA_BASE_URL + "LCPCount_useragentfamily_" + clientType + ".json");
-      let rumarchiveData = await response.json();
-
-      // normally, we need the individual measurements and use the "useragentpercent" as the value
-      rumarchiveData = rumarchiveData.grouped;
-
-      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.useragentpercent) > 0.5) );
-
-      let datapoints = rumarchiveData;
-      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
-      datapoints = datapoints.sort((a, b) => { return parseFloat(b["useragentpercent"]) - parseFloat(a["useragentpercent"]) } ); // desc sort
-      datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.LIST[idx]; return val; } );
-
-      console.log("DONUTS", datapoints);
-
-      // manual override to keep colors semantically consistent
-      if ( clientType === "mobile" ) {
-        datapoints.filter( (p) => p.useragentgroup == "Webkit (Safari, no CWV)" )[0].color = TimeSeries.Colors.RUMARCHIVE_ORANGE_1;
-        datapoints.filter( (p) => p.useragentgroup == "Webkit (Others, no CWV)" )[0].color = TimeSeries.Colors.RUMARCHIVE_ORANGE_2;
-      }
-      else {
-        datapoints.filter( (p) => p.useragentgroup == "Safari" )[0].color   = TimeSeries.Colors.RUMARCHIVE_ORANGE_1;
-        datapoints.filter( (p) => p.useragentgroup == "Firefox" )[0].color  = TimeSeries.Colors.RUMARCHIVE_SCARLET;
-      }
-
-      datapoints.filter( (p) => p.useragentgroup == "Chrome (CWV + CrUX)" )[0].color     = TimeSeries.Colors.RUMARCHIVE_BLUE_1;
-      datapoints.filter( (p) => p.useragentgroup == "Chromium (CWV, no CrUX)" )[0].color = TimeSeries.Colors.RUMARCHIVE_BLUE_2;
-      datapoints.filter( (p) => p.useragentgroup == "Others" )[0].color                  = TimeSeries.Colors.RUMARCHIVE_GREEN;
-
-      options.chartId = chartId;
-      options.name = chartName;
-
-      options.datapoints = datapoints;
-      options.datapointFieldname = "useragentpercent";
-
-      Donuts.fromData( metricFieldName, options );
-    }
-
-    renderBrowserGroupedPiechart("desktop", "marketshare_browsergrouped_desktop", "Desktop browsers (grouped)");
-    renderBrowserGroupedPiechart("mobile", "marketshare_browsergrouped_mobile", "Mobile browsers (grouped)");
 
     // TODO: inject another graph that shows useragentpercent grouped (for perfnow) and maybe ungrouped cwvpercent as well (first that, then grouped for better understanding)
 
-    async function renderBrowserCruxPiechart(clientType, chartId, chartName) {
-      const options = {};
-
-      const metricFieldName = "useragentgroup";
-
-      let response = await fetch(DATA_BASE_URL + "LCPCount_useragentfamily_" + clientType + ".json");
-      let rumarchiveData = await response.json();
-
-      rumarchiveData = rumarchiveData.grouped;
-
-      // rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.cwvpercent) > 0.5) );
-
-      let datapoints = rumarchiveData;
-      // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
-      datapoints = datapoints.sort((a, b) => { return parseFloat(b["cwvpercent"]) - parseFloat(a["cwvpercent"]) } ); // desc sort
-      datapoints = datapoints.map( (val, idx) => { val.color = TimeSeries.Colors.LIST[idx]; return val; } );
-
-      options.chartId = chartId;
-      options.name = chartName;
-
-      options.datapoints = datapoints;
-      options.datapointFieldname = "cwvpercent";
-
-      Donuts.fromData( metricFieldName, options );
-    }
-
-
-    renderBrowserCruxPiechart("desktop", "marketshare_cwvbrowser_desktop", "Desktop browsers that support CWV");
-    renderBrowserCruxPiechart("mobile", "marketshare_cwvbrowser_mobile", "Mobile browsers that support CWV");
+    
     
 
     async function renderNavigationTypePiechart(clientType, chartId, chartName) {
@@ -560,7 +501,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       const valueKey = "percent";
 
       // the dataset contains data for each month, but for the piechart here, we only want to latest
-      const date = "2023_09_01"; // TODO: make flexible by auto-selecting the latest date (by looking at timestamps, or assuming it's the last one?)
+      const date = findLastDate(rumarchiveData);
       let datapoints = rumarchiveData.filter( point => point.date == date && point.client == clientType );
 
       // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
@@ -589,7 +530,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       const valueKey = "percent";
 
       // the dataset contains data for each month, but for the piechart here, we only want to latest
-      const date = "2023_09_01"; // TODO: make flexible by auto-selecting the latest date (by looking at timestamps, or assuming it's the last one?)
+      const date = findLastDate(rumarchiveData);
       let datapoints = rumarchiveData.filter( point => point.date == date && point.client == clientType );
 
       // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
@@ -618,7 +559,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       const valueKey = "percent";
 
       // the dataset contains data for each month, but for the piechart here, we only want to latest
-      const date = "2023_09_01"; // TODO: make flexible by auto-selecting the latest date (by looking at timestamps, or assuming it's the last one?)
+      const date = findLastDate(rumarchiveData);
       let datapoints = rumarchiveData.filter( point => point.date == date && point.client == clientType );
 
       // want to assign colors based on contribution: largest part gets the primary color, 2nd largest secondary color, etc.
@@ -648,7 +589,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       const valueKey = "percent";
 
       // the dataset contains data for each month, but for the piechart here, we only want to latest
-      const date = "2023_09_01"; // TODO: make flexible by auto-selecting the latest date (by looking at timestamps, or assuming it's the last one?)
+      const date = findLastDate(rumarchiveData);
       let datapoints = rumarchiveData.filter( point => point.date == date && point.client == clientType );
 
       // TODO: allow bfcache if the amount picks up (right now, only 0.1% max, looks weird)
