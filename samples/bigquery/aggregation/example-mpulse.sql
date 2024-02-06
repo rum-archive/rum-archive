@@ -1,262 +1,7 @@
-WITH bucket_query AS (
-    SELECT
-        --
-        -- Date
-        --
-        TO_VARCHAR(DATE_TRUNC('day', TO_TIMESTAMP_NTZ(timestamp, 3)), 'yyyy-mm-dd') AS date,
-
-        --
-        -- Dimensions
-        --
-        COALESCE(deviceTypeName, '') AS deviceType,
-        COALESCE(userAgentName, '') AS userAgentFamily,
-        COALESCE(userAgentVersion, '') AS userAgentVersion,
-        TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
-        COALESCE(operatingSystemName, '') AS os,
-        COALESCE(
-            CASE
-                WHEN operatingSystemVersion LIKE '%.%'
-                    -- trim minor version
-                    THEN left(operatingSystemVersion, charindex('.', operatingSystemVersion) - 1)
-                ELSE operatingSystemVersion
-            END
-            , '') AS osVersion,
-        REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
-        COALESCE(countryCode, '') AS country,
-        COALESCE(visibilityStateName, '') AS visibilityState,
-        COALESCE(navigationTypeName, '') AS navigationType,
-        COALESCE(httpProtocolName, '') AS protocol,
-        COALESCE(ipVersionName, '') AS ipVersion,
-        COALESCE(landingPageName, '') AS landingPage,
-
-        --
-        -- Timers and Metrics
-        --
-        CASE
-            WHEN (pageLoadTime IS NULL OR pageLoadTime < 0) THEN NULL
-            WHEN pageLoadTime = 0 THEN 0
-            WHEN pageLoadTime <= 10000 THEN FLOOR(pageLoadTime / 100) + 1
-            WHEN pageLoadTime <= 60000 THEN FLOOR((pageLoadTime - 10000) / 1000) + 101
-            ELSE 151
-        END AS pltBucket,
-        CASE
-            WHEN (pageLoadTime IS NULL OR pageLoadTime < 0) THEN NULL
-            WHEN pageLoadTime > 60000 THEN 60000
-            ELSE pageLoadTime
-        END AS plt,
-
-        CASE
-            WHEN (dnsTimer IS NULL OR dnsTimer < 0) THEN NULL
-            WHEN dnsTimer = 0 THEN 0
-            WHEN dnsTimer <= 1000 THEN FLOOR(dnsTimer / 10) + 1
-            WHEN dnsTimer <= 6000 THEN FLOOR((dnsTimer - 1000) / 100) + 101
-            ELSE 151
-        END AS dnsBucket,
-        CASE
-            WHEN (dnsTimer IS NULL OR dnsTimer < 0) THEN NULL
-            WHEN dnsTimer > 6000 THEN 6000
-            ELSE dnsTimer
-        END AS dns,
-
-        CASE
-            WHEN (tcpTimer IS NULL OR tcpTimer < 0) THEN NULL
-            WHEN tcpTimer = 0 THEN 0
-            WHEN tcpTimer <= 1000 THEN FLOOR(tcpTimer / 10) + 1
-            WHEN tcpTimer <= 6000 THEN FLOOR((tcpTimer - 1000) / 100) + 101
-            ELSE 151
-        END AS tcpBucket,
-        CASE
-            WHEN (tcpTimer IS NULL OR tcpTimer < 0) THEN NULL
-            WHEN tcpTimer > 6000 THEN 6000
-            ELSE tcpTimer
-        END AS tcp,
-
-        CASE
-            WHEN (sslTimer IS NULL OR sslTimer < 0) THEN NULL
-            WHEN sslTimer = 0 THEN 0
-            WHEN sslTimer <= 1000 THEN FLOOR(sslTimer / 10) + 1
-            WHEN sslTimer <= 6000 THEN FLOOR((sslTimer - 1000) / 100) + 101
-            ELSE 151
-        END AS tlsBucket,
-        CASE
-            WHEN (sslTimer IS NULL OR sslTimer < 0) THEN NULL
-            WHEN sslTimer > 6000 THEN 6000
-            ELSE sslTimer
-        END AS tls,
-
-        CASE
-            WHEN (firstByteTimer IS NULL OR firstByteTimer < 0) THEN NULL
-            WHEN firstByteTimer = 0 THEN 0
-            WHEN firstByteTimer <= 1000 THEN FLOOR(firstByteTimer / 10) + 1
-            WHEN firstByteTimer <= 6000 THEN FLOOR((firstByteTimer - 1000) / 100) + 101
-            ELSE 151
-        END AS ttfbBucket,
-        CASE
-            WHEN (firstByteTimer IS NULL OR firstByteTimer < 0) THEN NULL
-            WHEN firstByteTimer > 6000 THEN 6000
-            ELSE firstByteTimer
-        END AS ttfb,
-
-        CASE
-            WHEN (firstContentfulPaint IS NULL OR firstContentfulPaint < 0) THEN NULL
-            WHEN firstContentfulPaint = 0 THEN 0
-            WHEN firstContentfulPaint <= 10000 THEN FLOOR(firstContentfulPaint / 100) + 1
-            WHEN firstContentfulPaint <= 60000 THEN FLOOR((firstContentfulPaint - 10000) / 1000) + 101
-            ELSE 151
-        END AS fcpBucket,
-        CASE
-            WHEN (firstContentfulPaint IS NULL OR firstContentfulPaint < 0) THEN NULL
-            WHEN firstContentfulPaint > 60000 THEN 60000
-            ELSE firstContentfulPaint
-        END AS fcp,
-
-        CASE
-            WHEN (largestContentfulPaint IS NULL OR largestContentfulPaint < 0) THEN NULL
-            WHEN largestContentfulPaint = 0 THEN 0
-            WHEN largestContentfulPaint <= 10000 THEN FLOOR(largestContentfulPaint / 100) + 1
-            WHEN largestContentfulPaint <= 60000 THEN FLOOR((largestContentfulPaint - 10000) / 1000) + 101
-            ELSE 151
-        END AS lcpBucket,
-        CASE
-            WHEN (largestContentfulPaint IS NULL OR largestContentfulPaint < 0) THEN NULL
-            WHEN largestContentfulPaint > 60000 THEN 60000
-            ELSE largestContentfulPaint
-        END AS lcp,
-
-        CASE
-            WHEN (paramsAkCr IS NULL OR paramsAkCr < 0) THEN NULL
-            WHEN paramsAkCr = 0 THEN 0
-            WHEN paramsAkCr <= 1000 THEN FLOOR(paramsAkCr / 10) + 1
-            WHEN paramsAkCr <= 6000 THEN FLOOR((paramsAkCr - 1000) / 100) + 101
-            ELSE 151
-        END AS rttBucket,
-        CASE
-            WHEN (paramsAkCr IS NULL OR paramsAkCr < 0) THEN NULL
-            WHEN paramsAkCr > 6000 THEN 6000
-            ELSE paramsAkCr
-        END AS rtt,
-
-        CASE
-            WHEN (rageClicks IS NULL OR rageClicks < 0) THEN NULL
-            WHEN rageClicks = 0 THEN 0
-            WHEN rageClicks <= 100 THEN rageClicks + 1
-            WHEN rageClicks <= 600 THEN FLOOR((rageClicks - 100) / 10) + 101
-            ELSE 151
-        END AS rageClicksBucket,
-        CASE
-            WHEN (rageClicks IS NULL OR rageClicks < 0) THEN NULL
-            WHEN rageClicks > 600 THEN 600
-            ELSE rageClicks
-        END AS rageClicks,
-
-        CASE
-            WHEN (cumulativeLayoutShift IS NULL OR cumulativeLayoutShift < 0) THEN NULL
-            WHEN cumulativeLayoutShift = 0 THEN 0
-            WHEN cumulativeLayoutShift <= 1000 THEN FLOOR(cumulativeLayoutShift / 10) + 1
-            WHEN cumulativeLayoutShift <= 6000 THEN FLOOR((cumulativeLayoutShift - 1000) / 100) + 101
-            ELSE 151
-        END AS clsBucket,
-        CASE
-            WHEN (cumulativeLayoutShift IS NULL OR cumulativeLayoutShift < 0) THEN NULL
-            WHEN cumulativeLayoutShift > 6000 THEN 6000
-            ELSE cumulativeLayoutShift
-        END AS cls,
-
-        CASE
-            WHEN (firstInputDelay IS NULL OR firstInputDelay < 0) THEN NULL
-            WHEN firstInputDelay = 0 THEN 0
-            WHEN firstInputDelay <= 1000 THEN FLOOR(firstInputDelay / 10) + 1
-            WHEN firstInputDelay <= 6000 THEN FLOOR((firstInputDelay - 1000) / 100) + 101
-            ELSE 151
-        END AS fidBucket,
-        CASE
-            WHEN (firstInputDelay IS NULL OR firstInputDelay < 0) THEN NULL
-            WHEN firstInputDelay > 6000 THEN 6000
-            ELSE firstInputDelay
-        END AS fid,
-
-        CASE
-            WHEN (interactionToNextPaint IS NULL OR interactionToNextPaint < 0) THEN NULL
-            WHEN interactionToNextPaint = 0 THEN 0
-            WHEN interactionToNextPaint <= 1000 THEN FLOOR(interactionToNextPaint / 10) + 1
-            WHEN interactionToNextPaint <= 6000 THEN FLOOR((interactionToNextPaint - 1000) / 100) + 101
-            ELSE 151
-        END AS inpBucket,
-        CASE
-            WHEN (interactionToNextPaint IS NULL OR interactionToNextPaint < 0) THEN NULL
-            WHEN interactionToNextPaint > 6000 THEN 6000
-            ELSE interactionToNextPaint
-        END AS inp,
-
-        CASE
-            WHEN (totalBlockingTime IS NULL OR totalBlockingTime < 0) THEN NULL
-            WHEN totalBlockingTime = 0 THEN 0
-            WHEN totalBlockingTime <= 10000 THEN FLOOR(totalBlockingTime / 100) + 1
-            WHEN totalBlockingTime <= 60000 THEN FLOOR((totalBlockingTime - 10000) / 1000) + 101
-            ELSE 151
-        END AS tbtBucket,
-        CASE
-            WHEN (totalBlockingTime IS NULL OR totalBlockingTime < 0) THEN NULL
-            WHEN totalBlockingTime > 60000 THEN 60000
-            ELSE totalBlockingTime
-        END AS tbt,
-
-        CASE
-            WHEN (tti IS NULL OR tti < 0) THEN NULL
-            WHEN tti = 0 THEN 0
-            WHEN tti <= 10000 THEN FLOOR(tti / 100) + 1
-            WHEN tti <= 60000 THEN FLOOR((tti - 10000) / 1000) + 101
-            ELSE 151
-        END AS ttiBucket,
-        CASE
-            WHEN (tti IS NULL OR tti < 0) THEN NULL
-            WHEN tti > 60000 THEN 60000
-            ELSE tti
-        END AS tti,
-
-        CASE
-            WHEN (redirectTime IS NULL OR redirectTime < 0) THEN NULL
-            WHEN redirectTime = 0 THEN 0
-            WHEN redirectTime <= 1000 THEN FLOOR(redirectTime / 10) + 1
-            WHEN redirectTime <= 6000 THEN FLOOR((redirectTime - 1000) / 100) + 101
-            ELSE 151
-        END AS redirectBucket,
-        CASE
-            WHEN (redirectTime IS NULL OR redirectTime < 0) THEN NULL
-            WHEN redirectTime > 6000 THEN 6000
-            ELSE redirectTime
-        END AS redirect
-
-    --
-    -- Tables
-    --
-    FROM %PAGE_LOADS_TABLE%
-
-         -- apply some sort of sampling
-         SAMPLE ROW (%BEACON_PCT%)
-
-    --
-    -- Clauses
-    --
-
-    -- exporting a day at a time
-    WHERE TIMESTAMP BETWEEN DATE_PART('EPOCH_MILLISECOND', TO_TIMESTAMP('%DATE% 00:00:00.00 -0000'))
-                        AND (DATE_PART('EPOCH_MILLISECOND', TO_TIMESTAMP('%DATE% 00:00:00.00 -0000')) + 86400000 - 1)
-
-    -- only specific types of interactions
-    AND beaconTypeName IN ('page view', 'spa_hard', 'spa')
-
-    -- skip any rows that don't measure a Page Load Time
-    AND pageLoadTime IS NOT NULL
-    AND pageLoadTime > 0
-
-    -- this query is run multiple times, one for each app exported in the dataset
-    AND appid = %APP_ID%
-)
 SELECT  -- dimensions
         'mpulse' AS source,
         '(multiple)' AS site,
-        plt.date,
+        '{{DATE}}' AS date,
         plt.deviceType,
         plt.userAgentFamily,
         plt.userAgentVersion,
@@ -272,71 +17,70 @@ SELECT  -- dimensions
         plt.landingPage,
         plt.beacons,
 
-        -- timers and metrics
-        to_json(plt.pltHistogram) AS pltHistogram,
+        -- timers
+        plt.pltHistogram AS pltHistogram,
         plt.pltAvg AS pltAvg,
         plt.pltSumLn AS pltSumLn,
         plt.pltBucketCount AS pltCount,
-        to_json(dns.dnsHistogram) AS dnsHistogram,
-        dns.dnsAvg AS dnsAvg,
-        dns.dnsSumLn AS dnsSumLn,
-        dns.dnsBucketCount AS dnsCount,
-        to_json(tcp.tcpHistogram) AS tcpHistogram,
-        tcp.tcpAvg AS tcpAvg,
-        tcp.tcpSumLn AS tcpSumLn,
-        tcp.tcpBucketCount AS tcpCount,
-        to_json(tls.tlsHistogram) AS tlsHistogram,
-        tls.tlsAvg AS tlsAvg,
-        tls.tlsSumLn AS tlsSumLn,
-        tls.tlsBucketCount AS tlsCount,
-        to_json(ttfb.ttfbHistogram) AS ttfbHistogram,
-        ttfb.ttfbAvg AS ttfbAvg,
-        ttfb.ttfbSumLn AS ttfbSumLn,
-        ttfb.ttfbBucketCount AS ttfbCount,
-        to_json(fcp.fcpHistogram) AS fcpHistogram,
-        fcp.fcpAvg AS fcpAvg,
-        fcp.fcpSumLn AS fcpSumLn,
-        fcp.fcpBucketCount AS fcpCount,
-        to_json(lcp.lcpHistogram) AS lcpHistogram,
-        lcp.lcpAvg AS lcpAvg,
-        lcp.lcpSumLn AS lcpSumLn,
-        lcp.lcpBucketCount AS lcpCount,
-        to_json(rtt.rttHistogram) AS rttHistogram,
-        rtt.rttAvg AS rttAvg,
-        rtt.rttSumLn AS rttSumLn,
-        rtt.rttBucketCount AS rttCount,
-        to_json(rageClicks.rageClicksHistogram) AS rageClicksHistogram,
-        rageClicks.rageClicksAvg AS rageClicksAvg,
-        rageClicks.rageClicksSumLn AS rageClicksSumLn,
-        rageClicks.rageClicksBucketCount AS rageClicksCount,
-        to_json(cls.clsHistogram) AS clsHistogram,
-        cls.clsAvg AS clsAvg,
-        cls.clsSumLn AS clsSumLn,
-        cls.clsBucketCount AS clsCount,
-        to_json(fid.fidHistogram) AS fidHistogram,
-        fid.fidAvg AS fidAvg,
-        fid.fidSumLn AS fidSumLn,
-        fid.fidBucketCount AS fidCount,
-        to_json(tbt.tbtHistogram) AS tbtHistogram,
-        tbt.tbtAvg AS tbtAvg,
-        tbt.tbtSumLn AS tbtSumLn,
-        tbt.tbtBucketCount AS tbtCount,
-        to_json(tti.ttiHistogram) AS ttiHistogram,
-        tti.ttiAvg AS ttiAvg,
-        tti.ttiSumLn AS ttiSumLn,
-        tti.ttiBucketCount AS ttiCount,
-        to_json(redirect.redirectHistogram) AS redirectHistogram,
-        redirect.redirectAvg AS redirectAvg,
-        redirect.redirectSumLn AS redirectSumLn,
-        redirect.redirectBucketCount AS redirectCount,
-        to_json(inp.inpHistogram) AS inpHistogram,
-        inp.inpAvg AS inpAvg,
-        inp.inpSumLn AS inpSumLn,
-        inp.inpBucketCount AS inpCount
+        CASE WHEN dns.dnsHistogram IS NULL THEN '{}' ELSE dns.dnsHistogram END AS dnsHistogram,
+        CASE WHEN dns.dnsAvg IS NULL THEN '' ELSE dns.dnsAvg END AS dnsAvg,
+        CASE WHEN dns.dnsSumLn IS NULL THEN '' ELSE dns.dnsSumLn END AS dnsSumLn,
+        CASE WHEN dns.dnsBucketCount IS NULL THEN 0 ELSE dns.dnsBucketCount END AS dnsCount,
+        CASE WHEN tcp.tcpHistogram IS NULL THEN '{}' ELSE tcp.tcpHistogram END AS tcpHistogram,
+        CASE WHEN tcp.tcpAvg IS NULL THEN '' ELSE tcp.tcpAvg END AS tcpAvg,
+        CASE WHEN tcp.tcpSumLn IS NULL THEN '' ELSE tcp.tcpSumLn END AS tcpSumLn,
+        CASE WHEN tcp.tcpBucketCount IS NULL THEN 0 ELSE tcp.tcpBucketCount END AS tcpCount,
+        CASE WHEN tls.tlsHistogram IS NULL THEN '{}' ELSE tls.tlsHistogram END AS tlsHistogram,
+        CASE WHEN tls.tlsAvg IS NULL THEN '' ELSE tls.tlsAvg END AS tlsAvg,
+        CASE WHEN tls.tlsSumLn IS NULL THEN '' ELSE tls.tlsSumLn END AS tlsSumLn,
+        CASE WHEN tls.tlsBucketCount IS NULL THEN 0 ELSE tls.tlsBucketCount END AS tlsCount,
+        CASE WHEN ttfb.ttfbHistogram IS NULL THEN '{}' ELSE ttfb.ttfbHistogram END AS ttfbHistogram,
+        CASE WHEN ttfb.ttfbAvg IS NULL THEN '' ELSE ttfb.ttfbAvg END AS ttfbAvg,
+        CASE WHEN ttfb.ttfbSumLn IS NULL THEN '' ELSE ttfb.ttfbSumLn END AS ttfbSumLn,
+        CASE WHEN ttfb.ttfbBucketCount IS NULL THEN 0 ELSE ttfb.ttfbBucketCount END AS ttfbCount,
+        CASE WHEN fcp.fcpHistogram IS NULL THEN '{}' ELSE fcp.fcpHistogram END AS fcpHistogram,
+        CASE WHEN fcp.fcpAvg IS NULL THEN '' ELSE fcp.fcpAvg END AS fcpAvg,
+        CASE WHEN fcp.fcpSumLn IS NULL THEN '' ELSE fcp.fcpSumLn END AS fcpSumLn,
+        CASE WHEN fcp.fcpBucketCount IS NULL THEN 0 ELSE fcp.fcpBucketCount END AS fcpCount,
+        CASE WHEN lcp.lcpHistogram IS NULL THEN '{}' ELSE lcp.lcpHistogram END AS lcpHistogram,
+        CASE WHEN lcp.lcpAvg IS NULL THEN '' ELSE lcp.lcpAvg END AS lcpAvg,
+        CASE WHEN lcp.lcpSumLn IS NULL THEN '' ELSE lcp.lcpSumLn END AS lcpSumLn,
+        CASE WHEN lcp.lcpBucketCount IS NULL THEN 0 ELSE lcp.lcpBucketCount END AS lcpCount,
+        CASE WHEN rtt.rttHistogram IS NULL THEN '{}' ELSE rtt.rttHistogram END AS rttHistogram,
+        CASE WHEN rtt.rttAvg IS NULL THEN '' ELSE rtt.rttAvg END AS rttAvg,
+        CASE WHEN rtt.rttSumLn IS NULL THEN '' ELSE rtt.rttSumLn END AS rttSumLn,
+        CASE WHEN rtt.rttBucketCount IS NULL THEN 0 ELSE rtt.rttBucketCount END AS rttCount,
+        CASE WHEN rageClicks.rageClicksHistogram IS NULL THEN '{}' ELSE rageClicks.rageClicksHistogram END AS rageClicksHistogram,
+        CASE WHEN rageClicks.rageClicksAvg IS NULL THEN '' ELSE rageClicks.rageClicksAvg END AS rageClicksAvg,
+        CASE WHEN rageClicks.rageClicksSumLn IS NULL THEN '' ELSE rageClicks.rageClicksSumLn END AS rageClicksSumLn,
+        CASE WHEN rageClicks.rageClicksBucketCount IS NULL THEN 0 ELSE rageClicks.rageClicksBucketCount END AS rageClicksCount,
+        CASE WHEN cls.clsHistogram IS NULL THEN '{}' ELSE cls.clsHistogram END AS clsHistogram,
+        CASE WHEN cls.clsAvg IS NULL THEN '' ELSE cls.clsAvg END AS clsAvg,
+        CASE WHEN cls.clsSumLn IS NULL THEN '' ELSE cls.clsSumLn END AS clsSumLn,
+        CASE WHEN cls.clsBucketCount IS NULL THEN 0 ELSE cls.clsBucketCount END AS clsCount,
+        CASE WHEN fid.fidHistogram IS NULL THEN '{}' ELSE fid.fidHistogram END AS fidHistogram,
+        CASE WHEN fid.fidAvg IS NULL THEN '' ELSE fid.fidAvg END AS fidAvg,
+        CASE WHEN fid.fidSumLn IS NULL THEN '' ELSE fid.fidSumLn END AS fidSumLn,
+        CASE WHEN fid.fidBucketCount IS NULL THEN 0 ELSE fid.fidBucketCount END AS fidCount,
+        CASE WHEN tbt.tbtHistogram IS NULL THEN '{}' ELSE tbt.tbtHistogram END AS tbtHistogram,
+        CASE WHEN tbt.tbtAvg IS NULL THEN '' ELSE tbt.tbtAvg END AS tbtAvg,
+        CASE WHEN tbt.tbtSumLn IS NULL THEN '' ELSE tbt.tbtSumLn END AS tbtSumLn,
+        CASE WHEN tbt.tbtBucketCount IS NULL THEN 0 ELSE tbt.tbtBucketCount END AS tbtCount,
+        CASE WHEN tti.ttiHistogram IS NULL THEN '{}' ELSE tti.ttiHistogram END AS ttiHistogram,
+        CASE WHEN tti.ttiAvg IS NULL THEN '' ELSE tti.ttiAvg END AS ttiAvg,
+        CASE WHEN tti.ttiSumLn IS NULL THEN '' ELSE tti.ttiSumLn END AS ttiSumLn,
+        CASE WHEN tti.ttiBucketCount IS NULL THEN 0 ELSE tti.ttiBucketCount END AS ttiCount,
+        CASE WHEN redirect.redirectHistogram IS NULL THEN '{}' ELSE redirect.redirectHistogram END AS redirectHistogram,
+        CASE WHEN redirect.redirectAvg IS NULL THEN '' ELSE redirect.redirectAvg END AS redirectAvg,
+        CASE WHEN redirect.redirectSumLn IS NULL THEN '' ELSE redirect.redirectSumLn END AS redirectSumLn,
+        CASE WHEN redirect.redirectBucketCount IS NULL THEN 0 ELSE redirect.redirectBucketCount END AS redirectCount,
+        CASE WHEN inp.inpHistogram IS NULL THEN '{}' ELSE inp.inpHistogram END AS inpHistogram,
+        CASE WHEN inp.inpAvg IS NULL THEN '' ELSE inp.inpAvg END AS inpAvg,
+        CASE WHEN inp.inpSumLn IS NULL THEN '' ELSE inp.inpSumLn END AS inpSumLn,
+        CASE WHEN inp.inpBucketCount IS NULL THEN 0 ELSE inp.inpBucketCount END AS inpCount
 FROM
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -351,16 +95,12 @@ FROM
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        pltBucket::VARCHAR,
-        ARRAY_CONSTRUCT(pltBucketMid, pltBucketCount)
-        ) AS pltHistogram,
-        AVG(pltAvg) AS pltAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(pltBucket, pltBucketMidCount)))) AS pltHistogram,
+        SUM(pltAvg * pltBucketCount) / SUM(pltBucketCount) AS pltAvg,
         SUM(pltSumLn) AS pltSumLn,
         SUM(pltBucketCount) AS pltBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -374,15 +114,73 @@ FROM
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             pltBucket,
-            ROUND(MEDIAN(plt)) AS pltBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(plt, 0.5)) AS INT), COUNT(plt)) AS pltBucketMidCount,
             COUNT(plt) AS pltBucketCount,
             AVG(plt) AS pltAvg,
             SUM(LN(GREATEST(plt, 0.000001))) AS pltSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (pageLoadTime IS NULL OR pageLoadTime < 0) THEN NULL
+                    WHEN pageLoadTime = 0 THEN 0
+                    WHEN pageLoadTime <= 10000 THEN FLOOR(pageLoadTime / 100) + 1
+                    WHEN pageLoadTime <= 60000 THEN FLOOR((pageLoadTime - 10000) / 1000) + 101
+                    ELSE 151
+                END AS pltBucket,
+                CASE
+                    WHEN (pageLoadTime IS NULL OR pageLoadTime < 0) THEN NULL
+                    WHEN pageLoadTime > 60000 THEN 60000
+                    ELSE pageLoadTime
+                END AS plt
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE pltBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -399,7 +197,6 @@ FROM
             pltBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -414,10 +211,9 @@ FROM
         ipVersion,
         landingPage
     ) plt
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -432,16 +228,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        dnsBucket::VARCHAR,
-        ARRAY_CONSTRUCT(dnsBucketMid, dnsBucketCount)
-        ) AS dnsHistogram,
-        AVG(dnsAvg) AS dnsAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(dnsBucket, dnsBucketMidCount)))) AS dnsHistogram,
+        SUM(dnsAvg * dnsBucketCount) / SUM(dnsBucketCount) AS dnsAvg,
         SUM(dnsSumLn) AS dnsSumLn,
         SUM(dnsBucketCount) AS dnsBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -455,15 +247,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             dnsBucket,
-            ROUND(MEDIAN(dns)) AS dnsBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(dns, 0.5)) AS INT), COUNT(dns)) AS dnsBucketMidCount,
             COUNT(dns) AS dnsBucketCount,
             AVG(dns) AS dnsAvg,
             SUM(LN(GREATEST(dns, 0.000001))) AS dnsSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (dnsTimer IS NULL OR dnsTimer < 0) THEN NULL
+                    WHEN dnsTimer = 0 THEN 0
+                    WHEN dnsTimer <= 1000 THEN FLOOR(dnsTimer / 10) + 1
+                    WHEN dnsTimer <= 6000 THEN FLOOR((dnsTimer - 1000) / 100) + 101
+                    ELSE 151
+                END AS dnsBucket,
+                CASE
+                    WHEN (dnsTimer IS NULL OR dnsTimer < 0) THEN NULL
+                    WHEN dnsTimer > 6000 THEN 6000
+                    ELSE dnsTimer
+                END AS dns
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE dnsBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -480,7 +331,6 @@ INNER JOIN
             dnsBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -496,7 +346,6 @@ INNER JOIN
         landingPage
     ) dns
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -511,10 +360,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -529,16 +377,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        tcpBucket::VARCHAR,
-        ARRAY_CONSTRUCT(tcpBucketMid, tcpBucketCount)
-        ) AS tcpHistogram,
-        AVG(tcpAvg) AS tcpAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(tcpBucket, tcpBucketMidCount)))) AS tcpHistogram,
+        SUM(tcpAvg * tcpBucketCount) / SUM(tcpBucketCount) AS tcpAvg,
         SUM(tcpSumLn) AS tcpSumLn,
         SUM(tcpBucketCount) AS tcpBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -552,15 +396,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             tcpBucket,
-            ROUND(MEDIAN(tcp)) AS tcpBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(tcp, 0.5)) AS INT), COUNT(tcp)) AS tcpBucketMidCount,
             COUNT(tcp) AS tcpBucketCount,
             AVG(tcp) AS tcpAvg,
             SUM(LN(GREATEST(tcp, 0.000001))) AS tcpSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (tcpTimer IS NULL OR tcpTimer < 0) THEN NULL
+                    WHEN tcpTimer = 0 THEN 0
+                    WHEN tcpTimer <= 1000 THEN FLOOR(tcpTimer / 10) + 1
+                    WHEN tcpTimer <= 6000 THEN FLOOR((tcpTimer - 1000) / 100) + 101
+                    ELSE 151
+                END AS tcpBucket,
+                CASE
+                    WHEN (tcpTimer IS NULL OR tcpTimer < 0) THEN NULL
+                    WHEN tcpTimer > 6000 THEN 6000
+                    ELSE tcpTimer
+                END AS tcp
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE tcpBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -577,7 +480,6 @@ INNER JOIN
             tcpBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -593,7 +495,6 @@ INNER JOIN
         landingPage
     ) tcp
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -608,10 +509,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -626,16 +526,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        tlsBucket::VARCHAR,
-        ARRAY_CONSTRUCT(tlsBucketMid, tlsBucketCount)
-        ) AS tlsHistogram,
-        AVG(tlsAvg) AS tlsAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(tlsBucket, tlsBucketMidCount)))) AS tlsHistogram,
+        SUM(tlsAvg * tlsBucketCount) / SUM(tlsBucketCount) AS tlsAvg,
         SUM(tlsSumLn) AS tlsSumLn,
         SUM(tlsBucketCount) AS tlsBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -649,15 +545,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             tlsBucket,
-            ROUND(MEDIAN(tls)) AS tlsBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(tls, 0.5)) AS INT), COUNT(tls)) AS tlsBucketMidCount,
             COUNT(tls) AS tlsBucketCount,
             AVG(tls) AS tlsAvg,
             SUM(LN(GREATEST(tls, 0.000001))) AS tlsSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (sslTimer IS NULL OR sslTimer < 0) THEN NULL
+                    WHEN sslTimer = 0 THEN 0
+                    WHEN sslTimer <= 1000 THEN FLOOR(sslTimer / 10) + 1
+                    WHEN sslTimer <= 6000 THEN FLOOR((sslTimer - 1000) / 100) + 101
+                    ELSE 151
+                END AS tlsBucket,
+                CASE
+                    WHEN (sslTimer IS NULL OR sslTimer < 0) THEN NULL
+                    WHEN sslTimer > 6000 THEN 6000
+                    ELSE sslTimer
+                END AS tls
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE tlsBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -674,7 +629,6 @@ INNER JOIN
             tlsBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -690,7 +644,6 @@ INNER JOIN
         landingPage
     ) tls
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -705,10 +658,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -723,16 +675,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        ttfbBucket::VARCHAR,
-        ARRAY_CONSTRUCT(ttfbBucketMid, ttfbBucketCount)
-        ) AS ttfbHistogram,
-        AVG(ttfbAvg) AS ttfbAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(ttfbBucket, ttfbBucketMidCount)))) AS ttfbHistogram,
+        SUM(ttfbAvg * ttfbBucketCount) / SUM(ttfbBucketCount) AS ttfbAvg,
         SUM(ttfbSumLn) AS ttfbSumLn,
         SUM(ttfbBucketCount) AS ttfbBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -746,15 +694,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             ttfbBucket,
-            ROUND(MEDIAN(ttfb)) AS ttfbBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(ttfb, 0.5)) AS INT), COUNT(ttfb)) AS ttfbBucketMidCount,
             COUNT(ttfb) AS ttfbBucketCount,
             AVG(ttfb) AS ttfbAvg,
             SUM(LN(GREATEST(ttfb, 0.000001))) AS ttfbSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (firstByteTimer IS NULL OR firstByteTimer < 0) THEN NULL
+                    WHEN firstByteTimer = 0 THEN 0
+                    WHEN firstByteTimer <= 1000 THEN FLOOR(firstByteTimer / 10) + 1
+                    WHEN firstByteTimer <= 6000 THEN FLOOR((firstByteTimer - 1000) / 100) + 101
+                    ELSE 151
+                END AS ttfbBucket,
+                CASE
+                    WHEN (firstByteTimer IS NULL OR firstByteTimer < 0) THEN NULL
+                    WHEN firstByteTimer > 6000 THEN 6000
+                    ELSE firstByteTimer
+                END AS ttfb
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE ttfbBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -771,7 +778,6 @@ INNER JOIN
             ttfbBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -787,7 +793,6 @@ INNER JOIN
         landingPage
     ) ttfb
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -802,10 +807,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -820,16 +824,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        fcpBucket::VARCHAR,
-        ARRAY_CONSTRUCT(fcpBucketMid, fcpBucketCount)
-        ) AS fcpHistogram,
-        AVG(fcpAvg) AS fcpAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(fcpBucket, fcpBucketMidCount)))) AS fcpHistogram,
+        SUM(fcpAvg * fcpBucketCount) / SUM(fcpBucketCount) AS fcpAvg,
         SUM(fcpSumLn) AS fcpSumLn,
         SUM(fcpBucketCount) AS fcpBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -843,15 +843,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             fcpBucket,
-            ROUND(MEDIAN(fcp)) AS fcpBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(fcp, 0.5)) AS INT), COUNT(fcp)) AS fcpBucketMidCount,
             COUNT(fcp) AS fcpBucketCount,
             AVG(fcp) AS fcpAvg,
             SUM(LN(GREATEST(fcp, 0.000001))) AS fcpSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (firstContentfulPaint IS NULL OR firstContentfulPaint < 0) THEN NULL
+                    WHEN firstContentfulPaint = 0 THEN 0
+                    WHEN firstContentfulPaint <= 10000 THEN FLOOR(firstContentfulPaint / 100) + 1
+                    WHEN firstContentfulPaint <= 60000 THEN FLOOR((firstContentfulPaint - 10000) / 1000) + 101
+                    ELSE 151
+                END AS fcpBucket,
+                CASE
+                    WHEN (firstContentfulPaint IS NULL OR firstContentfulPaint < 0) THEN NULL
+                    WHEN firstContentfulPaint > 60000 THEN 60000
+                    ELSE firstContentfulPaint
+                END AS fcp
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE fcpBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -868,7 +927,6 @@ INNER JOIN
             fcpBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -884,7 +942,6 @@ INNER JOIN
         landingPage
     ) fcp
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -899,10 +956,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -917,16 +973,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        lcpBucket::VARCHAR,
-        ARRAY_CONSTRUCT(lcpBucketMid, lcpBucketCount)
-        ) AS lcpHistogram,
-        AVG(lcpAvg) AS lcpAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(lcpBucket, lcpBucketMidCount)))) AS lcpHistogram,
+        SUM(lcpAvg * lcpBucketCount) / SUM(lcpBucketCount) AS lcpAvg,
         SUM(lcpSumLn) AS lcpSumLn,
         SUM(lcpBucketCount) AS lcpBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -940,15 +992,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             lcpBucket,
-            ROUND(MEDIAN(lcp)) AS lcpBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(lcp, 0.5)) AS INT), COUNT(lcp)) AS lcpBucketMidCount,
             COUNT(lcp) AS lcpBucketCount,
             AVG(lcp) AS lcpAvg,
             SUM(LN(GREATEST(lcp, 0.000001))) AS lcpSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (largestContentfulPaint IS NULL OR largestContentfulPaint < 0) THEN NULL
+                    WHEN largestContentfulPaint = 0 THEN 0
+                    WHEN largestContentfulPaint <= 10000 THEN FLOOR(largestContentfulPaint / 100) + 1
+                    WHEN largestContentfulPaint <= 60000 THEN FLOOR((largestContentfulPaint - 10000) / 1000) + 101
+                    ELSE 151
+                END AS lcpBucket,
+                CASE
+                    WHEN (largestContentfulPaint IS NULL OR largestContentfulPaint < 0) THEN NULL
+                    WHEN largestContentfulPaint > 60000 THEN 60000
+                    ELSE largestContentfulPaint
+                END AS lcp
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE lcpBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -965,7 +1076,6 @@ INNER JOIN
             lcpBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -981,7 +1091,6 @@ INNER JOIN
         landingPage
     ) lcp
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -996,10 +1105,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1014,16 +1122,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        rttBucket::VARCHAR,
-        ARRAY_CONSTRUCT(rttBucketMid, rttBucketCount)
-        ) AS rttHistogram,
-        AVG(rttAvg) AS rttAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(rttBucket, rttBucketMidCount)))) AS rttHistogram,
+        SUM(rttAvg * rttBucketCount) / SUM(rttBucketCount) AS rttAvg,
         SUM(rttSumLn) AS rttSumLn,
         SUM(rttBucketCount) AS rttBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1037,15 +1141,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             rttBucket,
-            ROUND(MEDIAN(rtt)) AS rttBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(rtt, 0.5)) AS INT), COUNT(rtt)) AS rttBucketMidCount,
             COUNT(rtt) AS rttBucketCount,
             AVG(rtt) AS rttAvg,
             SUM(LN(GREATEST(rtt, 0.000001))) AS rttSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (paramsAkCr IS NULL OR paramsAkCr < 0) THEN NULL
+                    WHEN paramsAkCr = 0 THEN 0
+                    WHEN paramsAkCr <= 1000 THEN FLOOR(paramsAkCr / 10) + 1
+                    WHEN paramsAkCr <= 6000 THEN FLOOR((paramsAkCr - 1000) / 100) + 101
+                    ELSE 151
+                END AS rttBucket,
+                CASE
+                    WHEN (paramsAkCr IS NULL OR paramsAkCr < 0) THEN NULL
+                    WHEN paramsAkCr > 6000 THEN 6000
+                    ELSE paramsAkCr
+                END AS rtt
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE rttBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1062,7 +1225,6 @@ INNER JOIN
             rttBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1078,7 +1240,6 @@ INNER JOIN
         landingPage
     ) rtt
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -1093,10 +1254,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1111,16 +1271,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        rageClicksBucket::VARCHAR,
-        ARRAY_CONSTRUCT(rageClicksBucketMid, rageClicksBucketCount)
-        ) AS rageClicksHistogram,
-        AVG(rageClicksAvg) AS rageClicksAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(rageClicksBucket, rageClicksBucketMidCount)))) AS rageClicksHistogram,
+        SUM(rageClicksAvg * rageClicksBucketCount) / SUM(rageClicksBucketCount) AS rageClicksAvg,
         SUM(rageClicksSumLn) AS rageClicksSumLn,
         SUM(rageClicksBucketCount) AS rageClicksBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1134,15 +1290,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             rageClicksBucket,
-            ROUND(MEDIAN(rageClicks)) AS rageClicksBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(rageClicks, 0.5)) AS INT), COUNT(rageClicks)) AS rageClicksBucketMidCount,
             COUNT(rageClicks) AS rageClicksBucketCount,
             AVG(rageClicks) AS rageClicksAvg,
             SUM(LN(GREATEST(rageClicks, 0.000001))) AS rageClicksSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (rageClicks IS NULL OR rageClicks < 0) THEN NULL
+                    WHEN rageClicks = 0 THEN 0
+                    WHEN rageClicks <= 100 THEN rageClicks
+                    WHEN rageClicks <= 600 THEN FLOOR((rageClicks - 100) / 10) + 101
+                    ELSE 151
+                END AS rageClicksBucket,
+                CASE
+                    WHEN (rageClicks IS NULL OR rageClicks < 0) THEN NULL
+                    WHEN rageClicks > 600 THEN 600
+                    ELSE rageClicks
+                END AS rageClicks
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE rageClicksBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1159,7 +1374,6 @@ INNER JOIN
             rageClicksBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1175,7 +1389,6 @@ INNER JOIN
         landingPage
     ) rageClicks
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -1190,10 +1403,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1208,16 +1420,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        clsBucket::VARCHAR,
-        ARRAY_CONSTRUCT(clsBucketMid, clsBucketCount)
-        ) AS clsHistogram,
-        AVG(clsAvg) AS clsAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(clsBucket, clsBucketMidCount)))) AS clsHistogram,
+        SUM(clsAvg * clsBucketCount) / SUM(clsBucketCount) AS clsAvg,
         SUM(clsSumLn) AS clsSumLn,
         SUM(clsBucketCount) AS clsBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1231,15 +1439,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             clsBucket,
-            ROUND(MEDIAN(cls)) AS clsBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(cls, 0.5)) AS INT), COUNT(cls)) AS clsBucketMidCount,
             COUNT(cls) AS clsBucketCount,
             AVG(cls) AS clsAvg,
             SUM(LN(GREATEST(cls, 0.000001))) AS clsSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (cumulativeLayoutShift IS NULL OR cumulativeLayoutShift < 0) THEN NULL
+                    WHEN cumulativeLayoutShift = 0 THEN 0
+                    WHEN cumulativeLayoutShift <= 1000 THEN FLOOR(cumulativeLayoutShift / 10) + 1
+                    WHEN cumulativeLayoutShift <= 6000 THEN FLOOR((cumulativeLayoutShift - 1000) / 100) + 101
+                    ELSE 151
+                END AS clsBucket,
+                CASE
+                    WHEN (cumulativeLayoutShift IS NULL OR cumulativeLayoutShift < 0) THEN NULL
+                    WHEN cumulativeLayoutShift > 6000 THEN 6000
+                    ELSE cumulativeLayoutShift
+                END AS cls
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE clsBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1256,7 +1523,6 @@ INNER JOIN
             clsBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1272,7 +1538,6 @@ INNER JOIN
         landingPage
     ) cls
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -1287,10 +1552,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1305,16 +1569,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        fidBucket::VARCHAR,
-        ARRAY_CONSTRUCT(fidBucketMid, fidBucketCount)
-        ) AS fidHistogram,
-        AVG(fidAvg) AS fidAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(fidBucket, fidBucketMidCount)))) AS fidHistogram,
+        SUM(fidAvg * fidBucketCount) / SUM(fidBucketCount) AS fidAvg,
         SUM(fidSumLn) AS fidSumLn,
         SUM(fidBucketCount) AS fidBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1328,15 +1588,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             fidBucket,
-            ROUND(MEDIAN(fid)) AS fidBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(fid, 0.5)) AS INT), COUNT(fid)) AS fidBucketMidCount,
             COUNT(fid) AS fidBucketCount,
             AVG(fid) AS fidAvg,
             SUM(LN(GREATEST(fid, 0.000001))) AS fidSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (firstInputDelay IS NULL OR firstInputDelay < 0) THEN NULL
+                    WHEN firstInputDelay = 0 THEN 0
+                    WHEN firstInputDelay <= 1000 THEN FLOOR(firstInputDelay / 10) + 1
+                    WHEN firstInputDelay <= 6000 THEN FLOOR((firstInputDelay - 1000) / 100) + 101
+                    ELSE 151
+                END AS fidBucket,
+                CASE
+                    WHEN (firstInputDelay IS NULL OR firstInputDelay < 0) THEN NULL
+                    WHEN firstInputDelay > 6000 THEN 6000
+                    ELSE firstInputDelay
+                END AS fid
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE fidBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1353,7 +1672,6 @@ INNER JOIN
             fidBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1369,7 +1687,6 @@ INNER JOIN
         landingPage
     ) fid
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -1384,10 +1701,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1402,16 +1718,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        tbtBucket::VARCHAR,
-        ARRAY_CONSTRUCT(tbtBucketMid, tbtBucketCount)
-        ) AS tbtHistogram,
-        AVG(tbtAvg) AS tbtAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(tbtBucket, tbtBucketMidCount)))) AS tbtHistogram,
+        SUM(tbtAvg * tbtBucketCount) / SUM(tbtBucketCount) AS tbtAvg,
         SUM(tbtSumLn) AS tbtSumLn,
         SUM(tbtBucketCount) AS tbtBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1425,15 +1737,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             tbtBucket,
-            ROUND(MEDIAN(tbt)) AS tbtBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(tbt, 0.5)) AS INT), COUNT(tbt)) AS tbtBucketMidCount,
             COUNT(tbt) AS tbtBucketCount,
             AVG(tbt) AS tbtAvg,
             SUM(LN(GREATEST(tbt, 0.000001))) AS tbtSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (totalBlockingTime IS NULL OR totalBlockingTime < 0) THEN NULL
+                    WHEN totalBlockingTime = 0 THEN 0
+                    WHEN totalBlockingTime <= 10000 THEN FLOOR(totalBlockingTime / 100) + 1
+                    WHEN totalBlockingTime <= 60000 THEN FLOOR((totalBlockingTime - 10000) / 1000) + 101
+                    ELSE 151
+                END AS tbtBucket,
+                CASE
+                    WHEN (totalBlockingTime IS NULL OR totalBlockingTime < 0) THEN NULL
+                    WHEN totalBlockingTime > 60000 THEN 60000
+                    ELSE totalBlockingTime
+                END AS tbt
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE tbtBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1450,7 +1821,6 @@ INNER JOIN
             tbtBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1466,7 +1836,6 @@ INNER JOIN
         landingPage
     ) tbt
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -1481,10 +1850,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1499,16 +1867,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        ttiBucket::VARCHAR,
-        ARRAY_CONSTRUCT(ttiBucketMid, ttiBucketCount)
-        ) AS ttiHistogram,
-        AVG(ttiAvg) AS ttiAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(ttiBucket, ttiBucketMidCount)))) AS ttiHistogram,
+        SUM(ttiAvg * ttiBucketCount) / SUM(ttiBucketCount) AS ttiAvg,
         SUM(ttiSumLn) AS ttiSumLn,
         SUM(ttiBucketCount) AS ttiBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1522,15 +1886,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             ttiBucket,
-            ROUND(MEDIAN(tti)) AS ttiBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(tti, 0.5)) AS INT), COUNT(tti)) AS ttiBucketMidCount,
             COUNT(tti) AS ttiBucketCount,
             AVG(tti) AS ttiAvg,
             SUM(LN(GREATEST(tti, 0.000001))) AS ttiSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (tti IS NULL OR tti < 0) THEN NULL
+                    WHEN tti = 0 THEN 0
+                    WHEN tti <= 10000 THEN FLOOR(tti / 100) + 1
+                    WHEN tti <= 60000 THEN FLOOR((tti - 10000) / 1000) + 101
+                    ELSE 151
+                END AS ttiBucket,
+                CASE
+                    WHEN (tti IS NULL OR tti < 0) THEN NULL
+                    WHEN tti > 60000 THEN 60000
+                    ELSE tti
+                END AS tti
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE ttiBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1547,7 +1970,6 @@ INNER JOIN
             ttiBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1563,7 +1985,6 @@ INNER JOIN
         landingPage
     ) tti
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -1578,10 +1999,9 @@ USING (
     ipVersion,
     landingPage
 )
-INNER JOIN
+LEFT JOIN
 (
     SELECT
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1596,16 +2016,12 @@ INNER JOIN
         ipVersion,
         landingPage,
         SUM(beacons) AS beacons,
-        OBJECT_AGG(DISTINCT
-        redirectBucket::VARCHAR,
-        ARRAY_CONSTRUCT(redirectBucketMid, redirectBucketCount)
-        ) AS redirectHistogram,
-        AVG(redirectAvg) AS redirectAvg,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(redirectBucket, redirectBucketMidCount)))) AS redirectHistogram,
+        SUM(redirectAvg * redirectBucketCount) / SUM(redirectBucketCount) AS redirectAvg,
         SUM(redirectSumLn) AS redirectSumLn,
         SUM(redirectBucketCount) AS redirectBucketCount
     FROM (
         SELECT
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1619,15 +2035,74 @@ INNER JOIN
             protocol,
             ipVersion,
             landingPage,
-            count(*) AS beacons,
+            COUNT(*) AS beacons,
             redirectBucket,
-            ROUND(MEDIAN(redirect)) AS redirectBucketMid,
+            ARRAY(CAST(ROUND(PERCENTILE(redirect, 0.5)) AS INT), COUNT(redirect)) AS redirectBucketMidCount,
             COUNT(redirect) AS redirectBucketCount,
             AVG(redirect) AS redirectAvg,
             SUM(LN(GREATEST(redirect, 0.000001))) AS redirectSumLn
-        FROM bucket_query
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (redirectTime IS NULL OR redirectTime < 0) THEN NULL
+                    WHEN redirectTime = 0 THEN 0
+                    WHEN redirectTime <= 1000 THEN FLOOR(redirectTime / 10) + 1
+                    WHEN redirectTime <= 6000 THEN FLOOR((redirectTime - 1000) / 100) + 101
+                    ELSE 151
+                END AS redirectBucket,
+                CASE
+                    WHEN (redirectTime IS NULL OR redirectTime < 0) THEN NULL
+                    WHEN redirectTime > 6000 THEN 6000
+                    ELSE redirectTime
+                END AS redirect
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE redirectBucket IS NOT NULL
         GROUP BY
-            date,
             deviceType,
             userAgentFamily,
             userAgentVersion,
@@ -1644,7 +2119,6 @@ INNER JOIN
             redirectBucket
         )
     GROUP BY
-        date,
         deviceType,
         userAgentFamily,
         userAgentVersion,
@@ -1660,7 +2134,6 @@ INNER JOIN
         landingPage
     ) redirect
 USING (
-    date,
     deviceType,
     userAgentFamily,
     userAgentVersion,
@@ -1675,4 +2148,154 @@ USING (
     ipVersion,
     landingPage
 )
-WHERE beacons >= %MIN_BEACON_COUNT%
+LEFT JOIN
+(
+    SELECT
+        deviceType,
+        userAgentFamily,
+        userAgentVersion,
+        deviceModel,
+        os,
+        osVersion,
+        beaconType,
+        country,
+        visibilityState,
+        navigationType,
+        protocol,
+        ipVersion,
+        landingPage,
+        SUM(beacons) AS beacons,
+        TO_JSON(MAP_FROM_ENTRIES(COLLECT_LIST(STRUCT(inpBucket, inpBucketMidCount)))) AS inpHistogram,
+        SUM(inpAvg * inpBucketCount) / SUM(inpBucketCount) AS inpAvg,
+        SUM(inpSumLn) AS inpSumLn,
+        SUM(inpBucketCount) AS inpBucketCount
+    FROM (
+        SELECT
+            deviceType,
+            userAgentFamily,
+            userAgentVersion,
+            deviceModel,
+            os,
+            osVersion,
+            beaconType,
+            country,
+            visibilityState,
+            navigationType,
+            protocol,
+            ipVersion,
+            landingPage,
+            COUNT(*) AS beacons,
+            inpBucket,
+            ARRAY(CAST(ROUND(PERCENTILE(inp, 0.5)) AS INT), COUNT(inp)) AS inpBucketMidCount,
+            COUNT(inp) AS inpBucketCount,
+            AVG(inp) AS inpAvg,
+            SUM(LN(GREATEST(inp, 0.000001))) AS inpSumLn
+        FROM 
+        (
+            SELECT
+                --
+                -- Dimensions
+                --
+                COALESCE(deviceTypeName, '') AS deviceType,
+                COALESCE(userAgentName, '') AS userAgentFamily,
+                COALESCE(userAgentVersion, '') AS userAgentVersion,
+                TRIM(COALESCE(CONCAT(deviceManufacturerName, ' ', deviceName), '')) AS deviceModel,
+                COALESCE(operatingSystemName, '') AS os,
+                COALESCE(
+                    CASE
+                        WHEN operatingSystemVersion LIKE '%.%'
+                            -- trim minor version
+                            THEN LEFT(operatingSystemVersion, INSTR(operatingSystemVersion, '.') - 1)
+                        ELSE operatingSystemVersion
+                    END
+                    , '') AS osVersion,
+                REPLACE(COALESCE(beaconTypeName, ''), '_', ' ') AS beaconType,
+                COALESCE(countryCode, '') AS country,
+                COALESCE(visibilityStateName, '') AS visibilityState,
+                REPLACE(COALESCE(navigationTypeName, ''), '_', ' ') AS navigationType,
+                COALESCE(httpProtocolName, '') AS protocol,
+                COALESCE(ipVersionName, '') AS ipVersion,
+                COALESCE(landingPageName, '') AS landingPage,
+
+                --
+                -- Timers
+                --
+                CASE
+                    WHEN (inpFromParams IS NULL OR inpFromParams < 0) THEN NULL
+                    WHEN inpFromParams = 0 THEN 0
+                    WHEN inpFromParams <= 1000 THEN FLOOR(inpFromParams / 10) + 1
+                    WHEN inpFromParams <= 6000 THEN FLOOR((inpFromParams - 1000) / 100) + 101
+                    ELSE 151
+                END AS inpBucket,
+                CASE
+                    WHEN (inpFromParams IS NULL OR inpFromParams < 0) THEN NULL
+                    WHEN inpFromParams > 6000 THEN 6000
+                    ELSE CAST(inpFromParams AS INT)
+                END AS inp
+
+            --
+            -- Sample from the raw table
+            --
+            FROM (
+                SELECT *,
+                    GET_JSON_OBJECT(additionalfieldsjson, "$.params['et.inp.inc']") AS inpFromParams
+                FROM rum_prd_beacon_fact_dswb_0
+                WHERE TIME_BUCKET_DAY = UNIX_MILLIS(TO_TIMESTAMP('{{DATE}} 00:00:00.00 -0000'))
+                    AND beaconTypeName IN ('page view', 'spa_hard', 'spa', 'bfcache')
+                    AND pageLoadTime IS NOT NULL
+                    AND pageLoadTime > 0
+                    AND appId = {{APP_ID}}
+                    AND akamaiBmTypeName NOT IN (
+                        'Unknown Bot', 'Customer-Categorized Bot', 'Bot', 'Synthetic Monitoring',
+                        'Akamai Known Synthetic Monitoring', 'Akamai Known Bot'
+                    )
+            ) TABLESAMPLE ({{BEACON_PCT}} percent)
+        )
+        WHERE inpBucket IS NOT NULL
+        GROUP BY
+            deviceType,
+            userAgentFamily,
+            userAgentVersion,
+            deviceModel,
+            os,
+            osVersion,
+            beaconType,
+            country,
+            visibilityState,
+            navigationType,
+            protocol,
+            ipVersion,
+            landingPage,
+            inpBucket
+        )
+    GROUP BY
+        deviceType,
+        userAgentFamily,
+        userAgentVersion,
+        deviceModel,
+        os,
+        osVersion,
+        beaconType,
+        country,
+        visibilityState,
+        navigationType,
+        protocol,
+        ipVersion,
+        landingPage
+    ) inp
+USING (
+    deviceType,
+    userAgentFamily,
+    userAgentVersion,
+    deviceModel,
+    os,
+    osVersion,
+    beaconType,
+    country,
+    visibilityState,
+    navigationType,
+    protocol,
+    ipVersion,
+    landingPage
+)
+WHERE plt.beacons >= {{MIN_BEACON_COUNT}}
