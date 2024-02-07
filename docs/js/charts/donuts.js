@@ -111,7 +111,8 @@ function drawDonut(options, inputData) {
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %' //,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: ( window.location.search.indexOf("screenshot") < 0 ? {} : { fontSize: "1.3em" } ) // TODO: make this cleaner instead of going to the query params directly :)
                     // alignTo: 'plotEdges'
                 },
                 style: {
