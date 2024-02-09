@@ -12,7 +12,7 @@ and other companies, who want to make RUM data available for public research.
 
 Special thanks to the following contributors for their inspiration and work in this project:
 
-* Buddy Brewer
+* Buddy Brewer (who also donated [rumarchive.org](https://rumarchive.org))
 * Paul Calvano
 * Cliff Crocker
 * Simon Hearne
