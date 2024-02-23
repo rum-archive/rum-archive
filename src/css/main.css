@@ -176,7 +176,7 @@ pre[class*=language-] {
 
 .button.is-loading::after {
   animation: spinAround 500ms infinite linear;
-  border: 2px solid hsl(0deg, 0%, 86%);
+  border: 2px solid hsl(0, 0%, 86%);
   border-radius: 9999px;
   border-right-color: transparent;
   border-top-color: transparent;
@@ -208,7 +208,8 @@ pre[class*=language-] {
   padding: 0;
 }
 
-/* Bulma Base */ /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+/* Bulma Base */
+/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 html,
 body,
 p,
@@ -290,7 +291,7 @@ th:not([align]) {
 }
 
 html {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 100%);
   font-size: 16px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -330,7 +331,7 @@ pre {
 }
 
 body {
-  color: hsl(0deg, 0%, 29%);
+  color: hsl(0, 0%, 29%);
   font-size: 1em;
   font-weight: 400;
   line-height: 1.5;
@@ -345,11 +346,11 @@ a strong {
   color: currentColor;
 }
 a:hover {
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 
 code {
-  background-color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0, 0%, 96%);
   color: #da1039;
   font-size: 0.875em;
   font-weight: normal;
@@ -357,7 +358,7 @@ code {
 }
 
 hr {
-  background-color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0, 0%, 96%);
   border: none;
   display: block;
   height: 2px;
@@ -384,7 +385,7 @@ span {
 }
 
 strong {
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
   font-weight: 700;
 }
 
@@ -394,8 +395,8 @@ fieldset {
 
 pre {
   -webkit-overflow-scrolling: touch;
-  background-color: hsl(0deg, 0%, 96%);
-  color: hsl(0deg, 0%, 29%);
+  background-color: hsl(0, 0%, 96%);
+  color: hsl(0, 0%, 29%);
   font-size: 0.875em;
   overflow-x: auto;
   padding: 1.25rem 1.5rem;
@@ -418,7 +419,7 @@ table th:not([align]) {
   text-align: inherit;
 }
 table th {
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 
 @keyframes spinAround {
@@ -443,26 +444,26 @@ table th {
   border-bottom: none;
 }
 .hero.is-white {
-  background-color: hsl(0deg, 0%, 100%);
-  color: hsl(0deg, 0%, 4%);
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 4%);
 }
 .hero.is-white a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-white strong {
   color: inherit;
 }
 .hero.is-white .title {
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .hero.is-white .subtitle {
   color: rgba(10, 10, 10, 0.9);
 }
 .hero.is-white .subtitle a:not(.button),
 .hero.is-white .subtitle strong {
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 @media screen and (max-width: 1023px) {
   .hero.is-white .navbar-menu {
-    background-color: hsl(0deg, 0%, 100%);
+    background-color: hsl(0, 0%, 100%);
   }
 }
 .hero.is-white .navbar-item,
@@ -473,59 +474,59 @@ table th {
 .hero.is-white .navbar-link:hover,
 .hero.is-white .navbar-link.is-active {
   background-color: #f2f2f2;
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .hero.is-white .tabs a {
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
   opacity: 0.9;
 }
 .hero.is-white .tabs a:hover {
   opacity: 1;
 }
 .hero.is-white .tabs li.is-active a {
-  color: hsl(0deg, 0%, 100%) !important;
+  color: hsl(0, 0%, 100%) !important;
   opacity: 1;
 }
 .hero.is-white .tabs.is-boxed a, .hero.is-white .tabs.is-toggle a {
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .hero.is-white .tabs.is-boxed a:hover, .hero.is-white .tabs.is-toggle a:hover {
   background-color: rgba(10, 10, 10, 0.1);
 }
 .hero.is-white .tabs.is-boxed li.is-active a, .hero.is-white .tabs.is-boxed li.is-active a:hover, .hero.is-white .tabs.is-toggle li.is-active a, .hero.is-white .tabs.is-toggle li.is-active a:hover {
-  background-color: hsl(0deg, 0%, 4%);
-  border-color: hsl(0deg, 0%, 4%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 4%);
+  border-color: hsl(0, 0%, 4%);
+  color: hsl(0, 0%, 100%);
 }
 .hero.is-white.is-bold {
-  background-image: linear-gradient(141deg, #e8e3e4 0%, hsl(0deg, 0%, 100%) 71%, white 100%);
+  background-image: linear-gradient(141deg, #e8e3e4 0%, hsl(0, 0%, 100%) 71%, white 100%);
 }
 @media screen and (max-width: 768px) {
   .hero.is-white.is-bold .navbar-menu {
-    background-image: linear-gradient(141deg, #e8e3e4 0%, hsl(0deg, 0%, 100%) 71%, white 100%);
+    background-image: linear-gradient(141deg, #e8e3e4 0%, hsl(0, 0%, 100%) 71%, white 100%);
   }
 }
 .hero.is-black {
-  background-color: hsl(0deg, 0%, 4%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 4%);
+  color: hsl(0, 0%, 100%);
 }
 .hero.is-black a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-black strong {
   color: inherit;
 }
 .hero.is-black .title {
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .hero.is-black .subtitle {
   color: rgba(255, 255, 255, 0.9);
 }
 .hero.is-black .subtitle a:not(.button),
 .hero.is-black .subtitle strong {
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 @media screen and (max-width: 1023px) {
   .hero.is-black .navbar-menu {
-    background-color: hsl(0deg, 0%, 4%);
+    background-color: hsl(0, 0%, 4%);
   }
 }
 .hero.is-black .navbar-item,
@@ -536,40 +537,40 @@ table th {
 .hero.is-black .navbar-link:hover,
 .hero.is-black .navbar-link.is-active {
   background-color: black;
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .hero.is-black .tabs a {
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
   opacity: 0.9;
 }
 .hero.is-black .tabs a:hover {
   opacity: 1;
 }
 .hero.is-black .tabs li.is-active a {
-  color: hsl(0deg, 0%, 4%) !important;
+  color: hsl(0, 0%, 4%) !important;
   opacity: 1;
 }
 .hero.is-black .tabs.is-boxed a, .hero.is-black .tabs.is-toggle a {
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .hero.is-black .tabs.is-boxed a:hover, .hero.is-black .tabs.is-toggle a:hover {
   background-color: rgba(10, 10, 10, 0.1);
 }
 .hero.is-black .tabs.is-boxed li.is-active a, .hero.is-black .tabs.is-boxed li.is-active a:hover, .hero.is-black .tabs.is-toggle li.is-active a, .hero.is-black .tabs.is-toggle li.is-active a:hover {
-  background-color: hsl(0deg, 0%, 100%);
-  border-color: hsl(0deg, 0%, 100%);
-  color: hsl(0deg, 0%, 4%);
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 4%);
 }
 .hero.is-black.is-bold {
-  background-image: linear-gradient(141deg, black 0%, hsl(0deg, 0%, 4%) 71%, #181616 100%);
+  background-image: linear-gradient(141deg, black 0%, hsl(0, 0%, 4%) 71%, #181616 100%);
 }
 @media screen and (max-width: 768px) {
   .hero.is-black.is-bold .navbar-menu {
-    background-image: linear-gradient(141deg, black 0%, hsl(0deg, 0%, 4%) 71%, #181616 100%);
+    background-image: linear-gradient(141deg, black 0%, hsl(0, 0%, 4%) 71%, #181616 100%);
   }
 }
 .hero.is-light {
-  background-color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0, 0%, 96%);
   color: rgba(0, 0, 0, 0.7);
 }
 .hero.is-light a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
@@ -588,7 +589,7 @@ table th {
 }
 @media screen and (max-width: 1023px) {
   .hero.is-light .navbar-menu {
-    background-color: hsl(0deg, 0%, 96%);
+    background-color: hsl(0, 0%, 96%);
   }
 }
 .hero.is-light .navbar-item,
@@ -609,7 +610,7 @@ table th {
   opacity: 1;
 }
 .hero.is-light .tabs li.is-active a {
-  color: hsl(0deg, 0%, 96%) !important;
+  color: hsl(0, 0%, 96%) !important;
   opacity: 1;
 }
 .hero.is-light .tabs.is-boxed a, .hero.is-light .tabs.is-toggle a {
@@ -621,18 +622,18 @@ table th {
 .hero.is-light .tabs.is-boxed li.is-active a, .hero.is-light .tabs.is-boxed li.is-active a:hover, .hero.is-light .tabs.is-toggle li.is-active a, .hero.is-light .tabs.is-toggle li.is-active a:hover {
   background-color: rgba(0, 0, 0, 0.7);
   border-color: rgba(0, 0, 0, 0.7);
-  color: hsl(0deg, 0%, 96%);
+  color: hsl(0, 0%, 96%);
 }
 .hero.is-light.is-bold {
-  background-image: linear-gradient(141deg, #dfd8d9 0%, hsl(0deg, 0%, 96%) 71%, white 100%);
+  background-image: linear-gradient(141deg, #dfd8d9 0%, hsl(0, 0%, 96%) 71%, white 100%);
 }
 @media screen and (max-width: 768px) {
   .hero.is-light.is-bold .navbar-menu {
-    background-image: linear-gradient(141deg, #dfd8d9 0%, hsl(0deg, 0%, 96%) 71%, white 100%);
+    background-image: linear-gradient(141deg, #dfd8d9 0%, hsl(0, 0%, 96%) 71%, white 100%);
   }
 }
 .hero.is-dark {
-  background-color: hsl(0deg, 0%, 21%);
+  background-color: hsl(0, 0%, 21%);
   color: #fff;
 }
 .hero.is-dark a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
@@ -651,7 +652,7 @@ table th {
 }
 @media screen and (max-width: 1023px) {
   .hero.is-dark .navbar-menu {
-    background-color: hsl(0deg, 0%, 21%);
+    background-color: hsl(0, 0%, 21%);
   }
 }
 .hero.is-dark .navbar-item,
@@ -672,7 +673,7 @@ table th {
   opacity: 1;
 }
 .hero.is-dark .tabs li.is-active a {
-  color: hsl(0deg, 0%, 21%) !important;
+  color: hsl(0, 0%, 21%) !important;
   opacity: 1;
 }
 .hero.is-dark .tabs.is-boxed a, .hero.is-dark .tabs.is-toggle a {
@@ -684,14 +685,14 @@ table th {
 .hero.is-dark .tabs.is-boxed li.is-active a, .hero.is-dark .tabs.is-boxed li.is-active a:hover, .hero.is-dark .tabs.is-toggle li.is-active a, .hero.is-dark .tabs.is-toggle li.is-active a:hover {
   background-color: #fff;
   border-color: #fff;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .hero.is-dark.is-bold {
-  background-image: linear-gradient(141deg, #1f191a 0%, hsl(0deg, 0%, 21%) 71%, #46403f 100%);
+  background-image: linear-gradient(141deg, #1f191a 0%, hsl(0, 0%, 21%) 71%, #46403f 100%);
 }
 @media screen and (max-width: 768px) {
   .hero.is-dark.is-bold .navbar-menu {
-    background-image: linear-gradient(141deg, #1f191a 0%, hsl(0deg, 0%, 21%) 71%, #46403f 100%);
+    background-image: linear-gradient(141deg, #1f191a 0%, hsl(0, 0%, 21%) 71%, #46403f 100%);
   }
 }
 .hero.is-primary {
@@ -821,7 +822,7 @@ table th {
   }
 }
 .hero.is-info {
-  background-color: hsl(207deg, 61%, 53%);
+  background-color: hsl(207, 61%, 53%);
   color: #fff;
 }
 .hero.is-info a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
@@ -840,7 +841,7 @@ table th {
 }
 @media screen and (max-width: 1023px) {
   .hero.is-info .navbar-menu {
-    background-color: hsl(207deg, 61%, 53%);
+    background-color: hsl(207, 61%, 53%);
   }
 }
 .hero.is-info .navbar-item,
@@ -861,7 +862,7 @@ table th {
   opacity: 1;
 }
 .hero.is-info .tabs li.is-active a {
-  color: hsl(207deg, 61%, 53%) !important;
+  color: hsl(207, 61%, 53%) !important;
   opacity: 1;
 }
 .hero.is-info .tabs.is-boxed a, .hero.is-info .tabs.is-toggle a {
@@ -873,14 +874,14 @@ table th {
 .hero.is-info .tabs.is-boxed li.is-active a, .hero.is-info .tabs.is-boxed li.is-active a:hover, .hero.is-info .tabs.is-toggle li.is-active a, .hero.is-info .tabs.is-toggle li.is-active a:hover {
   background-color: #fff;
   border-color: #fff;
-  color: hsl(207deg, 61%, 53%);
+  color: hsl(207, 61%, 53%);
 }
 .hero.is-info.is-bold {
-  background-image: linear-gradient(141deg, #208fbc 0%, hsl(207deg, 61%, 53%) 71%, #4d83db 100%);
+  background-image: linear-gradient(141deg, #208fbc 0%, hsl(207, 61%, 53%) 71%, #4d83db 100%);
 }
 @media screen and (max-width: 768px) {
   .hero.is-info.is-bold .navbar-menu {
-    background-image: linear-gradient(141deg, #208fbc 0%, hsl(207deg, 61%, 53%) 71%, #4d83db 100%);
+    background-image: linear-gradient(141deg, #208fbc 0%, hsl(207, 61%, 53%) 71%, #4d83db 100%);
   }
 }
 .hero.is-success {
@@ -947,7 +948,7 @@ table th {
   }
 }
 .hero.is-warning {
-  background-color: hsl(44deg, 100%, 77%);
+  background-color: hsl(44, 100%, 77%);
   color: rgba(0, 0, 0, 0.7);
 }
 .hero.is-warning a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
@@ -966,7 +967,7 @@ table th {
 }
 @media screen and (max-width: 1023px) {
   .hero.is-warning .navbar-menu {
-    background-color: hsl(44deg, 100%, 77%);
+    background-color: hsl(44, 100%, 77%);
   }
 }
 .hero.is-warning .navbar-item,
@@ -987,7 +988,7 @@ table th {
   opacity: 1;
 }
 .hero.is-warning .tabs li.is-active a {
-  color: hsl(44deg, 100%, 77%) !important;
+  color: hsl(44, 100%, 77%) !important;
   opacity: 1;
 }
 .hero.is-warning .tabs.is-boxed a, .hero.is-warning .tabs.is-toggle a {
@@ -999,18 +1000,18 @@ table th {
 .hero.is-warning .tabs.is-boxed li.is-active a, .hero.is-warning .tabs.is-boxed li.is-active a:hover, .hero.is-warning .tabs.is-toggle li.is-active a, .hero.is-warning .tabs.is-toggle li.is-active a:hover {
   background-color: rgba(0, 0, 0, 0.7);
   border-color: rgba(0, 0, 0, 0.7);
-  color: hsl(44deg, 100%, 77%);
+  color: hsl(44, 100%, 77%);
 }
 .hero.is-warning.is-bold {
-  background-image: linear-gradient(141deg, #ffb657 0%, hsl(44deg, 100%, 77%) 71%, #fff6a3 100%);
+  background-image: linear-gradient(141deg, #ffb657 0%, hsl(44, 100%, 77%) 71%, #fff6a3 100%);
 }
 @media screen and (max-width: 768px) {
   .hero.is-warning.is-bold .navbar-menu {
-    background-image: linear-gradient(141deg, #ffb657 0%, hsl(44deg, 100%, 77%) 71%, #fff6a3 100%);
+    background-image: linear-gradient(141deg, #ffb657 0%, hsl(44, 100%, 77%) 71%, #fff6a3 100%);
   }
 }
 .hero.is-danger {
-  background-color: hsl(348deg, 86%, 61%);
+  background-color: hsl(348, 86%, 61%);
   color: #fff;
 }
 .hero.is-danger a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
@@ -1029,7 +1030,7 @@ table th {
 }
 @media screen and (max-width: 1023px) {
   .hero.is-danger .navbar-menu {
-    background-color: hsl(348deg, 86%, 61%);
+    background-color: hsl(348, 86%, 61%);
   }
 }
 .hero.is-danger .navbar-item,
@@ -1050,7 +1051,7 @@ table th {
   opacity: 1;
 }
 .hero.is-danger .tabs li.is-active a {
-  color: hsl(348deg, 86%, 61%) !important;
+  color: hsl(348, 86%, 61%) !important;
   opacity: 1;
 }
 .hero.is-danger .tabs.is-boxed a, .hero.is-danger .tabs.is-toggle a {
@@ -1062,14 +1063,14 @@ table th {
 .hero.is-danger .tabs.is-boxed li.is-active a, .hero.is-danger .tabs.is-boxed li.is-active a:hover, .hero.is-danger .tabs.is-toggle li.is-active a, .hero.is-danger .tabs.is-toggle li.is-active a:hover {
   background-color: #fff;
   border-color: #fff;
-  color: hsl(348deg, 86%, 61%);
+  color: hsl(348, 86%, 61%);
 }
 .hero.is-danger.is-bold {
-  background-image: linear-gradient(141deg, #fa0a62 0%, hsl(348deg, 86%, 61%) 71%, #f7595f 100%);
+  background-image: linear-gradient(141deg, #fa0a62 0%, hsl(348, 86%, 61%) 71%, #f7595f 100%);
 }
 @media screen and (max-width: 768px) {
   .hero.is-danger.is-bold .navbar-menu {
-    background-image: linear-gradient(141deg, #fa0a62 0%, hsl(348deg, 86%, 61%) 71%, #f7595f 100%);
+    background-image: linear-gradient(141deg, #fa0a62 0%, hsl(348, 86%, 61%) 71%, #f7595f 100%);
   }
 }
 .hero.is-small .hero-body {
@@ -1174,15 +1175,15 @@ table th {
 }
 
 .footer {
-  background-color: hsl(0deg, 0%, 98%);
+  background-color: hsl(0, 0%, 98%);
   padding: 3rem 1.5rem 6rem;
 }
 
 .button {
-  background-color: hsl(0deg, 0%, 100%);
-  border-color: hsl(0deg, 0%, 86%);
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 86%);
   border-width: 1px;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
   cursor: pointer;
   justify-content: center;
   padding-bottom: calc(0.5em - 1px);
@@ -1212,33 +1213,33 @@ table th {
   margin-right: calc(-0.5em - 1px);
 }
 .button:hover, .button.is-hovered {
-  border-color: hsl(0deg, 0%, 71%);
-  color: hsl(0deg, 0%, 21%);
+  border-color: hsl(0, 0%, 71%);
+  color: hsl(0, 0%, 21%);
 }
 .button:focus, .button.is-focused {
   border-color: #017ac6;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .button:focus:not(:active), .button.is-focused:not(:active) {
   box-shadow: 0 0 0 0.125em rgba(0, 106, 128, 0.25);
 }
 .button:active, .button.is-active {
-  border-color: hsl(0deg, 0%, 29%);
-  color: hsl(0deg, 0%, 21%);
+  border-color: hsl(0, 0%, 29%);
+  color: hsl(0, 0%, 21%);
 }
 .button.is-text {
   background-color: transparent;
   border-color: transparent;
-  color: hsl(0deg, 0%, 29%);
+  color: hsl(0, 0%, 29%);
   text-decoration: underline;
 }
 .button.is-text:hover, .button.is-text.is-hovered, .button.is-text:focus, .button.is-text.is-focused {
-  background-color: hsl(0deg, 0%, 96%);
-  color: hsl(0deg, 0%, 21%);
+  background-color: hsl(0, 0%, 96%);
+  color: hsl(0, 0%, 21%);
 }
 .button.is-text:active, .button.is-text.is-active {
   background-color: #e8e8e8;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .button.is-text[disabled], fieldset[disabled] .button.is-text {
   background-color: transparent;
@@ -1256,18 +1257,18 @@ table th {
   text-decoration: underline;
 }
 .button.is-white {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 100%);
   border-color: transparent;
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-white:hover, .button.is-white.is-hovered {
   background-color: #f9f9f9;
   border-color: transparent;
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-white:focus, .button.is-white.is-focused {
   border-color: transparent;
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-white:focus:not(:active), .button.is-white.is-focused:not(:active) {
   box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.25);
@@ -1275,82 +1276,82 @@ table th {
 .button.is-white:active, .button.is-white.is-active {
   background-color: #f2f2f2;
   border-color: transparent;
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-white[disabled], fieldset[disabled] .button.is-white {
-  background-color: hsl(0deg, 0%, 100%);
-  border-color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 100%);
   box-shadow: none;
 }
 .button.is-white.is-inverted {
-  background-color: hsl(0deg, 0%, 4%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 4%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-white.is-inverted:hover, .button.is-white.is-inverted.is-hovered {
   background-color: black;
 }
 .button.is-white.is-inverted[disabled], fieldset[disabled] .button.is-white.is-inverted {
-  background-color: hsl(0deg, 0%, 4%);
+  background-color: hsl(0, 0%, 4%);
   border-color: transparent;
   box-shadow: none;
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-white.is-loading::after {
-  border-color: transparent transparent hsl(0deg, 0%, 4%) hsl(0deg, 0%, 4%) !important;
+  border-color: transparent transparent hsl(0, 0%, 4%) hsl(0, 0%, 4%) !important;
 }
 .button.is-white.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 100%);
-  color: hsl(0deg, 0%, 100%);
+  border-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-white.is-outlined:hover, .button.is-white.is-outlined.is-hovered, .button.is-white.is-outlined:focus, .button.is-white.is-outlined.is-focused {
-  background-color: hsl(0deg, 0%, 100%);
-  border-color: hsl(0deg, 0%, 100%);
-  color: hsl(0deg, 0%, 4%);
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-white.is-outlined.is-loading::after {
-  border-color: transparent transparent hsl(0deg, 0%, 100%) hsl(0deg, 0%, 100%) !important;
+  border-color: transparent transparent hsl(0, 0%, 100%) hsl(0, 0%, 100%) !important;
 }
 .button.is-white.is-outlined.is-loading:hover::after, .button.is-white.is-outlined.is-loading.is-hovered::after, .button.is-white.is-outlined.is-loading:focus::after, .button.is-white.is-outlined.is-loading.is-focused::after {
-  border-color: transparent transparent hsl(0deg, 0%, 4%) hsl(0deg, 0%, 4%) !important;
+  border-color: transparent transparent hsl(0, 0%, 4%) hsl(0, 0%, 4%) !important;
 }
 .button.is-white.is-outlined[disabled], fieldset[disabled] .button.is-white.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 100%);
+  border-color: hsl(0, 0%, 100%);
   box-shadow: none;
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-white.is-inverted.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 4%);
-  color: hsl(0deg, 0%, 4%);
+  border-color: hsl(0, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-white.is-inverted.is-outlined:hover, .button.is-white.is-inverted.is-outlined.is-hovered, .button.is-white.is-inverted.is-outlined:focus, .button.is-white.is-inverted.is-outlined.is-focused {
-  background-color: hsl(0deg, 0%, 4%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 4%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-white.is-inverted.is-outlined.is-loading:hover::after, .button.is-white.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-white.is-inverted.is-outlined.is-loading:focus::after, .button.is-white.is-inverted.is-outlined.is-loading.is-focused::after {
-  border-color: transparent transparent hsl(0deg, 0%, 100%) hsl(0deg, 0%, 100%) !important;
+  border-color: transparent transparent hsl(0, 0%, 100%) hsl(0, 0%, 100%) !important;
 }
 .button.is-white.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-white.is-inverted.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 4%);
+  border-color: hsl(0, 0%, 4%);
   box-shadow: none;
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-black {
-  background-color: hsl(0deg, 0%, 4%);
+  background-color: hsl(0, 0%, 4%);
   border-color: transparent;
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-black:hover, .button.is-black.is-hovered {
   background-color: #040404;
   border-color: transparent;
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-black:focus, .button.is-black.is-focused {
   border-color: transparent;
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-black:focus:not(:active), .button.is-black.is-focused:not(:active) {
   box-shadow: 0 0 0 0.125em rgba(10, 10, 10, 0.25);
@@ -1358,71 +1359,71 @@ table th {
 .button.is-black:active, .button.is-black.is-active {
   background-color: black;
   border-color: transparent;
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-black[disabled], fieldset[disabled] .button.is-black {
-  background-color: hsl(0deg, 0%, 4%);
-  border-color: hsl(0deg, 0%, 4%);
+  background-color: hsl(0, 0%, 4%);
+  border-color: hsl(0, 0%, 4%);
   box-shadow: none;
 }
 .button.is-black.is-inverted {
-  background-color: hsl(0deg, 0%, 100%);
-  color: hsl(0deg, 0%, 4%);
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-black.is-inverted:hover, .button.is-black.is-inverted.is-hovered {
   background-color: #f2f2f2;
 }
 .button.is-black.is-inverted[disabled], fieldset[disabled] .button.is-black.is-inverted {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 100%);
   border-color: transparent;
   box-shadow: none;
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-black.is-loading::after {
-  border-color: transparent transparent hsl(0deg, 0%, 100%) hsl(0deg, 0%, 100%) !important;
+  border-color: transparent transparent hsl(0, 0%, 100%) hsl(0, 0%, 100%) !important;
 }
 .button.is-black.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 4%);
-  color: hsl(0deg, 0%, 4%);
+  border-color: hsl(0, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-black.is-outlined:hover, .button.is-black.is-outlined.is-hovered, .button.is-black.is-outlined:focus, .button.is-black.is-outlined.is-focused {
-  background-color: hsl(0deg, 0%, 4%);
-  border-color: hsl(0deg, 0%, 4%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 4%);
+  border-color: hsl(0, 0%, 4%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-black.is-outlined.is-loading::after {
-  border-color: transparent transparent hsl(0deg, 0%, 4%) hsl(0deg, 0%, 4%) !important;
+  border-color: transparent transparent hsl(0, 0%, 4%) hsl(0, 0%, 4%) !important;
 }
 .button.is-black.is-outlined.is-loading:hover::after, .button.is-black.is-outlined.is-loading.is-hovered::after, .button.is-black.is-outlined.is-loading:focus::after, .button.is-black.is-outlined.is-loading.is-focused::after {
-  border-color: transparent transparent hsl(0deg, 0%, 100%) hsl(0deg, 0%, 100%) !important;
+  border-color: transparent transparent hsl(0, 0%, 100%) hsl(0, 0%, 100%) !important;
 }
 .button.is-black.is-outlined[disabled], fieldset[disabled] .button.is-black.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 4%);
+  border-color: hsl(0, 0%, 4%);
   box-shadow: none;
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-black.is-inverted.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 100%);
-  color: hsl(0deg, 0%, 100%);
+  border-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-black.is-inverted.is-outlined:hover, .button.is-black.is-inverted.is-outlined.is-hovered, .button.is-black.is-inverted.is-outlined:focus, .button.is-black.is-inverted.is-outlined.is-focused {
-  background-color: hsl(0deg, 0%, 100%);
-  color: hsl(0deg, 0%, 4%);
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 4%);
 }
 .button.is-black.is-inverted.is-outlined.is-loading:hover::after, .button.is-black.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-black.is-inverted.is-outlined.is-loading:focus::after, .button.is-black.is-inverted.is-outlined.is-loading.is-focused::after {
-  border-color: transparent transparent hsl(0deg, 0%, 4%) hsl(0deg, 0%, 4%) !important;
+  border-color: transparent transparent hsl(0, 0%, 4%) hsl(0, 0%, 4%) !important;
 }
 .button.is-black.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-black.is-inverted.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 100%);
+  border-color: hsl(0, 0%, 100%);
   box-shadow: none;
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .button.is-light {
-  background-color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0, 0%, 96%);
   border-color: transparent;
   color: rgba(0, 0, 0, 0.7);
 }
@@ -1444,13 +1445,13 @@ table th {
   color: rgba(0, 0, 0, 0.7);
 }
 .button.is-light[disabled], fieldset[disabled] .button.is-light {
-  background-color: hsl(0deg, 0%, 96%);
-  border-color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0, 0%, 96%);
+  border-color: hsl(0, 0%, 96%);
   box-shadow: none;
 }
 .button.is-light.is-inverted {
   background-color: rgba(0, 0, 0, 0.7);
-  color: hsl(0deg, 0%, 96%);
+  color: hsl(0, 0%, 96%);
 }
 .button.is-light.is-inverted:hover, .button.is-light.is-inverted.is-hovered {
   background-color: rgba(0, 0, 0, 0.7);
@@ -1459,32 +1460,32 @@ table th {
   background-color: rgba(0, 0, 0, 0.7);
   border-color: transparent;
   box-shadow: none;
-  color: hsl(0deg, 0%, 96%);
+  color: hsl(0, 0%, 96%);
 }
 .button.is-light.is-loading::after {
   border-color: transparent transparent rgba(0, 0, 0, 0.7) rgba(0, 0, 0, 0.7) !important;
 }
 .button.is-light.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 96%);
-  color: hsl(0deg, 0%, 96%);
+  border-color: hsl(0, 0%, 96%);
+  color: hsl(0, 0%, 96%);
 }
 .button.is-light.is-outlined:hover, .button.is-light.is-outlined.is-hovered, .button.is-light.is-outlined:focus, .button.is-light.is-outlined.is-focused {
-  background-color: hsl(0deg, 0%, 96%);
-  border-color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0, 0%, 96%);
+  border-color: hsl(0, 0%, 96%);
   color: rgba(0, 0, 0, 0.7);
 }
 .button.is-light.is-outlined.is-loading::after {
-  border-color: transparent transparent hsl(0deg, 0%, 96%) hsl(0deg, 0%, 96%) !important;
+  border-color: transparent transparent hsl(0, 0%, 96%) hsl(0, 0%, 96%) !important;
 }
 .button.is-light.is-outlined.is-loading:hover::after, .button.is-light.is-outlined.is-loading.is-hovered::after, .button.is-light.is-outlined.is-loading:focus::after, .button.is-light.is-outlined.is-loading.is-focused::after {
   border-color: transparent transparent rgba(0, 0, 0, 0.7) rgba(0, 0, 0, 0.7) !important;
 }
 .button.is-light.is-outlined[disabled], fieldset[disabled] .button.is-light.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 96%);
+  border-color: hsl(0, 0%, 96%);
   box-shadow: none;
-  color: hsl(0deg, 0%, 96%);
+  color: hsl(0, 0%, 96%);
 }
 .button.is-light.is-inverted.is-outlined {
   background-color: transparent;
@@ -1493,10 +1494,10 @@ table th {
 }
 .button.is-light.is-inverted.is-outlined:hover, .button.is-light.is-inverted.is-outlined.is-hovered, .button.is-light.is-inverted.is-outlined:focus, .button.is-light.is-inverted.is-outlined.is-focused {
   background-color: rgba(0, 0, 0, 0.7);
-  color: hsl(0deg, 0%, 96%);
+  color: hsl(0, 0%, 96%);
 }
 .button.is-light.is-inverted.is-outlined.is-loading:hover::after, .button.is-light.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-light.is-inverted.is-outlined.is-loading:focus::after, .button.is-light.is-inverted.is-outlined.is-loading.is-focused::after {
-  border-color: transparent transparent hsl(0deg, 0%, 96%) hsl(0deg, 0%, 96%) !important;
+  border-color: transparent transparent hsl(0, 0%, 96%) hsl(0, 0%, 96%) !important;
 }
 .button.is-light.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-light.is-inverted.is-outlined {
   background-color: transparent;
@@ -1505,7 +1506,7 @@ table th {
   color: rgba(0, 0, 0, 0.7);
 }
 .button.is-dark {
-  background-color: hsl(0deg, 0%, 21%);
+  background-color: hsl(0, 0%, 21%);
   border-color: transparent;
   color: #fff;
 }
@@ -1527,13 +1528,13 @@ table th {
   color: #fff;
 }
 .button.is-dark[disabled], fieldset[disabled] .button.is-dark {
-  background-color: hsl(0deg, 0%, 21%);
-  border-color: hsl(0deg, 0%, 21%);
+  background-color: hsl(0, 0%, 21%);
+  border-color: hsl(0, 0%, 21%);
   box-shadow: none;
 }
 .button.is-dark.is-inverted {
   background-color: #fff;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .button.is-dark.is-inverted:hover, .button.is-dark.is-inverted.is-hovered {
   background-color: #f2f2f2;
@@ -1542,32 +1543,32 @@ table th {
   background-color: #fff;
   border-color: transparent;
   box-shadow: none;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .button.is-dark.is-loading::after {
   border-color: transparent transparent #fff #fff !important;
 }
 .button.is-dark.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 21%);
-  color: hsl(0deg, 0%, 21%);
+  border-color: hsl(0, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .button.is-dark.is-outlined:hover, .button.is-dark.is-outlined.is-hovered, .button.is-dark.is-outlined:focus, .button.is-dark.is-outlined.is-focused {
-  background-color: hsl(0deg, 0%, 21%);
-  border-color: hsl(0deg, 0%, 21%);
+  background-color: hsl(0, 0%, 21%);
+  border-color: hsl(0, 0%, 21%);
   color: #fff;
 }
 .button.is-dark.is-outlined.is-loading::after {
-  border-color: transparent transparent hsl(0deg, 0%, 21%) hsl(0deg, 0%, 21%) !important;
+  border-color: transparent transparent hsl(0, 0%, 21%) hsl(0, 0%, 21%) !important;
 }
 .button.is-dark.is-outlined.is-loading:hover::after, .button.is-dark.is-outlined.is-loading.is-hovered::after, .button.is-dark.is-outlined.is-loading:focus::after, .button.is-dark.is-outlined.is-loading.is-focused::after {
   border-color: transparent transparent #fff #fff !important;
 }
 .button.is-dark.is-outlined[disabled], fieldset[disabled] .button.is-dark.is-outlined {
   background-color: transparent;
-  border-color: hsl(0deg, 0%, 21%);
+  border-color: hsl(0, 0%, 21%);
   box-shadow: none;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .button.is-dark.is-inverted.is-outlined {
   background-color: transparent;
@@ -1576,10 +1577,10 @@ table th {
 }
 .button.is-dark.is-inverted.is-outlined:hover, .button.is-dark.is-inverted.is-outlined.is-hovered, .button.is-dark.is-inverted.is-outlined:focus, .button.is-dark.is-inverted.is-outlined.is-focused {
   background-color: #fff;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .button.is-dark.is-inverted.is-outlined.is-loading:hover::after, .button.is-dark.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-dark.is-inverted.is-outlined.is-loading:focus::after, .button.is-dark.is-inverted.is-outlined.is-loading.is-focused::after {
-  border-color: transparent transparent hsl(0deg, 0%, 21%) hsl(0deg, 0%, 21%) !important;
+  border-color: transparent transparent hsl(0, 0%, 21%) hsl(0, 0%, 21%) !important;
 }
 .button.is-dark.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-dark.is-inverted.is-outlined {
   background-color: transparent;
@@ -1782,7 +1783,7 @@ table th {
   color: #00cbf5;
 }
 .button.is-info {
-  background-color: hsl(207deg, 61%, 53%);
+  background-color: hsl(207, 61%, 53%);
   border-color: transparent;
   color: #fff;
 }
@@ -1804,13 +1805,13 @@ table th {
   color: #fff;
 }
 .button.is-info[disabled], fieldset[disabled] .button.is-info {
-  background-color: hsl(207deg, 61%, 53%);
-  border-color: hsl(207deg, 61%, 53%);
+  background-color: hsl(207, 61%, 53%);
+  border-color: hsl(207, 61%, 53%);
   box-shadow: none;
 }
 .button.is-info.is-inverted {
   background-color: #fff;
-  color: hsl(207deg, 61%, 53%);
+  color: hsl(207, 61%, 53%);
 }
 .button.is-info.is-inverted:hover, .button.is-info.is-inverted.is-hovered {
   background-color: #f2f2f2;
@@ -1819,32 +1820,32 @@ table th {
   background-color: #fff;
   border-color: transparent;
   box-shadow: none;
-  color: hsl(207deg, 61%, 53%);
+  color: hsl(207, 61%, 53%);
 }
 .button.is-info.is-loading::after {
   border-color: transparent transparent #fff #fff !important;
 }
 .button.is-info.is-outlined {
   background-color: transparent;
-  border-color: hsl(207deg, 61%, 53%);
-  color: hsl(207deg, 61%, 53%);
+  border-color: hsl(207, 61%, 53%);
+  color: hsl(207, 61%, 53%);
 }
 .button.is-info.is-outlined:hover, .button.is-info.is-outlined.is-hovered, .button.is-info.is-outlined:focus, .button.is-info.is-outlined.is-focused {
-  background-color: hsl(207deg, 61%, 53%);
-  border-color: hsl(207deg, 61%, 53%);
+  background-color: hsl(207, 61%, 53%);
+  border-color: hsl(207, 61%, 53%);
   color: #fff;
 }
 .button.is-info.is-outlined.is-loading::after {
-  border-color: transparent transparent hsl(207deg, 61%, 53%) hsl(207deg, 61%, 53%) !important;
+  border-color: transparent transparent hsl(207, 61%, 53%) hsl(207, 61%, 53%) !important;
 }
 .button.is-info.is-outlined.is-loading:hover::after, .button.is-info.is-outlined.is-loading.is-hovered::after, .button.is-info.is-outlined.is-loading:focus::after, .button.is-info.is-outlined.is-loading.is-focused::after {
   border-color: transparent transparent #fff #fff !important;
 }
 .button.is-info.is-outlined[disabled], fieldset[disabled] .button.is-info.is-outlined {
   background-color: transparent;
-  border-color: hsl(207deg, 61%, 53%);
+  border-color: hsl(207, 61%, 53%);
   box-shadow: none;
-  color: hsl(207deg, 61%, 53%);
+  color: hsl(207, 61%, 53%);
 }
 .button.is-info.is-inverted.is-outlined {
   background-color: transparent;
@@ -1853,10 +1854,10 @@ table th {
 }
 .button.is-info.is-inverted.is-outlined:hover, .button.is-info.is-inverted.is-outlined.is-hovered, .button.is-info.is-inverted.is-outlined:focus, .button.is-info.is-inverted.is-outlined.is-focused {
   background-color: #fff;
-  color: hsl(207deg, 61%, 53%);
+  color: hsl(207, 61%, 53%);
 }
 .button.is-info.is-inverted.is-outlined.is-loading:hover::after, .button.is-info.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-info.is-inverted.is-outlined.is-loading:focus::after, .button.is-info.is-inverted.is-outlined.is-loading.is-focused::after {
-  border-color: transparent transparent hsl(207deg, 61%, 53%) hsl(207deg, 61%, 53%) !important;
+  border-color: transparent transparent hsl(207, 61%, 53%) hsl(207, 61%, 53%) !important;
 }
 .button.is-info.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-info.is-inverted.is-outlined {
   background-color: transparent;
@@ -1976,7 +1977,7 @@ table th {
   color: #00cbf5;
 }
 .button.is-warning {
-  background-color: hsl(44deg, 100%, 77%);
+  background-color: hsl(44, 100%, 77%);
   border-color: transparent;
   color: rgba(0, 0, 0, 0.7);
 }
@@ -1998,13 +1999,13 @@ table th {
   color: rgba(0, 0, 0, 0.7);
 }
 .button.is-warning[disabled], fieldset[disabled] .button.is-warning {
-  background-color: hsl(44deg, 100%, 77%);
-  border-color: hsl(44deg, 100%, 77%);
+  background-color: hsl(44, 100%, 77%);
+  border-color: hsl(44, 100%, 77%);
   box-shadow: none;
 }
 .button.is-warning.is-inverted {
   background-color: rgba(0, 0, 0, 0.7);
-  color: hsl(44deg, 100%, 77%);
+  color: hsl(44, 100%, 77%);
 }
 .button.is-warning.is-inverted:hover, .button.is-warning.is-inverted.is-hovered {
   background-color: rgba(0, 0, 0, 0.7);
@@ -2013,32 +2014,32 @@ table th {
   background-color: rgba(0, 0, 0, 0.7);
   border-color: transparent;
   box-shadow: none;
-  color: hsl(44deg, 100%, 77%);
+  color: hsl(44, 100%, 77%);
 }
 .button.is-warning.is-loading::after {
   border-color: transparent transparent rgba(0, 0, 0, 0.7) rgba(0, 0, 0, 0.7) !important;
 }
 .button.is-warning.is-outlined {
   background-color: transparent;
-  border-color: hsl(44deg, 100%, 77%);
-  color: hsl(44deg, 100%, 77%);
+  border-color: hsl(44, 100%, 77%);
+  color: hsl(44, 100%, 77%);
 }
 .button.is-warning.is-outlined:hover, .button.is-warning.is-outlined.is-hovered, .button.is-warning.is-outlined:focus, .button.is-warning.is-outlined.is-focused {
-  background-color: hsl(44deg, 100%, 77%);
-  border-color: hsl(44deg, 100%, 77%);
+  background-color: hsl(44, 100%, 77%);
+  border-color: hsl(44, 100%, 77%);
   color: rgba(0, 0, 0, 0.7);
 }
 .button.is-warning.is-outlined.is-loading::after {
-  border-color: transparent transparent hsl(44deg, 100%, 77%) hsl(44deg, 100%, 77%) !important;
+  border-color: transparent transparent hsl(44, 100%, 77%) hsl(44, 100%, 77%) !important;
 }
 .button.is-warning.is-outlined.is-loading:hover::after, .button.is-warning.is-outlined.is-loading.is-hovered::after, .button.is-warning.is-outlined.is-loading:focus::after, .button.is-warning.is-outlined.is-loading.is-focused::after {
   border-color: transparent transparent rgba(0, 0, 0, 0.7) rgba(0, 0, 0, 0.7) !important;
 }
 .button.is-warning.is-outlined[disabled], fieldset[disabled] .button.is-warning.is-outlined {
   background-color: transparent;
-  border-color: hsl(44deg, 100%, 77%);
+  border-color: hsl(44, 100%, 77%);
   box-shadow: none;
-  color: hsl(44deg, 100%, 77%);
+  color: hsl(44, 100%, 77%);
 }
 .button.is-warning.is-inverted.is-outlined {
   background-color: transparent;
@@ -2047,10 +2048,10 @@ table th {
 }
 .button.is-warning.is-inverted.is-outlined:hover, .button.is-warning.is-inverted.is-outlined.is-hovered, .button.is-warning.is-inverted.is-outlined:focus, .button.is-warning.is-inverted.is-outlined.is-focused {
   background-color: rgba(0, 0, 0, 0.7);
-  color: hsl(44deg, 100%, 77%);
+  color: hsl(44, 100%, 77%);
 }
 .button.is-warning.is-inverted.is-outlined.is-loading:hover::after, .button.is-warning.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-warning.is-inverted.is-outlined.is-loading:focus::after, .button.is-warning.is-inverted.is-outlined.is-loading.is-focused::after {
-  border-color: transparent transparent hsl(44deg, 100%, 77%) hsl(44deg, 100%, 77%) !important;
+  border-color: transparent transparent hsl(44, 100%, 77%) hsl(44, 100%, 77%) !important;
 }
 .button.is-warning.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-warning.is-inverted.is-outlined {
   background-color: transparent;
@@ -2073,7 +2074,7 @@ table th {
   color: #946c00;
 }
 .button.is-danger {
-  background-color: hsl(348deg, 86%, 61%);
+  background-color: hsl(348, 86%, 61%);
   border-color: transparent;
   color: #fff;
 }
@@ -2095,13 +2096,13 @@ table th {
   color: #fff;
 }
 .button.is-danger[disabled], fieldset[disabled] .button.is-danger {
-  background-color: hsl(348deg, 86%, 61%);
-  border-color: hsl(348deg, 86%, 61%);
+  background-color: hsl(348, 86%, 61%);
+  border-color: hsl(348, 86%, 61%);
   box-shadow: none;
 }
 .button.is-danger.is-inverted {
   background-color: #fff;
-  color: hsl(348deg, 86%, 61%);
+  color: hsl(348, 86%, 61%);
 }
 .button.is-danger.is-inverted:hover, .button.is-danger.is-inverted.is-hovered {
   background-color: #f2f2f2;
@@ -2110,32 +2111,32 @@ table th {
   background-color: #fff;
   border-color: transparent;
   box-shadow: none;
-  color: hsl(348deg, 86%, 61%);
+  color: hsl(348, 86%, 61%);
 }
 .button.is-danger.is-loading::after {
   border-color: transparent transparent #fff #fff !important;
 }
 .button.is-danger.is-outlined {
   background-color: transparent;
-  border-color: hsl(348deg, 86%, 61%);
-  color: hsl(348deg, 86%, 61%);
+  border-color: hsl(348, 86%, 61%);
+  color: hsl(348, 86%, 61%);
 }
 .button.is-danger.is-outlined:hover, .button.is-danger.is-outlined.is-hovered, .button.is-danger.is-outlined:focus, .button.is-danger.is-outlined.is-focused {
-  background-color: hsl(348deg, 86%, 61%);
-  border-color: hsl(348deg, 86%, 61%);
+  background-color: hsl(348, 86%, 61%);
+  border-color: hsl(348, 86%, 61%);
   color: #fff;
 }
 .button.is-danger.is-outlined.is-loading::after {
-  border-color: transparent transparent hsl(348deg, 86%, 61%) hsl(348deg, 86%, 61%) !important;
+  border-color: transparent transparent hsl(348, 86%, 61%) hsl(348, 86%, 61%) !important;
 }
 .button.is-danger.is-outlined.is-loading:hover::after, .button.is-danger.is-outlined.is-loading.is-hovered::after, .button.is-danger.is-outlined.is-loading:focus::after, .button.is-danger.is-outlined.is-loading.is-focused::after {
   border-color: transparent transparent #fff #fff !important;
 }
 .button.is-danger.is-outlined[disabled], fieldset[disabled] .button.is-danger.is-outlined {
   background-color: transparent;
-  border-color: hsl(348deg, 86%, 61%);
+  border-color: hsl(348, 86%, 61%);
   box-shadow: none;
-  color: hsl(348deg, 86%, 61%);
+  color: hsl(348, 86%, 61%);
 }
 .button.is-danger.is-inverted.is-outlined {
   background-color: transparent;
@@ -2144,10 +2145,10 @@ table th {
 }
 .button.is-danger.is-inverted.is-outlined:hover, .button.is-danger.is-inverted.is-outlined.is-hovered, .button.is-danger.is-inverted.is-outlined:focus, .button.is-danger.is-inverted.is-outlined.is-focused {
   background-color: #fff;
-  color: hsl(348deg, 86%, 61%);
+  color: hsl(348, 86%, 61%);
 }
 .button.is-danger.is-inverted.is-outlined.is-loading:hover::after, .button.is-danger.is-inverted.is-outlined.is-loading.is-hovered::after, .button.is-danger.is-inverted.is-outlined.is-loading:focus::after, .button.is-danger.is-inverted.is-outlined.is-loading.is-focused::after {
-  border-color: transparent transparent hsl(348deg, 86%, 61%) hsl(348deg, 86%, 61%) !important;
+  border-color: transparent transparent hsl(348, 86%, 61%) hsl(348, 86%, 61%) !important;
 }
 .button.is-danger.is-inverted.is-outlined[disabled], fieldset[disabled] .button.is-danger.is-inverted.is-outlined {
   background-color: transparent;
@@ -2185,8 +2186,8 @@ table th {
   font-size: 1.5rem;
 }
 .button[disabled], fieldset[disabled] .button {
-  background-color: hsl(0deg, 0%, 100%);
-  border-color: hsl(0deg, 0%, 86%);
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 86%);
   box-shadow: none;
   opacity: 0.5;
 }
@@ -2200,14 +2201,14 @@ table th {
 }
 .button.is-loading::after {
   position: absolute;
-  left: calc(50% - (1em * 0.5));
-  top: calc(50% - (1em * 0.5));
+  left: calc(50% - 1em * 0.5);
+  top: calc(50% - 1em * 0.5);
   position: absolute !important;
 }
 .button.is-static {
-  background-color: hsl(0deg, 0%, 96%);
-  border-color: hsl(0deg, 0%, 86%);
-  color: hsl(0deg, 0%, 48%);
+  background-color: hsl(0, 0%, 96%);
+  border-color: hsl(0, 0%, 86%);
+  color: hsl(0, 0%, 48%);
   box-shadow: none;
   pointer-events: none;
 }
@@ -2292,7 +2293,7 @@ table th {
     font-size: 0.5625rem;
   }
   .button.is-responsive,
-.button.is-responsive.is-normal {
+  .button.is-responsive.is-normal {
     font-size: 0.65625rem;
   }
   .button.is-responsive.is-medium {
@@ -2307,7 +2308,7 @@ table th {
     font-size: 0.65625rem;
   }
   .button.is-responsive,
-.button.is-responsive.is-normal {
+  .button.is-responsive.is-normal {
     font-size: 0.75rem;
   }
   .button.is-responsive.is-medium {
@@ -2318,10 +2319,10 @@ table th {
   }
 }
 .box {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 100%);
   border-radius: 6px;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
-  color: hsl(0deg, 0%, 29%);
+  color: hsl(0, 0%, 29%);
   display: block;
   padding: 1.25rem;
 }
@@ -2389,7 +2390,7 @@ a.box:active {
 .content h4,
 .content h5,
 .content h6 {
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
   font-weight: 600;
   line-height: 1.125;
 }
@@ -2427,8 +2428,8 @@ a.box:active {
   margin-bottom: 1em;
 }
 .content blockquote {
-  background-color: hsl(0deg, 0%, 96%);
-  border-left: 5px solid hsl(0deg, 0%, 86%);
+  background-color: hsl(0, 0%, 96%);
+  border-left: 5px solid hsl(0, 0%, 86%);
   padding: 1.25em 1.5em;
 }
 .content ol {
@@ -2499,13 +2500,13 @@ a.box:active {
 }
 .content table td,
 .content table th {
-  border: 1px solid hsl(0deg, 0%, 86%);
+  border: 1px solid hsl(0, 0%, 86%);
   border-width: 0 0 1px;
   padding: 0.5em 0.75em;
   vertical-align: top;
 }
 .content table th {
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .content table th:not([align]) {
   text-align: inherit;
@@ -2513,12 +2514,12 @@ a.box:active {
 .content table thead td,
 .content table thead th {
   border-width: 0 0 2px;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .content table tfoot td,
 .content table tfoot th {
   border-width: 2px 0 0;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .content table tbody tr:last-child td,
 .content table tbody tr:last-child th {
@@ -2564,7 +2565,7 @@ a.box:active {
 }
 
 .title {
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
   font-size: 2rem;
   font-weight: 600;
   line-height: 1.125;
@@ -2599,13 +2600,13 @@ a.box:active {
 }
 
 .subtitle {
-  color: hsl(0deg, 0%, 29%);
+  color: hsl(0, 0%, 29%);
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.25;
 }
 .subtitle strong {
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
   font-weight: 600;
 }
 .subtitle:not(.is-spaced) + .title {
@@ -2634,38 +2635,38 @@ a.box:active {
 }
 
 .table {
-  background-color: hsl(0deg, 0%, 100%);
-  color: hsl(0deg, 0%, 21%);
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 21%);
 }
 .table td,
 .table th {
-  border: 1px solid hsl(0deg, 0%, 86%);
+  border: 1px solid hsl(0, 0%, 86%);
   border-width: 0 0 1px;
   padding: 0.5em 0.75em;
   vertical-align: top;
 }
 .table td.is-white,
 .table th.is-white {
-  background-color: hsl(0deg, 0%, 100%);
-  border-color: hsl(0deg, 0%, 100%);
-  color: hsl(0deg, 0%, 4%);
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 4%);
 }
 .table td.is-black,
 .table th.is-black {
-  background-color: hsl(0deg, 0%, 4%);
-  border-color: hsl(0deg, 0%, 4%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 4%);
+  border-color: hsl(0, 0%, 4%);
+  color: hsl(0, 0%, 100%);
 }
 .table td.is-light,
 .table th.is-light {
-  background-color: hsl(0deg, 0%, 96%);
-  border-color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0, 0%, 96%);
+  border-color: hsl(0, 0%, 96%);
   color: rgba(0, 0, 0, 0.7);
 }
 .table td.is-dark,
 .table th.is-dark {
-  background-color: hsl(0deg, 0%, 21%);
-  border-color: hsl(0deg, 0%, 21%);
+  background-color: hsl(0, 0%, 21%);
+  border-color: hsl(0, 0%, 21%);
   color: #fff;
 }
 .table td.is-primary,
@@ -2682,8 +2683,8 @@ a.box:active {
 }
 .table td.is-info,
 .table th.is-info {
-  background-color: hsl(207deg, 61%, 53%);
-  border-color: hsl(207deg, 61%, 53%);
+  background-color: hsl(207, 61%, 53%);
+  border-color: hsl(207, 61%, 53%);
   color: #fff;
 }
 .table td.is-success,
@@ -2694,14 +2695,14 @@ a.box:active {
 }
 .table td.is-warning,
 .table th.is-warning {
-  background-color: hsl(44deg, 100%, 77%);
-  border-color: hsl(44deg, 100%, 77%);
+  background-color: hsl(44, 100%, 77%);
+  border-color: hsl(44, 100%, 77%);
   color: rgba(0, 0, 0, 0.7);
 }
 .table td.is-danger,
 .table th.is-danger {
-  background-color: hsl(348deg, 86%, 61%);
-  border-color: hsl(348deg, 86%, 61%);
+  background-color: hsl(348, 86%, 61%);
+  border-color: hsl(348, 86%, 61%);
   color: #fff;
 }
 .table td.is-narrow,
@@ -2725,7 +2726,7 @@ a.box:active {
   vertical-align: middle;
 }
 .table th {
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .table th:not([align]) {
   text-align: left;
@@ -2749,7 +2750,7 @@ a.box:active {
 .table thead td,
 .table thead th {
   border-width: 0 0 2px;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .table tfoot {
   background-color: transparent;
@@ -2757,7 +2758,7 @@ a.box:active {
 .table tfoot td,
 .table tfoot th {
   border-width: 2px 0 0;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
 }
 .table tbody {
   background-color: transparent;
@@ -2778,20 +2779,20 @@ a.box:active {
   width: 100%;
 }
 .table.is-hoverable tbody tr:not(.is-selected):hover {
-  background-color: hsl(0deg, 0%, 98%);
+  background-color: hsl(0, 0%, 98%);
 }
 .table.is-hoverable.is-striped tbody tr:not(.is-selected):hover {
-  background-color: hsl(0deg, 0%, 98%);
+  background-color: hsl(0, 0%, 98%);
 }
 .table.is-hoverable.is-striped tbody tr:not(.is-selected):hover:nth-child(even) {
-  background-color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0, 0%, 96%);
 }
 .table.is-narrow td,
 .table.is-narrow th {
   padding: 0.25em 0.5em;
 }
 .table.is-striped tbody tr:not(.is-selected):nth-child(even) {
-  background-color: hsl(0deg, 0%, 98%);
+  background-color: hsl(0, 0%, 98%);
 }
 
 .table-container {
@@ -2802,125 +2803,125 @@ a.box:active {
 }
 
 .navbar {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 100%);
   min-height: 3.25rem;
   position: relative;
   z-index: 30;
 }
 .navbar.is-white {
-  background-color: hsl(0deg, 0%, 100%);
-  color: hsl(0deg, 0%, 4%);
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 4%);
 }
 .navbar.is-white .navbar-brand > .navbar-item,
 .navbar.is-white .navbar-brand .navbar-link {
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .navbar.is-white .navbar-brand > a.navbar-item:focus, .navbar.is-white .navbar-brand > a.navbar-item:hover, .navbar.is-white .navbar-brand > a.navbar-item.is-active,
 .navbar.is-white .navbar-brand .navbar-link:focus,
 .navbar.is-white .navbar-brand .navbar-link:hover,
 .navbar.is-white .navbar-brand .navbar-link.is-active {
   background-color: #f2f2f2;
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 .navbar.is-white .navbar-brand .navbar-link::after {
-  border-color: hsl(0deg, 0%, 4%);
+  border-color: hsl(0, 0%, 4%);
 }
 .navbar.is-white .navbar-burger {
-  color: hsl(0deg, 0%, 4%);
+  color: hsl(0, 0%, 4%);
 }
 @media screen and (min-width: 1024px) {
   .navbar.is-white .navbar-start > .navbar-item,
-.navbar.is-white .navbar-start .navbar-link,
-.navbar.is-white .navbar-end > .navbar-item,
-.navbar.is-white .navbar-end .navbar-link {
-    color: hsl(0deg, 0%, 4%);
+  .navbar.is-white .navbar-start .navbar-link,
+  .navbar.is-white .navbar-end > .navbar-item,
+  .navbar.is-white .navbar-end .navbar-link {
+    color: hsl(0, 0%, 4%);
   }
   .navbar.is-white .navbar-start > a.navbar-item:focus, .navbar.is-white .navbar-start > a.navbar-item:hover, .navbar.is-white .navbar-start > a.navbar-item.is-active,
-.navbar.is-white .navbar-start .navbar-link:focus,
-.navbar.is-white .navbar-start .navbar-link:hover,
-.navbar.is-white .navbar-start .navbar-link.is-active,
-.navbar.is-white .navbar-end > a.navbar-item:focus,
-.navbar.is-white .navbar-end > a.navbar-item:hover,
-.navbar.is-white .navbar-end > a.navbar-item.is-active,
-.navbar.is-white .navbar-end .navbar-link:focus,
-.navbar.is-white .navbar-end .navbar-link:hover,
-.navbar.is-white .navbar-end .navbar-link.is-active {
+  .navbar.is-white .navbar-start .navbar-link:focus,
+  .navbar.is-white .navbar-start .navbar-link:hover,
+  .navbar.is-white .navbar-start .navbar-link.is-active,
+  .navbar.is-white .navbar-end > a.navbar-item:focus,
+  .navbar.is-white .navbar-end > a.navbar-item:hover,
+  .navbar.is-white .navbar-end > a.navbar-item.is-active,
+  .navbar.is-white .navbar-end .navbar-link:focus,
+  .navbar.is-white .navbar-end .navbar-link:hover,
+  .navbar.is-white .navbar-end .navbar-link.is-active {
     background-color: #f2f2f2;
-    color: hsl(0deg, 0%, 4%);
+    color: hsl(0, 0%, 4%);
   }
   .navbar.is-white .navbar-start .navbar-link::after,
-.navbar.is-white .navbar-end .navbar-link::after {
-    border-color: hsl(0deg, 0%, 4%);
+  .navbar.is-white .navbar-end .navbar-link::after {
+    border-color: hsl(0, 0%, 4%);
   }
   .navbar.is-white .navbar-item.has-dropdown:focus .navbar-link,
-.navbar.is-white .navbar-item.has-dropdown:hover .navbar-link,
-.navbar.is-white .navbar-item.has-dropdown.is-active .navbar-link {
+  .navbar.is-white .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-white .navbar-item.has-dropdown.is-active .navbar-link {
     background-color: #f2f2f2;
-    color: hsl(0deg, 0%, 4%);
+    color: hsl(0, 0%, 4%);
   }
   .navbar.is-white .navbar-dropdown a.navbar-item.is-active {
-    background-color: hsl(0deg, 0%, 100%);
-    color: hsl(0deg, 0%, 4%);
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(0, 0%, 4%);
   }
 }
 .navbar.is-black {
-  background-color: hsl(0deg, 0%, 4%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 4%);
+  color: hsl(0, 0%, 100%);
 }
 .navbar.is-black .navbar-brand > .navbar-item,
 .navbar.is-black .navbar-brand .navbar-link {
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .navbar.is-black .navbar-brand > a.navbar-item:focus, .navbar.is-black .navbar-brand > a.navbar-item:hover, .navbar.is-black .navbar-brand > a.navbar-item.is-active,
 .navbar.is-black .navbar-brand .navbar-link:focus,
 .navbar.is-black .navbar-brand .navbar-link:hover,
 .navbar.is-black .navbar-brand .navbar-link.is-active {
   background-color: black;
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 .navbar.is-black .navbar-brand .navbar-link::after {
-  border-color: hsl(0deg, 0%, 100%);
+  border-color: hsl(0, 0%, 100%);
 }
 .navbar.is-black .navbar-burger {
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0, 0%, 100%);
 }
 @media screen and (min-width: 1024px) {
   .navbar.is-black .navbar-start > .navbar-item,
-.navbar.is-black .navbar-start .navbar-link,
-.navbar.is-black .navbar-end > .navbar-item,
-.navbar.is-black .navbar-end .navbar-link {
-    color: hsl(0deg, 0%, 100%);
+  .navbar.is-black .navbar-start .navbar-link,
+  .navbar.is-black .navbar-end > .navbar-item,
+  .navbar.is-black .navbar-end .navbar-link {
+    color: hsl(0, 0%, 100%);
   }
   .navbar.is-black .navbar-start > a.navbar-item:focus, .navbar.is-black .navbar-start > a.navbar-item:hover, .navbar.is-black .navbar-start > a.navbar-item.is-active,
-.navbar.is-black .navbar-start .navbar-link:focus,
-.navbar.is-black .navbar-start .navbar-link:hover,
-.navbar.is-black .navbar-start .navbar-link.is-active,
-.navbar.is-black .navbar-end > a.navbar-item:focus,
-.navbar.is-black .navbar-end > a.navbar-item:hover,
-.navbar.is-black .navbar-end > a.navbar-item.is-active,
-.navbar.is-black .navbar-end .navbar-link:focus,
-.navbar.is-black .navbar-end .navbar-link:hover,
-.navbar.is-black .navbar-end .navbar-link.is-active {
+  .navbar.is-black .navbar-start .navbar-link:focus,
+  .navbar.is-black .navbar-start .navbar-link:hover,
+  .navbar.is-black .navbar-start .navbar-link.is-active,
+  .navbar.is-black .navbar-end > a.navbar-item:focus,
+  .navbar.is-black .navbar-end > a.navbar-item:hover,
+  .navbar.is-black .navbar-end > a.navbar-item.is-active,
+  .navbar.is-black .navbar-end .navbar-link:focus,
+  .navbar.is-black .navbar-end .navbar-link:hover,
+  .navbar.is-black .navbar-end .navbar-link.is-active {
     background-color: black;
-    color: hsl(0deg, 0%, 100%);
+    color: hsl(0, 0%, 100%);
   }
   .navbar.is-black .navbar-start .navbar-link::after,
-.navbar.is-black .navbar-end .navbar-link::after {
-    border-color: hsl(0deg, 0%, 100%);
+  .navbar.is-black .navbar-end .navbar-link::after {
+    border-color: hsl(0, 0%, 100%);
   }
   .navbar.is-black .navbar-item.has-dropdown:focus .navbar-link,
-.navbar.is-black .navbar-item.has-dropdown:hover .navbar-link,
-.navbar.is-black .navbar-item.has-dropdown.is-active .navbar-link {
+  .navbar.is-black .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-black .navbar-item.has-dropdown.is-active .navbar-link {
     background-color: black;
-    color: hsl(0deg, 0%, 100%);
+    color: hsl(0, 0%, 100%);
   }
   .navbar.is-black .navbar-dropdown a.navbar-item.is-active {
-    background-color: hsl(0deg, 0%, 4%);
-    color: hsl(0deg, 0%, 100%);
+    background-color: hsl(0, 0%, 4%);
+    color: hsl(0, 0%, 100%);
   }
 }
 .navbar.is-light {
-  background-color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0, 0%, 96%);
   color: rgba(0, 0, 0, 0.7);
 }
 .navbar.is-light .navbar-brand > .navbar-item,
@@ -2942,41 +2943,41 @@ a.box:active {
 }
 @media screen and (min-width: 1024px) {
   .navbar.is-light .navbar-start > .navbar-item,
-.navbar.is-light .navbar-start .navbar-link,
-.navbar.is-light .navbar-end > .navbar-item,
-.navbar.is-light .navbar-end .navbar-link {
+  .navbar.is-light .navbar-start .navbar-link,
+  .navbar.is-light .navbar-end > .navbar-item,
+  .navbar.is-light .navbar-end .navbar-link {
     color: rgba(0, 0, 0, 0.7);
   }
   .navbar.is-light .navbar-start > a.navbar-item:focus, .navbar.is-light .navbar-start > a.navbar-item:hover, .navbar.is-light .navbar-start > a.navbar-item.is-active,
-.navbar.is-light .navbar-start .navbar-link:focus,
-.navbar.is-light .navbar-start .navbar-link:hover,
-.navbar.is-light .navbar-start .navbar-link.is-active,
-.navbar.is-light .navbar-end > a.navbar-item:focus,
-.navbar.is-light .navbar-end > a.navbar-item:hover,
-.navbar.is-light .navbar-end > a.navbar-item.is-active,
-.navbar.is-light .navbar-end .navbar-link:focus,
-.navbar.is-light .navbar-end .navbar-link:hover,
-.navbar.is-light .navbar-end .navbar-link.is-active {
+  .navbar.is-light .navbar-start .navbar-link:focus,
+  .navbar.is-light .navbar-start .navbar-link:hover,
+  .navbar.is-light .navbar-start .navbar-link.is-active,
+  .navbar.is-light .navbar-end > a.navbar-item:focus,
+  .navbar.is-light .navbar-end > a.navbar-item:hover,
+  .navbar.is-light .navbar-end > a.navbar-item.is-active,
+  .navbar.is-light .navbar-end .navbar-link:focus,
+  .navbar.is-light .navbar-end .navbar-link:hover,
+  .navbar.is-light .navbar-end .navbar-link.is-active {
     background-color: #e8e8e8;
     color: rgba(0, 0, 0, 0.7);
   }
   .navbar.is-light .navbar-start .navbar-link::after,
-.navbar.is-light .navbar-end .navbar-link::after {
+  .navbar.is-light .navbar-end .navbar-link::after {
     border-color: rgba(0, 0, 0, 0.7);
   }
   .navbar.is-light .navbar-item.has-dropdown:focus .navbar-link,
-.navbar.is-light .navbar-item.has-dropdown:hover .navbar-link,
-.navbar.is-light .navbar-item.has-dropdown.is-active .navbar-link {
+  .navbar.is-light .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-light .navbar-item.has-dropdown.is-active .navbar-link {
     background-color: #e8e8e8;
     color: rgba(0, 0, 0, 0.7);
   }
   .navbar.is-light .navbar-dropdown a.navbar-item.is-active {
-    background-color: hsl(0deg, 0%, 96%);
+    background-color: hsl(0, 0%, 96%);
     color: rgba(0, 0, 0, 0.7);
   }
 }
 .navbar.is-dark {
-  background-color: hsl(0deg, 0%, 21%);
+  background-color: hsl(0, 0%, 21%);
   color: #fff;
 }
 .navbar.is-dark .navbar-brand > .navbar-item,
@@ -2998,36 +2999,36 @@ a.box:active {
 }
 @media screen and (min-width: 1024px) {
   .navbar.is-dark .navbar-start > .navbar-item,
-.navbar.is-dark .navbar-start .navbar-link,
-.navbar.is-dark .navbar-end > .navbar-item,
-.navbar.is-dark .navbar-end .navbar-link {
+  .navbar.is-dark .navbar-start .navbar-link,
+  .navbar.is-dark .navbar-end > .navbar-item,
+  .navbar.is-dark .navbar-end .navbar-link {
     color: #fff;
   }
   .navbar.is-dark .navbar-start > a.navbar-item:focus, .navbar.is-dark .navbar-start > a.navbar-item:hover, .navbar.is-dark .navbar-start > a.navbar-item.is-active,
-.navbar.is-dark .navbar-start .navbar-link:focus,
-.navbar.is-dark .navbar-start .navbar-link:hover,
-.navbar.is-dark .navbar-start .navbar-link.is-active,
-.navbar.is-dark .navbar-end > a.navbar-item:focus,
-.navbar.is-dark .navbar-end > a.navbar-item:hover,
-.navbar.is-dark .navbar-end > a.navbar-item.is-active,
-.navbar.is-dark .navbar-end .navbar-link:focus,
-.navbar.is-dark .navbar-end .navbar-link:hover,
-.navbar.is-dark .navbar-end .navbar-link.is-active {
+  .navbar.is-dark .navbar-start .navbar-link:focus,
+  .navbar.is-dark .navbar-start .navbar-link:hover,
+  .navbar.is-dark .navbar-start .navbar-link.is-active,
+  .navbar.is-dark .navbar-end > a.navbar-item:focus,
+  .navbar.is-dark .navbar-end > a.navbar-item:hover,
+  .navbar.is-dark .navbar-end > a.navbar-item.is-active,
+  .navbar.is-dark .navbar-end .navbar-link:focus,
+  .navbar.is-dark .navbar-end .navbar-link:hover,
+  .navbar.is-dark .navbar-end .navbar-link.is-active {
     background-color: #292929;
     color: #fff;
   }
   .navbar.is-dark .navbar-start .navbar-link::after,
-.navbar.is-dark .navbar-end .navbar-link::after {
+  .navbar.is-dark .navbar-end .navbar-link::after {
     border-color: #fff;
   }
   .navbar.is-dark .navbar-item.has-dropdown:focus .navbar-link,
-.navbar.is-dark .navbar-item.has-dropdown:hover .navbar-link,
-.navbar.is-dark .navbar-item.has-dropdown.is-active .navbar-link {
+  .navbar.is-dark .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-dark .navbar-item.has-dropdown.is-active .navbar-link {
     background-color: #292929;
     color: #fff;
   }
   .navbar.is-dark .navbar-dropdown a.navbar-item.is-active {
-    background-color: hsl(0deg, 0%, 21%);
+    background-color: hsl(0, 0%, 21%);
     color: #fff;
   }
 }
@@ -3054,31 +3055,31 @@ a.box:active {
 }
 @media screen and (min-width: 1024px) {
   .navbar.is-primary .navbar-start > .navbar-item,
-.navbar.is-primary .navbar-start .navbar-link,
-.navbar.is-primary .navbar-end > .navbar-item,
-.navbar.is-primary .navbar-end .navbar-link {
+  .navbar.is-primary .navbar-start .navbar-link,
+  .navbar.is-primary .navbar-end > .navbar-item,
+  .navbar.is-primary .navbar-end .navbar-link {
     color: #fff;
   }
   .navbar.is-primary .navbar-start > a.navbar-item:focus, .navbar.is-primary .navbar-start > a.navbar-item:hover, .navbar.is-primary .navbar-start > a.navbar-item.is-active,
-.navbar.is-primary .navbar-start .navbar-link:focus,
-.navbar.is-primary .navbar-start .navbar-link:hover,
-.navbar.is-primary .navbar-start .navbar-link.is-active,
-.navbar.is-primary .navbar-end > a.navbar-item:focus,
-.navbar.is-primary .navbar-end > a.navbar-item:hover,
-.navbar.is-primary .navbar-end > a.navbar-item.is-active,
-.navbar.is-primary .navbar-end .navbar-link:focus,
-.navbar.is-primary .navbar-end .navbar-link:hover,
-.navbar.is-primary .navbar-end .navbar-link.is-active {
+  .navbar.is-primary .navbar-start .navbar-link:focus,
+  .navbar.is-primary .navbar-start .navbar-link:hover,
+  .navbar.is-primary .navbar-start .navbar-link.is-active,
+  .navbar.is-primary .navbar-end > a.navbar-item:focus,
+  .navbar.is-primary .navbar-end > a.navbar-item:hover,
+  .navbar.is-primary .navbar-end > a.navbar-item.is-active,
+  .navbar.is-primary .navbar-end .navbar-link:focus,
+  .navbar.is-primary .navbar-end .navbar-link:hover,
+  .navbar.is-primary .navbar-end .navbar-link.is-active {
     background-color: #005567;
     color: #fff;
   }
   .navbar.is-primary .navbar-start .navbar-link::after,
-.navbar.is-primary .navbar-end .navbar-link::after {
+  .navbar.is-primary .navbar-end .navbar-link::after {
     border-color: #fff;
   }
   .navbar.is-primary .navbar-item.has-dropdown:focus .navbar-link,
-.navbar.is-primary .navbar-item.has-dropdown:hover .navbar-link,
-.navbar.is-primary .navbar-item.has-dropdown.is-active .navbar-link {
+  .navbar.is-primary .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-primary .navbar-item.has-dropdown.is-active .navbar-link {
     background-color: #005567;
     color: #fff;
   }
@@ -3110,31 +3111,31 @@ a.box:active {
 }
 @media screen and (min-width: 1024px) {
   .navbar.is-link .navbar-start > .navbar-item,
-.navbar.is-link .navbar-start .navbar-link,
-.navbar.is-link .navbar-end > .navbar-item,
-.navbar.is-link .navbar-end .navbar-link {
+  .navbar.is-link .navbar-start .navbar-link,
+  .navbar.is-link .navbar-end > .navbar-item,
+  .navbar.is-link .navbar-end .navbar-link {
     color: #fff;
   }
   .navbar.is-link .navbar-start > a.navbar-item:focus, .navbar.is-link .navbar-start > a.navbar-item:hover, .navbar.is-link .navbar-start > a.navbar-item.is-active,
-.navbar.is-link .navbar-start .navbar-link:focus,
-.navbar.is-link .navbar-start .navbar-link:hover,
-.navbar.is-link .navbar-start .navbar-link.is-active,
-.navbar.is-link .navbar-end > a.navbar-item:focus,
-.navbar.is-link .navbar-end > a.navbar-item:hover,
-.navbar.is-link .navbar-end > a.navbar-item.is-active,
-.navbar.is-link .navbar-end .navbar-link:focus,
-.navbar.is-link .navbar-end .navbar-link:hover,
-.navbar.is-link .navbar-end .navbar-link.is-active {
+  .navbar.is-link .navbar-start .navbar-link:focus,
+  .navbar.is-link .navbar-start .navbar-link:hover,
+  .navbar.is-link .navbar-start .navbar-link.is-active,
+  .navbar.is-link .navbar-end > a.navbar-item:focus,
+  .navbar.is-link .navbar-end > a.navbar-item:hover,
+  .navbar.is-link .navbar-end > a.navbar-item.is-active,
+  .navbar.is-link .navbar-end .navbar-link:focus,
+  .navbar.is-link .navbar-end .navbar-link:hover,
+  .navbar.is-link .navbar-end .navbar-link.is-active {
     background-color: #005567;
     color: #fff;
   }
   .navbar.is-link .navbar-start .navbar-link::after,
-.navbar.is-link .navbar-end .navbar-link::after {
+  .navbar.is-link .navbar-end .navbar-link::after {
     border-color: #fff;
   }
   .navbar.is-link .navbar-item.has-dropdown:focus .navbar-link,
-.navbar.is-link .navbar-item.has-dropdown:hover .navbar-link,
-.navbar.is-link .navbar-item.has-dropdown.is-active .navbar-link {
+  .navbar.is-link .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-link .navbar-item.has-dropdown.is-active .navbar-link {
     background-color: #005567;
     color: #fff;
   }
@@ -3144,7 +3145,7 @@ a.box:active {
   }
 }
 .navbar.is-info {
-  background-color: hsl(207deg, 61%, 53%);
+  background-color: hsl(207, 61%, 53%);
   color: #fff;
 }
 .navbar.is-info .navbar-brand > .navbar-item,
@@ -3166,36 +3167,36 @@ a.box:active {
 }
 @media screen and (min-width: 1024px) {
   .navbar.is-info .navbar-start > .navbar-item,
-.navbar.is-info .navbar-start .navbar-link,
-.navbar.is-info .navbar-end > .navbar-item,
-.navbar.is-info .navbar-end .navbar-link {
+  .navbar.is-info .navbar-start .navbar-link,
+  .navbar.is-info .navbar-end > .navbar-item,
+  .navbar.is-info .navbar-end .navbar-link {
     color: #fff;
   }
   .navbar.is-info .navbar-start > a.navbar-item:focus, .navbar.is-info .navbar-start > a.navbar-item:hover, .navbar.is-info .navbar-start > a.navbar-item.is-active,
-.navbar.is-info .navbar-start .navbar-link:focus,
-.navbar.is-info .navbar-start .navbar-link:hover,
-.navbar.is-info .navbar-start .navbar-link.is-active,
-.navbar.is-info .navbar-end > a.navbar-item:focus,
-.navbar.is-info .navbar-end > a.navbar-item:hover,
-.navbar.is-info .navbar-end > a.navbar-item.is-active,
-.navbar.is-info .navbar-end .navbar-link:focus,
-.navbar.is-info .navbar-end .navbar-link:hover,
-.navbar.is-info .navbar-end .navbar-link.is-active {
+  .navbar.is-info .navbar-start .navbar-link:focus,
+  .navbar.is-info .navbar-start .navbar-link:hover,
+  .navbar.is-info .navbar-start .navbar-link.is-active,
+  .navbar.is-info .navbar-end > a.navbar-item:focus,
+  .navbar.is-info .navbar-end > a.navbar-item:hover,
+  .navbar.is-info .navbar-end > a.navbar-item.is-active,
+  .navbar.is-info .navbar-end .navbar-link:focus,
+  .navbar.is-info .navbar-end .navbar-link:hover,
+  .navbar.is-info .navbar-end .navbar-link.is-active {
     background-color: #3082c5;
     color: #fff;
   }
   .navbar.is-info .navbar-start .navbar-link::after,
-.navbar.is-info .navbar-end .navbar-link::after {
+  .navbar.is-info .navbar-end .navbar-link::after {
     border-color: #fff;
   }
   .navbar.is-info .navbar-item.has-dropdown:focus .navbar-link,
-.navbar.is-info .navbar-item.has-dropdown:hover .navbar-link,
-.navbar.is-info .navbar-item.has-dropdown.is-active .navbar-link {
+  .navbar.is-info .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-info .navbar-item.has-dropdown.is-active .navbar-link {
     background-color: #3082c5;
     color: #fff;
   }
   .navbar.is-info .navbar-dropdown a.navbar-item.is-active {
-    background-color: hsl(207deg, 61%, 53%);
+    background-color: hsl(207, 61%, 53%);
     color: #fff;
   }
 }
@@ -3222,31 +3223,31 @@ a.box:active {
 }
 @media screen and (min-width: 1024px) {
   .navbar.is-success .navbar-start > .navbar-item,
-.navbar.is-success .navbar-start .navbar-link,
-.navbar.is-success .navbar-end > .navbar-item,
-.navbar.is-success .navbar-end .navbar-link {
+  .navbar.is-success .navbar-start .navbar-link,
+  .navbar.is-success .navbar-end > .navbar-item,
+  .navbar.is-success .navbar-end .navbar-link {
     color: #fff;
   }
   .navbar.is-success .navbar-start > a.navbar-item:focus, .navbar.is-success .navbar-start > a.navbar-item:hover, .navbar.is-success .navbar-start > a.navbar-item.is-active,
-.navbar.is-success .navbar-start .navbar-link:focus,
-.navbar.is-success .navbar-start .navbar-link:hover,
-.navbar.is-success .navbar-start .navbar-link.is-active,
-.navbar.is-success .navbar-end > a.navbar-item:focus,
-.navbar.is-success .navbar-end > a.navbar-item:hover,
-.navbar.is-success .navbar-end > a.navbar-item.is-active,
-.navbar.is-success .navbar-end .navbar-link:focus,
-.navbar.is-success .navbar-end .navbar-link:hover,
-.navbar.is-success .navbar-end .navbar-link.is-active {
+  .navbar.is-success .navbar-start .navbar-link:focus,
+  .navbar.is-success .navbar-start .navbar-link:hover,
+  .navbar.is-success .navbar-start .navbar-link.is-active,
+  .navbar.is-success .navbar-end > a.navbar-item:focus,
+  .navbar.is-success .navbar-end > a.navbar-item:hover,
+  .navbar.is-success .navbar-end > a.navbar-item.is-active,
+  .navbar.is-success .navbar-end .navbar-link:focus,
+  .navbar.is-success .navbar-end .navbar-link:hover,
+  .navbar.is-success .navbar-end .navbar-link.is-active {
     background-color: #005567;
     color: #fff;
   }
   .navbar.is-success .navbar-start .navbar-link::after,
-.navbar.is-success .navbar-end .navbar-link::after {
+  .navbar.is-success .navbar-end .navbar-link::after {
     border-color: #fff;
   }
   .navbar.is-success .navbar-item.has-dropdown:focus .navbar-link,
-.navbar.is-success .navbar-item.has-dropdown:hover .navbar-link,
-.navbar.is-success .navbar-item.has-dropdown.is-active .navbar-link {
+  .navbar.is-success .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-success .navbar-item.has-dropdown.is-active .navbar-link {
     background-color: #005567;
     color: #fff;
   }
@@ -3256,7 +3257,7 @@ a.box:active {
   }
 }
 .navbar.is-warning {
-  background-color: hsl(44deg, 100%, 77%);
+  background-color: hsl(44, 100%, 77%);
   color: rgba(0, 0, 0, 0.7);
 }
 .navbar.is-warning .navbar-brand > .navbar-item,
@@ -3278,41 +3279,41 @@ a.box:active {
 }
 @media screen and (min-width: 1024px) {
   .navbar.is-warning .navbar-start > .navbar-item,
-.navbar.is-warning .navbar-start .navbar-link,
-.navbar.is-warning .navbar-end > .navbar-item,
-.navbar.is-warning .navbar-end .navbar-link {
+  .navbar.is-warning .navbar-start .navbar-link,
+  .navbar.is-warning .navbar-end > .navbar-item,
+  .navbar.is-warning .navbar-end .navbar-link {
     color: rgba(0, 0, 0, 0.7);
   }
   .navbar.is-warning .navbar-start > a.navbar-item:focus, .navbar.is-warning .navbar-start > a.navbar-item:hover, .navbar.is-warning .navbar-start > a.navbar-item.is-active,
-.navbar.is-warning .navbar-start .navbar-link:focus,
-.navbar.is-warning .navbar-start .navbar-link:hover,
-.navbar.is-warning .navbar-start .navbar-link.is-active,
-.navbar.is-warning .navbar-end > a.navbar-item:focus,
-.navbar.is-warning .navbar-end > a.navbar-item:hover,
-.navbar.is-warning .navbar-end > a.navbar-item.is-active,
-.navbar.is-warning .navbar-end .navbar-link:focus,
-.navbar.is-warning .navbar-end .navbar-link:hover,
-.navbar.is-warning .navbar-end .navbar-link.is-active {
+  .navbar.is-warning .navbar-start .navbar-link:focus,
+  .navbar.is-warning .navbar-start .navbar-link:hover,
+  .navbar.is-warning .navbar-start .navbar-link.is-active,
+  .navbar.is-warning .navbar-end > a.navbar-item:focus,
+  .navbar.is-warning .navbar-end > a.navbar-item:hover,
+  .navbar.is-warning .navbar-end > a.navbar-item.is-active,
+  .navbar.is-warning .navbar-end .navbar-link:focus,
+  .navbar.is-warning .navbar-end .navbar-link:hover,
+  .navbar.is-warning .navbar-end .navbar-link.is-active {
     background-color: #ffd970;
     color: rgba(0, 0, 0, 0.7);
   }
   .navbar.is-warning .navbar-start .navbar-link::after,
-.navbar.is-warning .navbar-end .navbar-link::after {
+  .navbar.is-warning .navbar-end .navbar-link::after {
     border-color: rgba(0, 0, 0, 0.7);
   }
   .navbar.is-warning .navbar-item.has-dropdown:focus .navbar-link,
-.navbar.is-warning .navbar-item.has-dropdown:hover .navbar-link,
-.navbar.is-warning .navbar-item.has-dropdown.is-active .navbar-link {
+  .navbar.is-warning .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-warning .navbar-item.has-dropdown.is-active .navbar-link {
     background-color: #ffd970;
     color: rgba(0, 0, 0, 0.7);
   }
   .navbar.is-warning .navbar-dropdown a.navbar-item.is-active {
-    background-color: hsl(44deg, 100%, 77%);
+    background-color: hsl(44, 100%, 77%);
     color: rgba(0, 0, 0, 0.7);
   }
 }
 .navbar.is-danger {
-  background-color: hsl(348deg, 86%, 61%);
+  background-color: hsl(348, 86%, 61%);
   color: #fff;
 }
 .navbar.is-danger .navbar-brand > .navbar-item,
@@ -3334,36 +3335,36 @@ a.box:active {
 }
 @media screen and (min-width: 1024px) {
   .navbar.is-danger .navbar-start > .navbar-item,
-.navbar.is-danger .navbar-start .navbar-link,
-.navbar.is-danger .navbar-end > .navbar-item,
-.navbar.is-danger .navbar-end .navbar-link {
+  .navbar.is-danger .navbar-start .navbar-link,
+  .navbar.is-danger .navbar-end > .navbar-item,
+  .navbar.is-danger .navbar-end .navbar-link {
     color: #fff;
   }
   .navbar.is-danger .navbar-start > a.navbar-item:focus, .navbar.is-danger .navbar-start > a.navbar-item:hover, .navbar.is-danger .navbar-start > a.navbar-item.is-active,
-.navbar.is-danger .navbar-start .navbar-link:focus,
-.navbar.is-danger .navbar-start .navbar-link:hover,
-.navbar.is-danger .navbar-start .navbar-link.is-active,
-.navbar.is-danger .navbar-end > a.navbar-item:focus,
-.navbar.is-danger .navbar-end > a.navbar-item:hover,
-.navbar.is-danger .navbar-end > a.navbar-item.is-active,
-.navbar.is-danger .navbar-end .navbar-link:focus,
-.navbar.is-danger .navbar-end .navbar-link:hover,
-.navbar.is-danger .navbar-end .navbar-link.is-active {
+  .navbar.is-danger .navbar-start .navbar-link:focus,
+  .navbar.is-danger .navbar-start .navbar-link:hover,
+  .navbar.is-danger .navbar-start .navbar-link.is-active,
+  .navbar.is-danger .navbar-end > a.navbar-item:focus,
+  .navbar.is-danger .navbar-end > a.navbar-item:hover,
+  .navbar.is-danger .navbar-end > a.navbar-item.is-active,
+  .navbar.is-danger .navbar-end .navbar-link:focus,
+  .navbar.is-danger .navbar-end .navbar-link:hover,
+  .navbar.is-danger .navbar-end .navbar-link.is-active {
     background-color: #ef2e55;
     color: #fff;
   }
   .navbar.is-danger .navbar-start .navbar-link::after,
-.navbar.is-danger .navbar-end .navbar-link::after {
+  .navbar.is-danger .navbar-end .navbar-link::after {
     border-color: #fff;
   }
   .navbar.is-danger .navbar-item.has-dropdown:focus .navbar-link,
-.navbar.is-danger .navbar-item.has-dropdown:hover .navbar-link,
-.navbar.is-danger .navbar-item.has-dropdown.is-active .navbar-link {
+  .navbar.is-danger .navbar-item.has-dropdown:hover .navbar-link,
+  .navbar.is-danger .navbar-item.has-dropdown.is-active .navbar-link {
     background-color: #ef2e55;
     color: #fff;
   }
   .navbar.is-danger .navbar-dropdown a.navbar-item.is-active {
-    background-color: hsl(348deg, 86%, 61%);
+    background-color: hsl(348, 86%, 61%);
     color: #fff;
   }
 }
@@ -3374,7 +3375,7 @@ a.box:active {
   width: 100%;
 }
 .navbar.has-shadow {
-  box-shadow: 0 2px 0 0 hsl(0deg, 0%, 96%);
+  box-shadow: 0 2px 0 0 hsl(0, 0%, 96%);
 }
 .navbar.is-fixed-bottom, .navbar.is-fixed-top {
   left: 0;
@@ -3386,7 +3387,7 @@ a.box:active {
   bottom: 0;
 }
 .navbar.is-fixed-bottom.has-shadow {
-  box-shadow: 0 -2px 0 0 hsl(0deg, 0%, 96%);
+  box-shadow: 0 -2px 0 0 hsl(0, 0%, 96%);
 }
 .navbar.is-fixed-top {
   top: 0;
@@ -3421,7 +3422,7 @@ body.has-navbar-fixed-bottom {
 }
 
 .navbar-burger {
-  color: hsl(0deg, 0%, 29%);
+  color: hsl(0, 0%, 29%);
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
@@ -3474,7 +3475,7 @@ body.has-navbar-fixed-bottom {
 
 .navbar-item,
 .navbar-link {
-  color: hsl(0deg, 0%, 29%);
+  color: hsl(0, 0%, 29%);
   display: block;
   line-height: 1.5;
   padding: 0.5rem 0.75rem;
@@ -3495,7 +3496,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 .navbar-link:focus-within,
 .navbar-link:hover,
 .navbar-link.is-active {
-  background-color: hsl(0deg, 0%, 98%);
+  background-color: hsl(0, 0%, 98%);
   color: #006a80;
 }
 
@@ -3556,7 +3557,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 }
 
 .navbar-divider {
-  background-color: hsl(0deg, 0%, 96%);
+  background-color: hsl(0, 0%, 96%);
   border: none;
   display: none;
   height: 2px;
@@ -3568,7 +3569,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
     display: block;
   }
   .navbar-brand .navbar-item,
-.navbar-tabs .navbar-item {
+  .navbar-tabs .navbar-item {
     align-items: center;
     display: flex;
   }
@@ -3576,7 +3577,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
     display: none;
   }
   .navbar-menu {
-    background-color: hsl(0deg, 0%, 100%);
+    background-color: hsl(0, 0%, 100%);
     box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
     padding: 0.5rem 0;
   }
@@ -3604,19 +3605,19 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
     overflow: auto;
   }
   html.has-navbar-fixed-top-touch,
-body.has-navbar-fixed-top-touch {
+  body.has-navbar-fixed-top-touch {
     padding-top: 3.25rem;
   }
   html.has-navbar-fixed-bottom-touch,
-body.has-navbar-fixed-bottom-touch {
+  body.has-navbar-fixed-bottom-touch {
     padding-bottom: 3.25rem;
   }
 }
 @media screen and (min-width: 1024px) {
   .navbar,
-.navbar-menu,
-.navbar-start,
-.navbar-end {
+  .navbar-menu,
+  .navbar-start,
+  .navbar-end {
     align-items: stretch;
     display: flex;
   }
@@ -3627,35 +3628,35 @@ body.has-navbar-fixed-bottom-touch {
     padding: 1rem 2rem;
   }
   .navbar.is-spaced .navbar-start,
-.navbar.is-spaced .navbar-end {
+  .navbar.is-spaced .navbar-end {
     align-items: center;
   }
   .navbar.is-spaced a.navbar-item,
-.navbar.is-spaced .navbar-link {
+  .navbar.is-spaced .navbar-link {
     border-radius: 4px;
   }
   .navbar.is-transparent a.navbar-item:focus, .navbar.is-transparent a.navbar-item:hover, .navbar.is-transparent a.navbar-item.is-active,
-.navbar.is-transparent .navbar-link:focus,
-.navbar.is-transparent .navbar-link:hover,
-.navbar.is-transparent .navbar-link.is-active {
+  .navbar.is-transparent .navbar-link:focus,
+  .navbar.is-transparent .navbar-link:hover,
+  .navbar.is-transparent .navbar-link.is-active {
     background-color: transparent !important;
   }
   .navbar.is-transparent .navbar-item.has-dropdown.is-active .navbar-link, .navbar.is-transparent .navbar-item.has-dropdown.is-hoverable:focus .navbar-link, .navbar.is-transparent .navbar-item.has-dropdown.is-hoverable:focus-within .navbar-link, .navbar.is-transparent .navbar-item.has-dropdown.is-hoverable:hover .navbar-link {
     background-color: transparent !important;
   }
   .navbar.is-transparent .navbar-dropdown a.navbar-item:focus, .navbar.is-transparent .navbar-dropdown a.navbar-item:hover {
-    background-color: hsl(0deg, 0%, 96%);
-    color: hsl(0deg, 0%, 4%);
+    background-color: hsl(0, 0%, 96%);
+    color: hsl(0, 0%, 4%);
   }
   .navbar.is-transparent .navbar-dropdown a.navbar-item.is-active {
-    background-color: hsl(0deg, 0%, 96%);
+    background-color: hsl(0, 0%, 96%);
     color: #006a80;
   }
   .navbar-burger {
     display: none;
   }
   .navbar-item,
-.navbar-link {
+  .navbar-link {
     align-items: center;
     display: flex;
   }
@@ -3666,7 +3667,7 @@ body.has-navbar-fixed-bottom-touch {
     transform: rotate(135deg) translate(0.25em, -0.25em);
   }
   .navbar-item.has-dropdown-up .navbar-dropdown {
-    border-bottom: 2px solid hsl(0deg, 0%, 86%);
+    border-bottom: 2px solid hsl(0, 0%, 86%);
     border-radius: 6px 6px 0 0;
     border-top: none;
     bottom: 100%;
@@ -3694,10 +3695,10 @@ body.has-navbar-fixed-bottom-touch {
     margin-left: auto;
   }
   .navbar-dropdown {
-    background-color: hsl(0deg, 0%, 100%);
+    background-color: hsl(0, 0%, 100%);
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-    border-top: 2px solid hsl(0deg, 0%, 86%);
+    border-top: 2px solid hsl(0, 0%, 86%);
     box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
     display: none;
     font-size: 0.875rem;
@@ -3715,11 +3716,11 @@ body.has-navbar-fixed-bottom-touch {
     padding-right: 3rem;
   }
   .navbar-dropdown a.navbar-item:focus, .navbar-dropdown a.navbar-item:hover {
-    background-color: hsl(0deg, 0%, 96%);
-    color: hsl(0deg, 0%, 4%);
+    background-color: hsl(0, 0%, 96%);
+    color: hsl(0, 0%, 4%);
   }
   .navbar-dropdown a.navbar-item.is-active {
-    background-color: hsl(0deg, 0%, 96%);
+    background-color: hsl(0, 0%, 96%);
     color: #006a80;
   }
   .navbar.is-spaced .navbar-dropdown, .navbar-dropdown.is-boxed {
@@ -3742,11 +3743,11 @@ body.has-navbar-fixed-bottom-touch {
     display: block;
   }
   .navbar > .container .navbar-brand,
-.container > .navbar .navbar-brand {
+  .container > .navbar .navbar-brand {
     margin-left: -0.75rem;
   }
   .navbar > .container .navbar-menu,
-.container > .navbar .navbar-menu {
+  .container > .navbar .navbar-menu {
     margin-right: -0.75rem;
   }
   .navbar.is-fixed-bottom-desktop, .navbar.is-fixed-top-desktop {
@@ -3765,31 +3766,31 @@ body.has-navbar-fixed-bottom-touch {
     top: 0;
   }
   html.has-navbar-fixed-top-desktop,
-body.has-navbar-fixed-top-desktop {
+  body.has-navbar-fixed-top-desktop {
     padding-top: 3.25rem;
   }
   html.has-navbar-fixed-bottom-desktop,
-body.has-navbar-fixed-bottom-desktop {
+  body.has-navbar-fixed-bottom-desktop {
     padding-bottom: 3.25rem;
   }
   html.has-spaced-navbar-fixed-top,
-body.has-spaced-navbar-fixed-top {
+  body.has-spaced-navbar-fixed-top {
     padding-top: 5.25rem;
   }
   html.has-spaced-navbar-fixed-bottom,
-body.has-spaced-navbar-fixed-bottom {
+  body.has-spaced-navbar-fixed-bottom {
     padding-bottom: 5.25rem;
   }
   a.navbar-item.is-active,
-.navbar-link.is-active {
-    color: hsl(0deg, 0%, 4%);
+  .navbar-link.is-active {
+    color: hsl(0, 0%, 4%);
   }
   a.navbar-item.is-active:not(:focus):not(:hover),
-.navbar-link.is-active:not(:focus):not(:hover) {
+  .navbar-link.is-active:not(:focus):not(:hover) {
     background-color: transparent;
   }
   .navbar-item.has-dropdown:focus .navbar-link, .navbar-item.has-dropdown:hover .navbar-link, .navbar-item.has-dropdown.is-active .navbar-link {
-    background-color: hsl(0deg, 0%, 98%);
+    background-color: hsl(0, 0%, 98%);
   }
 }
 .hero.is-fullheight-with-navbar {
@@ -3797,10 +3798,10 @@ body.has-spaced-navbar-fixed-bottom {
 }
 
 .card {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: hsl(0, 0%, 100%);
   border-radius: 0.25rem;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
-  color: hsl(0deg, 0%, 29%);
+  color: hsl(0, 0%, 29%);
   max-width: 100%;
   position: relative;
 }
@@ -3823,7 +3824,7 @@ body.has-spaced-navbar-fixed-bottom {
 
 .card-header-title {
   align-items: center;
-  color: hsl(0deg, 0%, 21%);
+  color: hsl(0, 0%, 21%);
   display: flex;
   flex-grow: 1;
   font-weight: 700;
@@ -3871,7 +3872,7 @@ body.has-spaced-navbar-fixed-bottom {
 
 .card-footer {
   background-color: transparent;
-  border-top: 1px solid hsl(0deg, 0%, 93%);
+  border-top: 1px solid hsl(0, 0%, 93%);
   align-items: stretch;
   display: flex;
 }
@@ -3886,7 +3887,7 @@ body.has-spaced-navbar-fixed-bottom {
   padding: 0.75rem;
 }
 .card-footer-item:not(:last-child) {
-  border-right: 1px solid hsl(0deg, 0%, 93%);
+  border-right: 1px solid hsl(0, 0%, 93%);
 }
 
 .card .media:not(:last-child) {
@@ -5599,7 +5600,7 @@ body.has-spaced-navbar-fixed-bottom {
 }
 
 .has-text-white {
-  color: hsl(0deg, 0%, 100%) !important;
+  color: hsl(0, 0%, 100%) !important;
 }
 
 a.has-text-white:hover, a.has-text-white:focus {
@@ -5607,11 +5608,11 @@ a.has-text-white:hover, a.has-text-white:focus {
 }
 
 .has-background-white {
-  background-color: hsl(0deg, 0%, 100%) !important;
+  background-color: hsl(0, 0%, 100%) !important;
 }
 
 .has-text-black {
-  color: hsl(0deg, 0%, 4%) !important;
+  color: hsl(0, 0%, 4%) !important;
 }
 
 a.has-text-black:hover, a.has-text-black:focus {
@@ -5619,11 +5620,11 @@ a.has-text-black:hover, a.has-text-black:focus {
 }
 
 .has-background-black {
-  background-color: hsl(0deg, 0%, 4%) !important;
+  background-color: hsl(0, 0%, 4%) !important;
 }
 
 .has-text-light {
-  color: hsl(0deg, 0%, 96%) !important;
+  color: hsl(0, 0%, 96%) !important;
 }
 
 a.has-text-light:hover, a.has-text-light:focus {
@@ -5631,11 +5632,11 @@ a.has-text-light:hover, a.has-text-light:focus {
 }
 
 .has-background-light {
-  background-color: hsl(0deg, 0%, 96%) !important;
+  background-color: hsl(0, 0%, 96%) !important;
 }
 
 .has-text-dark {
-  color: hsl(0deg, 0%, 21%) !important;
+  color: hsl(0, 0%, 21%) !important;
 }
 
 a.has-text-dark:hover, a.has-text-dark:focus {
@@ -5643,7 +5644,7 @@ a.has-text-dark:hover, a.has-text-dark:focus {
 }
 
 .has-background-dark {
-  background-color: hsl(0deg, 0%, 21%) !important;
+  background-color: hsl(0, 0%, 21%) !important;
 }
 
 .has-text-primary {
@@ -5719,7 +5720,7 @@ a.has-text-link-dark:hover, a.has-text-link-dark:focus {
 }
 
 .has-text-info {
-  color: hsl(207deg, 61%, 53%) !important;
+  color: hsl(207, 61%, 53%) !important;
 }
 
 a.has-text-info:hover, a.has-text-info:focus {
@@ -5727,7 +5728,7 @@ a.has-text-info:hover, a.has-text-info:focus {
 }
 
 .has-background-info {
-  background-color: hsl(207deg, 61%, 53%) !important;
+  background-color: hsl(207, 61%, 53%) !important;
 }
 
 .has-text-info-light {
@@ -5791,7 +5792,7 @@ a.has-text-success-dark:hover, a.has-text-success-dark:focus {
 }
 
 .has-text-warning {
-  color: hsl(44deg, 100%, 77%) !important;
+  color: hsl(44, 100%, 77%) !important;
 }
 
 a.has-text-warning:hover, a.has-text-warning:focus {
@@ -5799,7 +5800,7 @@ a.has-text-warning:hover, a.has-text-warning:focus {
 }
 
 .has-background-warning {
-  background-color: hsl(44deg, 100%, 77%) !important;
+  background-color: hsl(44, 100%, 77%) !important;
 }
 
 .has-text-warning-light {
@@ -5827,7 +5828,7 @@ a.has-text-warning-dark:hover, a.has-text-warning-dark:focus {
 }
 
 .has-text-danger {
-  color: hsl(348deg, 86%, 61%) !important;
+  color: hsl(348, 86%, 61%) !important;
 }
 
 a.has-text-danger:hover, a.has-text-danger:focus {
@@ -5835,7 +5836,7 @@ a.has-text-danger:hover, a.has-text-danger:focus {
 }
 
 .has-background-danger {
-  background-color: hsl(348deg, 86%, 61%) !important;
+  background-color: hsl(348, 86%, 61%) !important;
 }
 
 .has-text-danger-light {
@@ -5863,75 +5864,75 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 }
 
 .has-text-black-bis {
-  color: hsl(0deg, 0%, 7%) !important;
+  color: hsl(0, 0%, 7%) !important;
 }
 
 .has-background-black-bis {
-  background-color: hsl(0deg, 0%, 7%) !important;
+  background-color: hsl(0, 0%, 7%) !important;
 }
 
 .has-text-black-ter {
-  color: hsl(0deg, 0%, 14%) !important;
+  color: hsl(0, 0%, 14%) !important;
 }
 
 .has-background-black-ter {
-  background-color: hsl(0deg, 0%, 14%) !important;
+  background-color: hsl(0, 0%, 14%) !important;
 }
 
 .has-text-grey-darker {
-  color: hsl(0deg, 0%, 21%) !important;
+  color: hsl(0, 0%, 21%) !important;
 }
 
 .has-background-grey-darker {
-  background-color: hsl(0deg, 0%, 21%) !important;
+  background-color: hsl(0, 0%, 21%) !important;
 }
 
 .has-text-grey-dark {
-  color: hsl(0deg, 0%, 29%) !important;
+  color: hsl(0, 0%, 29%) !important;
 }
 
 .has-background-grey-dark {
-  background-color: hsl(0deg, 0%, 29%) !important;
+  background-color: hsl(0, 0%, 29%) !important;
 }
 
 .has-text-grey {
-  color: hsl(0deg, 0%, 48%) !important;
+  color: hsl(0, 0%, 48%) !important;
 }
 
 .has-background-grey {
-  background-color: hsl(0deg, 0%, 48%) !important;
+  background-color: hsl(0, 0%, 48%) !important;
 }
 
 .has-text-grey-light {
-  color: hsl(0deg, 0%, 71%) !important;
+  color: hsl(0, 0%, 71%) !important;
 }
 
 .has-background-grey-light {
-  background-color: hsl(0deg, 0%, 71%) !important;
+  background-color: hsl(0, 0%, 71%) !important;
 }
 
 .has-text-grey-lighter {
-  color: hsl(0deg, 0%, 86%) !important;
+  color: hsl(0, 0%, 86%) !important;
 }
 
 .has-background-grey-lighter {
-  background-color: hsl(0deg, 0%, 86%) !important;
+  background-color: hsl(0, 0%, 86%) !important;
 }
 
 .has-text-white-ter {
-  color: hsl(0deg, 0%, 96%) !important;
+  color: hsl(0, 0%, 96%) !important;
 }
 
 .has-background-white-ter {
-  background-color: hsl(0deg, 0%, 96%) !important;
+  background-color: hsl(0, 0%, 96%) !important;
 }
 
 .has-text-white-bis {
-  color: hsl(0deg, 0%, 98%) !important;
+  color: hsl(0, 0%, 98%) !important;
 }
 
 .has-background-white-bis {
-  background-color: hsl(0deg, 0%, 98%) !important;
+  background-color: hsl(0, 0%, 98%) !important;
 }
 
 .is-marginless {
