@@ -1,0 +1,61 @@
+---json
+{
+  "permalink": "/blog/feed.xml",
+  "eleventyExcludeFromCollections": true,
+  "metadata": {
+    "title": "RUM Archive Blog",
+    "subtitle": "RUM Archive Blog",
+    "language": "en",
+    "url": "https://rumarchive.com/blog/",
+    "author": {
+      "name": "mPulse Developers"
+    }
+  }
+}
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="{{ metadata.url }}">
+  <title>{{ metadata.title }}</title>
+  <subtitle>{{ metadata.subtitle }}</subtitle>
+  <link href="{{ permalink | absoluteUrl(metadata.url) }}" rel="self"/>
+  <link href="{{ metadata.url }}"/>
+  <updated>{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
+  <id>{{ metadata.url }}</id>
+  <author>
+    <name>{{ metadata.author.name }}</name>
+  </author>
+  {%- for post in collections.blog | reverse %}
+    {%- set blogUrl = post.data.external if post.data.external else post.url %}
+    {%- set absoluteBlogUrl = blogUrl | absoluteUrl(metadata.url) %}
+    <entry>
+        <title>{{ post.data.title }}</title>
+        <link href="{{ absoluteBlogUrl }}"/>
+        <updated>{{ post.date | dateToRfc3339 }}</updated>
+        <id>{{ absoluteBlogUrl }}</id>
+        <content xml:lang="{{ metadata.language }}" type="html">
+          {% set blogThumb = "https://i.ytimg.com/vi/" + post.data.youtube + "/hqdefault.jpg" if post.data.youtube else post.data.thumbnail %}
+          {% set authorImage = post.data.author | slugify %}
+          {% set blogThumb = blogThumb if blogThumb else metadata.url + 'assets/authors/' + authorImage + '.jpg' %}
+          {% set blogThumb = blogThumb | absoluteUrl(metadata.url) %}
+          &lt;img src="{{ blogThumb }}" alt="{{ post.data.title }}" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By {{ post.data.author }} ({{ post.data.date | htmlDateString }})
+          &lt;/p&gt;
+          &lt;p&gt;
+            {{ post.data.description }}
+          &lt;/p&gt;
+          &lt;p&gt;
+            {% if post.data.youtube %}
+              &lt;a href="https://www.youtube.com/watch?v={{ post.data.youtube }}">Watch on youtube.com&lt;/a&gt;
+            {% elseif post.data.external %}
+              &lt;a href="{{ post.data.external }}">Read More on {{ post.data.external | urlDomain }}&lt;/a&gt;
+            {% else %}
+              &lt;a href="{{ absoluteBlogUrl }}">Read More&lt;/a&gt;
+            {% endif %}
+            {{ post.templateContent | htmlToAbsoluteUrls(absoluteBlogUrl) }}
+          &lt;/p&gt;
+        </content>
+    </entry>
+  {%- endfor %}
+</feed>

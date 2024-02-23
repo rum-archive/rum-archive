@@ -1,0 +1,1086 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://rumarchive.com/blog/">
+  <title>RUM Archive Blog</title>
+  <subtitle>RUM Archive Blog</subtitle>
+  <link href="https://rumarchive.com/blog/feed.xml" rel="self"/>
+  <link href="https://rumarchive.com/blog/"/>
+  <updated>2024-02-23T20:51:41Z</updated>
+  <id>https://rumarchive.com/blog/</id>
+  <author>
+    <name>mPulse Developers</name>
+  </author>
+    <entry>
+        <title>The RUM ARCHIVE with Nic Jansma</title>
+        <link href="https://www.youtube.com/watch?v=ILxvxygfKS0"/>
+        <updated>2024-02-14T00:00:00Z</updated>
+        <id>https://www.youtube.com/watch?v=ILxvxygfKS0</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://i.ytimg.com/vi/ILxvxygfKS0/hqdefault.jpg" alt="The RUM ARCHIVE with Nic Jansma" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Nic Jansma (2024-02-14)
+          &lt;/p&gt;
+          &lt;p&gt;
+            Nic joins Henri to discuss what the RUM Archive is, but also presents what has been added feature wise, and what the future looks like.
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://www.youtube.com/watch?v=ILxvxygfKS0">Watch on youtube.com&lt;/a&gt;
+            
+            
+          &lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Insights from the RUM Archive</title>
+        <link href="https://www.youtube.com/watch?v=97ZonjjslGo"/>
+        <updated>2024-02-04T00:00:00Z</updated>
+        <id>https://www.youtube.com/watch?v=97ZonjjslGo</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://i.ytimg.com/vi/97ZonjjslGo/hqdefault.jpg" alt="Insights from the RUM Archive" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Robin Marx (2024-02-04)
+          &lt;/p&gt;
+          &lt;p&gt;
+            In this talk, we first discuss how the RUM Archive works underneath; the data it holds and some examples on how to extract it yourself. We then move to analyzing some of the data contained within, looking at differences between for example browsers, operating systems and devices, and how those can impact performance metrics. We also discuss RUM-specific challenges, such as dealing with bias and noise in the measurements, and show how this can make a big difference in the conclusions we draw from the data.
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://www.youtube.com/watch?v=97ZonjjslGo">Watch on youtube.com&lt;/a&gt;
+            
+            
+          &lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>RUM Archive Third-Party Resource Data</title>
+        <link href="https://rumarchive.com/blog/2023-11-01-rum-archive-third-party-resource-data/"/>
+        <updated>2023-11-01T00:00:02Z</updated>
+        <id>https://rumarchive.com/blog/2023-11-01-rum-archive-third-party-resource-data/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/blog/2023-11-01-rum-archive-third-party-resource-data.svg" alt="RUM Archive Third-Party Resource Data" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Nic Jansma (2023-11-01)
+          &lt;/p&gt;
+          &lt;p&gt;
+            New to the RUM Archive is data on Third-Party Resources.
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2023-11-01-rum-archive-third-party-resource-data/">Read More&lt;/a&gt;
+            
+            &lt;p&gt;We&#39;re excited to announce a &lt;strong&gt;preview&lt;/strong&gt; of a new type of data available in the RUM Archive: &lt;strong&gt;Third-Party Resources&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;At mPulse, we are using &lt;a href=&quot;https://github.com/akamai/boomerang&quot;&gt;boomerang.js&lt;/a&gt; to capture RUM data.  Boomerang uses the &lt;a href=&quot;https://www.w3.org/TR/resource-timing/&quot;&gt;ResourceTiming API&lt;/a&gt; to gather data about all of the sub-resource fetches on the page (such as JavaScript, CSS, images, etc) for every &lt;a href=&quot;https://techdocs.akamai.com/mpulse-boomerang/docs/whats-in-an-mpulse-beacon&quot;&gt;Page Load beacon&lt;/a&gt;.  This data is compressed and beaconed to mPulse for analytics purposes.&lt;/p&gt;
+&lt;p&gt;From this data, viewed in aggregate across all of our customers, we can easily spot common third-party components such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Tag Managers (Google Tag Manager, GTag)&lt;/li&gt;
+&lt;li&gt;Analytics (Google Analytics, mPulse)&lt;/li&gt;
+&lt;li&gt;Widgets (Pinterest, Twitter, Bazaar Voice, Youtube)&lt;/li&gt;
+&lt;li&gt;Fonts (Google Fonts)&lt;/li&gt;
+&lt;li&gt;Beacons (Meta Pixel, mPulse, Google Analytics, Doubleclick)&lt;/li&gt;
+&lt;li&gt;Ads (Google, Amazon, Criteo)&lt;/li&gt;
+&lt;li&gt;Libraries: (jQuery)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For this new table, we&#39;re going to begin exporting the Top 500+ third-party resources we see each day, similar to how we share Page Load data.  Each third-party resource URL will have information on its &lt;a href=&quot;https://rumarchive.com/docs/tables/#third-party-resources&quot;&gt;popularity, performance and size&lt;/a&gt;.  These URL trends should be trackable over time as well.&lt;/p&gt;
+&lt;h2 id=&quot;example-queries&quot; tabindex=&quot;-1&quot;&gt;Example Queries&lt;/h2&gt;
+&lt;p&gt;Let&#39;s look at some example queries for how you can use this data.&lt;/p&gt;
+&lt;p&gt;It&#39;s easy to view the most popular third-party URLs by day.  For example, here are the Top 10 third-party URLs on 2023-10-15:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  URL&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;FETCHES&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; FETCHES&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    akamai&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;mpulse&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;rumarchive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rumarchive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rumarchive_resources&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;2023-10-15&#39;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; URL&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;FETCHES&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Rank&lt;/th&gt;
+&lt;th&gt;URL&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;FETCHES&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.googletagmanager.com/gtag/js&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;14,191,855&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.googletagmanager.com/gtm.js&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;9,077,607&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.facebook.com/tr/&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7,848,302&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.google-analytics.com/j/collect&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7,835,923&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;5&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.google-analytics.com/collect&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;6,579,589&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;6&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.google-analytics.com/analytics.js&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4,645,448&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://stats.g.doubleclick.net/j/collect&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3,755,276&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;8&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://analytics.google.com/g/collect&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3,296,602&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;9&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://c.go-mpulse.net/api/config.json&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2,673,639&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;10&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://securepubads.g.doubleclick.net/pcs/view&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2,544,007&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Each URL has multiple &lt;a href=&quot;https://rumarchive.com/docs/tables/#dimensions-1&quot;&gt;dimensions&lt;/a&gt; associated with it, such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DEVICETYPE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;USERAGENTFAMILY&lt;/code&gt; and &lt;code&gt;USERAGENTVERSION&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DEVICEMODEL&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;OS&lt;/code&gt; and &lt;code&gt;OSVERSION&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;BEACONTYPE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;COUNTRY&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PROTOCOL&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;INITIATORTYPE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ASSETTYPE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let&#39;s look at one of those dimensions. &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/initiatorType&quot;&gt;initiatorTypes&lt;/a&gt; reflects what DOM element triggered the resource fetch.  Here are all of the &lt;code&gt;initiatorTypes&lt;/code&gt; for these third-party resource URLs in our data, ordered by popularity:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  INITIATORTYPE&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; CNT&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    akamai&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;mpulse&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;rumarchive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rumarchive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rumarchive_resources&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;2023-10-15&#39;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; INITIATORTYPE&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; CNT &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;INITIATORTYPE&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;CNT&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;img&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;421,072&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;script&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;283,536&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;xmlhttprequest&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;184,936&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;beacon&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;76,421&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;fetch&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;68,216&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;iframe&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;59,296&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;other&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;42,581&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;link&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;16,156&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;css&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;10,844&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;(null)&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;565&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;You can split, filter and group by other dimensions as well.  For example, let&#39;s look at how Google&#39;s GTag&#39;s median total time (&lt;code&gt;TOTALHISTOGRAM&lt;/code&gt;) and download time (&lt;code&gt;DOWNLOADHISTOGRAM&lt;/code&gt;) changes by country (&lt;code&gt;GROUP BY COUNTRY&lt;/code&gt;) on mobile (&lt;code&gt;DEVICETYPE=Mobile&lt;/code&gt;) devices:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  COUNTRY&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;FETCHES&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; FETCHES&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;          ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;TOTALHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.50&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; TOTAL_MEDIAN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;          ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;DOWNLOADHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.50&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; DOWNLOAD_MEDIAN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.rumarchive_resources&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;2023-10-15&#39;&lt;/span&gt;&lt;br /&gt;  &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt;   DEVICETYPE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;Mobile&#39;&lt;/span&gt;&lt;br /&gt;  &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt;   URL &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;https://www.googletagmanager.com/gtag/js&#39;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; COUNTRY&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; FETCHES &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;COUNTRY&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;FETCHES&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;TOTAL_MEDIAN&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;DOWNLOAD_MEDIAN&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;US&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3,936,631&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;112&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;25&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;IN&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;723,496&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;362&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;158&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;JP&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;536,711&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;131&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;87&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;GB&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;404,121&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;72&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;CA&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;289,541&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;117&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;IT&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;184,021&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;96&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;128&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;BR&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;181,061&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;243&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;157&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;DE&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;179,368&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;81&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;FR&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;171,739&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;79&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;MX&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;165,870&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;213&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;335&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;what-urls-are-included&quot; tabindex=&quot;-1&quot;&gt;What URLs are included&lt;/h2&gt;
+&lt;p&gt;Our goal is to share data about the top third-party resource URLs seen across the web.   To start, we plan on sharing the 500+ most popular third-party URLs on a daily basis.&lt;/p&gt;
+&lt;p&gt;We only consider a URL as being a third-party URL if it shows up in at least 10 &lt;em&gt;different&lt;/em&gt; mPulse customer accounts.  We are also reviewing (allowlist-ing) all URLs to ensure they don&#39;t contain any customer-specific information.&lt;/p&gt;
+&lt;p&gt;All URLs have their query string removed, so no sensitive data is shared.&lt;/p&gt;
+&lt;p&gt;Once a URL makes it into the allowlist, we will continue querying for it even if it drops out of the top 500.  This means the list of URLs will grow slowly over time.&lt;/p&gt;
+&lt;p&gt;Some URLs share a common pattern with minor differences, such as the &lt;code&gt;.cc&lt;/code&gt; country code or a &lt;code&gt;v1.0.0&lt;/code&gt; version number.  Where possible, we&#39;ll assign a wildcard &lt;code&gt;URLGROUP&lt;/code&gt; pattern to these URLs so they can all be tracked as a group.&lt;/p&gt;
+&lt;h2 id=&quot;caveats&quot; tabindex=&quot;-1&quot;&gt;Caveats&lt;/h2&gt;
+&lt;p&gt;As with any set of data, this Third-Party Resource data comes with some caveats:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All ResourceTiming data is subject to &lt;a href=&quot;https://nicj.net/resourcetiming-visibility-third-party-scripts-ads-and-page-weight/&quot;&gt;visibility concerns&lt;/a&gt;:
+&lt;ul&gt;
+&lt;li&gt;Over 30% of requests are completely hidden from RUM (due to being in a cross-origin &lt;code&gt;IFRAME&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Over 45% of requests don&#39;t have detailed timings or sizes (due to cross-origin restrictions and no &lt;code&gt;Timing-Allow-Origin&lt;/code&gt; header)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;The mPulse Resources dataset is exactly that -- a reflection of mPulse customers, &lt;strong&gt;not&lt;/strong&gt; of the entire internet&lt;/li&gt;
+&lt;li&gt;The mPulse data is &lt;a href=&quot;https://rumarchive.com/docs/tips/#data-is-sampled&quot;&gt;sampled&lt;/a&gt; and raw numbers (e.g. of fetches) should be only used for relative weighting&lt;/li&gt;
+&lt;li&gt;All of the other &lt;a href=&quot;https://rumarchive.com/docs/tips/&quot;&gt;tips&lt;/a&gt; we have on querying RUM Archive data apply&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;feedback-welcome&quot; tabindex=&quot;-1&quot;&gt;Feedback Welcome&lt;/h2&gt;
+&lt;p&gt;This is a brand new set of data we&#39;re making publicly available.  It may have errors, inconsistencies, quirks, etc.&lt;/p&gt;
+&lt;p&gt;We&#39;d love to have web performance nerds take a look at the data and give us feedback.  Is it interesting?  Useful?  Does anything seem off?&lt;/p&gt;
+&lt;p&gt;Please open an &lt;a href=&quot;https://github.com/rum-archive/rum-archive/issues&quot;&gt;Issue in Github&lt;/a&gt; with any feedback you have!&lt;/p&gt;
+&lt;p&gt;Thanks!&lt;/p&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>RUM Insights</title>
+        <link href="https://rumarchive.com/blog/2023-11-01-rum-archive-insights/"/>
+        <updated>2023-11-01T00:00:01Z</updated>
+        <id>https://rumarchive.com/blog/2023-11-01-rum-archive-insights/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/blog/2023-11-01-rum-archive-insights.png" alt="RUM Insights" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Robin Marx (2023-11-01)
+          &lt;/p&gt;
+          &lt;p&gt;
+            We&#39;ve added some graphs and visualizations of RUM Archive data into a new Insights tab!
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2023-11-01-rum-archive-insights/">Read More&lt;/a&gt;
+            
+            &lt;h2 id=&quot;rum-insights-are-now-available!&quot; tabindex=&quot;-1&quot;&gt;RUM Insights are now available!&lt;/h2&gt;
+&lt;p&gt;For this past year, the RUM Archive website has mainly been a README with instructions on how to query the archive&#39;s database yourself and how to interpret the results.&lt;/p&gt;
+&lt;p&gt;However, we recognize that setting this up yourself can be a big technical (&lt;em&gt;and financial&lt;/em&gt;) hurdle to using the wealth of data the archive contains.&lt;/p&gt;
+&lt;p&gt;As such, we now also provide &lt;a href=&quot;https://rumarchive.com/insights&quot;&gt;RUM Insights&lt;/a&gt;: &lt;strong&gt;a collection of pre-made visualizations and diagrams&lt;/strong&gt; for results from typical queries you might want to run against the database! These visualizations will be refreshed monthly with the latest data, to make sure you always have the freshest data to work from.&lt;/p&gt;
+&lt;p&gt;We will focus on showing data that makes the RUM Archive unique: insights about how real users visit pages, about how Web platform features are used in the wild and how this impacts real-world performance for a distributed audience.&lt;/p&gt;
+&lt;p&gt;At this time, the available visualizations are still somewhat limited in number, but we intend to expand upon them considerably in the near future. We also &lt;a href=&quot;https://github.com/rum-archive/rum-archive&quot;&gt;welcome your input&lt;/a&gt; on what you would like to see there going forward.&lt;/p&gt;
+&lt;h2 id=&quot;interpreting-the-results&quot; tabindex=&quot;-1&quot;&gt;Interpreting the results&lt;/h2&gt;
+&lt;p&gt;On the &lt;a href=&quot;https://rumarchive.com/insights&quot;&gt;RUM Insights page&lt;/a&gt; itself, we intentionally display only the data without interpretations, as those always have some inherent biases that might not hold for everyone.&lt;/p&gt;
+&lt;p&gt;Instead, we will periodically write a new blog post (like this very one!) to share some of &lt;em&gt;our&lt;/em&gt; interpretations of the data and to highlight some interesting things we might have seen in recent months.&lt;/p&gt;
+&lt;p&gt;This blog post will focus on results up to September 1st, 2023.&lt;/p&gt;
+&lt;h2 id=&quot;high-level-market-shares&quot; tabindex=&quot;-1&quot;&gt;High level market shares&lt;/h2&gt;
+&lt;p&gt;As the RUM Archive data contains page loads from a huge variety of Akamai visitors, we can use it to get an estimate of how widespread individual platforms are in practice.&lt;/p&gt;
+&lt;p&gt;Let&#39;s take a look at which devices, operating systems and browsers we see in the wild.&lt;/p&gt;
+&lt;h3 id=&quot;devices&quot; tabindex=&quot;-1&quot;&gt;Devices&lt;/h3&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/timeseries-of-device-type.svg&quot; alt=&quot;Device Types&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;Akamai&#39;s Boomerang currently tracks three different types of devices: Desktop, Mobile and Tablet. As we can see in the image, we have a rather outsized representation of Mobile visitors, having nearly twice as many visitors (61% mobile vs 34% desktop) loading pages on their phones.&lt;/p&gt;
+&lt;p&gt;It is important to note that this distribution is not necessarily representative for all websites and countries, as Akamai&#39;s customers are somewhat biased to the richer, western countries. Still, it is undeniable that mobile visits have only gained in importance the past few years, and optimizing for mobile performance should be on the top of your to-do list.&lt;/p&gt;
+&lt;p&gt;Note that there are also some interesting fluctuations in the data, where sometimes mobile goes up to 70%. We have yet to research where these are coming from (potentially because we&#39;re currently sampling different days of the week for the visualizations).&lt;/p&gt;
+&lt;h3 id=&quot;operating-systems&quot; tabindex=&quot;-1&quot;&gt;Operating Systems&lt;/h3&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/timeseries-of-desktop-os.svg&quot; alt=&quot;Desktop OS&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;Looking at the different Operating Systems, we see that on Desktop Windows is still clearly king (70%) with Mac OS a distant second (22.5%).&lt;/p&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/timeseries-of-mobile-os.svg&quot; alt=&quot;Mobile OS&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;The results for Mobile confirm the bias towards richer countries I mentioned above: iPhones running iOS are very dominant, representing over 60% of all mobile page loads, leaving Android behind at about 35%. Other mobile Operating Systems didn&#39;t manage to get over 1% market share and are not shown in the diagram.&lt;/p&gt;
+&lt;p&gt;Again though, this does not mean you should disregard Android and focus all efforts on iOS: in some countries, there are definitely more Android users and you should use your own RUM data to identify who your end users are.&lt;/p&gt;
+&lt;p&gt;We plan to further split this data by country in the RUM Insights in the future to give a more nuanced view on this dimension.&lt;/p&gt;
+&lt;h3 id=&quot;browsers&quot; tabindex=&quot;-1&quot;&gt;Browsers&lt;/h3&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/desktop-browsers.svg&quot; alt=&quot;Desktop Browsers&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;Finally, let&#39;s look at the different browsers end users like to use. For Desktop, there is an overwhelming preference for Google Chrome, with Edge being an interesting second, before Safari. Given that Mac OS had a 22.5% market share in terms of Operating Systems, this indicates that many users prefer Google Chrome over Safari even on the Apple OS.&lt;/p&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/mobile-browsers.svg&quot; alt=&quot;Mobile Browsers&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;This is interesting, as for the Mobile browsers, the results are almost the opposite. This is of course again biased due to the outsized presence of iOS users, but there people tend to prefer Safari, despite other browsers like Chrome also being available on iOS.&lt;/p&gt;
+&lt;p&gt;It&#39;s also interesting to note the presence of the &amp;quot;WebView&amp;quot; entries. These typically signify so-called &amp;quot;in-app browsers&amp;quot;, where apps like Facebook or YouTube might open webpages inside the app instead of in the full browser. Internally, they use the browser&#39;s implementation of course, showing up as the WebViews.&lt;/p&gt;
+&lt;h3 id=&quot;core-web-vitals&quot; tabindex=&quot;-1&quot;&gt;Core Web Vitals&lt;/h3&gt;
+&lt;p&gt;In terms of Web Performance, it is important to note the high prevalence of iOS and the accompanying Safari use. This is because browsers on iOS don&#39;t support some of the most important Web performance metrics: Google&#39;s Core Web Vitals (CWVs).&lt;/p&gt;
+&lt;p&gt;What many users don&#39;t know, is that even if you use Chrome or Firefox on iOS, you&#39;re actually using Apple&#39;s WebKit browser engine internally, which is the same one that Safari uses. This is because Apple only allows WebKit on iOS. As such, despite these browsers being branded as Chrome or Firefox, internally, they basically behave like Safari.&lt;/p&gt;
+&lt;p&gt;Apple&#39;s WebKit does not currently implement support for the CWVs, a suite of metrics that Google uses in its SEO logic and which can impact search result rankings. As such, for any iOS traffic, Web performance optimizers are largely blind to how well the pages actually perform on those devices, at least in terms of the CWVs.&lt;/p&gt;
+&lt;p&gt;As such, if your end-users are coming mostly from iOS (which is clearly the case for the current RUM Archive data), Google is not taking into account most of your actual traffic for SEO. Additionally, this also means that Web developers that use popular public datasets like Google&#39;s Chrome User Experience (CrUX) to help drive their efforts, are potentially forgetting about a large amount of their users, as they&#39;re basically only looking at Desktop and Android browsers.&lt;/p&gt;
+&lt;p&gt;To give an indication of how large this problem is, we&#39;ve grouped the browsers that support the CWVs together. Then we&#39;ve split them out into browsers whose data is present in CrUX (basically only Google&#39;s Chrome itself) and other Chromium-based browsers (which do support the CWVs, but whose data is not included in CrUX).&lt;/p&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/cwv-desktop-grouped.png&quot; alt=&quot;Desktop CWV Support&quot; class=&quot;box mx-auto&quot; style=&quot;max-width: 600px;&quot; /&gt;
+&lt;p&gt;As you can see, on Desktop CrUX, covers about 67% of all page loads in the RUM Archive, which is probably enough to give a good general approximation.&lt;/p&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/cwv-mobile-grouped.png&quot; alt=&quot;Mobile CWV Support&quot; class=&quot;box mx-auto&quot; style=&quot;max-width: 600px;&quot; /&gt;
+&lt;p&gt;However, on Mobile, CrUX only covers 34% of all page loads, all on Android. As such, a large majority of  end users that are routed through Akamai are not captured in CrUX, and Akamai customers should take care to test their sites on iOS and Safari through other means.&lt;/p&gt;
+&lt;h2 id=&quot;navigational-aspects&quot; tabindex=&quot;-1&quot;&gt;Navigational Aspects&lt;/h2&gt;
+&lt;p&gt;While for performance measurements and optimization we often focus on a full page load in its own tab (often as first page in a session) not all navigations are quite that straightforward.&lt;/p&gt;
+&lt;p&gt;As Akamai expert Tim Vereecke discussed in his recent talk &lt;a href=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/&quot;&gt;Noise Cancelling RUM&lt;/a&gt;, RUM data is can contains a lot of &amp;quot;noise&amp;quot; due to different ways of loading Web pages, and it&#39;s often important to filter out that noise to make sure you&#39;re analyzing the correct data.&lt;/p&gt;
+&lt;h3 id=&quot;navigation-types&quot; tabindex=&quot;-1&quot;&gt;Navigation Types&lt;/h3&gt;
+&lt;p&gt;The RUM Archive currently tracks three different types of navigations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Navigation&lt;/strong&gt; is a typical navigation by for example clicking on a link.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reload&lt;/strong&gt; is when the user manually reloads the page.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Back-forward&lt;/strong&gt; is when the user uses the back and forward buttons to navigate in their history.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/navigation-types-desktop.svg&quot; alt=&quot;Desktop Navigations&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/navigation-types-mobile.svg&quot; alt=&quot;Mobile Navigations&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;As we can see, &amp;quot;normal&amp;quot; navigations are of course the most prevalent. However, it is interesting to note a relatively high amount of reloads as well. While reloads are often from Developers testing changes to the pages, rising reload numbers can also indicate problems with your site, as users have to force reload pages due to some error.&lt;/p&gt;
+&lt;p&gt;Additionally, it&#39;s clear that back-forward navigations are more prevalent on Mobile, where they are of course made easier by the support for hand gestures. Still, I personally would have expected the number to be even higher on Mobile.&lt;/p&gt;
+&lt;p&gt;As reloads and back-forward navigations often have very different performance characteristics than &amp;quot;normal&amp;quot; navigations, it&#39;s recommended to filter them out when doing typical Web performance analyses.&lt;/p&gt;
+&lt;h3 id=&quot;visibility-states&quot; tabindex=&quot;-1&quot;&gt;Visibility States&lt;/h3&gt;
+&lt;p&gt;Pages do not always load in a fully visible state. Currently, we track three different options:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Visible&lt;/strong&gt; typically means the user watched the page load happen.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hidden&lt;/strong&gt; is for example when the user clicks to open the page in a new (yet hidden) tab.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Partial&lt;/strong&gt; is when the page load starts hidden, but the user switches to the still rendering page before it&#39;s done (for example, they rapidly switch to a background tab). The inverse is also possible, where the user switches away from the page before it&#39;s fully rendered.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/visibility-states-desktop.svg&quot; alt=&quot;Desktop Visibility&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;The data shows again that, while fully visible navigations are the norm, there is an important amount of hidden page loads as well. Especially on Mobile they represent about 14% of all loads.&lt;/p&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/visibility-states-mobile.svg&quot; alt=&quot;Mobile Visibility&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;The fact that they&#39;re so much more prevalent on Mobile than Desktop (14% vs 6.6%) indicates that users on the move typically load more pages in the background. This can again just be because it&#39;s easier on Mobile platforms, or it can be that users expect Mobile pages to be slower and don&#39;t want to sit around waiting for them to load, and prefer to have this done in the background. Again, if you see Hidden navigations go up, this might mean your end users perceive your pages as slow.&lt;/p&gt;
+&lt;p&gt;This is important to take into account, as Hidden page loads often report very different metrics than Visible page loads (as visibility metrics like Largest Contentful Paint seem to happen instantly, as the previously Hidden page is apparently &amp;quot;immediately&amp;quot; rendered when switching to its tab).&lt;/p&gt;
+&lt;h3 id=&quot;landing-pages&quot; tabindex=&quot;-1&quot;&gt;Landing Pages&lt;/h3&gt;
+&lt;p&gt;When talking about longer user session (end users visiting multiple pages in a row on a site), there&#39;s a difference between the very first page in that session and all the other pages.&lt;/p&gt;
+&lt;p&gt;The first page is typically called the &amp;quot;Landing Page&amp;quot;. This does not always have to be the &amp;quot;homepage&amp;quot;, as it can be any page of a site, as long as it is the first a user visits. This first page usually has different performance characteristics, as the user might need to establish a new connection to the server, and many resources might not yet be in the browser&#39;s cache.&lt;/p&gt;
+&lt;p&gt;A session is typically (though not always) defined as a series of navigations separate by no more than 30 minutes (after 30 minutes, the session automatically ends and the next navigation starts a new session).&lt;/p&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/landing-page-desktop.svg&quot; alt=&quot;Desktop Landing Pages&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;The data suggests that Landing Page loads are clearly the minority of navigations, though a bit higher on Mobile than Desktop (potentially indicating that users visit fewer pages during the same session on Mobile for some reason).&lt;/p&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/landing-page-mobile.svg&quot; alt=&quot;Mobile Landing Pages&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;More importantly though, this means that if you&#39;re assessing your page&#39;s performance just by doing a &amp;quot;cold load&amp;quot; (which is common practice for synthetic testing tools like the browser&#39;s DevTools, Lighthouse or WebPageTest), you&#39;re only looking at the smaller subset of all your end users&#39; experiences. It is important to also consider your performance for subsequent pages, which can be made faster by for example using resource caching effectively.&lt;/p&gt;
+&lt;h3 id=&quot;multi-page-versus-single-page-apps&quot; tabindex=&quot;-1&quot;&gt;Multi-page versus Single-page Apps&lt;/h3&gt;
+&lt;p&gt;A final navigational aspect to take into account is whether you&#39;re using a Multi- or Single-page app. Multi-page apps are what I would call the &amp;quot;typical&amp;quot; website, where each page is individually rendered on the server and each navigation fetches the (full) HTML content from the server (or from a cache).&lt;/p&gt;
+&lt;p&gt;However, recent years have seen the rise of &amp;quot;Client Side Rendering&amp;quot;, where the server is instead mainly used as an API endpoint to fetch data (for example in JSON format), and where a JavaScript framework (like React or Vue) renders this to HTML in the browser. This is typically called a &amp;quot;Single Page&amp;quot; app, since the user doesn&#39;t actually navigate to a new page: each link click is a background API fetch that is then rendered inside the original page&#39;s context.&lt;/p&gt;
+&lt;p&gt;Note, the above is a very un-nuanced explanation of the complex modern Single Page App ecosystem, as most frameworks now also allow a form of Server Side Rendering. Still, for our purposes here, it is adequate, as the main takeaway is that many performance metrics are measured differently (or are simply not available at all!) for Single-Page apps compared to Multi-Page apps. As such, it is important to take this into account when doing performance analyses.&lt;/p&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/mpa-vs-spa-desktop.svg&quot; alt=&quot;Desktop MPA vs. SPA&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;We can get a generally idea of how many SPAs Akamai is fronting from the RUM Archive data. We currently track three different loads: MPA, SPA Hard Navigations (the first navigation to the page) and SPA Soft Navigations (in-page route changes).&lt;/p&gt;
+&lt;p&gt;We can see that, while MPAs are still the majority (64%), the use of SPAs is clearly also widespread at 36% (more widespread than I personally would have expected before querying the RUM Archive). This means that many of you reading are probably using a SPA framework and should be aware of how this impacts performance and perf metrics.&lt;/p&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights/mpa-vs-spa-mobile.svg&quot; alt=&quot;Mobile MPA vs. SPA&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;Interestingly, the amount of SPA Hard Navigations are higher on Desktop than Mobile, indicating that Mobile users stay on the same SPA longer. This seemingly contradicts our findings in the previous section, where we found more Landing Pages on Mobile (which should conceptually be equivalent to SPA Hard Navigations). We need more research to definitely say why this is, but it might be SPAs indeed provide superior end user experiences on Mobile and thus users stick with them (slightly) longer. However, the differences are quite small (&amp;lt; 2%) so it might not be significant at all. Still interesting to think about though :)&lt;/p&gt;
+&lt;h2 id=&quot;conclusion&quot; tabindex=&quot;-1&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;With that, we&#39;ve reached the end of the first RUM Insights discussion post. Expect more of these to come in the future, as we add additional diagrams to the RUM Insights page or if we find interesting changes in the data from month to month.&lt;/p&gt;
+&lt;p&gt;As we said on top, the list of visualizations is (intentionally) limited for now, but we plan to expand them soon. If you have any thoughts or ideas on what we should include in our default set of diagrams, &lt;a href=&quot;https://github.com/rum-archive/rum-archive&quot;&gt;let us know on GitHub&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Finally, note again that these are my personal interpretations of and opinions on the data shown. These interpretations are inherently biased in many ways and they are not necessarily correct, or correct in all contexts. Take care when analyzing large data sets, and make sure to use your own RUM solution on your pages as well (for example, Akamai&#39;s mPulse), to track your real end users&#39; experiences.&lt;/p&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>RUM Archive One Year Anniversary</title>
+        <link href="https://rumarchive.com/blog/2023-11-01-rum-archive-one-year-anniversary/"/>
+        <updated>2023-11-01T00:00:00Z</updated>
+        <id>https://rumarchive.com/blog/2023-11-01-rum-archive-one-year-anniversary/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/blog/2023-11-01-rum-archive-one-year-anniversary.svg" alt="RUM Archive One Year Anniversary" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Nic Jansma (2023-11-01)
+          &lt;/p&gt;
+          &lt;p&gt;
+            The RUM Archive was announced one year ago!  We&#39;re announcing a new feature called RUM Insights, as well as a preview of Third-Party Resource data.
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2023-11-01-rum-archive-one-year-anniversary/">Read More&lt;/a&gt;
+            
+            &lt;p&gt;The RUM Archive was released about a year ago during the &lt;a href=&quot;https://perfnow.nl/&quot;&gt;performance.now() 2022&lt;/a&gt; conference in Amsterdam!  Let&#39;s review what&#39;s happened with the project over the last year, and then we can share some exciting new features we&#39;re adding.&lt;/p&gt;
+&lt;p&gt;First, a few notes on our October data release.&lt;/p&gt;
+&lt;h2 id=&quot;latest-mpulse-rum-data-loaded&quot; tabindex=&quot;-1&quot;&gt;Latest mPulse RUM Data Loaded&lt;/h2&gt;
+&lt;p&gt;We&#39;ve completed an export of mPulse daily RUM data into the BigQuery &lt;a href=&quot;https://rumarchive.com/datasets/#akamai-mpulse-rum&quot;&gt;&lt;code&gt;akamai-mpulse-rumarchive&lt;/code&gt;&lt;/a&gt; project up through 2023-10-31.&lt;/p&gt;
+&lt;p&gt;This brings the RUM Archive&#39;s &lt;a href=&quot;https://rumarchive.com/datasets/#akamai-mpulse-rum&quot;&gt;mPulse dataset&lt;/a&gt; to a running total of 425 straight days of data available since 2022-09-01.  (There is also first-of-month data going back to 2021-10-01).&lt;/p&gt;
+&lt;p&gt;We plan to continue this daily export of the mPulse RUM data for the forseeable future.  Right now, we&#39;re updating the BigQuery tables roughly on a monthly cadence, where we release the previous month&#39;s data by the first few days of the next month.  We plan on automating this process further so that we can upload data on a daily cadence.&lt;/p&gt;
+&lt;h2 id=&quot;rum-archive-data-in-the-wild&quot; tabindex=&quot;-1&quot;&gt;RUM Archive Data In the Wild&lt;/h2&gt;
+&lt;p&gt;One of our stated goals of the project is to make RUM data freely available so web performance nerds can use it for their own research.&lt;/p&gt;
+&lt;p&gt;We&#39;ve received a lot of support for the project since its release, and look forward to making it better based on the community&#39;s feedback.&lt;/p&gt;
+&lt;p&gt;We know of a few places where RUM Archive data has been used, let&#39;s take a look!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/anniesullie&quot;&gt;Annie Sullivan&lt;/a&gt; was able to query the RUM Archive&#39;s data on Rage Clicks as part of research the Chrome Speed Metrics team was doing on rage clicks:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/anniesullie/status/1621521096788049922&quot;&gt;https://twitter.com/anniesullie/status/1621521096788049922&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Our very own &lt;a href=&quot;https://twitter.com/TimVereecke&quot;&gt;Tim Vereecke&lt;/a&gt; has used the RUM Archive data in his presentation titled &lt;em&gt;Noise Cancelling RUM&lt;/em&gt; that&#39;s been given at &lt;a href=&quot;https://www.p99conf.io/agenda/&quot;&gt;P99&lt;/a&gt;, &lt;a href=&quot;https://www.welovespeed.com/en/2023/speakers/#tim_vereecke&quot;&gt;We Love Speed&lt;/a&gt; and soon at &lt;a href=&quot;https://perfnow.nl/speakers&quot;&gt;perf.now() 2023&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/TimVereecke/status/1598261516897202176&quot;&gt;https://twitter.com/TimVereecke/status/1598261516897202176&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/HenriHelvetica&quot;&gt;Henri Helvetica&lt;/a&gt; also interviewed &lt;a href=&quot;https://twitter.com/nicj&quot;&gt;Nic Jansma&lt;/a&gt; for an exploration on how to use and query the RUM Archive:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=zH7XmsWmRCo&quot;&gt;https://www.youtube.com/watch?v=zH7XmsWmRCo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Are &lt;strong&gt;you&lt;/strong&gt; using the RUM Archive data in an interesting way?  &lt;a href=&quot;https://twitter.com/RUMArchive&quot;&gt;Let us know&lt;/a&gt;!&lt;/p&gt;
+&lt;h2 id=&quot;rum-insights&quot; tabindex=&quot;-1&quot;&gt;RUM Insights&lt;/h2&gt;
+&lt;p&gt;Until now, the &lt;a href=&quot;https://rumarchive.com/&quot;&gt;rumarchive.com&lt;/a&gt; domain has been mostly a documentation website, with instructions on how you can query the BigQuery RUM data and a few example SQL queries.&lt;/p&gt;
+&lt;p&gt;We&#39;re now announcing a section for the site called &lt;a href=&quot;https://rumarchive.com/insights&quot;&gt;&lt;em&gt;RUM Insights&lt;/em&gt;&lt;/a&gt;!&lt;/p&gt;
+&lt;img src=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-one-year-anniversary-insights.png&quot; style=&quot;width: 50%; height: auto&quot; class=&quot;box mx-auto&quot; /&gt;
+&lt;p&gt;&lt;a href=&quot;https://rumarchive.com/insights&quot;&gt;RUM Insights&lt;/a&gt; captures a collection of basic visualizations for the data contained in the RUM Archive.  It&#39;s goal is to allow users to get a feel for the most important insights that can be gained from the data, without having to execute SQL queries themselves.&lt;/p&gt;
+&lt;p&gt;For more details, check out &lt;a href=&quot;https://twitter.com/programmingart&quot;&gt;Robin Marx&lt;/a&gt;&#39;s &lt;a href=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-insights&quot;&gt;blog post&lt;/a&gt; on the topic or head straight into the &lt;a href=&quot;https://rumarchive.com/insights&quot;&gt;Insights&lt;/a&gt;!&lt;/p&gt;
+&lt;h2 id=&quot;third-party-resource-data-preview&quot; tabindex=&quot;-1&quot;&gt;Third-Party Resource Data Preview&lt;/h2&gt;
+&lt;p&gt;We&#39;ve been working on new dataset to complement the &lt;a href=&quot;https://rumarchive.com/datasets/#akamai-mpulse-rum&quot;&gt;mPulse&lt;/a&gt; Page Load dataset: &lt;a href=&quot;https://rumarchive.com/docs/tables/#third-party-resources&quot;&gt;Third-Party Resources&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;mPulse and boomerang.js capture &lt;a href=&quot;https://www.w3.org/TR/resource-timing/&quot;&gt;ResourceTiming&lt;/a&gt; data for all of the sub-resources (such as JavaScript, CSS, images, etc) on on every mPulse Page Load beacon.  This data is compressed and beaconed to mPulse for our customers&#39; analytics.&lt;/p&gt;
+&lt;p&gt;With this data, in aggregate across all of our customers, we can easily spot third-party components (those loaded by multiple customers&#39; domains) such as libraries, analytics scripts, widgets, fonts, etc.&lt;/p&gt;
+&lt;p&gt;We&#39;re going to begin exporting the Top 500+ third-party resources we see each day, similar to how we share Page Load data.  Each third-party resource URL will have information on its &lt;a href=&quot;https://rumarchive.com/docs/tables/#third-party-resources&quot;&gt;popularity, performance and size&lt;/a&gt;.  These URL trends should be trackable over time as well.&lt;/p&gt;
+&lt;p&gt;For example, here are the Top 10 third-party URLs on 2023-10-15:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  URL&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;FETCHES&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; FETCHES&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    akamai&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;mpulse&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;rumarchive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rumarchive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rumarchive_resources&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;2023-10-15&#39;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; URL&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;FETCHES&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Rank&lt;/th&gt;
+&lt;th&gt;URL&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;FETCHES&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.googletagmanager.com/gtag/js&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;14,191,855&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.googletagmanager.com/gtm.js&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;9,077,607&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.facebook.com/tr/&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7,848,302&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.google-analytics.com/j/collect&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7,835,923&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;5&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.google-analytics.com/collect&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;6,579,589&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;6&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://www.google-analytics.com/analytics.js&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;4,645,448&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;7&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://stats.g.doubleclick.net/j/collect&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3,755,276&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;8&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://analytics.google.com/g/collect&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;3,296,602&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;9&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://c.go-mpulse.net/api/config.json&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2,673,639&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;10&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://securepubads.g.doubleclick.net/pcs/view&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2,544,007&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;And here are the most common &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/initiatorType&quot;&gt;initiatorTypes&lt;/a&gt; for the tracked third-party resources:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  INITIATORTYPE&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; CNT&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    akamai&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;mpulse&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;rumarchive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rumarchive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;rumarchive_resources&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;2023-10-15&#39;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; INITIATORTYPE&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; CNT &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;INITIATORTYPE&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;CNT&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;img&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;421,072&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;script&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;283,536&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;xmlhttprequest&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;184,936&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;beacon&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;76,421&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;fetch&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;68,216&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;iframe&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;59,296&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;other&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;42,581&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;link&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;16,156&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;css&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;10,844&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;(null)&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;565&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Those are just a few of the insights that can be gleamed from our third-party resource data.  We&#39;re looking forward to see what other people find!&lt;/p&gt;
+&lt;p&gt;This data is available in preview form right now, and we&#39;d love to get more feedback from the community.&lt;/p&gt;
+&lt;p&gt;For more details, check out our &lt;a href=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-third-party-resource-data&quot;&gt;blog post&lt;/a&gt; on the topic!&lt;/p&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>mPulse RUM Data Loaded through September 2023, with INP + BFCache</title>
+        <link href="https://rumarchive.com/blog/2023-10-01-mpulse-september-2023-release-notes/"/>
+        <updated>2023-10-01T00:00:00Z</updated>
+        <id>https://rumarchive.com/blog/2023-10-01-mpulse-september-2023-release-notes/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/blog/2023-10-01-mpulse-september-2023-release-notes.svg" alt="mPulse RUM Data Loaded through September 2023, with INP + BFCache" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Nic Jansma (2023-10-01)
+          &lt;/p&gt;
+          &lt;p&gt;
+            mPulse daily RUM data through September 2023 has been loaded, and now includes Interaction to Next Paint (INP) and Back-Forward Cache (BFCache) data.
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2023-10-01-mpulse-september-2023-release-notes/">Read More&lt;/a&gt;
+            
+            &lt;h2 id=&quot;latest-mpulse-rum-data-loaded&quot; tabindex=&quot;-1&quot;&gt;Latest mPulse RUM Data Loaded&lt;/h2&gt;
+&lt;p&gt;We&#39;ve completed an export of mPulse daily RUM data into the BigQuery &lt;a href=&quot;https://rumarchive.com/datasets/#akamai-mpulse-rum&quot;&gt;&lt;code&gt;akamai-mpulse-rumarchive&lt;/code&gt;&lt;/a&gt; project up through 2023-09-30.&lt;/p&gt;
+&lt;p&gt;This brings the RUM Archive&#39;s &lt;a href=&quot;https://rumarchive.com/datasets/#akamai-mpulse-rum&quot;&gt;mPulse dataset&lt;/a&gt; to a running total of 394 straight days of data available since 2022-09-01.  (There is also first-of-month data going back to 2021-10-01).&lt;/p&gt;
+&lt;h2 id=&quot;interaction-to-next-paint-(inp)-data&quot; tabindex=&quot;-1&quot;&gt;Interaction to Next Paint (INP) Data&lt;/h2&gt;
+&lt;p&gt;From 2023-09-01 onward, &lt;a href=&quot;https://web.dev/inp/&quot;&gt;Interaction to Next Paint (INP)&lt;/a&gt; measurements are now in the mPulse RUM data, as part of the following &lt;a href=&quot;https://rumarchive.com/docs/tables/#timers-and-metrics&quot;&gt;columns&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;INPHISTOGRAM&lt;/code&gt; (JSON): &lt;a href=&quot;https://rumarchive.com/docs/methodology#histogram-format&quot;&gt;Histogram&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;INPAVG&lt;/code&gt; (FLOAT64): Weighted average&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;INPSUMLN&lt;/code&gt; (FLOAT64): Sum of the natural logarithms&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;INPCOUNT&lt;/code&gt; (INTEGER): Number of measurements taken&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;At this time, INP data will not be as common as other timers such as Page Load Time (&lt;code&gt;PLT*&lt;/code&gt;) or even First Input Delay (&lt;code&gt;FID*&lt;/code&gt;), as capturing the INP measurement requires mPulse customers to be on a recent (&lt;a href=&quot;https://techdocs.akamai.com/mpulse-boomerang/changelog&quot;&gt;1.766+&lt;/a&gt;) version of &lt;a href=&quot;https://github.com/akamai/boomerang&quot;&gt;boomerang&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Let&#39;s review the current rate of INP data vs. something like FID:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; BEACONS&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;INPCOUNT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; INP_BEACONS&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;          ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;INPHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.50&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; INP_MEDIAN&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;FIDCOUNT&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; FID_BEACONS&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;          ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;FIDHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.50&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; FID_MEDIAN&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2023-09-30&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;BEACONS&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;INP_BEACONS&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;INP_MEDIAN&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;FID_BEACONS&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;FID_MEDIAN&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;169,613,083&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;5,806,935&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;518&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;22,833,581&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;159&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;So as of 2023-09-30, out of 169.6m beacons, there were 5.8m datapoints for INP, vs. ~22.8m for FID.  The INP rate should grow over time, as mPulse customers upgrade their boomerang.js versions, and as more visitors use browsers that support EventTiming/INP.&lt;/p&gt;
+&lt;p&gt;One caveat for INP data in mPulse: boomerang.js only measures INP up to the point of the first beacon, which is usually the page load event.  For Single Page App (SPA) sites, INP data is also split by SPA Soft Navigations.  Due to this, mPulse INP measurements may be less than CrUX INP measurements.&lt;/p&gt;
+&lt;h2 id=&quot;back-forward-cache-(bfcache)-navigation-data&quot; tabindex=&quot;-1&quot;&gt;Back-Forward Cache (BFCache) Navigation Data&lt;/h2&gt;
+&lt;p&gt;From 2023-09-01 onward, &lt;a href=&quot;https://web.dev/articles/bfcache&quot;&gt;Back-Forward Cache (BFCache) Navigations&lt;/a&gt; are now included in the mPulse RUM data, and can be detected by looking for &lt;code&gt;bfcache&lt;/code&gt; in the &lt;a href=&quot;https://rumarchive.com/docs/tables/#dimensions&quot;&gt;&lt;code&gt;BEACONTYPE&lt;/code&gt; column&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;BFCache data is still very small in the mPulse dataset since it requires an update to &lt;a href=&quot;https://techdocs.akamai.com/mpulse-boomerang/changelog&quot;&gt;boomerang.js 1.785+&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;As of 2023-09-30, we&#39;re seeing about 0.05% of beacons coming from BFCache navigations:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;-- Relative popularity of each Beacon Type&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  beaconType&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; BEACONCOUNT&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;br /&gt;            &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br /&gt;             &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;             &lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;2023-09-30&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; BEACONPCT&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;2023-09-30&#39;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; beaconType&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; BEACONCOUNT &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;BEACONTYPE&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;BEACONCOUNT&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;BEACONPCT&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;page view&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;102,251,908&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;60.2%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;spa&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;34,555,519&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;20.3%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;spa hard&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;32,709,307&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;19.2%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;bfcache&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;96,349&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.05%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;This should not&lt;/strong&gt; be interpreted that only 0.05% of navigations &lt;em&gt;across the web&lt;/em&gt; are BFCache, as the incoming BFCache data is limited to only mPulse customers using the latest cutting-edge version of boomerang.js.  I&#39;d expect the BFCache rate to rise as adoption of the new version of boomerang.js increases.&lt;/p&gt;
+&lt;p&gt;For sites that &lt;em&gt;have&lt;/em&gt; upgraded to the latest version of boomerang.js, and that don&#39;t have any blockers for BFCache, they are seeing a much higher rate of BFCache vs. &lt;code&gt;page view&lt;/code&gt;s.  However, the mPulse dataset has data from the Top 100 sites mixed together, so we can&#39;t separate the data to only review sites that are on the latest boomerang.js.&lt;/p&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>mPulse RUM Data Loaded through February 2023 + Rage Clicks Breaking Change</title>
+        <link href="https://rumarchive.com/blog/2023-03-16-mpulse-january-data-rage-clicks-change/"/>
+        <updated>2023-03-16T00:00:00Z</updated>
+        <id>https://rumarchive.com/blog/2023-03-16-mpulse-january-data-rage-clicks-change/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/blog/2023-03-16-mpulse-january-data-rage-clicks-change.png" alt="mPulse RUM Data Loaded through February 2023 + Rage Clicks Breaking Change" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Nic Jansma (2023-03-16)
+          &lt;/p&gt;
+          &lt;p&gt;
+            mPulse daily RUM data for January and February 2023 has been loaded, along with a breaking change to the Rage Clicks column.
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2023-03-16-mpulse-january-data-rage-clicks-change/">Read More&lt;/a&gt;
+            
+            &lt;h2 id=&quot;latest-mpulse-rum-data-loaded&quot; tabindex=&quot;-1&quot;&gt;Latest mPulse RUM Data Loaded&lt;/h2&gt;
+&lt;p&gt;We&#39;ve completed an export of mPulse daily RUM data into the BigQuery &lt;a href=&quot;https://rumarchive.com/datasets/#akamai-mpulse-rum&quot;&gt;&lt;code&gt;akamai-mpulse-rumarchive&lt;/code&gt;&lt;/a&gt; project up through 2023-02-28.&lt;/p&gt;
+&lt;p&gt;This brings the RUM Archive&#39;s &lt;a href=&quot;https://rumarchive.com/datasets/#akamai-mpulse-rum&quot;&gt;mPulse dataset&lt;/a&gt; to a running total of 180 straight days of data available since 2022-09-01.  (There is also first-of-month data going back to 2021-10-01).&lt;/p&gt;
+&lt;p&gt;We have plans to automate this process so that the mPulse RUM data is added on a weekly or daily cadence, but it is currently a manual process that we do at the end of each month.  We are currently able to release each new month&#39;s data within a few days of the end of the month.&lt;/p&gt;
+&lt;h2 id=&quot;breaking-change-to-rageclickshistogram&quot; tabindex=&quot;-1&quot;&gt;Breaking Change to &lt;code&gt;rageClicksHistogram&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Starting with the RUM Archive&#39;s mPulse dataset from 2023-01-01, there is a &lt;em&gt;breaking change&lt;/em&gt; to the &lt;code&gt;rageClicksHistogram&lt;/code&gt; column.&lt;/p&gt;
+&lt;p&gt;For mPulse RUM data from 2021-10-01 through 2022-12-31, the column &lt;code&gt;rageClicksHistogram&lt;/code&gt; had histogram bucket numbers off-by-one from what was intended.&lt;/p&gt;
+&lt;p&gt;For review, all of the other &lt;a href=&quot;https://rumarchive.com/docs/tables/&quot;&gt;Timers&#39;&lt;/a&gt; &lt;a href=&quot;https://rumarchive.com/docs/methodology/#histogram-format&quot;&gt;histograms&lt;/a&gt; like PLT, DNS, etc are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bucket 0 should contain values where that timer was 0&lt;/li&gt;
+&lt;li&gt;Bucket 1 should contain values for the first high-precision bucket (e.g. 1-100ms for PLT)&lt;/li&gt;
+&lt;li&gt;Bucket 2-100 should contain the rest of the high-precision values&lt;/li&gt;
+&lt;li&gt;Buckets 101-150 should contain the low-precision values&lt;/li&gt;
+&lt;li&gt;Bucket 151 is any data outside of the low-precision range&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However for Rage Clicks, which is the only &amp;quot;metric&amp;quot; (a count) we&#39;ve exported so far, we had mistakenly exported the buckets as follows (until 2022-12-31):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bucket 0 if Rage Clicks were zero (which we skip)&lt;/li&gt;
+&lt;li&gt;Bucket 1 is unused&lt;/li&gt;
+&lt;li&gt;Bucket 2-100 is if Rage Click count is 1-99&lt;/li&gt;
+&lt;li&gt;Bucket 101-150 is Rage Click Count 100-600&lt;/li&gt;
+&lt;li&gt;Bucket 151 is &amp;gt;600&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This bucket mapping is a bug we&#39;ve fixed: Bucket 1 is essentially unused.  We should have just used buckets 1-100 for Rage Click counts of 1-100 to simplify things, instead of Buckets 2-100 mapping to clicks of 1-99.&lt;/p&gt;
+&lt;p&gt;We&#39;ve made a change to the data exported to the &lt;code&gt;rageClicksHistogram&lt;/code&gt; column in the &lt;code&gt;akamai-mpulse-rumarchive&lt;/code&gt; project starting &lt;code&gt;2023-01-0&lt;/code&gt;.  Buckets 1-100 now reflect data for Rage Clicks of values 1-100.&lt;/p&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Introducing: The Rum Archive</title>
+        <link href="https://www.youtube.com/watch?v=zH7XmsWmRCo"/>
+        <updated>2023-03-08T00:00:00Z</updated>
+        <id>https://www.youtube.com/watch?v=zH7XmsWmRCo</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://i.ytimg.com/vi/zH7XmsWmRCo/hqdefault.jpg" alt="Introducing: The Rum Archive" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Nic Jansma (2023-03-08)
+          &lt;/p&gt;
+          &lt;p&gt;
+            In fall of 2022, during his presentation in Amsterdam at the Performance.Now() conference, Akamai engineer Nic Jansma unveiled a project entitled The Rum Archive. Imagine the HTTP Archive, using RUM (real user monitoring) data. To talk about how the project came about and works, Nic joined Henri for a presentation. Enjoy.
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://www.youtube.com/watch?v=zH7XmsWmRCo">Watch on youtube.com&lt;/a&gt;
+            
+            
+          &lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>RUM Archive and Benford&#39;s Law</title>
+        <link href="https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/"/>
+        <updated>2023-01-24T00:00:00Z</updated>
+        <id>https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/predicted_actual_bar_charts.png" alt="RUM Archive and Benford&#39;s Law" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Amit Singh (2023-01-24)
+          &lt;/p&gt;
+          &lt;p&gt;
+            As a data scientist on the mPulse team, I search for patterns in our data and identify problem areas on customer websites in order to recommend actionable improvements toward the end user experience.
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/">Read More&lt;/a&gt;
+            
+            &lt;p&gt;The Akamai mPulse team studies Real User Monitoring (RUM) data to help our customers understand how to optimize website performance and how user behavior may be altered by changes to configurations or resource requests on their site.  As a data scientist on the mPulse team, I search for patterns in our data and identify problem areas on customer websites in order to recommend actionable improvements toward the end user experience.&lt;/p&gt;
+&lt;p&gt;Typically, I work with a specific customer’s dataset at any given time.  However, there are cases where it is more appropriate to use an anonymized, aggregated dataset across many customers in order to investigate a change or patterns occurring across the web.&lt;/p&gt;
+&lt;p&gt;For example, we may want to measure the responsiveness of different types of devices&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fn1&quot; id=&quot;fnref1&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;, or perhaps geographic differences in patience waiting for a page to load&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fn2&quot; id=&quot;fnref2&quot;&gt;[2]&lt;/a&gt;&lt;/sup&gt;.  Alternatively, we may want to validate an outage for a specific geographic region&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fn3&quot; id=&quot;fnref3&quot;&gt;[3]&lt;/a&gt;&lt;/sup&gt;.  My colleagues and I at Akamai are afforded the opportunity to conduct these analyses by means of working on the mPulse product.&lt;/p&gt;
+&lt;p&gt;However, what if a Web Perf enthusiast external to Akamai wanted to perform similar types of analyses?  Enter the &lt;a href=&quot;https://rumarchive.com/&quot;&gt;&lt;strong&gt;RUM Archive&lt;/strong&gt;&lt;/a&gt; - a publicly available and queryable dataset of RUM data, consisting of anonymized page loads and resource fetches.&lt;/p&gt;
+&lt;h3 id=&quot;rum-archive&quot; tabindex=&quot;-1&quot;&gt;RUM Archive&lt;/h3&gt;
+&lt;p&gt;While the RUM Archive is in beta (at least at the time of this writing), it offers anyone the ability to query and investigate a rich dataset of RUM data&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fn4&quot; id=&quot;fnref4&quot;&gt;[4]&lt;/a&gt;&lt;/sup&gt;, allowing them to pose their own questions and hypotheses before diving into the data themselves.  Nic Jansma wrote a recent &lt;a href=&quot;https://calendar.perfplanet.com/2022/an-introduction-to-the-rum-archive/&quot;&gt;post&lt;/a&gt; introducing the RUM Archive which outlines the motivation for the project and how one can access the data.&lt;/p&gt;
+&lt;p&gt;Now, I don’t have any reason to believe my colleagues who have put this product together fabricated any part of this dataset, or are looking to deceive users of the RUM Archive.  With that said, I started to think if there was a way I could mathematically prove to myself that the data underlying the RUM Archive truly is a legitimate dataset coming from real Web Performance data.  It turns out there is a phenomenon that occurs in many real world numerical datasets which shows that the data follows a fairly predictable pattern&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fn5&quot; id=&quot;fnref5&quot;&gt;[5]&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;benford&#39;s-law&quot; tabindex=&quot;-1&quot;&gt;Benford&#39;s Law&lt;/h3&gt;
+&lt;p&gt;The phenomenon in question is referred to as &lt;a href=&quot;https://mathworld.wolfram.com/BenfordsLaw.html&quot;&gt;&lt;strong&gt;Benford’s Law&lt;/strong&gt;&lt;/a&gt; (sometimes referred to as the First Digit Law) and states that for a given distribution of data, the leading digit for each data point is more likely than not to be a smaller number.  You may reason that there are 9 numbers that can be leading digits (1 - 9) so the distribution would be more or less Uniform, meaning that the number 1 would show up as the leading digit roughly 11% of the time.  And this would be the same for the number 2, the number 3, and so on… all the way to the number 9.  In reality, Benford’s Law states that the number 1 appears as the leading digit about 30% of the time, while the number 9 appears as the leading digit less than 5% of the time.  The numbers (1-9) follow a logarithmic pattern given by:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/benfords_equation.png&quot; alt=&quot;Benford&#39;s Equasion&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;This results in the following predicted probabilities for each possible leading digit (value of x in the above equation).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/predicted_percentages.png&quot; alt=&quot;Predicted Percentages&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;For those interested, this table is given by the following Python code:&lt;/p&gt;
+&lt;pre class=&quot;language-julia&quot;&gt;&lt;code class=&quot;language-julia&quot;&gt;d &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&#39;&lt;/span&gt;first_digit&lt;span class=&quot;token operator&quot;&gt;&#39;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; range&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&#39;&lt;/span&gt;predicted&lt;span class=&quot;token operator&quot;&gt;&#39;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;round&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;np&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;log10&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; x &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; range&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;br /&gt;df &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; pd&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;DataFrame&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;data&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;d&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;set_index&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&#39;&lt;/span&gt;first_digit&lt;span class=&quot;token operator&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br /&gt;df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;predicted &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; df&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;predicted&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;map&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.2&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;format&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br /&gt;display&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;df&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Benford’s Law is not just a cool phenomenon that occurs in many real world datasets.  It also has a host of practical applications in the realm of fraud detection.  However, that deserves an entire post dedicated to the topic&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fn6&quot; id=&quot;fnref6&quot;&gt;[6]&lt;/a&gt;&lt;/sup&gt;.  For now, let’s get back to the RUM Archive.&lt;/p&gt;
+&lt;h3 id=&quot;back-to-the-rum-archive&quot; tabindex=&quot;-1&quot;&gt;Back to the RUM Archive&lt;/h3&gt;
+&lt;p&gt;So, how can we use this knowledge to verify that the data from the RUM Archive is in fact real data?  Well, we can query for one of our numeric columns in the data provided by the RUM Archive and check how often each value begins with the possible leading digits, 1 through 9.  If Benford’s Law holds, we should see that the distribution of leading digits more or less follows the percentages given by the predicted percentages table above.  Given we are analyzing Web Performance data, Average Page Load Time (PLT)&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fn7&quot; id=&quot;fnref7&quot;&gt;[7]&lt;/a&gt;&lt;/sup&gt; seems to be a natural choice here, as we can expect to have a wide range of user experiences spanning from very slow to very fast pages.  Note, however, that we could have chosen a host of other columns in the database to test against Benford’s Law.&lt;/p&gt;
+&lt;h3 id=&quot;bigquery&quot; tabindex=&quot;-1&quot;&gt;BigQuery&lt;/h3&gt;
+&lt;p&gt;Let’s now run some queries within the Google BigQuery platform and utilize data from the RUM Archive.  We will be using the table named &lt;code&gt;&lt;a href=&quot;https://rumarchive.com/docs/tables/&quot;&gt;akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads&lt;/a&gt;&lt;/code&gt;, and specifically the &lt;code&gt;PLTAVG&lt;/code&gt; column.&lt;/p&gt;
+&lt;p&gt;First, we run a query to obtain the first digit for each value of the &lt;code&gt;PLTAVG&lt;/code&gt; column, as well as how often each of these occur.&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; first_digit&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; instances&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;  &lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; PLTAVG&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; CAST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;LEFT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;CAST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;PLTAVG &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; STRING&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; first_digit&lt;br /&gt;  &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;  &lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2022-09-01&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2022-10-01&quot;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; first_digit&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; first_digit &lt;span class=&quot;token keyword&quot;&gt;ASC&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, we recreate the values from the predicted percentages table by employing the &lt;code&gt;LOG&lt;/code&gt; function.&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; first_digit&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; LOG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; first_digit&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; frequency&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; UNNEST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; first_digit&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lastly, we put it all together by joining these two results on the &lt;code&gt;first_digit&lt;/code&gt; column.  The resulting query is as follows:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;-- Expected Frequency Distribution&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WITH&lt;/span&gt; frequency_table &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt; &lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; first_digit&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; LOG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; first_digit&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; frequency&lt;br /&gt; &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; UNNEST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; first_digit&lt;br /&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt; &lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;-- Actual Frequency Table&lt;/span&gt;&lt;br /&gt;rum_archive_plt &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt; &lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; first_digit&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; instances&lt;br /&gt; &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;   &lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; PLTAVG&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; CAST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;LEFT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;CAST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;PLTAVG &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; STRING&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; first_digit&lt;br /&gt;   &lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;   &lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2022-09-01&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2022-10-01&quot;&lt;/span&gt;&lt;br /&gt; &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br /&gt; &lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; first_digit&lt;br /&gt; &lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; first_digit &lt;span class=&quot;token keyword&quot;&gt;ASC&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;br /&gt; &lt;br /&gt;&lt;span class=&quot;token comment&quot;&gt;-- Side by Side Results&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; t1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;first_digit&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ROUND&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;t1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;frequency&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; predicted_freq&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ROUND&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;t2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;instances &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;t2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;instances&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;OVER&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; actual_freq&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; frequency_table &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; t1&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;INNER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;JOIN&lt;/span&gt; rum_archive_plt &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; t2 &lt;span class=&quot;token keyword&quot;&gt;ON&lt;/span&gt; t1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;first_digit &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; t2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;first_digit&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; t1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;first_digit &lt;span class=&quot;token keyword&quot;&gt;ASC&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here are the results:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/predicted_actual_bar_charts.png&quot; alt=&quot;Predicted Actual Bar Charts&quot; /&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;first_digit&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;predicted_freq&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;actual_freq&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;1&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.3010&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.2662&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;2&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.1761&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.1498&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;3&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.1249&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.1225&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;4&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0969&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.1068&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;5&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0792&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0946&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;6&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0669&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0826&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;7&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0580&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0700&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;8&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0512&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0587&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;9&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0458&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0.0488&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;While there are some discrepancies, it appears by and large that &lt;strong&gt;Benford’s Law does hold&lt;/strong&gt; for &lt;code&gt;PLTAVG&lt;/code&gt; within the RUM Archive data.  There are many different types of user experiences captured in this data - slow pages, fast pages, and everything in between. It is reasonable to conclude that the leading digit for each data point is random.  And yet the results indicate that the RUM Archive data follows this very predictable pattern that appears time and time again.  With this knowledge, we can reasonably expect that many of the other fields&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fn8&quot; id=&quot;fnref8&quot;&gt;[8]&lt;/a&gt;&lt;/sup&gt; available to us would follow this expected Benfordian pattern.&lt;/p&gt;
+&lt;p&gt;It is worth mentioning that there are a number of caveats to the preparation of the RUM Archive data, and this may explain away some of the discrepancies we see in the predicted versus actual percentages in the above results.  The main caveats pertinent to the analysis in this post include that the RUM Archive data is sampled, only contains data from Akamai mPulse (which biases the dataset towards customers of the mPulse product), and outliers are excluded by necessity&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fn9&quot; id=&quot;fnref9&quot;&gt;[9]&lt;/a&gt;&lt;/sup&gt; in order to maintain anonymity of the data.&lt;/p&gt;
+&lt;h3 id=&quot;final-thoughts&quot; tabindex=&quot;-1&quot;&gt;Final Thoughts&lt;/h3&gt;
+&lt;p&gt;If you get a chance, please check out the RUM Archive and share your experience with the mPulse team.  You may also contribute to the project &lt;a href=&quot;https://rumarchive.com/contribute/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Additionally, I encourage you to look for Benford’s Law in your own datasets.  Despite being counterintuitive, it is surprising how often this phenomenon holds true.&lt;/p&gt;
+&lt;hr class=&quot;footnotes-sep&quot; /&gt;
+&lt;section class=&quot;footnotes&quot;&gt;
+&lt;ol class=&quot;footnotes-list&quot;&gt;
+&lt;li id=&quot;fn1&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;&lt;a href=&quot;https://www.slideshare.net/nicjansma/reliably-measuring-responsiveness&quot;&gt;Reliably Measuring Responsiveness&lt;/a&gt; - Nic Jansma (Akamai) and Shubhie Panicker (Google) &lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fnref1&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn2&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;&lt;a href=&quot;https://speakerdeck.com/bluesmoon/understanding-emotion-for-happy-users?slide=23&quot;&gt;Understanding Emotion for Happy Users&lt;/a&gt; - Philip Tellis (Akamai) &lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fnref2&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn3&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;&lt;a href=&quot;https://twitter.com/sans_colon/status/1085299600574025728&quot;&gt;Zimbabwe Internet Shutdown via Akamai mPulse RUM Data&lt;/a&gt; - Amit Singh (Author) &lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fnref3&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn4&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;Documentation on how to query the RUM Archive are listed &lt;a href=&quot;https://rumarchive.com/docs/querying/&quot;&gt;here&lt;/a&gt;.  Note that it requires access to Google BigQuery, which may have a cost associated with its usage depending on the amount of data used. &lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fnref4&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn5&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;Assuming sufficient conditions are met for the data distribution.  For more information, please visit &lt;a href=&quot;https://en.wikipedia.org/wiki/Benford%27s_law#Criteria_for_distributions_expected_and_not_expected_to_obey_Benford&#39;s_law&quot;&gt;here&lt;/a&gt;. &lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fnref5&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn6&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;For example, this &lt;a href=&quot;https://insights.sei.cmu.edu/blog/benfords-law-potential-applications-insider-threat-detection/&quot;&gt;post&lt;/a&gt;. &lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fnref6&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn7&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;We use Average PLT due to the fact that data from the RUM Archive is aggregated.  This means that each row of data corresponds to multiple user experiences that share attributes from other columns.  The PLT value is then the average of those user experiences. &lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fnref7&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn8&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;Refer to the &lt;a href=&quot;https://rumarchive.com/docs/tables/&quot;&gt;table schema&lt;/a&gt; for all the available fields. &lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fnref8&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn9&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;Since the RUM Archive data is aggregated, there is a minimum count threshold applied which by definition excludes outliers that do not occur at a sufficiently high rate. &lt;a href=&quot;https://rumarchive.com/blog/2023-01-24-rum-archive-benfords-law/#fnref9&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>An Introduction to the RUM Archive</title>
+        <link href="https://rumarchive.com/blog/2022-12-14-an-introduction-to-the-rum-archive/"/>
+        <updated>2022-12-14T00:00:00Z</updated>
+        <id>https://rumarchive.com/blog/2022-12-14-an-introduction-to-the-rum-archive/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/assets/rum-archive-logo.svg" alt="An Introduction to the RUM Archive" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Nic Jansma (2022-12-14)
+          &lt;/p&gt;
+          &lt;p&gt;
+            A discussion of our motivation for the project, what kind of data the RUM Archive contains, how you can access it, its limitations, and some ideas for what it could be used for
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2022-12-14-an-introduction-to-the-rum-archive/">Read More&lt;/a&gt;
+            
+            &lt;p&gt;A few weeks ago at &lt;a href=&quot;https://perfnow.nl/&quot;&gt;performance.now()&lt;/a&gt;, we were able to announce the initial availability of a new public dataset of RUM data - the &lt;a href=&quot;https://rumarchive.com/&quot;&gt;&lt;strong&gt;RUM Archive&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I&#39;d like to take a few minutes to discuss our motivation for the project, what kind of data the RUM Archive contains, how you can access it, its limitations, and some ideas for what it could be used for.&lt;/p&gt;
+&lt;h2 id=&quot;why-have-a-rum-archive%3F&quot; tabindex=&quot;-1&quot;&gt;Why have a RUM Archive?&lt;/h2&gt;
+&lt;p&gt;The RUM Archive is heavily inspired by projects like the &lt;a href=&quot;https://archive.org/&quot;&gt;Wayback Machine&lt;/a&gt;, the &lt;a href=&quot;https://httparchive.org/&quot;&gt;HTTP Archive&lt;/a&gt;, and the &lt;a href=&quot;https://developer.chrome.com/docs/crux/&quot;&gt;Chrome UX Report (CrUX)&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Those projects have lead the way in being fantastic community-lead efforts that help share and preserve the history of the web and web performance.&lt;/p&gt;
+&lt;p&gt;We hope the RUM Archive will be a good compliment to those projects.  While the HTTP Archive focuses on metrics captured from synthetic crawls, and CrUX draws its RUM data from Chrome navigations across the globe, the RUM Archive offers another view of RUM data, and one that is across all browsers.&lt;/p&gt;
+&lt;p&gt;Our aim is to have RUM data available for researchers to analyze trends in market and performance analytics.  While the Akamai mPulse RUM dataset is the first made publicly available, we&#39;re hoping other individuals, websites or RUM providers may also consider sharing their data in the RUM Archive.  This would allow researchers to look at RUM data from several different points of view (e.g. a known website, or sampled from other RUM providers&#39;s customers).&lt;/p&gt;
+&lt;h2 id=&quot;what-kind-of-data-is-in-the-rum-archive%3F&quot; tabindex=&quot;-1&quot;&gt;What kind of data is in the RUM Archive?&lt;/h2&gt;
+&lt;p&gt;To start with, the RUM Archive primarily contains two types of data:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Page Loads&lt;/strong&gt;: Browser page load experiences&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resources&lt;/strong&gt;: Third-party resource fetches&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;https://rumarchive.com/docs/tables/#page-loads&quot;&gt;Page Loads&lt;/a&gt; represent browser navigation experiences, whether from a traditional Multi-Page App (MPA) or Single-Page App (SPA). SPA navigations can be broken down into both Hard Navigations (the first navigation to the page) and Soft Navigations (in-page route changes).&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://rumarchive.com/docs/tables/#third-party-resources&quot;&gt;Resources&lt;/a&gt; (coming soon) will track individual asset (URL) fetches of third-party resources, that happened during a Page Load.  We will only be tracking URLs that are seeing on multiple sites, to ensure first-party assets are not tracked.&lt;/p&gt;
+&lt;p&gt;All data in the RUM Archive is is sampled and aggregated, which protects the privacy of individuals.&lt;/p&gt;
+&lt;p&gt;Have other ideas for what the RUM Archive could track?  &lt;a href=&quot;https://github.com/rum-archive/rum-archive/issues&quot;&gt;Let us know&lt;/a&gt;!&lt;/p&gt;
+&lt;h2 id=&quot;how-can-i-access-it%3F&quot; tabindex=&quot;-1&quot;&gt;How can I access it?&lt;/h2&gt;
+&lt;p&gt;All of the RUM Archive data can be accessed by &lt;a href=&quot;https://cloud.google.com/bigquery&quot;&gt;Google BigQuery&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://rumarchive.com/&quot;&gt;rumarchive.com&lt;/a&gt; has a &lt;a href=&quot;https://rumarchive.com/docs/querying/&quot;&gt;guide&lt;/a&gt; for how to access the public RUM Archive BigQuery database, but here are the basics:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Log-in or create a Google account&lt;/li&gt;
+&lt;li&gt;Navigate to the &lt;a href=&quot;https://console.cloud.google.com/start&quot;&gt;Google Cloud Projects Console&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Use an existing, or create a new Google Cloud Project&lt;/li&gt;
+&lt;li&gt;Head over to the &lt;a href=&quot;https://console.cloud.google.com/bigquery&quot;&gt;Google BigQuery Console&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Search for &lt;a href=&quot;https://rumarchive.com/datasets&quot;&gt;RUM Archive Datasets&lt;/a&gt;, e.g. &lt;code&gt;akamai-mpulse-rumarchive&lt;/code&gt; and star it!&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;You&#39;re now ready to query the RUM Archive!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: BigQuery has costs for storage and querying. You&#39;ll want to review what&#39;s available in the free tier, and estimate how much querying the RUM Archive may cost. You can read our &lt;a href=&quot;https://rumarchive.com/docs/tips/#limiting-bigquery-costs&quot;&gt;tips&lt;/a&gt; on how to reduce your BigQuery costs.  Akamai is paying the storage of the &lt;code&gt;akamai-mpulse-rumarchive&lt;/code&gt; table, while researchers will pay for their own individual queries.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://rumarchive.com/docs/querying/&quot;&gt;querying guide&lt;/a&gt; goes over the various ways you can slice, and dice, and filter, and summarize the data, and we have some additional &lt;a href=&quot;https://rumarchive.com/docs/samples/&quot;&gt;sample queries&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;For a simple example, lets say you want to see the relative popularity of HTTP Protocol for a particular day:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  PROTOCOL&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; COUNT&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2022-09-01&quot;&lt;/span&gt;&lt;br /&gt;    &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt; COUNTRY &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;US&#39;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; PROTOCOL&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The output may be:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;protocol&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;count&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;h2&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;101,340,387&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;null&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;31,832,102&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;http/1.1&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;5,978,377&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;h3&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;134,570&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;h3-29&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;145&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;http/1.0&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;277&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;http/1&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;352&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;unknown&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;88&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;You can see in the mPulse dataset (on 2022-09-01), H2 navigations dwarf the rest.&lt;/p&gt;
+&lt;p&gt;You can also see this data has some funky values like &lt;code&gt;h3-29&lt;/code&gt; and &lt;code&gt;http/1.0&lt;/code&gt; vs &lt;code&gt;http/1&lt;/code&gt; -- you&#39;ll find that RUM data can be messy, as different browsers may report different values for the same thing.  One considering when querying the RUM Archive is figuring out if you&#39;ll need to normalize or cleanup any of the values.&lt;/p&gt;
+&lt;p&gt;A more complex example would be reviewing Page Load time by Country:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  COUNTRY&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; BEACONCOUNT&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;          ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;PLTHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.50&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;          &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; MEDIAN&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2022-09-01&quot;&lt;/span&gt;&lt;br /&gt;    &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt; BEACONTYPE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;page view&#39;&lt;/span&gt;&lt;br /&gt;    &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt; USERAGENTFAMILY &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;Chrome&#39;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; COUNTRY&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What are the results?  Check for yourself!&lt;/p&gt;
+&lt;p&gt;Of course these are just simple examples of how to process the RUM Archive data.  Read our &lt;a href=&quot;https://rumarchive.com/docs/querying/&quot;&gt;querying guide&lt;/a&gt; and &lt;a href=&quot;https://rumarchive.com/docs/samples/&quot;&gt;sample queries&lt;/a&gt; for more ideas.&lt;/p&gt;
+&lt;h2 id=&quot;what-is-the-rum-archive-useful-for%3F&quot; tabindex=&quot;-1&quot;&gt;What is the RUM Archive useful for?&lt;/h2&gt;
+&lt;p&gt;We see two primary use-cases for the RUM Archive data:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Marketing analytics&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Grouping by certain dimensions (for example, HTTP Protocol or Browser) allows you to calculate the relative weight (frequency) of those dimensions in the dataset on any particular day.&lt;/li&gt;
+&lt;li&gt;Over time, you could compare the relative weights to see market trends in popularity of each dimension.&lt;/li&gt;
+&lt;li&gt;NOTE: Since the RUM Archive data is sampled, absolute counts of &lt;code&gt;BEACONS&lt;/code&gt; should only be used to compare data on the same &lt;code&gt;DATE&lt;/code&gt; in a single dataset.  As the sampling rate may change from day-to-day, absolute count comparisons &lt;em&gt;between days&lt;/em&gt; should not be used, only &lt;em&gt;relative weights&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Performance analytics&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;All of the common &lt;a href=&quot;https://rumarchive.com/docs/tables/#timers-and-metrics&quot;&gt;performance timers and metrics&lt;/a&gt; you&#39;d expect, like Page Load Time or the Core Web Vitals are tracked in several aggregated columns for each timer/metric, with &lt;code&gt;COUNT&lt;/code&gt;, &lt;code&gt;HISTOGRAM&lt;/code&gt;, &lt;code&gt;AVG&lt;/code&gt; and &lt;code&gt;SUMLN&lt;/code&gt; being provided.&lt;/li&gt;
+&lt;li&gt;These columns allow you to calculate:
+&lt;ul&gt;
+&lt;li&gt;Histograms from multiple rows by combining the &lt;code&gt;HISTOGRAM&lt;/code&gt; columns using our &lt;a href=&quot;https://rumarchive.com/docs/querying/#combined-histograms&quot;&gt;&lt;code&gt;COMBINE_HISTOGRAMS&lt;/code&gt;&lt;/a&gt; function&lt;/li&gt;
+&lt;li&gt;Approximate Percentiles by combining the &lt;code&gt;HISTOGRAM&lt;/code&gt; columns and running our &lt;a href=&quot;https://rumarchive.com/docs/querying/#approximate-percentiles&quot;&gt;&lt;code&gt;PERCENTILE_APPROX&lt;/code&gt;&lt;/a&gt; function&lt;/li&gt;
+&lt;li&gt;Weighted average by using the &lt;code&gt;AVG&lt;/code&gt; and &lt;code&gt;COUNT&lt;/code&gt; columns&lt;/li&gt;
+&lt;li&gt;Geometric means by using the &lt;code&gt;SUMLN&lt;/code&gt; and &lt;code&gt;COUNT&lt;/code&gt; columns&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;can-anyone-contribute-data-to-the-rum-archive%3F&quot; tabindex=&quot;-1&quot;&gt;Can anyone contribute data to the RUM Archive?&lt;/h2&gt;
+&lt;p&gt;The short answer is &lt;strong&gt;Yes!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Initially the RUM Archive only has data from a single source: &lt;a href=&quot;https://rumarchive.com/datasets/#akamai-mpulse-rum&quot;&gt;Akamai mPulse RUM&lt;/a&gt;, which is measuring RUM across thousands of Akamai customers.&lt;/p&gt;
+&lt;p&gt;Our goal with the RUM Archive is for it to be a resource that goes beyond any single RUM vendor.  The &lt;a href=&quot;https://rumarchive.com/docs/tables/&quot;&gt;RUM Archive format&lt;/a&gt; is open-source and the Akamai team has &lt;a href=&quot;https://rumarchive.com/docs/methodology/#exporting&quot;&gt;documented&lt;/a&gt; how they approached aggregating and exporting &lt;a href=&quot;https://rumarchive.com/datasets/#akamai-mpulse-rum&quot;&gt;their own data&lt;/a&gt; into BigQuery, and we hope this would allow others to take similar steps.&lt;/p&gt;
+&lt;p&gt;We would love to see other individuals, websites and RUM vendors &lt;a href=&quot;https://rumarchive.com/contribute/&quot;&gt;contribute&lt;/a&gt; their own RUM data to the effort.&lt;/p&gt;
+&lt;p&gt;If anyone is curious how to do this, or would like help, please &lt;a href=&quot;https://github.com/rum-archive/rum-archive/issues&quot;&gt;open a Github issue&lt;/a&gt;!&lt;/p&gt;
+&lt;h2 id=&quot;what-are-the-downsides-of-the-rum-archive%3F&quot; tabindex=&quot;-1&quot;&gt;What are the downsides of the RUM Archive?&lt;/h2&gt;
+&lt;p&gt;This data isn&#39;t perfect, and there are a lot of caveats to grasp when analyzing data from the RUM Archive:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;At this time, the RUM Archive only contains data from Akamai mPulse, so it is biased towards mPulse customers.&lt;/li&gt;
+&lt;li&gt;All of the data in the RUM Archive is sampled (and the sampling rate isn&#39;t disclosed), so &lt;code&gt;BEACONS&lt;/code&gt; counts should only be used for relative weighting for each day.&lt;/li&gt;
+&lt;li&gt;Outliers are excluded (since the data is sampled, aggregated and a minimum count threshold is applied), which &lt;a href=&quot;https://rumarchive.com/docs/tips/#outliers-are-excluded&quot;&gt;will affect the accuracy&lt;/a&gt; of queries.&lt;/li&gt;
+&lt;li&gt;The datasets are partitioned by &lt;code&gt;DATE&lt;/code&gt; so you&#39;ll generally want to limit queries to a single day to minimize BigQuery querying costs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We&#39;ll probably find more limitations over time -- please let us know if you come across any other big gotchas.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-in-the-future-for-rum-archive%3F&quot; tabindex=&quot;-1&quot;&gt;What&#39;s in the future for RUM Archive?&lt;/h2&gt;
+&lt;p&gt;At this stage, we&#39;re hoping to get feedback that will help shape where we go with the project from here.&lt;/p&gt;
+&lt;p&gt;In particular, we&#39;d like to know:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If you&#39;re querying the data, please let us know your experience (a good way is to &lt;a href=&quot;https://github.com/rum-archive/rum-archive/issues&quot;&gt;open a Github issue&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/RUMArchive&quot;&gt;tweet&lt;/a&gt; or &lt;a href=&quot;https://webperf.social/@rumarchive&quot;&gt;toot&lt;/a&gt; at us)&lt;/li&gt;
+&lt;li&gt;If you think the RUM Archive is missing a critical piece of data (i.e. you think another &lt;a href=&quot;https://rumarchive.com/docs/tables/#dimensions&quot;&gt;dimension&lt;/a&gt; would be useful)&lt;/li&gt;
+&lt;li&gt;If you&#39;re considering &lt;a href=&quot;https://rumarchive.com/contribute/&quot;&gt;contributing&lt;/a&gt; your own RUM Archive data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We&#39;d love to hear what you&#39;re doing with it!  Let us know!&lt;/p&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
+</feed>

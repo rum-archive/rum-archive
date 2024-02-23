@@ -10,6 +10,7 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const Prism = require('prismjs');
 const { DateTime } = require('luxon');
 const embedEverything = require("eleventy-plugin-embed-everything");
+const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 // load Prism languages
 const loadLanguages = require('prismjs/components/');
@@ -58,6 +59,10 @@ module.exports = function (eleventyConfig) {
   });
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(embedEverything);
+  eleventyConfig.addPlugin(pluginRss);
+
+  // Liquid filters
+  eleventyConfig.addLiquidFilter("dateToRfc3339", pluginRss.dateToRfc3339);
 
   // Markdown
   eleventyConfig.setLibrary(
