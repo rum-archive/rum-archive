@@ -11,27 +11,36 @@ layout: layouts/base.njk
       <div class="columns">
         <div class="column is-two-thirds">
           {% for blog in collections.blog | sort(true, false, 'data.date') %}
+            {% set blogUrl = blog.data.external if blog.data.external else blog.url %}
+            {% set blogThumb = "https://i.ytimg.com/vi/" + blog.data.youtube + "/hqdefault.jpg" if blog.data.youtube else blog.data.thumbnail %}
+
             {% if loop.index0 < 9 %}
               <div class="box">
                 <article class="media">
                   <div class="media-left my-auto">
                     <figure class="image is-128x128">
-                      <a href="{{ blog.url }}">
-                        <img src="{{ blog.data.thumbnail }}" alt="{{ blog.data.title }}" width="128" height="128" />
+                      <a href="{{ blogUrl }}">
+                        <img src="{{ blogThumb }}" alt="{{ blog.data.title }}" width="128" height="128" />
                       </a>
                     </figure>
                   </div>
                   <div class="media-content">
                     <div class="content">
                       <h2>
-                        <a href="{{ blog.url }}">{{ blog.data.title }}</a>
+                        <a href="{{ blogUrl }}">{{ blog.data.title }}</a>
                       </h2>
                       <p>
                         <p class="is-italic">By {{ blog.data.author }} (<time class="" datetime="{{ blog.data.date | htmlDateString }}">{{ blog.data.date | readableDate }}</time>)</p>
                         <div class="content">
                           {{ blog.data.description }}
                         </div>
-                        <a href="{{ blog.url }}">Read More &rarr;</a>
+                        {% if blog.data.youtube %}
+                          <a href="https://www.youtube.com/watch?v={{ blog.data.youtube }}">Watch on youtube.com &rarr;</a>
+                        {% elseif blog.data.external %}
+                          <a href="{{ blog.data.external }}">Read More on {{ blog.data.external | urlDomain }} &rarr;</a>
+                        {% else %}
+                          <a href="{{ blogUrl }}">Read More &rarr;</a>
+                        {% endif %}
                       </p>
                     </div>
                   </div>
@@ -44,8 +53,10 @@ layout: layouts/base.njk
           <h3>All Posts</h3>
           <ul>
           {% for blog in collections.blog | sort(true, false, 'data.date') %}
+            {% set blogUrl = blog.data.external if blog.data.external else blog.url %}
+
             <li>
-              <a href="{{ blog.url }}">{{ blog.data.title }}</a> ({{ blog.data.date | readableDate }})
+              <a href="{{ blogUrl }}">{{ blog.data.title }}</a> ({{ blog.data.date | readableDate }})
             </li>
           {% endfor %}
           </ul>
