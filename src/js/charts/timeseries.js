@@ -27,7 +27,7 @@ class Colors {
       this.RUMARCHIVE_SECONDARY[1],
       this.RUMARCHIVE_SECONDARY[3],
       this.RUMARCHIVE_SECONDARY[5],
-      this.RUMARCHIVE_MAIN[2],
+      // this.RUMARCHIVE_MAIN[2],
       this.RUMARCHIVE_MAIN[3],
       this.RUMARCHIVE_SECONDARY[0],
       this.RUMARCHIVE_SECONDARY[2],
@@ -37,7 +37,7 @@ class Colors {
       this.RUMARCHIVE_SECONDARY[1],
       this.RUMARCHIVE_SECONDARY[3],
       this.RUMARCHIVE_SECONDARY[5],
-      this.RUMARCHIVE_MAIN[2],
+      // this.RUMARCHIVE_MAIN[2],
       this.RUMARCHIVE_MAIN[3],
       this.RUMARCHIVE_SECONDARY[0],
       this.RUMARCHIVE_SECONDARY[2],
@@ -48,7 +48,7 @@ class Colors {
   static RUMARCHIVE_MAIN = [
     "#006a80", // dark cyan, the palmtree
     "#f2835c", // orange, mountain
-    "#c2f2f2", // light cyan, the sky
+    "#c2f2f2", // light cyan, the sky // doesn't have a lot of contrast with white, so only use in larger areas (e.g., piechart, not line chart)
     "#f2be7f", // light orange, bottom of sky
   ];
 
@@ -460,7 +460,8 @@ const getLineSeries = (name, data, color) => ({
   zIndex: 1,
   marker: {
     enabled: false
-  }
+  },
+  showInNavigator: true
 });
 const getAreaSeries = (name, data, color, opacity=0.1) => ({
   name,
@@ -517,6 +518,12 @@ function drawChart(options, series) {
   const chart = Highcharts.stockChart(options.chartId, {
     metric: options.metric,
     type: 'timeseries',
+    navigator: {
+      enabled: window.location.search.indexOf("screenshot") < 0 // TODO: make this cleaner instead of going to the query params directly :) 
+    },
+    scrollbar: {
+      enabled: false
+    },
     chart: {
       zoomType: 'x',
 

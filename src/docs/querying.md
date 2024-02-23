@@ -243,7 +243,7 @@ The `PERCENTILE_APPROX()` function takes several arguments:
 * `percentiles ARRAY<FLOAT64>`: An array of percentiles you'd like calculated
   * A single value in the array (e.g. `[0.5]`) will return an `INTEGER` result
   * Multiple values in the array (e.g. `[0.25, 0.5, 0.75]`) will return a JSON map of input percentiles to their calculations
-* `highPrecisionBucketWidth INTEGER`: The width of the timer or metric's [High Precision bucket](docs/methodology/#page-loads-histogram-buckets), i.e. `100` for Page Load Time
+* `highPrecisionBucketWidth INTEGER`: The width of the timer or metric's [High Precision bucket](/docs/methodology/#page-loads-histogram-buckets), i.e. `100` for Page Load Time
 * `includeZero BOOL`: Whether or not to include `0` values in the percentile calculation
 
 Example:
