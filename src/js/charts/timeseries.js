@@ -1,3 +1,5 @@
+import { Constants } from "./constants.js";
+
 // loosely adapted from and inspired by https://github.com/HTTPArchive/httparchive.org/blob/main/src/js/timeseries.js and other files in that directory
 // intention was/is to be able to ingest both HTTPArchive and RUMArchive data and juxtapose both datasets side by side
 
@@ -115,17 +117,7 @@ class Metric {
 async function timeseriesFromDataWithDefaults( queryName, chartElementID, metricFieldName, graphTitle, timeseriesCreationCallback ) {
   // used to set sensible defaults for a typical metric-based graphs that shows percentages for a couple of timeseries
 
-  // TODO: move this endpoint selection logic to a more central location!
-  const FORCE_EXTERNAL_DATA = false;
-  let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/main/data-output/";
-
-  if ( window.location.href.includes("localhost") && !FORCE_EXTERNAL_DATA ) {
-    // allow for easy local testing
-    // launch a basic python http server in the rum-insights-data dir with `python3 -m http.server 9000`
-    DATA_BASE_URL = "http://localhost:9000/data-output/";
-  }
-
-  let response = await fetch(DATA_BASE_URL + queryName + ".json");
+  let response = await fetch( Constants.getDataURL(queryName) );
   let rumarchiveData = await response.json();
 
   const options = {};
@@ -133,6 +125,7 @@ async function timeseriesFromDataWithDefaults( queryName, chartElementID, metric
   options.histogram = { enabled: false };
   options.metric = metricFieldName;
   options.type = "%";
+  options.queryURL = Constants.getQueryURL(queryName);
 
   options.yMax = 100;
 
@@ -672,28 +665,44 @@ function drawChart(options, series) {
     //   text: 'highcharts.com',
     //   href: 'http://highcharts.com'
     // },
-    // exporting: {
-    //   menuItemDefinitions: {
-    //     showQuery: {
-    //       onclick: function() {
-    //         // const {metric, type} = this.options;
-    //         // const url = getQueryUrl(metric, type);
-    //         // if (!url) {
-    //         //   console.warn(`Unable to get query URL for metric "${metric}" and chart type "${type}".`)
-    //         //   return;
-    //         // }
-    //         // window.open(url, '_blank');
-    //         alert("Query showing is not yet supported!");
-    //       },
-    //       text: 'Show Query'
-    //     }
-    //   },
-    //   buttons: {
-    //     contextButton: {
-    //       menuItems: ['showQuery', 'downloadPNG']
-    //     }
-    //   }
-    // }
+    exporting: {
+      menuItemDefinitions: {
+        showQuery: {
+          onclick: function() {
+            const url = options && options.queryURL;
+            if (!url) {
+              console.warn(`Unable to get query URL.`, options)
+              return;
+            }
+            window.open(url, '_blank');
+          },
+          text: 'Show Query'
+        }
+      },
+      buttons: {
+        contextButton: {
+          // just adding the showQuery button to what was already there is apparently not supported
+          // To do that, you'd have to manually add stuff to chart.options.exporting.buttons.contextButton.menuItems
+          // but it seems that object is shared across instances, so you have to manually de-duplicate
+          // so we just looked at what was in there by default and replicate it here, as per examples and HTTPArchive:
+          menuItems: [
+            "showQuery",
+            "separator",
+            "viewFullscreen",
+            "printChart",
+            "separator",
+            "downloadPNG",
+            "downloadJPEG",
+            "downloadPDF",
+            "downloadSVG",
+            "separator",
+            "downloadCSV",
+            "downloadXLS",
+            "viewData",
+          ]
+        }
+      }
+    }
   });
 
   chart.drawBenchmark = (name, value, color) => {

@@ -125,6 +125,44 @@ function drawDonut(options, inputData) {
             colorByPoint: true,
             data: inputData
         }],
+        exporting: {
+            menuItemDefinitions: {
+                showQuery: {
+                onclick: function() {
+                    const url = options && options.queryURL;
+                    if (!url) {
+                    console.warn(`Unable to get query URL.`, options)
+                    return;
+                    }
+                    window.open(url, '_blank');
+                },
+                text: 'Show Query'
+                }
+            },
+            buttons: {
+                contextButton: {
+                // just adding the showQuery button to what was already there is apparently not supported
+                // To do that, you'd have to manually add stuff to chart.options.exporting.buttons.contextButton.menuItems
+                // but it seems that object is shared across instances, so you have to manually de-duplicate
+                // so we just looked at what was in there by default and replicate it here, as per examples and HTTPArchive:
+                menuItems: [
+                    "showQuery",
+                    "separator",
+                    "viewFullscreen",
+                    "printChart",
+                    "separator",
+                    "downloadPNG",
+                    "downloadJPEG",
+                    "downloadPDF",
+                    "downloadSVG",
+                    "separator",
+                    "downloadCSV",
+                    "downloadXLS",
+                    "viewData",
+                ]
+                }
+            }
+        }
     });
 
 

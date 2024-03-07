@@ -208,69 +208,13 @@ Note that we intentionally do not include interpretations of the data here, as t
 
     // import HighCharts from "/js/charts/timeseries.js";
 
+    import { Constants } from "/js/charts/constants.js";
     import * as TimeSeries from "/js/charts/timeseries.js"; 
     import * as Donuts from "/js/charts/donuts.js";
     import * as Area from "/js/charts/area.js";
 
     // 3 colors with good contrast, since we often have piecharts with exactly 2 or 3 entries
     const piecolors = [ TimeSeries.Colors.RUMARCHIVE_MAIN[0], TimeSeries.Colors.RUMARCHIVE_MAIN[1], TimeSeries.Colors.RUMARCHIVE_SECONDARY[5] ];
-
-    const FORCE_EXTERNAL_DATA = false;
-    let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/main/data-output/";
-
-    if ( window.location.href.includes("localhost") && !FORCE_EXTERNAL_DATA ) {
-      // allow for easy local testing
-      // launch a basic python http server in the rum-insights-data dir with `python3 -m http.server 9000`
-      DATA_BASE_URL = "http://localhost:9000/data-output/";
-    }
-
-      {# async function renderDeviceTypeTimeseries() {
-        try {
-          const metricFieldName = "device";
-
-          let response = await fetch(DATA_BASE_URL + "devicetype.json");
-          let rumarchiveData = await response.json();
-        
-          rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.percent) > 1) );
-
-          const options = {};
-          options.chartId = "marketshare_devicetypes";
-          options.histogram = { enabled: false };
-          options.metric = metricFieldName;
-
-          // need to give the graphing setup a list of timeseries, each with their own data and color
-          // we want to generate these automatically from the data
-          // 1. extract individual metricFieldValues (e.g., extract all individual device types)
-          let metricValues = new Set();
-          for ( let row of rumarchiveData )
-            metricValues.add( row[metricFieldName] );
-
-          options.timeseries = [];
-          for ( let metricValue of metricValues ) {
-            let timeSerie = {
-              name: metricValue,
-              data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
-              fields: ["percent"],
-              color: (metricValue === "Desktop") ? TimeSeries.Colors.DESKTOP : ( (metricValue === "Mobile") ? TimeSeries.Colors.MOBILE : TimeSeries.Colors.TABLET )
-            };
-
-            options.timeseries.push( timeSerie );
-          }
-
-          options.type = "%";
-
-          options.id = "device";
-          options.name = "Device Type";
-
-          options.yMax = 100;
-
-          TimeSeries.fromData(rumarchiveData, metricFieldName, options, rumarchiveData[0].date, rumarchiveData[rumarchiveData.length - 1].date );
-        }
-        catch(e) {
-          console.error(e);
-          return;
-        }
-    } #}
     
     // returns e.g., "2023_12_01"
     function findLastDate(dataPoints) {
@@ -318,8 +262,9 @@ Note that we intentionally do not include interpretations of the data here, as t
     async function renderOSTimeseries(clientType, chartId, chartName) {
         try {
           const metricFieldName = "os";
+          const queryName = "os_devicetype";
 
-          let response = await fetch(DATA_BASE_URL + "os_devicetype.json");
+          let response = await fetch( Constants.getDataURL(queryName) );
           let rumarchiveData = await response.json();
         
           rumarchiveData = rumarchiveData.filter( datapoint => (datapoint.client === clientType) && (parseFloat(datapoint.percent) > 0.5) );
@@ -328,6 +273,7 @@ Note that we intentionally do not include interpretations of the data here, as t
           options.chartId = chartId;
           options.histogram = { enabled: false };
           options.metric = metricFieldName;
+          options.queryURL = Constants.getQueryURL(queryName);
 
           // need to give the graphing setup a list of timeseries, each with their own data and color
           // we want to generate these automatically from the data
@@ -374,7 +320,9 @@ Note that we intentionally do not include interpretations of the data here, as t
 
       const metricFieldName = "useragent";
 
-      let response = await fetch(DATA_BASE_URL + "LCPCount_useragentfamily_" + clientType + ".json");
+      const queryName = "LCPCount_useragentfamily_" + clientType;
+
+      let response = await fetch( Constants.getDataURL(queryName) );
       let rumarchiveData = await response.json();
 
       // this data is a bit different:
@@ -401,6 +349,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
       options.chartId = chartId;
       options.name = chartName;
+      options.queryURL = Constants.getQueryURL(queryName);
 
       options.datapoints = datapoints;
       options.datapointFieldname = "useragentpercent";
@@ -498,7 +447,9 @@ Note that we intentionally do not include interpretations of the data here, as t
 
       const metricFieldName = "navigationtype";
 
-      let response = await fetch(DATA_BASE_URL + "navigationtype_devicetype.json");
+      const queryName = "navigationtype_devicetype";
+
+      let response = await fetch( Constants.getDataURL(queryName) );
       let rumarchiveData = await response.json();
 
       const valueKey = "percent";
@@ -515,6 +466,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       options.name = chartName;
       options.datapoints = datapoints;
       options.datapointFieldname = valueKey;
+      options.queryURL = Constants.getQueryURL(queryName);
 
       Donuts.fromData( metricFieldName, options );
     }
@@ -526,8 +478,9 @@ Note that we intentionally do not include interpretations of the data here, as t
       const options = {};
 
       const metricFieldName = "visibilitystate";
+      const queryName = "visibilitystate_devicetype";
 
-      let response = await fetch(DATA_BASE_URL + "visibilitystate_devicetype.json");
+      let response = await fetch( Constants.getDataURL(queryName) );
       let rumarchiveData = await response.json();
 
       const valueKey = "percent";
@@ -544,6 +497,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       options.name = chartName;
       options.datapoints = datapoints;
       options.datapointFieldname = valueKey;
+      options.queryURL = Constants.getQueryURL(queryName);
 
       Donuts.fromData( metricFieldName, options );
     }
@@ -555,8 +509,9 @@ Note that we intentionally do not include interpretations of the data here, as t
       const options = {};
 
       const metricFieldName = "landingpage";
+      const queryName = "landingpage_devicetype";
 
-      let response = await fetch(DATA_BASE_URL + "landingpage_devicetype.json");
+      let response = await fetch( Constants.getDataURL(queryName) );
       let rumarchiveData = await response.json();
 
       const valueKey = "percent";
@@ -573,6 +528,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       options.name = chartName;
       options.datapoints = datapoints;
       options.datapointFieldname = valueKey;
+      options.queryURL = Constants.getQueryURL(queryName);
 
       Donuts.fromData( metricFieldName, options );
     }
@@ -585,8 +541,9 @@ Note that we intentionally do not include interpretations of the data here, as t
       const options = {};
 
       const metricFieldName = "beacontype";
+      const queryName = "beacontype_devicetype";
 
-      let response = await fetch(DATA_BASE_URL + "beacontype_devicetype.json");
+      let response = await fetch( Constants.getDataURL(queryName) );
       let rumarchiveData = await response.json();
 
       const valueKey = "percent";
@@ -620,6 +577,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       options.name = chartName;
       options.datapoints = datapoints;
       options.datapointFieldname = valueKey;
+      options.queryURL = Constants.getQueryURL(queryName);
 
       Donuts.fromData( metricFieldName, options );
     }
