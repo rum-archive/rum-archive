@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css" />
   <script src="/js/main.js"></script>
-  <title>RUM Archive - RUM Insights</title>
+  <title>RUM Archive - RUM Insights PREVIEW TEST</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -16,13 +16,13 @@
 
   <!-- Facebook Meta Tags -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="RUM Archive - RUM Insights">
+  <meta property="og:title" content="RUM Archive - RUM Insights PREVIEW TEST">
   <meta property="og:image" content="https://rumarchive.com/assets/rum-archive-banner-facebook-1200x630.png">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="rumarchive.com">
-  <meta name="twitter:title" content="RUM Archive - RUM Insights">
+  <meta name="twitter:title" content="RUM Archive - RUM Insights PREVIEW TEST">
   <meta name="twitter:image" content="https://rumarchive.com/assets/rum-archive-banner-twitter-1600x900.png">
 
   <link rel="feed alternate" type="application/atom+xml" href="/blog/feed.xml" title="Atom Feed">
@@ -112,7 +112,7 @@
     <div class="columns">
       <div class="column is-10 is-offset-1">
         <div class="content m-5">
-          <h1>RUM Insights</h1>
+          <h1>RUM Insights PREVIEW TEST</h1>
           
           
 <h2>Introduction</h2>
@@ -135,17 +135,82 @@ Note that we intentionally do not include interpretations of the data here, as t
 
 <section class="doclist mt-3 pt-3">
     
-  <div class="container">
-    <div id="protocol" class="box">
-    </div>
-  </div>
+  
 
-  <div class="container">
-    <select id="userAgentSelect">
-    </select>
-    <div id="ua_version" class="box">
+  
+
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half control" style="text-align: center; vertical-align: middle;">
+          <!-- <label class="label" for="marketshare_browser_version_select">Select browser:</label> -->
+          <div class="select">
+            <select id="userAgentSelect">
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="ua_version" class="box">
+      </div>
+    </div>  
+
+    <h2>Web Features Baseline Overview</h2>
+
+    We count the percentage of page loads included in the RUM Archive on the first Tuesday of March 2024.
+
+    <style>
+      .table.is-hoverable tbody tr:not(.is-selected):hover {
+        cursor: pointer;
+      }
+    </style>
+
+    <div class="container">
+      <div id="baseline_desktop" class="box">
+        <h3>Baseline support Desktop</h3>
+        <div class="columns">
+          <div class="column is-one-third">
+            <table id="baseline_desktop_table" class="table is-hoverable">
+              <thead>
+                <tr>
+                  <th>Baseline year</th>
+                  <th>Supported by % of users</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
+          </div>
+          <div id="baseline_desktop_details" class="column is-two-thirds">
+            <h4>Details</h4>
+            <div>Click on a row in the table to get more information per Baseline year</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="baseline_mobile" class="box">
+        <h3>Baseline support Mobile</h3>
+        <div class="columns">
+          <div class="column is-one-third">
+            <table id="baseline_mobile_table" class="table is-hoverable">
+              <thead>
+                <tr>
+                  <th>Baseline year</th>
+                  <th>Supported by % of users</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
+          </div>
+          <div id="baseline_mobile_details" class="column is-two-thirds">
+            <h4>Details</h4>
+            <div>Click on a row in the table to get more information per Baseline year</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
 </section>
 
@@ -178,44 +243,11 @@ Note that we intentionally do not include interpretations of the data here, as t
       }
       else {
         console.error("findLastDate: no 'date' property found on dataPoints, defaulting to 2023_12_01!", dataPoints);
-        return "2023_12_01";
+        return "2024_03_05";
       }
     }
 
-    function getProtocolTimeseries(rumarchiveData, metricFieldName) {
-      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.percent) > 1) );
-
-      let output = [];
-
-      let nameMapping = {
-        "h2": "http/2",
-        "h3": "http/3",
-        "http/1.1": "http/1.1"
-      };
-
-      // need to give the graphing setup a list of timeseries, each with their own data and color
-      // we want to generate these automatically from the data
-      // 1. extract individual metricFieldValues (e.g., extract all individual device types)
-      let metricValues = new Set();
-      for ( let row of rumarchiveData )
-        metricValues.add( row[metricFieldName] );
-
-      for ( const [idx, metricValue] of [...metricValues].entries() ) {
-        let timeSerie = {
-          name: metricValue === null ? "unknown" : (nameMapping[metricValue] ? nameMapping[metricValue] : metricValue ),
-          data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
-          fields: ["percent"],
-          color: TimeSeries.Colors.LIST[idx]
-        };
-
-        output.push( timeSerie );
-      }
-
-      return output;
-    }
-
-// async function timeseriesFromDataWithDefaults( queryName, chartElementID, metricFieldName, graphTitle, timeseriesCreationCallback )
-    TimeSeries.fromDataWithDefaults( "protocol", "protocol", "protocol", "HTTP Versions", getProtocolTimeseries );
+    
 
 
     let GLOBAL_selectedUserAgent = "";
@@ -285,6 +317,285 @@ Note that we intentionally do not include interpretations of the data here, as t
       return output;
     }
 
+
+    async function populateBaselineInfo() {
+
+      let ua_data_raw = await fetch(DATA_BASE_URL + "recent_useragentversion_useragentfamily_devicetype.json");
+      let ua_data  = await ua_data_raw.json();
+
+      let web_features_raw = await fetch(DATA_BASE_URL + "web-features.json"); 
+      let web_features  = await web_features_raw.json();
+
+      console.log( ua_data, web_features );
+
+      /*
+      // determine what's actually in the dataset
+      let uasInFeatures = new Set();
+
+      for( let web_feature of Object.values(web_features) ) {
+        if ( web_feature && web_feature.status && web_feature.status.support && Object.keys(web_feature.status.support).length > 0 ) {
+          for ( let platform of Object.keys(web_feature.status.support) ){
+            uasInFeatures.add( platform );
+          }
+        }
+      } 
+
+      console.log( uasInFeatures );
+      */
+
+      // we want to create a baseline list for desktop vs mobile (which is what web-features gives us)
+      // web-features is limited to:
+      // Desktop: chrome, edge, firefox, safari
+      // Mobile: chrome_android, firefox_android, safari_ios
+      
+      // so we filter out the accompanying ones from the RUM-archive for now
+      let desktopUAs = ["Chrome", "Edge", "Firefox", "Safari"];
+      let mobileUAs = ["Firefox Mobile", "Chrome Mobile", "Chrome Mobile WebView", "Mobile Safari", "Mobile Safari UI/WKWebView" ];
+
+      // map from RUMArchive names to web-features names
+      let desktopUAMappings = {
+        "Chrome": "chrome",
+        "Edge": "edge",
+        "Firefox": "firefox",
+        "Safari": "safari",
+      };
+
+      let mobileUAMappings = {
+        "Chrome Mobile": "chrome_android",
+        "Chrome Mobile WebView": "chrome_android",
+        "Mobile Safari": "safari_ios",
+        "Mobile Safari UI/WKWebView": "safari_ios",
+        "Firefox Mobile": "firefox_android",
+      };
+
+      // to calculate percentages, need to know total beacon counts per platform for a given day
+      let totalDesktopCount = 0;
+      let totalMobileCount = 0;
+      for( let datapoint of ua_data ){
+        if ( desktopUAs.includes(datapoint.family) && datapoint.client === "desktop" ) {
+          totalDesktopCount += datapoint.count;
+        }
+        else if ( mobileUAs.includes(datapoint.family) && datapoint.client === "mobile" ) {
+          totalMobileCount += datapoint.count;
+        }
+      }
+
+      // console.log( totalDesktopCount, totalMobileCount );
+
+      // 1. per year, we need a list of features that were added to the baseline in that year with links (that's easy though)
+      // 2. per year, we need a total COUNT of how many beacons belong to browsers whose version were >= versions that started to support that feature
+
+      // 1.
+      let baselineResults = [
+        { client: "desktop", uas: desktopUAs, uamappings: desktopUAMappings, totalCount: totalDesktopCount, yearCounts: [] },
+        { client: "mobile", uas: mobileUAs, uamappings: mobileUAMappings, totalCount: totalMobileCount, yearCounts: [] },
+      ];
+
+      let baselineFeaturesPerYear = {};
+      for( let year = 2015; year <= 2024; year++ ) {
+        let yearFeatures = [];
+        // baseline dates are for the baseline_low_date (means low availability, but year is correct)
+        for ( let web_feature of Object.values(web_features) ) {
+          if ( web_feature.status && web_feature.status.baseline_low_date ) {
+            let featureYear = web_feature.status.baseline_low_date.split("-")[0]; // format: 2023-05-09
+            if ( featureYear === ("" + year) ){
+              yearFeatures.push( web_feature );
+            }
+          }
+          else if( web_feature.status && web_feature.status.baseline !== false ) {
+            console.warn("SANITY CHECK: web feature doesn't have baseline_low_date yet!", web_feature);
+          }
+          else if ( !web_feature.status ) {
+            // console.error("SANITY CHECK: web feature doesn't have status yet!", web_feature);
+            // APPARENTLY there are a great many features without a status yet... just skip them for now 
+          }
+        }
+
+        baselineFeaturesPerYear["" + year] = yearFeatures;
+      }
+
+      console.log( "Baseline features per year:", baselineFeaturesPerYear );
+
+      // 2.
+      for( let baselineEntry of baselineResults ) {
+        const client = baselineEntry.client;
+        const uas = baselineEntry.uas;
+        const uamappings = baselineEntry.uamappings;
+        const resultsPerYear = baselineEntry.yearCounts;
+
+        for( let year = 2015; year <= 2024; year++ ){
+
+          if ( !resultsPerYear[""+year] ) {
+            resultsPerYear[""+year] = 0;
+          }
+
+          const featuresForCurrentYear = baselineFeaturesPerYear["" + year];
+
+          // for now, we just need a running total count of beacons that we saw that are >= a given version, don't really need to keep detailed results
+          // so we just loop over each version for each browser for each client type, and for each check if it's >= the year's expected versions for each webFeature
+
+          for( let datapoint of ua_data ){
+            if ( datapoint.client === client && uas.includes(datapoint.family) ) {
+              let version = datapoint.version;
+
+              // for a given browser version entry, we need to see for ALL baseline features in that year if it's supported
+              // this because e.g., a browser version could have gone live in July 202x but the baseline feature was only completed in the baseline in November 202x
+              // We could theoretically also get this from the full baseline_low_date, but then we'd also need to know the release dates of all browser versions, which we don't :)
+              // so: just check if we pass the version check for all of the webFeatures and only then add it to the resultsPerYear
+
+              let passesAll = true; // assume yes
+
+              for( let webFeature of featuresForCurrentYear ) {
+                
+                if( !webFeature.status ) {
+                  console.error("SANITY CHECK: NO STATUS KNOWN, WHY NOT?!?", webFeature);
+                }
+
+                let webFeatureUAVersion = webFeature.status.support[ uamappings[datapoint.family] ];
+                if ( webFeatureUAVersion ) {
+                    // parseInt on e.g., "16.7" rounds down to 16, which is what we generally want :) 
+                    // this only matters for Safari; others increment their full version, but safari has decimal subversions
+                    // But RUM Archive doesn't track Safari's subversions currently, so rounding down is the best approach here
+                    let baselineVersionInt = parseInt(webFeatureUAVersion, 10);
+                    let rumArchiveVersionInt = parseInt(datapoint.version, 10);
+
+                    if ( rumArchiveVersionInt < baselineVersionInt ) {  
+                      console.warn("Feature was too new!", year, uamappings[datapoint.family], rumArchiveVersionInt, "<", baselineVersionInt, webFeature.name, (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100 );
+                      passesAll = false;
+                      break; // we already know we failed, so we can do an early exit 
+                    }
+                }
+                else {
+                  console.error("SANITY CHECK: current ua not known in web-features...", datapoint.family, uamappings[datapoint.family], webFeature.status.support );
+                }
+              }
+
+              if ( passesAll ) {
+                resultsPerYear["" + year] += parseInt(datapoint.count); 
+              }
+            }
+          }
+        }
+      }
+
+      for( let baselineResult of baselineResults ) {
+        console.log("For ", baselineResult.client );
+
+        let outputTable = document.getElementById("baseline_"+ baselineResult.client +"_table").getElementsByTagName('tbody')[0];
+
+        for ( let year of Object.keys(baselineResult.yearCounts) ) {
+          let counts = baselineResult.yearCounts[year];
+          let percentage = ((counts/baselineResult.totalCount) * 100).toFixed(2);
+
+          console.log(year, counts, "out of", baselineResult.totalCount, "=", percentage );
+
+          let yearRow = outputTable.insertRow();
+          yearRow.setAttribute("baseline-year", year + "_" + percentage);
+          // let yearCell = yearRow.insertCell(0);
+
+          let yearCell = document.createElement("th");
+          yearRow.appendChild(yearCell);
+          let resultCell = yearRow.insertCell(1);
+
+          yearCell.innerHTML = "" + year;
+          resultCell.innerHTML = "" + percentage + "%";
+        }
+
+        outputTable.addEventListener("click", (evt) => {
+          if ( !evt.target )
+            return;
+
+          // the click is usually the year <th> or the percentage <td>
+          // we need to get parent tr if that's the case
+          let row = evt.target;
+          let yearPercent = evt.target.getAttribute("baseline-year");
+
+          if ( !yearPercent && evt.target.parentNode ){
+            yearPercent = evt.target.parentNode.getAttribute("baseline-year");
+            row = evt.target.parentNode;
+          }
+
+          if ( !yearPercent ) // can't find the baseline-year... nothing left to do
+            return;
+          
+          // make sure old element is deselected
+          const currentlySelected = outputTable.getElementsByClassName("is-selected");
+          for ( let cs of currentlySelected ) {
+            cs.classList.remove("is-selected");
+          }
+
+          // select current row
+          row.classList.add("is-selected");
+          
+          const year = yearPercent.split("_")[0];
+          const percentage = yearPercent.split("_")[1];
+
+          let detailsContainer = document.getElementById("baseline_"+ baselineResult.client +"_details");
+          detailsContainer.getElementsByTagName("h4")[0].textContent = "Details for Baseline " + year;
+
+          console.log("DEBUG");
+
+          let detailsContent = "If you target the following Web features for "+year+"'s Baseline, <b>" + percentage + "%</b> of "+ baselineResult.client +" users in the RUM Archive would benefit:<br /><br />";
+
+          // we want to group compat features by type (CSS, JS, HTML, API, Other)
+          let groups = {
+            "api": new Set(),
+            "css": new Set(),
+            "javascript": new Set(),
+            "html": new Set(),
+            "http": new Set(),
+            "svg": new Set(),
+            "other": new Set(),
+          };
+
+          for ( let feature of baselineFeaturesPerYear[year] ) {
+            console.log("feature", feature);
+
+            let compat_features = feature.compat_features;
+            if( compat_features ){
+              for ( let compat_feature of compat_features ){ 
+                let prefix = compat_feature.split(".")[0]; // e.g., of the form 'html.elements.script.nomodule', 'javascript.statements.export'
+                
+                if( !groups[prefix] ) {
+                  console.error("SANITY CHECK: feature group not yet known! skipping...", prefix, feature);
+                  continue;
+                }
+
+                groups[prefix].add( feature );
+              }
+            }
+            else {
+              // e.g., AVIF support dosn't have compat_features
+              groups["other"].add( feature );
+            }
+          }
+
+          console.log( groups );
+
+          for ( let group of Object.entries(groups) ) {
+            if( group[1].size === 0 )
+              continue;
+
+            detailsContent += "<h5>" + group[0] + "</h5>";
+
+            for ( let feature of group[1] ) {
+
+              // some feature's name is a valid HTML element tag... LOOKING AT YOU <detail>... urgh
+              let name = feature.name.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+
+              detailsContent += "<p><a href=\"https://caniuse.com/"+ feature.caniuse +"\" target=\"_blank\">" + name + "</a></p>";
+            }
+          }
+
+          let textContainer = detailsContainer.getElementsByTagName("div")[0];
+          textContainer.innerHTML = detailsContent;
+        });
+      }
+
+      console.log( baselineResults );
+    }
+
+    populateBaselineInfo();
 
 
 </script>
