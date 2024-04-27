@@ -69,7 +69,7 @@ Note that we intentionally do not include interpretations of the data here, as t
               <thead>
                 <tr>
                   <th>Baseline year</th>
-                  <th>Supported by % of users</th>
+                  <th>Supported by % of users (all - filtered)</th>
                 </tr>
               </thead>
               <tbody>
@@ -93,7 +93,7 @@ Note that we intentionally do not include interpretations of the data here, as t
               <thead>
                 <tr>
                   <th>Baseline year</th>
-                  <th>Supported by % of users</th>
+                  <th>Supported by % of users (all - filtered)</th>
                 </tr>
               </thead>
               <tbody>
@@ -251,10 +251,17 @@ Note that we intentionally do not include interpretations of the data here, as t
     async function populateBaselineInfo() {
 
       let ua_data_raw = await fetch(DATA_BASE_URL + "recent_useragentversion_useragentfamily_devicetype.json");
-      let ua_data  = await ua_data_raw.json();
+      let ua_data_full  = await ua_data_raw.json();
 
       let web_features_raw = await fetch(DATA_BASE_URL + "web-features.json"); 
       let web_features  = await web_features_raw.json();
+
+
+      console.log( ua_data_full );
+      // other options currently: 2022_09_06 and 2023_09_05
+      // but both have hard cutoffs on the year before apparently, if we require ALL features of a given year to be supported (logical since on september, few features would be supported)
+      // TODO: take the last tuesday of december instead for these things? 
+      let ua_data = ua_data_full.filter( (point) => point.date === "2024_03_05" ); 
 
       console.log( ua_data, web_features );
 
@@ -298,27 +305,83 @@ Note that we intentionally do not include interpretations of the data here, as t
         "Firefox Mobile": "firefox_android",
       };
 
+      let unknownUAsWithCounts = {};
+
       // to calculate percentages, need to know total beacon counts per platform for a given day
-      let totalDesktopCount = 0;
-      let totalMobileCount = 0;
+      // we want two different running counts, 1 for the subset in desktopUAs and mobileUAs, and one for ALL browsers
+      let totalDesktopCount_subset = 0;
+      let totalMobileCount_subset = 0;
+      let totalDesktopCount_all = 0;
+      let totalMobileCount_all = 0;
+
       for( let datapoint of ua_data ){
-        if ( desktopUAs.includes(datapoint.family) && datapoint.client === "desktop" ) {
-          totalDesktopCount += datapoint.count;
+        if ( datapoint.client === "desktop" ){
+          if ( desktopUAs.includes(datapoint.family)  ) {
+            totalDesktopCount_subset += datapoint.count;
+          }
+          else {
+            let uaCount = unknownUAsWithCounts[ datapoint.client + "_" + datapoint.family ];
+            if ( !uaCount ){
+              uaCount = { ua: datapoint.client + "_" + datapoint.family, count: 0, osinfo: new Set() };
+              unknownUAsWithCounts[ datapoint.client + "_" + datapoint.family ] = uaCount;
+            }
+            
+            uaCount.count += datapoint.count;
+            uaCount.osinfo.add( datapoint.version + "@" + datapoint.os + "_" + datapoint.osversion );
+          }
+          
+          totalDesktopCount_all += datapoint.count; 
         }
-        else if ( mobileUAs.includes(datapoint.family) && datapoint.client === "mobile" ) {
-          totalMobileCount += datapoint.count;
+        else if ( datapoint.client === "mobile" || datapoint.client === "tablet" ){
+          // for the purpose of Baseline, mobile and tablet are treated the same, since they use the same browsers (e.g., Chrome iOS is the same on iPhone as iPad)
+          if ( mobileUAs.includes(datapoint.family) ) {
+            totalMobileCount_subset += datapoint.count;
+          }
+          else {
+            let uaCount = unknownUAsWithCounts[ "mobile" + "_" + datapoint.family ];
+            if ( !uaCount ){
+              uaCount = { ua: "mobile" + "_" + datapoint.family, count: 0, osinfo: new Set() };
+              unknownUAsWithCounts[ "mobile" + "_" + datapoint.family ] = uaCount;
+            }
+            
+            uaCount.count += datapoint.count;
+            uaCount.osinfo.add( datapoint.version + "@" + datapoint.os + "_" + datapoint.osversion );
+          }
+          
+          totalMobileCount_all += datapoint.count; 
         }
       }
 
-      // console.log( totalDesktopCount, totalMobileCount );
+      console.log("Beacon Counts: (subset, all, diff)", totalDesktopCount_subset, totalDesktopCount_all, (totalDesktopCount_all - totalDesktopCount_subset), totalMobileCount_subset, totalMobileCount_all, (totalMobileCount_all - totalMobileCount_subset), ((totalMobileCount_all - totalMobileCount_subset)/totalMobileCount_all * 100).toFixed(2)  );
+
+      let allMobilePercentages = 0;
+
+      for( let uaEntry of Object.entries(unknownUAsWithCounts) ) {
+        let ua = uaEntry[1];
+
+        if ( ua.ua.indexOf("desktop") >= 0 ) {
+          ua.percentage_raw = (ua.count / totalDesktopCount_all) * 100;
+          ua.percentage = ua.percentage_raw.toFixed(4) + "%";
+        }
+        else {
+          allMobilePercentages += (ua.count / totalMobileCount_all);
+          ua.percentage_raw = (ua.count / totalMobileCount_all) * 100;
+          ua.percentage = ua.percentage_raw.toFixed(4) + "%";
+        }
+      }
+      console.log("allMobilePercentagesSum", allMobilePercentages);
+
+      unknownUAsWithCounts = Object.values(unknownUAsWithCounts).sort( (a,b) => b.percentage_raw - a.percentage_raw ).map( (a) => { a.osinfo = Array.from(a.osinfo); return a; } );
+
+      console.log("Unknown UAs with counts:", unknownUAsWithCounts);
 
       // 1. per year, we need a list of features that were added to the baseline in that year with links (that's easy though)
       // 2. per year, we need a total COUNT of how many beacons belong to browsers whose version were >= versions that started to support that feature
 
       // 1.
       let baselineResults = [
-        { client: "desktop", uas: desktopUAs, uamappings: desktopUAMappings, totalCount: totalDesktopCount, yearCounts: [] },
-        { client: "mobile", uas: mobileUAs, uamappings: mobileUAMappings, totalCount: totalMobileCount, yearCounts: [] },
+        { clients: ["desktop"], uas: desktopUAs, uamappings: desktopUAMappings, totalCount: totalDesktopCount_subset, yearCounts: [] },
+        { clients: ["mobile","tablet"], uas: mobileUAs, uamappings: mobileUAMappings, totalCount: totalMobileCount_subset, yearCounts: [] },
       ];
 
       let baselineFeaturesPerYear = {};
@@ -348,7 +411,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
       // 2.
       for( let baselineEntry of baselineResults ) {
-        const client = baselineEntry.client;
+        const clients = baselineEntry.clients;
         const uas = baselineEntry.uas;
         const uamappings = baselineEntry.uamappings;
         const resultsPerYear = baselineEntry.yearCounts;
@@ -365,7 +428,7 @@ Note that we intentionally do not include interpretations of the data here, as t
           // so we just loop over each version for each browser for each client type, and for each check if it's >= the year's expected versions for each webFeature
 
           for( let datapoint of ua_data ){
-            if ( datapoint.client === client && uas.includes(datapoint.family) ) {
+            if ( clients.includes(datapoint.client) && uas.includes(datapoint.family) ) {
               let version = datapoint.version;
 
               // for a given browser version entry, we need to see for ALL baseline features in that year if it's supported
@@ -390,7 +453,7 @@ Note that we intentionally do not include interpretations of the data here, as t
                     let rumArchiveVersionInt = parseInt(datapoint.version, 10);
 
                     if ( rumArchiveVersionInt < baselineVersionInt ) {  
-                      console.warn("Feature was too new!", year, uamappings[datapoint.family], rumArchiveVersionInt, "<", baselineVersionInt, webFeature.name, (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100 );
+                      // console.warn("Feature was too new!", year, uamappings[datapoint.family], rumArchiveVersionInt, "<", baselineVersionInt, webFeature.name, (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100 );
                       passesAll = false;
                       break; // we already know we failed, so we can do an early exit 
                     }
@@ -411,24 +474,41 @@ Note that we intentionally do not include interpretations of the data here, as t
       for( let baselineResult of baselineResults ) {
         console.log("For ", baselineResult.client );
 
-        let outputTable = document.getElementById("baseline_"+ baselineResult.client +"_table").getElementsByTagName('tbody')[0];
+        let outputTable = document.getElementById("baseline_"+ baselineResult.clients[0] +"_table").getElementsByTagName('tbody')[0];
 
         for ( let year of Object.keys(baselineResult.yearCounts) ) {
           let counts = baselineResult.yearCounts[year];
-          let percentage = ((counts/baselineResult.totalCount) * 100).toFixed(2);
+          let percentage_subset = ((counts/baselineResult.totalCount) * 100).toFixed(2);
 
-          console.log(year, counts, "out of", baselineResult.totalCount, "=", percentage );
+          let percentage_all = 0;
+          let percentage_raw = 0;
+          if ( baselineResult.clients[0] === "mobile" ) {
+            percentage_raw = ((counts/totalMobileCount_all) * 100);
+            percentage_all = ((counts/totalMobileCount_all) * 100).toFixed(2);
+            console.log("ALL ", year, counts, "out of", totalMobileCount_all, "=", percentage_all );
+            // console.error("MOBILE CHOSEN!");
+          }
+          else {
+            percentage_raw = ((counts/totalDesktopCount_all) * 100);
+            percentage_all = ((counts/totalDesktopCount_all) * 100).toFixed(2);
+            console.log("ALL ", year, counts, "out of", totalDesktopCount_all, "=", percentage_all );
+          }
+
+          console.log("Subset ", year, counts, "out of", baselineResult.totalCount, "=", percentage_subset );
 
           let yearRow = outputTable.insertRow();
-          yearRow.setAttribute("baseline-year", year + "_" + percentage);
+          yearRow.setAttribute("baseline-year", year + "_" + percentage_subset);
           // let yearCell = yearRow.insertCell(0);
 
           let yearCell = document.createElement("th");
           yearRow.appendChild(yearCell);
           let resultCell = yearRow.insertCell(1);
 
+          //let diff = 1.32 + (100 - ((counts/baselineResult.totalCount) * 100));
+
+
           yearCell.innerHTML = "" + year;
-          resultCell.innerHTML = "" + percentage + "%";
+          resultCell.innerHTML = "" + percentage_all + "% - " + percentage_subset + "% (" + ( (((counts/baselineResult.totalCount) * 100) / percentage_raw).toFixed(2) + ")" );
         }
 
         outputTable.addEventListener("click", (evt) => {
@@ -460,12 +540,12 @@ Note that we intentionally do not include interpretations of the data here, as t
           const year = yearPercent.split("_")[0];
           const percentage = yearPercent.split("_")[1];
 
-          let detailsContainer = document.getElementById("baseline_"+ baselineResult.client +"_details");
+          let detailsContainer = document.getElementById("baseline_"+ baselineResult.clients[0] +"_details");
           detailsContainer.getElementsByTagName("h4")[0].textContent = "Details for Baseline " + year;
 
           console.log("DEBUG");
 
-          let detailsContent = "If you target the following Web features for "+year+"'s Baseline, <b>" + percentage + "%</b> of "+ baselineResult.client +" users in the RUM Archive would benefit:<br /><br />";
+          let detailsContent = "If you target the following Web features for "+year+"'s Baseline, <b>" + percentage + "%</b> of "+ baselineResult.clients[0] +" users in the RUM Archive for the main browsers would benefit:<br /><br />";
 
           // we want to group compat features by type (CSS, JS, HTML, API, Other)
           let groups = {
@@ -483,6 +563,45 @@ Note that we intentionally do not include interpretations of the data here, as t
 
             let compat_features = feature.compat_features;
             if( compat_features ){
+
+              // compat_features can have multiple subfeatures listed, each belonging to a specific group
+              // e.g., you can have 
+              // [ "api.feature.1", "api.feature.2", "html.feature.x", "html.feature.y" ]
+              // we only want to show the feature ONCE under a group (so for the example, we don't want to show both in API AND HTML, but only HTML)
+              // so, we can't just look at the first one in the list, because APIs are a bit special
+              // (most features will have an API subfeature... if there is any other grouping possible (e.g., HTML in the example) then that should be preferred)
+              // so, we special-case api.
+
+              // check if all compat_features are in the same feature group
+              let guessedGroup = null;
+              let hasAPIgroup = false;
+              for ( let compat_feature of compat_features ){ 
+                let currentGroup = compat_feature.split(".")[0]; 
+
+                if ( currentGroup === "api" )
+                  hasAPIgroup = true;
+                else if( guessedGroup === null )
+                  guessedGroup = currentGroup;
+                else if ( guessedGroup !== currentGroup ) {
+                  console.error("INCONSISTENT compat_features! ", currentGroup, "!=", guessedGroup, compat_features, feature);
+                }
+              }
+
+              if ( guessedGroup === null ) {
+                // no group found. Could mean 1 of 2 things
+                // 1. it is really an API feature: put into that group
+                // 2. it simply doesn't have a known group: put it as "other"
+                if ( hasAPIgroup ) {
+                  guessedGroup = "api";
+                }
+                else {
+                  guessedGroup = "other";
+                }
+              }
+
+              groups[guessedGroup].add( feature );
+
+              /*
               for ( let compat_feature of compat_features ){ 
                 let prefix = compat_feature.split(".")[0]; // e.g., of the form 'html.elements.script.nomodule', 'javascript.statements.export'
                 
@@ -493,9 +612,10 @@ Note that we intentionally do not include interpretations of the data here, as t
 
                 groups[prefix].add( feature );
               }
+              */
             }
             else {
-              // e.g., AVIF support dosn't have compat_features
+              // e.g., AVIF support doesn't have compat_features
               groups["other"].add( feature );
             }
           }
@@ -506,15 +626,17 @@ Note that we intentionally do not include interpretations of the data here, as t
             if( group[1].size === 0 )
               continue;
 
-            detailsContent += "<h5>" + group[0] + "</h5>";
+            detailsContent += "<h5>" + group[0] + "</h5><ul>";
 
             for ( let feature of group[1] ) {
 
               // some feature's name is a valid HTML element tag... LOOKING AT YOU <detail>... urgh
               let name = feature.name.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
-              detailsContent += "<p><a href=\"https://caniuse.com/"+ feature.caniuse +"\" target=\"_blank\">" + name + "</a></p>";
+              detailsContent += "<li><a href=\"https://caniuse.com/"+ feature.caniuse +"\" target=\"_blank\">" + name + "</a></li>";
             }
+
+            detailsContent += "</ul>"
           }
 
           let textContainer = detailsContainer.getElementsByTagName("div")[0];
