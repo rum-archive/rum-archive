@@ -55,7 +55,7 @@ Note that we intentionally do not include interpretations of the data here, as t
     We count the percentage of page loads included in the RUM Archive on the first Tuesday of March 2024.
 
     <style>
-      .table.is-hoverable tbody tr:not(.is-selected):hover {
+      .table.is-hoverable tbody tr:not(.is-selected):hover, .clickable {
         cursor: pointer;
       }
     </style>
@@ -69,7 +69,7 @@ Note that we intentionally do not include interpretations of the data here, as t
               <thead>
                 <tr>
                   <th>Baseline year</th>
-                  <th>Supported by % of users (all - filtered)</th>
+                  <th>Supported by % of users of Tracked browsers <img class="clickable" onclick="showUsageDisclaimer('desktop')" src="/assets/question_mark.png" width="15px" /></th>
                 </tr>
               </thead>
               <tbody>
@@ -93,7 +93,7 @@ Note that we intentionally do not include interpretations of the data here, as t
               <thead>
                 <tr>
                   <th>Baseline year</th>
-                  <th>Supported by % of users (all - filtered)</th>
+                  <th>Supported by % of users of Tracked browsers <img class="clickable" onclick="showUsageDisclaimer('mobile')" src="/assets/question_mark.png" width="15px" /></th>
                 </tr>
               </thead>
               <tbody>
@@ -251,111 +251,137 @@ Note that we intentionally do not include interpretations of the data here, as t
     async function populateBaselineInfo() {
 
       let ua_data_raw = await fetch(DATA_BASE_URL + "recent_useragentversion_useragentfamily_devicetype.json");
-      let ua_data_full  = await ua_data_raw.json();
+      let ua_data     = await ua_data_raw.json();
 
       let web_features_raw = await fetch(DATA_BASE_URL + "web-features.json"); 
-      let web_features  = await web_features_raw.json();
-
-
-      console.log( ua_data_full );
-      // other options currently: 2022_09_06 and 2023_09_05
-      // but both have hard cutoffs on the year before apparently, if we require ALL features of a given year to be supported (logical since on september, few features would be supported)
-      // TODO: take the last tuesday of december instead for these things? 
-      let ua_data = ua_data_full.filter( (point) => point.date === "2024_03_05" ); 
+      let web_features     = await web_features_raw.json();
 
       console.log( ua_data, web_features );
-
-      /*
-      // determine what's actually in the dataset
-      let uasInFeatures = new Set();
-
-      for( let web_feature of Object.values(web_features) ) {
-        if ( web_feature && web_feature.status && web_feature.status.support && Object.keys(web_feature.status.support).length > 0 ) {
-          for ( let platform of Object.keys(web_feature.status.support) ){
-            uasInFeatures.add( platform );
-          }
-        }
-      } 
-
-      console.log( uasInFeatures );
-      */
 
       // we want to create a baseline list for desktop vs mobile (which is what web-features gives us)
       // web-features is limited to:
       // Desktop: chrome, edge, firefox, safari
       // Mobile: chrome_android, firefox_android, safari_ios
-      
+    
       // so we filter out the accompanying ones from the RUM-archive for now
-      let desktopUAs = ["Chrome", "Edge", "Firefox", "Safari"];
-      let mobileUAs = ["Firefox Mobile", "Chrome Mobile", "Chrome Mobile WebView", "Mobile Safari", "Mobile Safari UI/WKWebView" ];
-
-      // map from RUMArchive names to web-features names
+      // and map from RUMArchive names to web-features names to properly match
+      // there are some gotchas in here to get the actual versions right (e.g., for Samsung Internet and Chrome Mobile), see later
       let desktopUAMappings = {
         "Chrome": "chrome",
         "Edge": "edge",
         "Firefox": "firefox",
         "Safari": "safari",
+
+        "Samsung Internet": "chrome", // there is apparently a caveat with Linux, where Samsung Internet uses borked version numbers somehow?? Deal with that manually
+        "Opera": "chrome",
+
+        // "Chrome Mobile WebView": "chrome", // has some tiny presence on Desktop, probably bots etc. // best to not track though
       };
 
       let mobileUAMappings = {
+        "Chrome": "chrome_android", // on Android OS, it's categorized as "Chrome" instead of "Chrome Mobile" by RUM Archive
         "Chrome Mobile": "chrome_android",
         "Chrome Mobile WebView": "chrome_android",
+        "Firefox Mobile": "firefox_android",
+
         "Mobile Safari": "safari_ios",
         "Mobile Safari UI/WKWebView": "safari_ios",
-        "Firefox Mobile": "firefox_android",
+        "Chrome Mobile iOS": "safari_ios", // all browsers on iOS are actually webkit under the hood
+        "Firefox iOS": "safari_ios", // all browsers on iOS are actually webkit under the hood
+
+        // "Edge Mobile": "mixed_chrome_safari", // this is a weird one... shows up both on Android and iOS, and needs split handling, so separate category is needed
+
+        "Samsung Internet": "chrome_android",
+        "Opera": "chrome_android",
+        "Opera Mobile": "chrome_android",
       };
 
+      let thingsThatAreActuallyWebkit = ["Chrome Mobile iOS", "Firefox iOS"];
+
+      // create easy to use lookup arrays
+      let desktopUAs  = Object.keys(desktopUAMappings);
+      let mobileUAs   = Object.keys(mobileUAMappings);
+
+
+      // want to keep details on which User Agents are tracked and which usage % they represent to show in the UI later
       let unknownUAsWithCounts = {};
+      let knownUAsWithCounts = {};
 
       // to calculate percentages, need to know total beacon counts per platform for a given day
-      // we want two different running counts, 1 for the subset in desktopUAs and mobileUAs, and one for ALL browsers
+      // we want two different running counts, 1 for the Tracked browsers in desktopUAs and mobileUAs, and one for ALL browsers (including Untracked)
       let totalDesktopCount_subset = 0;
       let totalMobileCount_subset = 0;
       let totalDesktopCount_all = 0;
       let totalMobileCount_all = 0;
 
       for( let datapoint of ua_data ){
+
+        let uaName = datapoint.family;
+        let clientType = datapoint.client === "desktop" ? datapoint.client : "mobile"; // for mobile, we have both mobile and tablet in the RUMArchive, which need to be treated the same
+
+        let uaKey = clientType + "_" + uaName;
+        let dictionaryToUse = null;
+
         if ( datapoint.client === "desktop" ){
+          
+          // MANUAL OVERRIDE
+          // there is apparently a caveat with Linux, where Samsung Internet uses borked version numbers somehow?? Deal with that manually
+          if ( datapoint.family === "Samsung Internet" && datapoint.os === "Linux" ){
+            // normally, SI is tracked, but here we treat it as untracked
+            dictionaryToUse = unknownUAsWithCounts;
+            totalDesktopCount_all += datapoint.count; 
+            continue;
+          }
+
           if ( desktopUAs.includes(datapoint.family)  ) {
             totalDesktopCount_subset += datapoint.count;
+
+            dictionaryToUse = knownUAsWithCounts;
           }
           else {
-            let uaCount = unknownUAsWithCounts[ datapoint.client + "_" + datapoint.family ];
-            if ( !uaCount ){
-              uaCount = { ua: datapoint.client + "_" + datapoint.family, count: 0, osinfo: new Set() };
-              unknownUAsWithCounts[ datapoint.client + "_" + datapoint.family ] = uaCount;
-            }
-            
-            uaCount.count += datapoint.count;
-            uaCount.osinfo.add( datapoint.version + "@" + datapoint.os + "_" + datapoint.osversion );
+            dictionaryToUse = unknownUAsWithCounts;
           }
           
           totalDesktopCount_all += datapoint.count; 
         }
+        // for the purpose of Baseline, mobile and tablet are treated the same, 
+        // since they use the same browsers (e.g., Chrome iOS is the same on iPhone as iPad)
         else if ( datapoint.client === "mobile" || datapoint.client === "tablet" ){
-          // for the purpose of Baseline, mobile and tablet are treated the same, since they use the same browsers (e.g., Chrome iOS is the same on iPhone as iPad)
           if ( mobileUAs.includes(datapoint.family) ) {
             totalMobileCount_subset += datapoint.count;
+            dictionaryToUse = knownUAsWithCounts;
           }
           else {
-            let uaCount = unknownUAsWithCounts[ "mobile" + "_" + datapoint.family ];
-            if ( !uaCount ){
-              uaCount = { ua: "mobile" + "_" + datapoint.family, count: 0, osinfo: new Set() };
-              unknownUAsWithCounts[ "mobile" + "_" + datapoint.family ] = uaCount;
-            }
-            
-            uaCount.count += datapoint.count;
-            uaCount.osinfo.add( datapoint.version + "@" + datapoint.os + "_" + datapoint.osversion );
+            dictionaryToUse = unknownUAsWithCounts;
           }
           
           totalMobileCount_all += datapoint.count; 
         }
+
+        let uaTracker = dictionaryToUse[ uaKey ];
+        if ( !uaTracker ) {
+          uaTracker = { key: uaKey, ua: uaName, clientType: clientType, count: 0, osinfo: new Set() };
+          dictionaryToUse[ uaKey ] = uaTracker;
+        }
+        uaTracker.count += datapoint.count;
+        uaTracker.osinfo.add( datapoint.version + "@" + datapoint.os + "_" + datapoint.osversion );
       }
 
       console.log("Beacon Counts: (subset, all, diff)", totalDesktopCount_subset, totalDesktopCount_all, (totalDesktopCount_all - totalDesktopCount_subset), totalMobileCount_subset, totalMobileCount_all, (totalMobileCount_all - totalMobileCount_subset), ((totalMobileCount_all - totalMobileCount_subset)/totalMobileCount_all * 100).toFixed(2)  );
 
-      let allMobilePercentages = 0;
+      // calculate usage percentages for both known and unknown UAs
+      for( let uaEntry of Object.entries(knownUAsWithCounts) ) {
+        let ua = uaEntry[1];
 
+        if ( ua.ua.indexOf("desktop") >= 0 ) {
+          ua.percentage_raw = (ua.count / totalDesktopCount_all) * 100;
+          ua.percentage = ua.percentage_raw.toFixed(4) + "%";
+        }
+        else {
+          ua.percentage_raw = (ua.count / totalMobileCount_all) * 100;
+          ua.percentage = ua.percentage_raw.toFixed(4) + "%";
+        }
+      }
       for( let uaEntry of Object.entries(unknownUAsWithCounts) ) {
         let ua = uaEntry[1];
 
@@ -364,16 +390,22 @@ Note that we intentionally do not include interpretations of the data here, as t
           ua.percentage = ua.percentage_raw.toFixed(4) + "%";
         }
         else {
-          allMobilePercentages += (ua.count / totalMobileCount_all);
           ua.percentage_raw = (ua.count / totalMobileCount_all) * 100;
           ua.percentage = ua.percentage_raw.toFixed(4) + "%";
         }
       }
-      console.log("allMobilePercentagesSum", allMobilePercentages);
 
+      knownUAsWithCounts = Object.values(knownUAsWithCounts).sort( (a,b) => b.percentage_raw - a.percentage_raw ).map( (a) => { a.osinfo = Array.from(a.osinfo); return a; } );
       unknownUAsWithCounts = Object.values(unknownUAsWithCounts).sort( (a,b) => b.percentage_raw - a.percentage_raw ).map( (a) => { a.osinfo = Array.from(a.osinfo); return a; } );
 
+      console.log("Known UAs with counts:", knownUAsWithCounts);
       console.log("Unknown UAs with counts:", unknownUAsWithCounts);
+
+      // use a global to make this easily accessible from showUsageDisclaimer
+      // TODO: refactor global use ;) 
+      window.uas = {};
+      window.uas.known = knownUAsWithCounts;
+      window.uas.unknown = unknownUAsWithCounts;
 
       // 1. per year, we need a list of features that were added to the baseline in that year with links (that's easy though)
       // 2. per year, we need a total COUNT of how many beacons belong to browsers whose version were >= versions that started to support that feature
@@ -446,14 +478,25 @@ Note that we intentionally do not include interpretations of the data here, as t
 
                 let webFeatureUAVersion = webFeature.status.support[ uamappings[datapoint.family] ];
                 if ( webFeatureUAVersion ) {
-                    // parseInt on e.g., "16.7" rounds down to 16, which is what we generally want :) 
-                    // this only matters for Safari; others increment their full version, but safari has decimal subversions
-                    // But RUM Archive doesn't track Safari's subversions currently, so rounding down is the best approach here
-                    let baselineVersionInt = parseInt(webFeatureUAVersion, 10);
-                    let rumArchiveVersionInt = parseInt(datapoint.version, 10);
+                    let rumArchiveVersionRaw = datapoint.version;
 
-                    if ( rumArchiveVersionInt < baselineVersionInt ) {  
-                      // console.warn("Feature was too new!", year, uamappings[datapoint.family], rumArchiveVersionInt, "<", baselineVersionInt, webFeature.name, (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100 );
+                    // some browsers have their own version numbers, but are actually something else under the hood
+                    // this is mainly iOS browsers, which map to their WebKit versions defined by the OS version rather than the browser version
+                    // i.e., Chrome Mobile v122 on iOS 17.3 should ACTUALLY be counted as Safari 17.3 
+                    // so we use the OSVersion for those type of browser instead
+                    if( (datapoint.client === "mobile" || datapoint.client === "tablet") && thingsThatAreActuallyWebkit.includes(datapoint.family) ){
+                      rumArchiveVersionRaw = datapoint.osversion;
+                      // console.error("DEBUG: MAPPING WEBKIT MANUALLY", datapoint.family, datapoint.version, datapoint.osversion );
+                    }
+
+                    // Safari has subversions as part of the version string (i.e., 16.7)
+                    // all other browsers only have integer versions
+                    // just using a parse to float should work on both types (integers will just get .0)
+                    let baselineVersionFloat = parseFloat(webFeatureUAVersion, 10);
+                    let rumArchiveVersionFloat = parseFloat(datapoint.version, 10);
+
+                    if ( rumArchiveVersionFloat < baselineVersionFloat ) {  
+                      console.warn("Feature was too new!", year, datapoint.family, datapoint.os, uamappings[datapoint.family], rumArchiveVersionFloat, "<", baselineVersionFloat, webFeature.name, (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100 );
                       passesAll = false;
                       break; // we already know we failed, so we can do an early exit 
                     }
@@ -485,13 +528,13 @@ Note that we intentionally do not include interpretations of the data here, as t
           if ( baselineResult.clients[0] === "mobile" ) {
             percentage_raw = ((counts/totalMobileCount_all) * 100);
             percentage_all = ((counts/totalMobileCount_all) * 100).toFixed(2);
-            console.log("ALL ", year, counts, "out of", totalMobileCount_all, "=", percentage_all );
+            console.log(baselineResult.clients[0] + " - ALL ", year, counts, "out of", totalMobileCount_all, "=", percentage_all );
             // console.error("MOBILE CHOSEN!");
           }
           else {
             percentage_raw = ((counts/totalDesktopCount_all) * 100);
             percentage_all = ((counts/totalDesktopCount_all) * 100).toFixed(2);
-            console.log("ALL ", year, counts, "out of", totalDesktopCount_all, "=", percentage_all );
+            console.log(baselineResult.clients[0] + " - ALL ", year, counts, "out of", totalDesktopCount_all, "=", percentage_all );
           }
 
           console.log("Subset ", year, counts, "out of", baselineResult.totalCount, "=", percentage_subset );
@@ -508,7 +551,9 @@ Note that we intentionally do not include interpretations of the data here, as t
 
 
           yearCell.innerHTML = "" + year;
-          resultCell.innerHTML = "" + percentage_all + "% - " + percentage_subset + "% (" + ( (((counts/baselineResult.totalCount) * 100) / percentage_raw).toFixed(2) + ")" );
+          // resultCell.innerHTML = "" + percentage_all + "% - " + percentage_subset + "% (" + ( (((counts/baselineResult.totalCount) * 100) / percentage_raw).toFixed(2) + ")" );
+          resultCell.style = "text-align: center;";
+          resultCell.innerHTML = "" + percentage_subset + "%";
         }
 
         outputTable.addEventListener("click", (evt) => {
@@ -542,8 +587,6 @@ Note that we intentionally do not include interpretations of the data here, as t
 
           let detailsContainer = document.getElementById("baseline_"+ baselineResult.clients[0] +"_details");
           detailsContainer.getElementsByTagName("h4")[0].textContent = "Details for Baseline " + year;
-
-          console.log("DEBUG");
 
           let detailsContent = "If you target the following Web features for "+year+"'s Baseline, <b>" + percentage + "%</b> of "+ baselineResult.clients[0] +" users in the RUM Archive for the main browsers would benefit:<br /><br />";
 
@@ -649,5 +692,83 @@ Note that we intentionally do not include interpretations of the data here, as t
 
     populateBaselineInfo();
 
+
+</script>
+
+<script>
+
+    function showUsageDisclaimer(clientType) {
+      // make sure any currently selected rows in the output table is deselected
+
+      let featuresTable = document.getElementById("baseline_"+ clientType +"_table").getElementsByTagName('tbody')[0];
+      
+      // make sure old element is deselected
+      const currentlySelected = featuresTable.getElementsByClassName("is-selected");
+      for ( let cs of currentlySelected ) {
+        cs.classList.remove("is-selected");
+      }
+
+      let detailsContainer = document.getElementById("baseline_"+ clientType +"_details");
+      detailsContainer.getElementsByTagName("h4")[0].textContent = "Disclaimer about usage tracking";
+
+      let percentage_noise = 0.0;
+      let unknownText = "";
+      let knownText = "";
+
+      for ( let ua of window.uas.unknown ) {
+        if ( ua.clientType !== clientType )
+          continue;
+
+        percentage_noise += ua.percentage_raw;
+
+        unknownText += `<li> ${ua.ua} : ${ ua.percentage_raw.toFixed(4) }% (${ ua.count} beacons) </li>`;
+      }
+
+      for ( let ua of window.uas.known ) {
+        if ( ua.clientType !== clientType )
+          continue;
+
+        knownText += `<li> ${ua.ua} : ${ ua.percentage_raw.toFixed(4) }% (${ ua.count} beacons) </li>`;
+      }
+
+      let detailsText = 
+          `<p>
+              We do not track feature support for every browser/User Agent. Some browsers are too old, or the information is not public, 
+              or they are bots/attack traffic, which is present in the RUM data but impossible to verify. 
+            </p>
+
+            <p>
+              The main results displayed in this table intentionally only take into account the tracked/known browsers. 
+              For example, if the table shows 100% baseline support, this means 100% of the Tracked browsers support the baseline, not taking into account unknown User Agents.
+            </p>
+            <p>
+              For the current date, the unknown User Agents account for <b>${ percentage_noise.toFixed(2) }%</b> of total ${clientType} beacons seen.
+              Below you can find a detailed list of the usage share of each User Agent (both Tracked and Untracked).
+            </p>
+           `;
+
+        for ( let ua of window.uas.unknown ) {
+          if ( ua.clientType === clientType )
+            percentage_noise += ua.percentage_raw;
+        }
+
+        detailsText += `
+          <details>
+            <summary>Untracked User Agents for ${clientType}</summary>
+            <ul>${unknownText}</ul>
+            <p>Note: some of these User Agents might seem at first glance like they could be tracked (e.g., named after one of the main browsers), 
+              but these often show up in impossible combinations (e.g., Chrome Mobile on Windows Desktop) and are likely bots that we intentionally exclude.
+          </details>
+          <br />
+          <details>
+            <summary>Tracked User Agents for ${clientType}</summary>
+            <ul>${knownText}</ul>
+          </details>
+        `;
+     
+
+      let textContainer = detailsContainer.getElementsByTagName("div")[0];
+      textContainer.innerHTML = detailsText;
+    }
 
 </script>
