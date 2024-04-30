@@ -50,9 +50,23 @@ Note that we intentionally do not include interpretations of the data here, as t
       </div>
     </div>  
 
-    <h2>Web Features Baseline Overview</h2>
+    <h2>Web Features Baseline Support</h2>
 
-    We count the percentage of page loads included in the RUM Archive on the first Tuesday of March 2024.
+    <p>
+      The <a href="https://web.dev/baseline">Web Platform Baseline project</a> aims to track 
+      when exactly Web features became available in <b>ALL</b> the three main browser engines (Blink, WebKit and Gecko), grouped by year.
+      This is important since not all browsers implement all features at the same time; 
+      using cutting edge feature X on browser A might mean you leave some of your users on browser B out in the cold (or having to implement a costly fallback).
+
+    </p>
+
+    <p>
+      However, you also don't want to only use features from Baseline 2015, "just to be safe". 
+      In practice, you want to utilize features that <b>most of your users</b> will benefit from.
+      To help you figure out which features those are and which Baseline year you should target, 
+      below we show how many global visitors observed by the RUM Archive <b>on the first Tuesday of April 2024</b> 
+      had support for ALL the features in a particular Baseline year.
+    </p>
 
     <style>
       .table.is-hoverable tbody tr:not(.is-selected):hover, .clickable {
@@ -302,7 +316,6 @@ Note that we intentionally do not include interpretations of the data here, as t
       let desktopUAs  = Object.keys(desktopUAMappings);
       let mobileUAs   = Object.keys(mobileUAMappings);
 
-
       // want to keep details on which User Agents are tracked and which usage % they represent to show in the UI later
       let unknownUAsWithCounts = {};
       let knownUAsWithCounts = {};
@@ -335,7 +348,6 @@ Note that we intentionally do not include interpretations of the data here, as t
 
           if ( desktopUAs.includes(datapoint.family)  ) {
             totalDesktopCount_subset += datapoint.count;
-
             dictionaryToUse = knownUAsWithCounts;
           }
           else {
@@ -344,6 +356,7 @@ Note that we intentionally do not include interpretations of the data here, as t
           
           totalDesktopCount_all += datapoint.count; 
         }
+
         // for the purpose of Baseline, mobile and tablet are treated the same, 
         // since they use the same browsers (e.g., Chrome iOS is the same on iPhone as iPad)
         else if ( datapoint.client === "mobile" || datapoint.client === "tablet" ){
@@ -439,10 +452,11 @@ Note that we intentionally do not include interpretations of the data here, as t
         baselineFeaturesPerYear["" + year] = yearFeatures;
       }
 
-      console.log( "Baseline features per year:", baselineFeaturesPerYear );
+      console.log("2015 Features", baselineFeaturesPerYear["2015"].map( b => b.status.support ));
+      console.log("2016 Features", baselineFeaturesPerYear["2016"].map( b => b.status.support ));
 
       // 2.
-      for( let baselineEntry of baselineResults ) {
+      for( let baselineEntry of baselineResults ) { // desktop vs mobile
         const clients = baselineEntry.clients;
         const uas = baselineEntry.uas;
         const uamappings = baselineEntry.uamappings;
@@ -460,6 +474,7 @@ Note that we intentionally do not include interpretations of the data here, as t
           // so we just loop over each version for each browser for each client type, and for each check if it's >= the year's expected versions for each webFeature
 
           for( let datapoint of ua_data ){
+
             if ( clients.includes(datapoint.client) && uas.includes(datapoint.family) ) {
               let version = datapoint.version;
 
@@ -469,7 +484,6 @@ Note that we intentionally do not include interpretations of the data here, as t
               // so: just check if we pass the version check for all of the webFeatures and only then add it to the resultsPerYear
 
               let passesAll = true; // assume yes
-
               for( let webFeature of featuresForCurrentYear ) {
                 
                 if( !webFeature.status ) {
@@ -478,28 +492,29 @@ Note that we intentionally do not include interpretations of the data here, as t
 
                 let webFeatureUAVersion = webFeature.status.support[ uamappings[datapoint.family] ];
                 if ( webFeatureUAVersion ) {
-                    let rumArchiveVersionRaw = datapoint.version;
+                  let rumArchiveVersionRaw = datapoint.version;
 
-                    // some browsers have their own version numbers, but are actually something else under the hood
-                    // this is mainly iOS browsers, which map to their WebKit versions defined by the OS version rather than the browser version
-                    // i.e., Chrome Mobile v122 on iOS 17.3 should ACTUALLY be counted as Safari 17.3 
-                    // so we use the OSVersion for those type of browser instead
-                    if( (datapoint.client === "mobile" || datapoint.client === "tablet") && thingsThatAreActuallyWebkit.includes(datapoint.family) ){
-                      rumArchiveVersionRaw = datapoint.osversion;
-                      // console.error("DEBUG: MAPPING WEBKIT MANUALLY", datapoint.family, datapoint.version, datapoint.osversion );
-                    }
+                  // some browsers have their own version numbers, but are actually something else under the hood
+                  // this is mainly iOS browsers, which map to their WebKit versions defined by the OS version rather than the browser version
+                  // i.e., Chrome Mobile v122 on iOS 17.3 should ACTUALLY be counted as Safari 17.3 
+                  // so we use the OSVersion for those type of browser instead
+                  if( (datapoint.client === "mobile" || datapoint.client === "tablet") && thingsThatAreActuallyWebkit.includes(datapoint.family) ){
+                    rumArchiveVersionRaw = datapoint.osversion;
+                    // console.error("DEBUG: MAPPING WEBKIT MANUALLY", datapoint.family, datapoint.version, datapoint.osversion );
+                  }
 
-                    // Safari has subversions as part of the version string (i.e., 16.7)
-                    // all other browsers only have integer versions
-                    // just using a parse to float should work on both types (integers will just get .0)
-                    let baselineVersionFloat = parseFloat(webFeatureUAVersion, 10);
-                    let rumArchiveVersionFloat = parseFloat(datapoint.version, 10);
+                  // Safari has subversions as part of the version string (i.e., 16.7)
+                  // all other browsers only have integer versions
+                  // just using a parse to float should work on both types (integers will just get .0)
+                  let baselineVersionFloat = parseFloat(webFeatureUAVersion, 10);
+                  let rumArchiveVersionFloat = parseFloat(rumArchiveVersionRaw, 10);
 
-                    if ( rumArchiveVersionFloat < baselineVersionFloat ) {  
-                      console.warn("Feature was too new!", year, datapoint.family, datapoint.os, uamappings[datapoint.family], rumArchiveVersionFloat, "<", baselineVersionFloat, webFeature.name, (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100 );
-                      passesAll = false;
-                      break; // we already know we failed, so we can do an early exit 
-                    }
+                  if ( rumArchiveVersionFloat < baselineVersionFloat ) {  
+                    // console.warn("Feature was too new!", year, datapoint.family, datapoint.os, uamappings[datapoint.family], rumArchiveVersionFloat, "<", baselineVersionFloat, webFeature.name, (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100 );
+        
+                    passesAll = false;
+                    break; // we already know we failed, so we can do an early exit 
+                  }
                 }
                 else {
                   console.error("SANITY CHECK: current ua not known in web-features...", datapoint.family, uamappings[datapoint.family], webFeature.status.support );
@@ -515,8 +530,6 @@ Note that we intentionally do not include interpretations of the data here, as t
       }
 
       for( let baselineResult of baselineResults ) {
-        console.log("For ", baselineResult.client );
-
         let outputTable = document.getElementById("baseline_"+ baselineResult.clients[0] +"_table").getElementsByTagName('tbody')[0];
 
         for ( let year of Object.keys(baselineResult.yearCounts) ) {
@@ -570,8 +583,10 @@ Note that we intentionally do not include interpretations of the data here, as t
             row = evt.target.parentNode;
           }
 
-          if ( !yearPercent ) // can't find the baseline-year... nothing left to do
+          if ( !yearPercent ){ // can't find the baseline-year... nothing left to do
+            console.error("outputTable:click : can't find the baseline-year... can't proceed", evt.target, evt.target.getAttribute("baseline-year"), evt);
             return;
+          }
           
           // make sure old element is deselected
           const currentlySelected = outputTable.getElementsByClassName("is-selected");
@@ -588,7 +603,36 @@ Note that we intentionally do not include interpretations of the data here, as t
           let detailsContainer = document.getElementById("baseline_"+ baselineResult.clients[0] +"_details");
           detailsContainer.getElementsByTagName("h4")[0].textContent = "Details for Baseline " + year;
 
-          let detailsContent = "If you target the following Web features for "+year+"'s Baseline, <b>" + percentage + "%</b> of "+ baselineResult.clients[0] +" users in the RUM Archive for the main browsers would benefit:<br /><br />";
+          if ( parseInt(year) <= 2022 ) {
+            console.error("YEAR BELOW : Let's GO!", year);
+            // at the time of writing, we only have full features for 2023 and 2024
+            // as such, for anything 2022 and below, we still want to show the percentages, but not the individual feature lists, because they're incomplete
+
+            let detailsContent = `
+              <p>
+                For the users represented in the RUM Archive, <b>${percentage}%</b> of ${baselineResult.clients[0]} visitors used a 
+                browser versions released after January 1st ${parseInt(year) + 1}, meaning they should support all features in Baseline ${year} and below. 
+              </p>
+              <p>
+                For the time being, we do not have a full list of features for Baseline ${year}. 
+                This is because we are dependent on the <a href="https://github.com/web-platform-dx/web-features">Feature Set Project</a>, 
+                which is still hard at work backfilling the details for years prior to 2023.
+              </p>
+              <p>
+                For now, select 2023 or 2024 for more in-depth info on which features are included in those Baselines. 
+                Check back here later for more details for earlier years as they become available. 
+              </p>
+            `;
+
+            let textContainer = detailsContainer.getElementsByTagName("div")[0];
+            textContainer.innerHTML = detailsContent;
+
+            console.error("YEAR BELOW : Let's GO!", textContainer);
+
+            return;
+          }
+
+          let detailsContent = "If you target the following Web features for "+year+"'s Baseline, <b>" + percentage + "%</b> of "+ baselineResult.clients[0] +" users in the RUM Archive for the Tracked browsers would benefit:<br /><br />";
 
           // we want to group compat features by type (CSS, JS, HTML, API, Other)
           let groups = {
@@ -602,8 +646,6 @@ Note that we intentionally do not include interpretations of the data here, as t
           };
 
           for ( let feature of baselineFeaturesPerYear[year] ) {
-            console.log("feature", feature);
-
             let compat_features = feature.compat_features;
             if( compat_features ){
 
@@ -640,6 +682,11 @@ Note that we intentionally do not include interpretations of the data here, as t
                 else {
                   guessedGroup = "other";
                 }
+              }
+
+              if ( !Object.keys(groups).includes(guessedGroup) ) {
+                console.warn("New feature group found that we didn't know about yet! Putting it as 'other' for now", guessedGroup, feature);
+                guessedGroup = "other";
               }
 
               groups[guessedGroup].add( feature );
@@ -712,6 +759,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       detailsContainer.getElementsByTagName("h4")[0].textContent = "Disclaimer about usage tracking";
 
       let percentage_noise = 0.0;
+      let percentage_tracked = 0.0;
       let unknownText = "";
       let knownText = "";
 
@@ -728,22 +776,28 @@ Note that we intentionally do not include interpretations of the data here, as t
         if ( ua.clientType !== clientType )
           continue;
 
+        percentage_tracked += ua.percentage_raw;
+
         knownText += `<li> ${ua.ua} : ${ ua.percentage_raw.toFixed(4) }% (${ ua.count} beacons) </li>`;
       }
+
+      percentage_tracked = 100 - percentage_noise; // TODO: do this proper, now just to be easier to review!!!
 
       let detailsText = 
           `<p>
               We do not track feature support for every browser/User Agent. Some browsers are too old, or the information is not public, 
-              or they are bots/attack traffic, which is present in the RUM data but impossible to verify. 
+              or they are bots/attacker traffic, which is present in the RUM Archive data but impossible to automatically filter out. 
+              The main results displayed in this table intentionally only take into account the tracked/known browsers and ignore the rest. 
+            </p>
+            <p>
+              For the current date, the unknown browsers account for <b>${ percentage_noise.toFixed(2) }%</b> of total ${clientType} beacons seen.
+              This means that ${percentage_tracked.toFixed(2)}% of all RUM beacons belongs to a tracked browser. 
+              Put differently, if the table on the left shows 100% baseline support, it means that ${percentage_tracked.toFixed(2)}% of all the considered 
+              RUM Archive beacons were from browser types and versions that had support for those Baseline features.
             </p>
 
             <p>
-              The main results displayed in this table intentionally only take into account the tracked/known browsers. 
-              For example, if the table shows 100% baseline support, this means 100% of the Tracked browsers support the baseline, not taking into account unknown User Agents.
-            </p>
-            <p>
-              For the current date, the unknown User Agents account for <b>${ percentage_noise.toFixed(2) }%</b> of total ${clientType} beacons seen.
-              Below you can find a detailed list of the usage share of each User Agent (both Tracked and Untracked).
+              Below you can find a detailed list of the usage share of each browser (both Tracked and Untracked).
             </p>
            `;
 
