@@ -316,7 +316,9 @@ Note that we intentionally do not include interpretations of the data here, as t
         "Firefox": "firefox",
         "Safari": "safari",
 
-        "Samsung Internet": "chrome", // there is apparently a caveat with Linux, where Samsung Internet uses borked version numbers somehow?? Deal with that manually
+        // there is apparently a caveat with Linux, where Samsung Internet uses borked version numbers somehow?? Deal with that manually
+        // TODO: just remove this entirely, since it's not supposed to be on Desktop (and non-linux has only 11 beacons in the initial dataset...)
+        "Samsung Internet": "chrome",
         "Opera": "chrome",
 
         // "Chrome Mobile WebView": "chrome", // has some tiny presence on Desktop, probably bots etc. // best to not track though
@@ -884,7 +886,17 @@ Note that we intentionally do not include interpretations of the data here, as t
 
         percentage_noise += ua.percentage_raw;
 
-        unknownText += `<li> ${ua.ua} : ${ ua.percentage_raw.toFixed(4) }% (${ ua.count} beacons) </li>`;
+        let uaName = ua.ua;
+
+        // FB and Insta are Tracked for iOS but not for Android at this point. Make this clearer, as they are in both lists ;) 
+        if ( clientType === "mobile" && uaName === "Facebook" ) {
+          uaName = "Facebook (Android)";
+        }
+        else if ( clientType === "mobile" && uaName === "Instagram" ) {
+          uaName = "Instagram (Android)";
+        }
+
+        unknownText += `<li> ${uaName} : ${ ua.percentage_raw.toFixed(4) }% (${ ua.count} beacons) </li>`;
       }
 
       for ( let ua of window.uas.known ) {
@@ -893,7 +905,17 @@ Note that we intentionally do not include interpretations of the data here, as t
 
         percentage_tracked += ua.percentage_raw;
 
-        knownText += `<li> ${ua.ua} : ${ ua.percentage_raw.toFixed(4) }% (${ ua.count} beacons) </li>`;
+        let uaName = ua.ua;
+
+        // FB and Insta are Tracked for iOS but not for Android at this point. Make this clearer, as they are in both lists ;) 
+        if ( clientType === "mobile" && uaName === "Facebook" ) {
+          uaName = "Facebook (iOS)";
+        }
+        else if ( clientType === "mobile" && uaName === "Instagram" ) {
+          uaName = "Instagram (iOS)";
+        }
+
+        knownText += `<li> ${uaName} : ${ ua.percentage_raw.toFixed(4) }% (${ ua.count} beacons) </li>`;
       }
 
       // TODO: for mobile, 100 - percentage_noise is exactly equal to percentage_tracked
