@@ -40,6 +40,9 @@ $link: $green;
 @import "../../node_modules/bulma/sass/helpers/spacing.sass";
 @import "../../node_modules/bulma/sass/helpers/typography.sass";
 
+@import "../../node_modules/bulma/sass/form/shared.sass";
+@import "../../node_modules/bulma/sass/form/select.sass";
+
 // Full import:
 // @import "../../node_modules/bulma/bulma";
 

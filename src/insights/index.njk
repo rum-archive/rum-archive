@@ -60,7 +60,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
     <p>
       The following charts show the usage of different Browsers / User Agents for Desktop and Mobile devices (entries with &lt; 1% usage share have been filtered out). 
-      The data shown is from February 6th 2024. 
+      The data shown is from March 5th 2024. 
     </p> 
 
     <div class="columns box">
@@ -69,43 +69,29 @@ Note that we intentionally do not include interpretations of the data here, as t
       <div class="column" id="marketshare_browser_mobile">
       </div>
     </div>
-    <!--
-    <div class="columns box">
-      <div class="column" id="marketshare_browsergrouped_desktop">
-      </div>
-      <div class="column" id="marketshare_browsergrouped_mobile">
-      </div>
-    </div>
-
     
-    <p class="pt-5">
-      For Web Performance, the so-called "Core Web Vitals" (CWVs) are key metrics. 
-      One of these CWVs is the "Largest Contentful Paint", which measures when the main element on a page (a large image or piece of text) is shown on the screen.
+  <h3 id="ua-version-marketshare">Browser Versions</h3>
+
+    <p>
+      The following chart shows the usage of different versions of popular Browsers / User Agents for Desktop and Mobile devices. Use the dropdown to select a browser and platform. Note that User Agent parsing is done using the <a href="https://github.com/ua-parser/uap-core">ua-parser</a> library.
     </p> 
     <p>
-      However, not all browsers support measuring the CWVs; only Chromium-based browsers currently have full implementations. 
-      Interestingly, <a href="https://developer.chrome.com/docs/crux/methodology/#user-eligibility">this excludes browsers like Chrome Mobile on iOS</a>, 
-      as internally that is actually based on Apple's browser stack called WebKit (as Apple notoriously does not allow other browser stacks on iOS).
+      The data points shown are from the first and third Tuesdays of every month. 
     </p> 
-    <p>
-      Additionally, Google uses their own measurements of the CWV to drive search result ranking in a project called the <a href"https://developer.chrome.com/docs/crux/">Chrome UX report (CrUX)</a>. 
-      The CrUX dataset is even more restrictive: it only uses CWV measurements from Google-owned browsers on supported platforms (mainly Chrome on Desktop and Android) and only from users who opt-in.
-      As such, CrUX potentially gives an incomplete or even unrealistic view of the CWV metrics in the wild.
-    </p> 
-    <p>
-      In the following diagrams, we aim to illustrate the market share of CWV-capable browsers, as well as the market share of browsers contributing to the CrUX dataset. 
-    </p> 
-    <p class="pb-5">
-      On a final important note, the RUMArchive dataset does include (a small amount of) CWV measurements for browsers that don't actually support it (like Safari). 
-      This is most likely due to bots, attackers or debugging setups that spoof the user agent info that RUM Archive tracks. As such, a small amount of noise is to be taken into account when interpreting these results. 
-    </p> 
-    <div class="columns box">
-      <div class="column" id="marketshare_cwvbrowser_desktop">
+
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half control" style="text-align: center; vertical-align: middle;">
+          <!-- <label class="label" for="marketshare_browser_version_select">Select browser:</label> -->
+          <div class="select">
+            <select id="marketshare_browser_version_select">
+            </select>
+          </div>
+        </div>
       </div>
-      <div class="column" id="marketshare_cwvbrowser_mobile">
+      <div id="marketshare_browser_version" class="box">
       </div>
-    </div>
-    -->
+    </div>  
 
   <h2 id="navigation-aspects">Navigational Aspects</h2>
 
@@ -115,7 +101,7 @@ Note that we intentionally do not include interpretations of the data here, as t
     </p>
 
     <p>
-      The data shown is from February 6th 2024.
+      The data shown is from March 5th 2024.
     </p>
 
     <h3 id="navigationtype-aspect">Navigation Types</h3>
@@ -208,69 +194,13 @@ Note that we intentionally do not include interpretations of the data here, as t
 
     // import HighCharts from "/js/charts/timeseries.js";
 
+    import { Constants } from "/js/charts/constants.js";
     import * as TimeSeries from "/js/charts/timeseries.js"; 
     import * as Donuts from "/js/charts/donuts.js";
     import * as Area from "/js/charts/area.js";
 
     // 3 colors with good contrast, since we often have piecharts with exactly 2 or 3 entries
     const piecolors = [ TimeSeries.Colors.RUMARCHIVE_MAIN[0], TimeSeries.Colors.RUMARCHIVE_MAIN[1], TimeSeries.Colors.RUMARCHIVE_SECONDARY[5] ];
-
-    const FORCE_EXTERNAL_DATA = false;
-    let DATA_BASE_URL = "https://raw.githubusercontent.com/rum-archive/rum-insights-data/main/data-output/";
-
-    if ( window.location.href.includes("localhost") && !FORCE_EXTERNAL_DATA ) {
-      // allow for easy local testing
-      // launch a basic python http server in the rum-insights-data dir with `python3 -m http.server 9000`
-      DATA_BASE_URL = "http://localhost:9000/data-output/";
-    }
-
-      {# async function renderDeviceTypeTimeseries() {
-        try {
-          const metricFieldName = "device";
-
-          let response = await fetch(DATA_BASE_URL + "devicetype.json");
-          let rumarchiveData = await response.json();
-        
-          rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.percent) > 1) );
-
-          const options = {};
-          options.chartId = "marketshare_devicetypes";
-          options.histogram = { enabled: false };
-          options.metric = metricFieldName;
-
-          // need to give the graphing setup a list of timeseries, each with their own data and color
-          // we want to generate these automatically from the data
-          // 1. extract individual metricFieldValues (e.g., extract all individual device types)
-          let metricValues = new Set();
-          for ( let row of rumarchiveData )
-            metricValues.add( row[metricFieldName] );
-
-          options.timeseries = [];
-          for ( let metricValue of metricValues ) {
-            let timeSerie = {
-              name: metricValue,
-              data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
-              fields: ["percent"],
-              color: (metricValue === "Desktop") ? TimeSeries.Colors.DESKTOP : ( (metricValue === "Mobile") ? TimeSeries.Colors.MOBILE : TimeSeries.Colors.TABLET )
-            };
-
-            options.timeseries.push( timeSerie );
-          }
-
-          options.type = "%";
-
-          options.id = "device";
-          options.name = "Device Type";
-
-          options.yMax = 100;
-
-          TimeSeries.fromData(rumarchiveData, metricFieldName, options, rumarchiveData[0].date, rumarchiveData[rumarchiveData.length - 1].date );
-        }
-        catch(e) {
-          console.error(e);
-          return;
-        }
-    } #}
     
     // returns e.g., "2023_12_01"
     function findLastDate(dataPoints) {
@@ -280,8 +210,8 @@ Note that we intentionally do not include interpretations of the data here, as t
         return dataPoints[ dataPoints.length - 1].date;
       }
       else {
-        console.error("findLastDate: no 'date' property found on dataPoints, defaulting to 2023_12_01!", dataPoints);
-        return "2023_12_01";
+        console.error("findLastDate: no 'date' property found on dataPoints, defaulting to 2024_03_05!", dataPoints);
+        return "2024_03_05";
       }
     }
 
@@ -318,8 +248,9 @@ Note that we intentionally do not include interpretations of the data here, as t
     async function renderOSTimeseries(clientType, chartId, chartName) {
         try {
           const metricFieldName = "os";
+          const queryName = "os_devicetype";
 
-          let response = await fetch(DATA_BASE_URL + "os_devicetype.json");
+          let response = await fetch( Constants.getDataURL(queryName) );
           let rumarchiveData = await response.json();
         
           rumarchiveData = rumarchiveData.filter( datapoint => (datapoint.client === clientType) && (parseFloat(datapoint.percent) > 0.5) );
@@ -328,6 +259,7 @@ Note that we intentionally do not include interpretations of the data here, as t
           options.chartId = chartId;
           options.histogram = { enabled: false };
           options.metric = metricFieldName;
+          options.queryURL = Constants.getQueryURL(queryName);
 
           // need to give the graphing setup a list of timeseries, each with their own data and color
           // we want to generate these automatically from the data
@@ -374,7 +306,9 @@ Note that we intentionally do not include interpretations of the data here, as t
 
       const metricFieldName = "useragent";
 
-      let response = await fetch(DATA_BASE_URL + "LCPCount_useragentfamily_" + clientType + ".json");
+      const queryName = "LCPCount_useragentfamily_" + clientType;
+
+      let response = await fetch( Constants.getDataURL(queryName) );
       let rumarchiveData = await response.json();
 
       // this data is a bit different:
@@ -401,6 +335,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
       options.chartId = chartId;
       options.name = chartName;
+      options.queryURL = Constants.getQueryURL(queryName);
 
       options.datapoints = datapoints;
       options.datapointFieldname = "useragentpercent";
@@ -411,6 +346,115 @@ Note that we intentionally do not include interpretations of the data here, as t
 
     renderBrowserPiechart("desktop", "marketshare_browser_desktop", "Desktop browsers");
     renderBrowserPiechart("mobile", "marketshare_browser_mobile", "Mobile browsers");
+
+
+    // Start: browser version select
+    // This one is a bit different, in that we need to manually select a slicing of the data and make it update-able
+    // to keep track of which one is currently selected, we use a global variable just to make it easy to access
+    // (instead of having to go to the <select> with DOM every time)
+
+    // we first load the data to be able to populate the <select> and auto-select the first one
+    // NOTE: we rely on the data to be cached in the browser to prevent fetching again in TimeSeries.fromDataWithDefaults when the user changes selection!
+    let GLOBAL_selectedUserAgent = "";
+
+    async function loadUserAgentSelectOptions() {
+
+      let response = await fetch( Constants.getDataURL("useragentversion_useragentfamily_devicetype") );
+      let rumarchiveData = await response.json();
+    
+      // The raw data includes bots/outliers, meaning unexpected browsers show up for some platforms
+      // for example, we have some dozens of page loads for "Chrome Mobile iOS" on desktop, which doesn't make sense
+      // I manually went through all the platform + family combinations to see which had proper marketshare
+      // the ones below do not, so we filter them here
+      // Note: even on Mobile, Opera Mini has a tiny marketshare, so we skip it alltogether
+      // TODO: this should probably happen during the processing step of the data in rum-insights-data instead :) 
+      let skipSet = [];
+      skipSet["desktop"] = [
+        "Firefox Mobile",
+        "Opera Mini",
+        "Chrome Mobile WebView",
+        "Chrome Mobile",
+        "Chrome Mobile iOS",
+        "Facebook",
+      ];
+      skipSet["mobile"] = [
+        "Chrome",
+        "Opera Mini",
+        "Edge",
+        "Safari",
+      ];
+
+      // need to extract the unique useragentfamily_devicetype values we have available
+      // since browser names (.family) are not unique across platforms, we include the platform (.client) in the option ID
+      // e.g., will be mobile_chrome
+      let useragents = new Set();
+      for( let row of rumarchiveData ) {
+        // for now, we're not interested in Tablet numbers specifically, so leave them out 
+        if( row.client === "tablet")
+          continue;
+        
+        // skip browser if it's in the skipset manually defined above
+        if ( skipSet[row.client].indexOf(row.family) >= 0 )
+          continue;
+
+        useragents.add( row.client + "_" + row.family );
+      }
+
+      useragents = Array.from( useragents ).sort(); // mainly to sort on platform
+
+      const selectBox = document.getElementById("marketshare_browser_version_select");
+      for ( let useragentkey of useragents ) {
+        const option = document.createElement("option");
+        const split = useragentkey.split("_");
+        option.text = split[0][0].toUpperCase() + split[0].slice(1) + " : " + split[1];
+        option.value = useragentkey;
+        selectBox.add(option);
+      }
+
+      selectBox.addEventListener("change", (event) => {
+        GLOBAL_selectedUserAgent = event.target.value;
+        TimeSeries.fromDataWithDefaults( "useragentversion_useragentfamily_devicetype", "marketshare_browser_version", "version", GLOBAL_selectedUserAgent.split("_")[1] + " Versions", getUserAgentTimeSeries );
+      });
+
+      // load the default (first entry in the list)
+      GLOBAL_selectedUserAgent =  useragents[0];
+      TimeSeries.fromDataWithDefaults( "useragentversion_useragentfamily_devicetype", "marketshare_browser_version", "version", useragents[0].split("_")[1] + " Versions", getUserAgentTimeSeries );
+
+    }
+
+    loadUserAgentSelectOptions();
+
+    // the JSON file from the server contains info for ALL browsers: need to filter based on what was actually selected. 
+    function getUserAgentTimeSeries(rumarchiveData, metricFieldName) {
+      const [deviceType, useragentFamily] = GLOBAL_selectedUserAgent.split("_");
+      rumarchiveData = rumarchiveData.filter( datapoint => (parseFloat(datapoint.percent) > 1) );
+      rumarchiveData = rumarchiveData.filter( datapoint => datapoint.family === useragentFamily && datapoint.client === deviceType );
+
+      console.log("Showing user agent ", GLOBAL_selectedUserAgent, rumarchiveData);
+
+      let output = [];
+
+      // need to give the graphing setup a list of timeseries, each with their own data and color
+      // we want to generate these automatically from the data
+      // 1. extract individual metricFieldValues (e.g., extract all individual device types)
+      let metricValues = new Set();
+      for ( let row of rumarchiveData )
+        metricValues.add( row[metricFieldName] );
+
+      for ( const [idx, metricValue] of [...metricValues].entries() ) {
+        let timeSerie = {
+          name: metricValue,
+          data: rumarchiveData.filter( o => o[metricFieldName] === metricValue ),
+          fields: ["percent"],
+          color: TimeSeries.Colors.LIST[idx]
+        };
+
+        output.push( timeSerie );
+      }
+
+      return output;
+    }
+
 
 
     {# async function renderBrowserGroupedPiechart(clientType, chartId, chartName) {
@@ -498,7 +542,9 @@ Note that we intentionally do not include interpretations of the data here, as t
 
       const metricFieldName = "navigationtype";
 
-      let response = await fetch(DATA_BASE_URL + "navigationtype_devicetype.json");
+      const queryName = "navigationtype_devicetype";
+
+      let response = await fetch( Constants.getDataURL(queryName) );
       let rumarchiveData = await response.json();
 
       const valueKey = "percent";
@@ -515,6 +561,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       options.name = chartName;
       options.datapoints = datapoints;
       options.datapointFieldname = valueKey;
+      options.queryURL = Constants.getQueryURL(queryName);
 
       Donuts.fromData( metricFieldName, options );
     }
@@ -526,8 +573,9 @@ Note that we intentionally do not include interpretations of the data here, as t
       const options = {};
 
       const metricFieldName = "visibilitystate";
+      const queryName = "visibilitystate_devicetype";
 
-      let response = await fetch(DATA_BASE_URL + "visibilitystate_devicetype.json");
+      let response = await fetch( Constants.getDataURL(queryName) );
       let rumarchiveData = await response.json();
 
       const valueKey = "percent";
@@ -544,6 +592,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       options.name = chartName;
       options.datapoints = datapoints;
       options.datapointFieldname = valueKey;
+      options.queryURL = Constants.getQueryURL(queryName);
 
       Donuts.fromData( metricFieldName, options );
     }
@@ -555,8 +604,9 @@ Note that we intentionally do not include interpretations of the data here, as t
       const options = {};
 
       const metricFieldName = "landingpage";
+      const queryName = "landingpage_devicetype";
 
-      let response = await fetch(DATA_BASE_URL + "landingpage_devicetype.json");
+      let response = await fetch( Constants.getDataURL(queryName) );
       let rumarchiveData = await response.json();
 
       const valueKey = "percent";
@@ -573,6 +623,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       options.name = chartName;
       options.datapoints = datapoints;
       options.datapointFieldname = valueKey;
+      options.queryURL = Constants.getQueryURL(queryName);
 
       Donuts.fromData( metricFieldName, options );
     }
@@ -585,8 +636,9 @@ Note that we intentionally do not include interpretations of the data here, as t
       const options = {};
 
       const metricFieldName = "beacontype";
+      const queryName = "beacontype_devicetype";
 
-      let response = await fetch(DATA_BASE_URL + "beacontype_devicetype.json");
+      let response = await fetch( Constants.getDataURL(queryName) );
       let rumarchiveData = await response.json();
 
       const valueKey = "percent";
@@ -620,6 +672,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       options.name = chartName;
       options.datapoints = datapoints;
       options.datapointFieldname = valueKey;
+      options.queryURL = Constants.getQueryURL(queryName);
 
       Donuts.fromData( metricFieldName, options );
     }
