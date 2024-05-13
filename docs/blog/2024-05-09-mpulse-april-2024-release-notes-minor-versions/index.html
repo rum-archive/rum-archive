@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css" />
+  <script src="/js/main.js"></script>
+  <title>RUM Archive - mPulse RUM data now includes minor versions for Safari and iOS</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#006a80">
+  <meta name="msapplication-TileColor" content="#006a80">
+  <meta name="theme-color" content="#006a80">
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RUM Archive - mPulse RUM data now includes minor versions for Safari and iOS">
+  <meta property="og:image" content="https://rumarchive.com/assets/rum-archive-banner-facebook-1200x630.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="rumarchive.com">
+  <meta name="twitter:title" content="RUM Archive - mPulse RUM data now includes minor versions for Safari and iOS">
+  <meta name="twitter:image" content="https://rumarchive.com/assets/rum-archive-banner-twitter-1600x900.png">
+
+  <link rel="feed alternate" type="application/atom+xml" href="/blog/feed.xml" title="Atom Feed">
+
+  <script>(function(){if(window.BOOMR&&(window.BOOMR.version||window.BOOMR.snippetExecuted)){return}window.BOOMR=window.BOOMR||{};window.BOOMR.snippetStart=(new Date).getTime();window.BOOMR.snippetExecuted=true;window.BOOMR.snippetVersion=15;window.BOOMR.url="//c.go-mpulse.net/boomerang/S4RHZ-UABWM-G9DGN-GKRY7-DUGEG";var e=document.currentScript||document.getElementsByTagName("script")[0],a=e.parentNode,s=false,t=3e3;function n(){if(s){return}var e=document.createElement("script");e.id="boomr-scr-as";e.src=window.BOOMR.url;e.async=true;a.appendChild(e);s=true}function i(e){s=true;var t,i=document,n,o,d,r=window;window.BOOMR.snippetMethod=e?"if":"i";n=function(e,t){var n=i.createElement("script");n.id=t||"boomr-if-as";n.src=window.BOOMR.url;BOOMR_lstart=(new Date).getTime();e=e||i.body;e.appendChild(n)};if(!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [678]\./)){window.BOOMR.snippetMethod="s";n(a,"boomr-async");return}o=document.createElement("IFRAME");o.src="about:blank";o.title="";o.role="presentation";o.loading="eager";d=(o.frameElement||o).style;d.width=0;d.height=0;d.border=0;d.display="none";a.appendChild(o);try{r=o.contentWindow;i=r.document.open()}catch(e){t=document.domain;o.src="javascript:var d=document.open();d.domain='"+t+"';void 0;";r=o.contentWindow;i=r.document.open()}r._boomrl=function(){n()};if(r.addEventListener){r.addEventListener("load",r._boomrl,false)}else if(r.attachEvent){r.attachEvent("onload",r._boomrl)}i.close()}var o=document.createElement("link");if(o.relList&&typeof o.relList.supports==="function"&&o.relList.supports("preload")&&"as"in o){window.BOOMR.snippetMethod="p";o.href=window.BOOMR.url;o.rel="preload";o.as="script";o.addEventListener("load",n);o.addEventListener("error",function(){i(true)});setTimeout(function(){if(!s){i(true)}},t);BOOMR_lstart=(new Date).getTime();a.appendChild(o)}else{i(false)}function d(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(window.addEventListener){window.addEventListener("load",d,false)}else if(window.attachEvent){window.attachEvent("onload",d)}})();</script>
+</head>
+<body>
+  <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/assets/rum-archive-logo-square.svg" width="28" height="28" />
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-main">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbar-main" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item has-text-weight-bold">
+        <a href="/">RUM Archive</a>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="/docs/">
+          Documentation
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/docs/methodology">
+            Methodology
+          </a>
+          <a class="navbar-item" href="/docs/querying">
+            Querying
+          </a>
+          <a class="navbar-item" href="/docs/tables">
+            Tables
+          </a>
+          <a class="navbar-item" href="/docs/samples">
+            Samples
+          </a>
+          <a class="navbar-item" href="/docs/tips">
+            Tips
+          </a>
+          <a class="navbar-item" href="/docs/release-notes">
+            Release  Notes
+          </a>
+        </div>
+      </div>
+
+      <a href="/datasets" class="navbar-item">
+        Datasets
+      </a>
+
+      <a href="/blog" class="navbar-item">
+        Blog
+      </a>
+
+      <a href="/insights" class="navbar-item">
+        Insights
+      </a>
+
+      <a href="/contribute" class="navbar-item">
+        Contribute!
+      </a>
+
+      <a href="https://github.com/rum-archive/rum-archive" class="navbar-item">
+        Github
+      </a>
+
+      <a href="/about" class="navbar-item">
+        About
+      </a>
+    </div>
+  </div>
+</nav>
+</header>
+  <main>
+    
+<article class="page-layout">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-10 is-offset-1">
+        <div class="content m-5">
+          <h1>mPulse RUM data now includes minor versions for Safari and iOS</h1>
+          <p class="is-italic">By Nic Jansma on <time class="" datetime="2024-05-09">09 May 2024</time></p>
+          
+            <h2>Table of Contents</h2>
+            <aside>
+              <div class="toc" >
+        <ul><li><a href="#latest-mpulse-rum-data-loaded">Latest mPulse RUM Data Loaded</a></li><li><a href="#minor-versions-for-safarai%2C-ios">Minor Versions for Safarai, iOS</a><ul><li><a href="#how-to-query-minor-versions">How to Query Minor Versions</a></li></ul></li></ul>
+      </div>
+            </aside>
+            <hr />
+          
+          <h2 id="latest-mpulse-rum-data-loaded" tabindex="-1">Latest mPulse RUM Data Loaded</h2>
+<p>We've completed an export of mPulse daily RUM data into the BigQuery <a href="/datasets/#akamai-mpulse-rum"><code>akamai-mpulse-rumarchive</code></a> project up through 2024-04-30.</p>
+<p>This brings the RUM Archive's <a href="/datasets/#akamai-mpulse-rum">mPulse dataset</a> to a running total of 617 straight days of data available since 2022-09-01.  (There is also first-of-month data going back to 2021-10-01).</p>
+<h2 id="minor-versions-for-safarai%2C-ios" tabindex="-1">Minor Versions for Safarai, iOS</h2>
+<p>From 2024-04-01 onward, the <a href="/docs/tables/#dimensions"><code>USERAGENTVERSION</code></a> and <a href="/docs/tables/#dimensions"><code>OSVERSION</code></a> columns now contain the <em>Minor</em> version information for a subset of browsers and operating systems.  For example, you'll see rows with user agent version of <code>17.5</code> for Safari instead of just <code>17</code>.</p>
+<p>Both the mPulse Page Load and Third-Party Resource tables now include minor version numbers for the following browsers:</p>
+<ul>
+<li><code>Safari</code></li>
+<li><code>Mobile Safari</code></li>
+<li><code>Mobile Safari UI/WKWebView</code></li>
+</ul>
+<p>In addition, the mPulse Page Load and Third-Party Resource tables now include minor version numbers for the following operating systems:</p>
+<ul>
+<li><code>iOS</code></li>
+<li><code>iPadOS</code></li>
+</ul>
+<p>All other browsers and operating systems will continue to only contain the major version.</p>
+<p>For most browsers and OSs, the major version generally conveys the important features that are included in that release.  For example, NavigationTiming has been available since <a href="https://caniuse.com/nav-timing">Chrome 6+</a>, and <a href="https://caniuse.com/resource-timing">ResourceTiming since 25+</a>.</p>
+<p>On the other hand, Safari releases <em>minor</em> versions (e.g. <code>17.1</code>, <code>17.2</code>, <code>17.3</code>, <code>17.4</code>) at roughly the same schedule that the other browsers release <em>major</em> versions (e.g. Chrome <code>120</code>, <code>122</code>, <code>124</code>).  As a result, Safari and iOS often <a href="https://developer.apple.com/documentation/safari-release-notes">add major features</a> in those &quot;minor&quot; version releases.</p>
+<p>There has been a <a href="https://github.com/rum-archive/rum-archive/issues/16">Github issue request</a> to track minor versions of Safari in the RUM Archive for a while.  For now, we've decided to do this only for Safari and iOS (per the above list).   We are not including minor versions for other browsers and operating systems for two reasons:</p>
+<ul>
+<li>To <em>minimize</em> problems for queries that span both pre-2024-04 and post-2024-04 data (see below for how to deal with this)</li>
+<li>Each increase in dimension cardinality creates the possibility that some data may not be included in the RUM Archive dataset due to our <a href="/docs/methodology/#minimum-count-threshold">minimum count threshold requirements</a> (e.g. more outliers could be excluded)</li>
+</ul>
+<h3 id="how-to-query-minor-versions" tabindex="-1">How to Query Minor Versions</h3>
+<p><code>USERAGENTVERSION</code> and <code>OSVERSION</code> are the only two columns affected.</p>
+<p>If you query data prior to 2024-04-1, all versions should only contain a single number (major version):</p>
+<pre class="language-sql"><code class="language-sql"><span class="token comment">-- 2024-03-31</span><br><span class="token keyword">SELECT</span>  USERAGENTFAMILY<span class="token punctuation">,</span><br>        USERAGENTVERSION<span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">as</span> BEACONCOUNT<span class="token punctuation">,</span><br>        <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token operator">/</span><br>          <span class="token punctuation">(</span><span class="token keyword">SELECT</span> <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span><br>            <span class="token keyword">FROM</span> <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br>            <span class="token keyword">WHERE</span> <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2024-03-31'</span> <span class="token operator">AND</span> USERAGENTFAMILY <span class="token operator">=</span> <span class="token string">'Mobile Safari'</span><span class="token punctuation">)</span><br>          <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">as</span> BEACONCOUNTPCT<span class="token punctuation">,</span><br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2024-03-31"</span><br>    <span class="token operator">AND</span> USERAGENTFAMILY <span class="token operator">=</span> <span class="token string">'Mobile Safari'</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> USERAGENTFAMILY<span class="token punctuation">,</span> USERAGENTVERSION<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> BEACONCOUNT <span class="token keyword">DESC</span><br><span class="token keyword">LIMIT</span> <span class="token number">10</span></code></pre>
+<table>
+<thead>
+<tr>
+<th>USERAGENTFAMILY</th>
+<th style="text-align:right">USERAGENTVERSION</th>
+<th style="text-align:right">BEACONCOUNT</th>
+<th style="text-align:right">BEACONCOUNTPCT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">30735863</td>
+<td style="text-align:right">78.0</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">6617861</td>
+<td style="text-align:right">16.8</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">15</td>
+<td style="text-align:right">1437859</td>
+<td style="text-align:right">3.7</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">310754</td>
+<td style="text-align:right">0.8</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">208382</td>
+<td style="text-align:right">0.5</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">53219</td>
+<td style="text-align:right">0.1</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">8930</td>
+<td style="text-align:right">0.0</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">11</td>
+<td style="text-align:right">8499</td>
+<td style="text-align:right">0.0</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right"></td>
+<td style="text-align:right">3048</td>
+<td style="text-align:right">0.0</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">2374</td>
+<td style="text-align:right">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>Starting with 2024-04-01 onward, the same columns will have <code>Major.Minor</code> versions for the listed browsers and OSs:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token comment">-- 2024-04-01</span><br><span class="token keyword">SELECT</span>  USERAGENTFAMILY<span class="token punctuation">,</span><br>        USERAGENTVERSION<span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">as</span> BEACONCOUNT<span class="token punctuation">,</span><br>        <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token operator">/</span><br>          <span class="token punctuation">(</span><span class="token keyword">SELECT</span> <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span><br>            <span class="token keyword">FROM</span> <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br>            <span class="token keyword">WHERE</span> <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2024-04-01'</span> <span class="token operator">AND</span> USERAGENTFAMILY <span class="token operator">=</span> <span class="token string">'Mobile Safari'</span><span class="token punctuation">)</span><br>          <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">as</span> BEACONCOUNTPCT<span class="token punctuation">,</span><br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">"2024-04-01"</span><br>    <span class="token operator">AND</span> USERAGENTFAMILY <span class="token operator">=</span> <span class="token string">'Mobile Safari'</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> USERAGENTFAMILY<span class="token punctuation">,</span> USERAGENTVERSION<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> BEACONCOUNT <span class="token keyword">DESC</span><br><span class="token keyword">LIMIT</span> <span class="token number">10</span></code></pre>
+<table>
+<thead>
+<tr>
+<th>USERAGENTFAMILY</th>
+<th style="text-align:right">USERAGENTVERSION</th>
+<th style="text-align:right">BEACONCOUNT</th>
+<th style="text-align:right">BEACONCOUNTPCT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17.3</td>
+<td style="text-align:right">27200470</td>
+<td style="text-align:right">59.5</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17.4</td>
+<td style="text-align:right">5658521</td>
+<td style="text-align:right">12.4</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.6</td>
+<td style="text-align:right">3591843</td>
+<td style="text-align:right">7.9</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17.2</td>
+<td style="text-align:right">1478059</td>
+<td style="text-align:right">3.2</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.1</td>
+<td style="text-align:right">1376605</td>
+<td style="text-align:right">3.0</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">15.6</td>
+<td style="text-align:right">1213163</td>
+<td style="text-align:right">2.7</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.3</td>
+<td style="text-align:right">1130011</td>
+<td style="text-align:right">2.5</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17.1</td>
+<td style="text-align:right">1007907</td>
+<td style="text-align:right">2.2</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.2</td>
+<td style="text-align:right">643075</td>
+<td style="text-align:right">1.4</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.0</td>
+<td style="text-align:right">523994</td>
+<td style="text-align:right">1.1</td>
+</tr>
+</tbody>
+</table>
+<p>If your queries span before/after 2024-04-01, you may want to remove the minor version from <code>USERAGENTVERSION</code> and <code>OSVERSION</code>.  Otherwise, you will see a mixture of dimension with-and-without the <code>.</code>.</p>
+<p>For example, this query spans 2024-03-31 and 2024-04-01, but does not &quot;deal with&quot; the change to include minor versions:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token comment">-- data spanning dates before and after the minor versions were added</span><br><span class="token keyword">SELECT</span>  USERAGENTFAMILY<span class="token punctuation">,</span><br>        SPLIT<span class="token punctuation">(</span>USERAGENTVERSION<span class="token punctuation">,</span> <span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token keyword">OFFSET</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token keyword">AS</span> USERAGENTVERSION<span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">as</span> BEACONCOUNT<span class="token punctuation">,</span><br>        <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token operator">/</span><br>          <span class="token punctuation">(</span><span class="token keyword">SELECT</span> <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span><br>            <span class="token keyword">FROM</span> <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br>            <span class="token keyword">WHERE</span> <span class="token punctuation">(</span><span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2024-03-31'</span> <span class="token operator">OR</span> <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2024-04-01'</span><span class="token punctuation">)</span> <span class="token operator">AND</span> USERAGENTFAMILY <span class="token operator">=</span> <span class="token string">'Mobile Safari'</span><span class="token punctuation">)</span><br>          <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">as</span> BEACONCOUNTPCT<span class="token punctuation">,</span><br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token punctuation">(</span><span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2024-03-31'</span> <span class="token operator">OR</span> <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2024-04-01'</span><span class="token punctuation">)</span><br>    <span class="token operator">AND</span> USERAGENTFAMILY <span class="token operator">=</span> <span class="token string">'Mobile Safari'</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> USERAGENTFAMILY<span class="token punctuation">,</span> USERAGENTVERSION<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> BEACONCOUNT <span class="token keyword">DESC</span></code></pre>
+<p>And as a result, the <code>USERAGENTVERSION</code> has data for <code>17</code> but also for <code>17.0</code>, <code>17.1</code>, <code>17.2</code>, etc:</p>
+<table>
+<thead>
+<tr>
+<th>USERAGENTFAMILY</th>
+<th style="text-align:right">USERAGENTVERSION</th>
+<th style="text-align:right">BEACONCOUNT</th>
+<th style="text-align:right">BEACONCOUNTPCT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">30735863</td>
+<td style="text-align:right">36.1</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17.3</td>
+<td style="text-align:right">27200470</td>
+<td style="text-align:right">32.0</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">6617861</td>
+<td style="text-align:right">7.8</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17.4</td>
+<td style="text-align:right">5658521</td>
+<td style="text-align:right">6.6</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.6</td>
+<td style="text-align:right">3591843</td>
+<td style="text-align:right">4.2</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17.2</td>
+<td style="text-align:right">1478059</td>
+<td style="text-align:right">1.7</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">15</td>
+<td style="text-align:right">1437859</td>
+<td style="text-align:right">1.7</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.1</td>
+<td style="text-align:right">1376605</td>
+<td style="text-align:right">1.6</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">15.6</td>
+<td style="text-align:right">1213163</td>
+<td style="text-align:right">1.4</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.3</td>
+<td style="text-align:right">1130011</td>
+<td style="text-align:right">1.3</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17.1</td>
+<td style="text-align:right">1007907</td>
+<td style="text-align:right">1.2</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.2</td>
+<td style="text-align:right">643075</td>
+<td style="text-align:right">0.8</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.0</td>
+<td style="text-align:right">523994</td>
+<td style="text-align:right">0.6</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">13.0</td>
+<td style="text-align:right">373017</td>
+<td style="text-align:right">0.4</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16.5</td>
+<td style="text-align:right">321928</td>
+<td style="text-align:right">0.4</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">310754</td>
+<td style="text-align:right">0.4</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17.0</td>
+<td style="text-align:right">296167</td>
+<td style="text-align:right">0.3</td>
+</tr>
+</tbody>
+</table>
+<p>Instead, you can use simple SQL like <code>SPLIT()</code> to re-combine minor versions into the major version:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token comment">-- re-combine minor versions into just the major version</span><br><span class="token keyword">SELECT</span>  USERAGENTFAMILY<span class="token punctuation">,</span><br>        SPLIT<span class="token punctuation">(</span>USERAGENTVERSION<span class="token punctuation">,</span> <span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token keyword">OFFSET</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token keyword">AS</span> USERAGENTVERSION<span class="token punctuation">,</span><br>        <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token keyword">as</span> BEACONCOUNT<span class="token punctuation">,</span><br>        <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span> <span class="token operator">/</span><br>          <span class="token punctuation">(</span><span class="token keyword">SELECT</span> <span class="token function">SUM</span><span class="token punctuation">(</span>BEACONS<span class="token punctuation">)</span><br>            <span class="token keyword">FROM</span> <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br>            <span class="token keyword">WHERE</span> <span class="token punctuation">(</span><span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2024-03-31'</span> <span class="token operator">OR</span> <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2024-04-01'</span><span class="token punctuation">)</span> <span class="token operator">AND</span> USERAGENTFAMILY <span class="token operator">=</span> <span class="token string">'Mobile Safari'</span><span class="token punctuation">)</span><br>          <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">as</span> BEACONCOUNTPCT<span class="token punctuation">,</span><br><span class="token keyword">FROM</span>    <span class="token identifier"><span class="token punctuation">`</span>akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads<span class="token punctuation">`</span></span><br><span class="token keyword">WHERE</span>   <span class="token punctuation">(</span><span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2024-03-31'</span> <span class="token operator">OR</span> <span class="token keyword">DATE</span> <span class="token operator">=</span> <span class="token string">'2024-04-01'</span><span class="token punctuation">)</span><br>    <span class="token operator">AND</span> USERAGENTFAMILY <span class="token operator">=</span> <span class="token string">'Mobile Safari'</span><br><span class="token keyword">GROUP</span> <span class="token keyword">BY</span> USERAGENTFAMILY<span class="token punctuation">,</span> USERAGENTVERSION<br><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> BEACONCOUNT <span class="token keyword">DESC</span></code></pre>
+<p>And then the data is re-combined:</p>
+<table>
+<thead>
+<tr>
+<th>USERAGENTFAMILY</th>
+<th style="text-align:right">USERAGENTVERSION</th>
+<th style="text-align:right">BEACONCOUNT</th>
+<th style="text-align:right">BEACONCOUNTPCT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">17</td>
+<td style="text-align:right">66377696</td>
+<td style="text-align:right">78.0</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">14328819</td>
+<td style="text-align:right">16.8</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">15</td>
+<td style="text-align:right">3088770</td>
+<td style="text-align:right">3.6</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">698902</td>
+<td style="text-align:right">0.8</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">431060</td>
+<td style="text-align:right">0.5</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">122833</td>
+<td style="text-align:right">0.1</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">22016</td>
+<td style="text-align:right">0.0</td>
+</tr>
+<tr>
+<td>Mobile Safari</td>
+<td style="text-align:right">11</td>
+<td style="text-align:right">17783</td>
+<td style="text-align:right">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>If you have any questions or feedback, please let us know!</p>
+
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="content m-10 has-text-centered m-5"><a href="/blog/2024-02-14-the-rum-archive-with-nic-jansma/">&larr; The RUM ARCHIVE with Nic Jansma</a>
+    </div>
+  </div>
+</article>
+
+  </main>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Sponsored by <a href="https://akamai.com">Akamai</a>.
+        The website content is licensed
+        <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+      </p>
+      <p>
+        <a href="https://twitter.com/RUMArchive">twitter</a> -
+        <a rel="me" href="https://webperf.social/@rumarchive">mastodon</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,3 +1,13 @@
+## Version 1.3 (2024-04)
+
+* Starting with `2024-04-01` onward, the mPulse Page Load and Third-Party Resource datasets now include minor version numbers for the following browsers:
+  * `Safari`
+  * `Mobile Safari`
+  * `Mobile Safari UI/WKWebView`
+* Starting with `2024-04-01` onward, the mPulse Page Load and Third-Party Resource datasets now include minor version numbers for the following operating systems:
+  * `iOS`
+  * `iPadOS`
+
 ## Version 1.2 (2023-11)
 
 * Third-Party Resource data is now available, see the [blog post](/blog/2023-11-01-rum-archive-third-party-resource-data) for details.
