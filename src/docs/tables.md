@@ -42,10 +42,10 @@ The _Cardinality_ column is an estimate from the mPulse dataset.
 | `DATE`             | Date of aggregation               | `2022-01-01`                           | (grows each day) |
 | `DEVICETYPE`       | Device type                       | `Mobile` `Desktop` `Tablet`            |                3 |
 | `USERAGENTFAMILY`  | User Agent family                 | `Chrome` `Mobile Safari`               |             ~100 |
-| `USERAGENTVERSION` | User Agent major version          | `99` `12`                              |             ~350 |
+| `USERAGENTVERSION` | User Agent major version          | `124` `12` (Safari: `17.4`)            |             ~350 |
 | `DEVICEMODEL`      | Device model                      | `Apple iPhone` `Samsung Android 11`    |            ~2000 |
 | `OS`               | Operating System family           | `Android OS` `Windows` `iOS`           |              ~30 |
-| `OSVERSION`        | Operation System major version    | `10` `15`                              |              ~75 |
+| `OSVERSION`        | Operation System major version    | `10` `15` (iOS: `17.4`)                |              ~75 |
 | `BEACONTYPE`       | Beacon type                       | `page view` `spa hard` `spa` `bfcache` |                4 |
 | `COUNTRY`          | Country                           | `US` `GB` `GB`                         |             ~230 |
 | `VISIBILITYSTATE`  | Visibility state                  | `visible` `hidden` `partial`           |                3 |
@@ -119,10 +119,10 @@ The _Cardinality_ column is an estimate from the mPulse dataset.
 | `URL`              | Third-Party Resource URL                                                                                   | `https://thirdparty.com/analytics/v1.js`                                       |           < 1000 |
 | `DEVICETYPE`       | Device type                                                                                                | `Mobile` `Desktop` `Tablet`                                                    |                3 |
 | `USERAGENTFAMILY`  | User Agent family                                                                                          | `Chrome` `Mobile Safari`                                                       |             ~100 |
-| `USERAGENTVERSION` | User Agent major version                                                                                   | `99` `12`                                                                      |             ~350 |
+| `USERAGENTVERSION` | User Agent major version                                                                                   | `124` `12` (Safari: `17.4`)                                                    |             ~350 |
 | `DEVICEMODEL`      | Device model                                                                                               | `Apple iPhone` `Samsung Android 11`                                            |            ~2000 |
 | `OS`               | Operating System family                                                                                    | `Android OS` `Windows` `iOS`                                                   |              ~30 |
-| `OSVERSION`        | Operation System major version                                                                             | `10` `15`                                                                      |              ~75 |
+| `OSVERSION`        | Operation System major version                                                                             | `10` `15` (iOS: `17.4`)                                                        |              ~75 |
 | `BEACONTYPE`       | Beacon type                                                                                                | `page view` `spa hard` `spa` `bfcache`                                         |                4 |
 | `COUNTRY`          | Country                                                                                                    | `US` `GB` `GB`                                                                 |             ~230 |
 | `PROTOCOL`         | HTTP protocol                                                                                              | `h2` `http/1.1` `h3`                                                           |              ~10 |
