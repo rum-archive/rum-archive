@@ -117,7 +117,7 @@
             <h2>Table of Contents</h2>
             <aside>
               <div class="toc" >
-        <ul><li><a href="#marketshares">Market Shares</a><ul><li><a href="#device-marketshare">Device Type</a></li><li><a href="#os-marketshare">Operating System</a></li><li><a href="#ua-marketshare">Browser</a></li><li><a href="#ua-version-marketshare">Browser Versions</a></li></ul></li><li><a href="#navigation-aspects">Navigational Aspects</a><ul><li><a href="#navigationtype-aspect">Navigation Types</a></li><li><a href="#visibilitystate-aspect">Visibility State</a></li><li><a href="#landingpage-aspect">Landing Page</a></li><li><a href="#spa-aspect">Multi vs Single Page Apps</a></li></ul></li><li><a href="#about">About RUM Insights</a></li><li><a href="#baseline"> Baseline Support</a></li></ul>
+        <ul><li><a href="#marketshares">Market Shares</a><ul><li><a href="#device-marketshare">Device Type</a></li><li><a href="#os-marketshare">Operating System</a></li><li><a href="#ua-marketshare">Browser</a></li><li><a href="#ua-version-marketshare">Browser Versions</a></li><li><a href="#baseline"> Baseline Support</a></li></ul></li><li><a href="#navigation-aspects">Navigational Aspects</a><ul><li><a href="#navigationtype-aspect">Navigation Types</a></li><li><a href="#visibilitystate-aspect">Visibility State</a></li><li><a href="#landingpage-aspect">Landing Page</a></li><li><a href="#spa-aspect">Multi vs Single Page Apps</a></li></ul></li><li><a href="#about">About RUM Insights</a></li></ul>
       </div>
             </aside>
           
@@ -211,7 +211,6 @@ Note that we intentionally do not include interpretations of the data here, as t
       </div>
     </div>  
 
-    <div id="hide-baseline" style="display: none;"> <!-- remove after moratorium is over -->
     <h3 id="baseline"><img src="/assets/baseline-logo.png" style="width: 80px; padding-right: 10px; vertical-align: middle;" /> Baseline Support</h3>
 
     <p>
@@ -303,7 +302,6 @@ Note that we intentionally do not include interpretations of the data here, as t
         </div>
       </div>
     </div>
-  </div> <!-- remove after moratorium is over -->
 
   <h2 id="navigation-aspects">Navigational Aspects</h2>
 
@@ -1230,11 +1228,6 @@ Note that we intentionally do not include interpretations of the data here, as t
     }
 
     populateBaselineInfo();
-
-    // TODO: remove after moratorium
-    if( window.location.search.indexOf("show-baseline") >= 0 ) {
-      document.getElementById("hide-baseline").style.display = "block";
-    }
 
 
     // END: BASELINE SUPPORT LOGIC
