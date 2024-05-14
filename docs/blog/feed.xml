@@ -4,11 +4,45 @@
   <subtitle>RUM Archive Blog</subtitle>
   <link href="https://rumarchive.com/blog/feed.xml" rel="self"/>
   <link href="https://rumarchive.com/blog/"/>
-  <updated>2024-05-13T14:17:50Z</updated>
+  <updated>2024-05-14T16:51:54Z</updated>
   <id>https://rumarchive.com/blog/</id>
   <author>
     <name>mPulse Developers</name>
   </author>
+    <entry>
+        <title>RUM Archive Insights with Baseline Support</title>
+        <link href="https://rumarchive.com/blog/2024-05-14-rum-insights-baseline/"/>
+        <updated>2024-05-14T00:00:00Z</updated>
+        <id>https://rumarchive.com/blog/2024-05-14-rum-insights-baseline/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/assets/baseline-logo.png" alt="RUM Archive Insights with Baseline Support" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Robin Marx (2024-05-14)
+          &lt;/p&gt;
+          &lt;p&gt;
+            Insights now has a section outlining how RUM data intersects with the Web Platform Baseline project.
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2024-05-14-rum-insights-baseline/">Read More&lt;/a&gt;
+            
+            &lt;p&gt;The &lt;a href=&quot;https://web.dev/baseline&quot;&gt;Web Platform Baseline&lt;/a&gt; project aims to track when exactly Web features became available in all major browsers (Chrome, Edge, Firefox, Safari). This is important since not all browsers implement all features at the same time; using cutting edge feature X on browser A might mean you leave some of your users on browser B out in the cold (or having to implement a costly fallback).&lt;/p&gt;
+&lt;p&gt;However, you also don&#39;t want to only use features from Baseline 2017, &amp;quot;just to be safe&amp;quot;, because that would mean missing out on many already widely available features. In practice, you want to utilize features that &lt;strong&gt;almost all of your users&lt;/strong&gt; will benefit from.&lt;/p&gt;
+&lt;p&gt;To help you figure out which features those are and which Baseline year you should target, the &lt;a href=&quot;https://rumarchive.com/insights/&quot;&gt;RUM Archive Insights&lt;/a&gt; has added a &lt;a href=&quot;https://rumarchive.com/insights/#baseline&quot;&gt;Baseline section&lt;/a&gt; outlining how RUM data intersects with Baseline features.  Supported percentages are of observed &lt;strong&gt;Desktop&lt;/strong&gt; and &lt;strong&gt;Mobile&lt;/strong&gt; RUM Archive traffic &lt;strong&gt;on the first Tuesday of April 2024&lt;/strong&gt; that had support for ALL the features in a particular Baseline year.&lt;/p&gt;
+&lt;p&gt;Additionally, we include a list of all features included in each Baseline year by clicking on that version, which can help you understand the trade-offs between desired browser features and the percentage of global traffic supporting those features and that Baseline year.&lt;/p&gt;
+&lt;a href=&quot;https://rumarchive.com/insights/#baseline&quot;&gt;
+  &lt;img src=&quot;https://rumarchive.com/blog/2024-05-14-rum-insights-baseline/screenshot.png&quot; alt=&quot;RUM Insights Baseline&quot; /&gt;
+&lt;/a&gt;
+&lt;p&gt;Please &lt;a href=&quot;https://rumarchive.com/insights/#baseline&quot;&gt;check it out and give us feedback&lt;/a&gt;!  As the Baseline project evolves we hope to expand our insights as well.&lt;/p&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
     <entry>
         <title>mPulse RUM data now includes minor versions for Safari and iOS</title>
         <link href="https://rumarchive.com/blog/2024-05-09-mpulse-april-2024-release-notes-minor-versions/"/>
@@ -25,7 +59,7 @@
             By Nic Jansma (2024-05-09)
           &lt;/p&gt;
           &lt;p&gt;
-            mPulse daily RUM data through April 2024 has been loaded, and now now includes minor versions for Safari / iOS
+            mPulse daily RUM data through April 2024 has been loaded, and now now includes minor versions for Safari / iOS.
           &lt;/p&gt;
           &lt;p&gt;
             

@@ -1,7 +1,7 @@
 ---
 title: mPulse RUM data now includes minor versions for Safari and iOS
 date: 2024-05-09
-description: mPulse daily RUM data through April 2024 has been loaded, and now now includes minor versions for Safari / iOS
+description: mPulse daily RUM data through April 2024 has been loaded, and now now includes minor versions for Safari / iOS.
 layout: layouts/blog.njk
 tags: blog
 author: Nic Jansma
