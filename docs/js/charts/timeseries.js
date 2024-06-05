@@ -315,6 +315,8 @@ function drawTimeseries2(seriesInput, options) {
     return;
   }
 
+  series.push( getFlagSeries() );
+
   console.log("SERIES TO SHOW", series);
 
   // const changeLogURL = options.changeLogURL || "/static/json/changelog.json";
@@ -483,28 +485,66 @@ const loadChangelog = (changeLogURL) => {
 
   return changelog;
 };
-const getFlagSeries = (changeLogURL) => loadChangelog(changeLogURL).then(data => {
+
+const getFlagSeries = function() {
+  let data = Constants.getChangeLog();
+
+  // need to do two things: 
+  // - add all datapoints to the global flags array (for later lookup during tooltip creation)
+  // - create actual series to be rendered in the graph
+
+  // flags = {}; // just in case this gets called multiple times; don't want accidental duplication or anything
   data.forEach(change => {
-    flags[+change.date] = {
+    flags[change.timestamp] = {
       title: change.title,
       desc: change.desc
     };
   });
-  // Filter out changes that don't need to be displayed in time series
-  data = data.filter(o => o.displayInTimeSeries !== false);
+
+  data = data.filter( o => o.displayInTimeSeries !== false );
+
   return {
     type: 'flags',
     name: 'Changelog',
     data: data.map((change, i) => ({
-      x: change.date,
-      title: String.fromCharCode(65 + (i % 26))
+      x: change.timestamp,
+      title: String.fromCharCode(65 + (i % 26)) // A, B, C, ...
     })),
     clip: false,
     color: '#90b1b6',
     y: 25,
     showInLegend: false
   };
-});
+};
+
+// const getFlagSeriesOLD = (changeLogURL) => loadChangelog(changeLogURL).then(data => {
+
+//   // need to do two things: 
+//   // - add all datapoints to the global flags array (for later lookup during tooltip creation)
+//   // - create actual series to be rendered in the graph
+
+
+//   data.forEach(change => {
+//     flags[+change.date] = {
+//       title: change.title,
+//       desc: change.desc
+//     };
+//   });
+//   // Filter out changes that don't need to be displayed in time series
+//   data = data.filter(o => o.displayInTimeSeries !== false);
+//   return {
+//     type: 'flags',
+//     name: 'Changelog',
+//     data: data.map((change, i) => ({
+//       x: change.date,
+//       title: String.fromCharCode(65 + (i % 26))
+//     })),
+//     clip: false,
+//     color: '#90b1b6',
+//     y: 25,
+//     showInLegend: false
+//   };
+// });
 
 function drawChart(options, series) {
 
@@ -545,18 +585,20 @@ function drawChart(options, series) {
       useHTML: true,
       borderColor: 'rgba(247,247,247,0.85)',
       formatter: function() {
-        // function getChangelog(changelog) {
-        //   if (!changelog) return '';
-        //   return `<p class="changelog">${changelog.title}</p>`;
-        // }
 
-        // const changelog = flags[this.x];
-        const tooltip = `<p style="font-size: smaller; text-align: center;">${Highcharts.dateFormat('%b %e, %Y', this.x)}</p>`;
+        function getChangelogHTML(changelogEntry) {
+          if (!changelogEntry) return '';
+          return `<p class="changelog">${changelogEntry.title}</p>`;
+        }
 
-        // // Handle changelog tooltips first.
-        // if (!this.points) {
-        //   return `${tooltip} ${getChangelog(changelog)}`
-        // }
+        const changelogEntry = flags[this.x];
+        const tooltipHTML = `<p style="font-size: smaller; text-align: center;">${Highcharts.dateFormat('%b %e, %Y', this.x)}</p>`;
+
+        // Handle changelog tooltips separately
+        if ( this.series && this.series.type === "flags" ) {
+          console.log(this.series.type, this.series, this.series.name);
+          return `${tooltipHTML} ${getChangelogHTML(changelogEntry)}`
+        }
 
         // console.log("TimeSeries:drawChart : tooltip:formatter : ", this, this.points);
 
@@ -605,13 +647,12 @@ function drawChart(options, series) {
 
         // console.log(rows);
 
-        return `${tooltip}
+        return `${tooltipHTML}
         <table cellpadding="5" style="text-align: center;">
           <tr>
             ${rows}
           </tr>
         </table>`;
-        // ${getChangelog(changelog)}`;
       }
     },
     rangeSelector: {
