@@ -640,7 +640,10 @@ function drawChart(options, series) {
         // const mobile = this.points.filter(o => o.series.name == 'Mobile');
 
         let rows = "";
-        for ( let point of this.points ) {
+        // points aren't sorted on value by default. especially for the browser version graph
+        //  it's useful to first show those with highest percentage, so sort descending on that.
+        const sortedPoints = [...this.points].sort( (a,b) => b.point.y - a.point.y );
+        for ( let point of sortedPoints ) {
           // assumption is that we have a single point per series/line we're drawing here
           rows += getRow([point])
         }
