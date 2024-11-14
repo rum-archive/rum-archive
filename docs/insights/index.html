@@ -679,6 +679,8 @@ Note that we intentionally do not include interpretations of the data here, as t
       let web_features  = await responses[1].json();
       let bcd_mappings  = await responses[2].json();
 
+      web_features = web_features.features; // 2 top-level elements in there: browsers and features
+
       // console.log( ua_data, web_features, bcd_mappings );
 
       // we want to create a baseline list for desktop vs mobile (which is what web-features gives us)
@@ -877,6 +879,8 @@ Note that we intentionally do not include interpretations of the data here, as t
         const uamappings = baselineEntry.uamappings;
         const resultsPerYear = baselineEntry.yearCounts;
 
+        let DEBUG_totalUnsupportedPercent = 0;
+
         for( let year = 2017; year <= 2024; year++ ){
 
           if ( !resultsPerYear[""+year] ) {
@@ -972,8 +976,14 @@ Note that we intentionally do not include interpretations of the data here, as t
                   let rumArchiveVersionFloat = parseFloat(rumArchiveVersionRaw, 10);
 
                   if ( rumArchiveVersionFloat < baselineVersionFloat ) {  
-                    // console.warn("Feature was too new!", year, datapoint.family, datapoint.os, uamappings[datapoint.family], rumArchiveVersionFloat, "<", baselineVersionFloat, webFeature.name, (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100 );
-        
+                    
+                    /*
+                    if ( year === 2024 && clientType === "mobile" && ((parseInt(datapoint.count) / baselineEntry.totalCount ) * 100 > 5) ){
+                      DEBUG_totalUnsupportedPercent += (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100;
+                      console.warn("Feature was too new!", year, datapoint.family, datapoint.os, uamappings[datapoint.family], rumArchiveVersionFloat, "<", baselineVersionFloat, webFeature.name, (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100, DEBUG_totalUnsupportedPercent );
+                    }
+                    */
+
                     passesAll = false;
                     break; // we already know we failed, so we can do an early exit 
                   }
