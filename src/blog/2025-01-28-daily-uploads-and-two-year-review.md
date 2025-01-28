@@ -68,6 +68,6 @@ Here are some of the ideas we're planning:
 * Continued improvements to [**RUM Insights**](/insights/)
 * A new **dimension browser** that provides details on the set of dimension values (and how they compare to the full un-aggregated data in mPulse)
 
-We're also still looking for RUM providers or website partners that would want to join the RUM Archive to share their own data.  Please connect with us if you're interested!
+We're also still looking for RUM providers or website partners that would want to join the RUM Archive to share their own data.  Please connect with us ([twitter](https://twitter.com/RUMArchive), [mastodon](https://webperf.social/@rumarchive) and now [bluesky](https://bsky.app/profile/rumarchive.com)) if you're interested!
 
 Thanks for all of the support!
