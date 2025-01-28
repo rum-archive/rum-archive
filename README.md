@@ -9,3 +9,8 @@ we aim to make RUM data freely available for researchers to analyze trends in ma
 Want to query this data?  Check out the [documentation](https://rumarchive.com/docs) for details on how to access it.
 
 Interested in contributing your own RUM data to the public dataset?  Read the [contributing guide](https://rumarchive.com/contribute) for more details.
+
+RUM data currently provided by:
+ - <img src="assets/mpulse-logo.svg" style="height:20px;position:relative;top:4px;right:2px">[mPulse](https://www.akamai.com/products/mpulse-real-user-monitoring)
+
+
