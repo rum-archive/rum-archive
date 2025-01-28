@@ -37,19 +37,19 @@ Since then, the Resource data has grown alongside the Page Load data:
 
 All of this data is [available for query](/docs/query) from the BigQuery dataset.
 
-Having data reach this far back allows us to start seeing some really long-term trends in the data.  Here's a chart of device types over those 2+ years:
+Having data reach this far back allows us to start seeing some really long-term trends in the data.  Here's a chart of device types over those 2+ years, where we can see a slight though unmistakable revival of the desktop in recent months:
 
 ![Device Type over Time](timeseries-of-device-type.png)
 
-Here's one of my favorite charts of Chrome versions over time.  It shows the release cadence of new versions, as well as version uptake by visitors pretty clearly:
+Below is one of my favorite charts of Chrome versions over time.  It shows the release cadence of new releases, as well as version uptake by visitors pretty clearly:
 
 ![Chrome Releases](timeseries-of-chrome-versions.png)
 
-All of these charts are available (and more!) in [RUM Insights](/insights/).
+All of these charts (and more!) are available in [RUM Insights](/insights/).
 
 ## Daily Uploads
 
-Up to this point, the mPulse team has been uploading all of the data for the previous month within the first few days of the new month.  For example, we'll upload December 1st through 31st in the first week of January.
+Up to this point, the mPulse team has been uploading all of the data for the previous month within the first few days of the new month.  For example, we would upload December 1st through 31st in the first week of January.
 
 Part of the reason for this release cadence was that some of the export / conversion / import process (from the mPulse dataset to the public BigQuery dataset) was manual.
 
@@ -66,8 +66,8 @@ The [RUM Archive Team](/about/) has a lot of ideas for how to improve the datase
 Here are some of the ideas we're planning:
 
 * Continued improvements to [**RUM Insights**](/insights/)
-* A new **dimension browser** that provides details on the full set of dimension values (and how they compare to the full un-aggregated data in mPulse)
+* A new **dimension browser** that provides details on the set of dimension values (and how they compare to the full un-aggregated data in mPulse)
 
-We're also still looking for a RUM provider or website partner that would want to join the RUM Archive to share their own data.  Please connect with us if you're interested!
+We're also still looking for RUM providers or website partners that would want to join the RUM Archive to share their own data.  Please connect with us if you're interested!
 
 Thanks for all of the support!
