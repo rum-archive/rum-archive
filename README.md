@@ -11,6 +11,6 @@ Want to query this data?  Check out the [documentation](https://rumarchive.com/d
 Interested in contributing your own RUM data to the public dataset?  Read the [contributing guide](https://rumarchive.com/contribute) for more details.
 
 RUM data currently provided by:
- - <img src="assets/mpulse-logo.svg" style="height:20px;position:relative;top:4px;right:2px">[mPulse](https://www.akamai.com/products/mpulse-real-user-monitoring)
+ - <img src="assets/mpulse-logo.svg" alt="mPulse Logo" style="height:20px;position:relative;top:4px;right:2px">[mPulse](https://www.akamai.com/products/mpulse-real-user-monitoring)
 
 
