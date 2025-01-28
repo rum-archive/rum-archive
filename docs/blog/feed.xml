@@ -4,11 +4,77 @@
   <subtitle>RUM Archive Blog</subtitle>
   <link href="https://rumarchive.com/blog/feed.xml" rel="self"/>
   <link href="https://rumarchive.com/blog/"/>
-  <updated>2024-05-14T16:51:54Z</updated>
+  <updated>2025-01-28T14:54:26Z</updated>
   <id>https://rumarchive.com/blog/</id>
   <author>
     <name>mPulse Developers</name>
   </author>
+    <entry>
+        <title>Daily Uploads and a Two Year Review!</title>
+        <link href="https://rumarchive.com/blog/2025-01-28-daily-uploads-and-two-year-review/"/>
+        <updated>2025-01-28T00:00:00Z</updated>
+        <id>https://rumarchive.com/blog/2025-01-28-daily-uploads-and-two-year-review/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/blog/2025-01-28-daily-uploads-and-two-year-review/2-years.png" alt="Daily Uploads and a Two Year Review!" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Nic Jansma (2025-01-28)
+          &lt;/p&gt;
+          &lt;p&gt;
+            The RUM Archive has been producing data for over two years, and now we&#39;re uploading data daily!
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2025-01-28-daily-uploads-and-two-year-review/">Read More&lt;/a&gt;
+            
+            &lt;p&gt;The RUM Archive was &lt;a href=&quot;https://rumarchive.com/blog/2022-12-14-an-introduction-to-the-rum-archive/&quot;&gt;released in December 2022&lt;/a&gt;, and we&#39;ve been releasing new data on a monthly cadence for &lt;strong&gt;over two years&lt;/strong&gt; now.&lt;/p&gt;
+&lt;p&gt;This month we&#39;re announcing an improvement to the data release schedule: RUM Archive data is now being &lt;strong&gt;uploaded on a daily basis&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;To celebrate, let&#39;s review the growth of dataset from when the project was first announced two years ago!&lt;/p&gt;
+&lt;h2 id=&quot;a-two-year-review&quot; tabindex=&quot;-1&quot;&gt;A Two Year Review&lt;/h2&gt;
+&lt;p&gt;We &lt;a href=&quot;https://rumarchive.com/blog/2022-12-14-an-introduction-to-the-rum-archive/&quot;&gt;introduced&lt;/a&gt; the RUM Archive on December 14, 2022 -- 775 days ago (as of January 28, 2025).&lt;/p&gt;
+&lt;p&gt;The Page Load dataset itself has &lt;em&gt;monthly&lt;/em&gt; data going back to October 1st, 2021 and &lt;em&gt;daily&lt;/em&gt; data starting with September 1st, 2022.&lt;/p&gt;
+&lt;p&gt;Let&#39;s review how that data has grown.  Here&#39;s a snapshot of the Page Load dataset:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1.73 TB&lt;/li&gt;
+&lt;li&gt;879 days (daily cadence), 891 unique days (monthly data back to 2022-09)&lt;/li&gt;
+&lt;li&gt;1,131,816,412 rows&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In addition, on &lt;a href=&quot;https://rumarchive.com/blog/2023-11-01-rum-archive-third-party-resource-data/&quot;&gt;November 1st, 2023 we announced a new Third-Party Resource Dataset&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Since then, the Resource data has grown alongside the Page Load data:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;593 GB&lt;/li&gt;
+&lt;li&gt;470 days (daily cadence)&lt;/li&gt;
+&lt;li&gt;527,953,687 rows&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All of this data is &lt;a href=&quot;https://rumarchive.com/docs/query&quot;&gt;available for query&lt;/a&gt; from the BigQuery dataset.&lt;/p&gt;
+&lt;p&gt;Having data reach this far back allows us to start seeing some really long-term trends in the data.  Here&#39;s a chart of device types over those 2+ years:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://rumarchive.com/blog/2025-01-28-daily-uploads-and-two-year-review/timeseries-of-device-type.png&quot; alt=&quot;Device Type over Time&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Here&#39;s one of my favorite charts of Chrome versions over time.  It shows the release cadence of new versions, as well as version uptake by visitors pretty clearly:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://rumarchive.com/blog/2025-01-28-daily-uploads-and-two-year-review/timeseries-of-chrome-versions.png&quot; alt=&quot;Chrome Releases&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;All of these charts are available (and more!) in &lt;a href=&quot;https://rumarchive.com/insights/&quot;&gt;RUM Insights&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;daily-uploads&quot; tabindex=&quot;-1&quot;&gt;Daily Uploads&lt;/h2&gt;
+&lt;p&gt;Up to this point, the mPulse team has been uploading all of the data for the previous month within the first few days of the new month.  For example, we&#39;ll upload December 1st through 31st in the first week of January.&lt;/p&gt;
+&lt;p&gt;Part of the reason for this release cadence was that some of the export / conversion / import process (from the mPulse dataset to the public BigQuery dataset) was manual.&lt;/p&gt;
+&lt;p&gt;I&#39;m excited to announce that &lt;strong&gt;starting December 1, 2024 all mPulse data is being uploaded on a daily cadence&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The data for &lt;code&gt;DAY&lt;/code&gt; should be visible in the BigQuery dataset by approximately noon (12pm) GMT on &lt;code&gt;DAY+1&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The automation driving this has been running successfully for a few months, but we&#39;ll continue monitoring it.  We make no guarantees that it&#39;ll be available by noon GMT the following day, but please let us know if you&#39;re not seeing the data you expect.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-next%3F&quot; tabindex=&quot;-1&quot;&gt;What&#39;s Next?&lt;/h2&gt;
+&lt;p&gt;The &lt;a href=&quot;https://rumarchive.com/about/&quot;&gt;RUM Archive Team&lt;/a&gt; has a lot of ideas for how to improve the dataset as well as the presentation of it on this website.&lt;/p&gt;
+&lt;p&gt;Here are some of the ideas we&#39;re planning:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Continued improvements to &lt;a href=&quot;https://rumarchive.com/insights/&quot;&gt;&lt;strong&gt;RUM Insights&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;A new &lt;strong&gt;dimension browser&lt;/strong&gt; that provides details on the full set of dimension values (and how they compare to the full un-aggregated data in mPulse)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We&#39;re also still looking for a RUM provider or website partner that would want to join the RUM Archive to share their own data.  Please connect with us if you&#39;re interested!&lt;/p&gt;
+&lt;p&gt;Thanks for all of the support!&lt;/p&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
     <entry>
         <title>RUM Archive Insights with Baseline Support</title>
         <link href="https://rumarchive.com/blog/2024-05-14-rum-insights-baseline/"/>

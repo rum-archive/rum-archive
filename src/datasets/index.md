@@ -19,7 +19,7 @@ Technical Details:
 * License: [CC BY SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 * Collected via: [boomerang.js](https://github.com/akamai/boomerang)
 * Aggregation cadence: **Daily**
-* Release cadence: **Monthly**
+* Release cadence: **Daily** (automated, by 12pm GMT for previous day)
 * Page Loads: **Yes**
   * Sampling: A random percentage of normalized data from mPulse's top 100 customers
   * Size: Approximately 200 million page loads aggregated per day
@@ -33,9 +33,9 @@ Technical Details:
       * `2021-10-01`, `2021-11-01`, `2021-12-01`
       * `2022-01-01`, `2022-02-01`, `2022-03-01`, `2022-04-01`, `2022-05-01`, `2022-06-01`, `2022-07-01`, `2022-08-01`
     * Available daily data:
-      * `2022-09-01` (onward, daily), through `2024-05-31`
+      * `2022-09-01` (onward, daily)
   * Resources table: `rumarchive_resources`
-    * Available dates: `2023-10-15` (onward, daily) through `2024-05-31`
+    * Available dates: `2023-10-15` (onward, daily)
 * Additional information:
   * User Agent parsing is done via the [`ua-parser`](https://github.com/ua-parser/) library, using the [`regexes.yaml`](https://github.com/ua-parser/uap-core/blob/master/regexes.yaml) rules
 * Known issues:
