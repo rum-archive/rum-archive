@@ -142,6 +142,7 @@ Page Loads have following bucket histogram definitions:
 | Total Blocking Time                                               | `TBTHISTOGRAM`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
 | Time to Interactive                                               | `TTIHISTOGRAM`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
 | Redirect                                                          | `REDIRECTHISTOGRAM`   |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| Unattributed Navigation Overhead                                  | `UNOHISTOGRAM`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
 
 </div>
 
