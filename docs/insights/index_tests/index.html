@@ -118,23 +118,23 @@
 <h2>Introduction</h2>
 
 <p>
-This page captures a collection of basic visualizations for the data contained in the RUM Archive. 
+This page captures a collection of basic visualizations for the data contained in the RUM Archive.
 It's goal is to allow users to get a feel for the most important insights that can be gained from the data, without having to execute SQL queries themselves.
 </p>
 
 <p>
-Note that we intentionally do not include interpretations of the data here, as this can often be quite nuanced. For that, look at our <a href="/blog">regular blog posts</a> that discuss RUM Insights in depth. 
+Note that we intentionally do not include interpretations of the data here, as this can often be quite nuanced. For that, look at our <a href="/blog">regular blog posts</a> that discuss RUM Insights in depth.
 </p>
 
 
-<!-- TODO: merge these into a single file --> 
+<!-- TODO: merge these into a single file -->
 <script src="/js/highcharts/highstock.js" defer></script>
 <script src="/js/highcharts/exporting.js" defer></script>
 <script src="/js/highcharts/export-data.js" defer></script>
 <script src="/js/highcharts/accessibility.js" defer></script>
 
 <section class="doclist mt-3 pt-3">
-    
+
   
 
   
@@ -151,24 +151,24 @@ Note that we intentionally do not include interpretations of the data here, as t
       </div>
       <div id="ua_version" class="box">
       </div>
-    </div>  
+    </div>
 
     <h2><img src="/assets/baseline-logo.png" style="width: 80px; padding-right: 10px; vertical-align: middle;" /> Baseline Support</h2>
 
     <p>
-      The <a href="https://web.dev/baseline">Web Platform Baseline project</a> aims to track 
+      The <a href="https://web.dev/baseline">Web Platform Baseline project</a> aims to track
       when exactly Web features became available in all major browsers (Chrome, Edge, Firefox, Safari).
-      This is important since not all browsers implement all features at the same time; 
+      This is important since not all browsers implement all features at the same time;
       using cutting edge feature X on browser A might mean you leave some of your users on browser B out in the cold (or having to implement a costly fallback).
 
     </p>
 
     <p>
-      However, you also don't want to only use features from Baseline 2017, "just to be safe", 
-      because that would mean missing out on many already widely available features. 
+      However, you also don't want to only use features from Baseline 2016, "just to be safe",
+      because that would mean missing out on many already widely available features.
       In practice, you want to utilize features that <b>almost all of your users</b> will benefit from.
-      To help you figure out which features those are and which Baseline year you should target, 
-      below we show how many global visitors observed by the RUM Archive <b>on the first Tuesday of April 2024</b> 
+      To help you figure out which features those are and which Baseline year you should target,
+      below we show how many global visitors observed by the RUM Archive <b>on the first Tuesday of April 2024</b>
       had support for ALL the features in a particular Baseline year.
     </p>
 
@@ -209,7 +209,7 @@ Note that we intentionally do not include interpretations of the data here, as t
                 </tr>
               </thead>
               <tbody>
-                
+
               </tbody>
             </table>
           </div>
@@ -233,7 +233,7 @@ Note that we intentionally do not include interpretations of the data here, as t
                 </tr>
               </thead>
               <tbody>
-                
+
               </tbody>
             </table>
           </div>
@@ -250,7 +250,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 <script type="module">
 
     import { Constants } from "/js/charts/constants.js";
-    import * as TimeSeries from "/js/charts/timeseries.js"; 
+    import * as TimeSeries from "/js/charts/timeseries.js";
     import * as Donuts from "/js/charts/donuts.js";
     import * as Area from "/js/charts/area.js";
 
@@ -266,7 +266,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       DATA_BASE_URL = "http://localhost:9000/data-output/";
     }
 
-    
+
     // returns e.g., "2023_12_01"
     function findLastDate(dataPoints) {
       // want to find the most recent datapoint in the file
@@ -289,7 +289,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
       let response = await fetch(DATA_BASE_URL + "useragentversion_useragentfamily_devicetype.json");
       let rumarchiveData = await response.json();
-    
+
       // need to extract the unique useragentfamily_devicetype values
       let useragents = new Set();
       for( let row of rumarchiveData ) {
@@ -357,7 +357,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
 
       const responses = await Promise.all([
-        fetch(DATA_BASE_URL + "recent_useragentversion_useragentfamily_devicetype.json"), 
+        fetch(DATA_BASE_URL + "recent_useragentversion_useragentfamily_devicetype.json"),
         fetch(DATA_BASE_URL + "web-features.json"),
         fetch(DATA_BASE_URL + "baseline-browser-mappings.json")
       ]);
@@ -372,7 +372,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       // web-features is limited to:
       // Desktop: chrome, edge, firefox, safari
       // Mobile: chrome_android, firefox_android, safari_ios
-    
+
       // so we filter out the accompanying ones from the RUM-archive for now (Untracked)
       // and map from RUMArchive names to web-features names to properly match (Tracked)
       // there are some gotchas in here to get the actual versions right (e.g., for Samsung Internet and Chrome Mobile), see later
@@ -403,7 +403,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
         // "Edge Mobile": "mixed_chrome_safari", // this is a weird one... shows up both on Android and iOS, and needs split handling, so separate category is needed
         "Facebook": "mixed_chrome_safari",
-        "Instagram": "mixed_chrome_safari", 
+        "Instagram": "mixed_chrome_safari",
 
         "Samsung Internet": "chrome_android",
         "Opera Mobile": "chrome_android",
@@ -437,7 +437,7 @@ Note that we intentionally do not include interpretations of the data here, as t
         let dictionaryToUse = null;
 
         if ( datapoint.client === "desktop" ){
-          
+
           // MANUAL OVERRIDE
           // there is apparently a caveat with Linux, where Samsung Internet uses borked version numbers somehow?? Deal with that manually
           if ( datapoint.family === "Samsung Internet" && datapoint.os === "Linux" ){
@@ -451,11 +451,11 @@ Note that we intentionally do not include interpretations of the data here, as t
           else {
             dictionaryToUse = unknownUAsWithCounts;
           }
-          
-          totalDesktopCount_all += datapoint.count; 
+
+          totalDesktopCount_all += datapoint.count;
         }
 
-        // for the purpose of Baseline, mobile and tablet are treated the same, 
+        // for the purpose of Baseline, mobile and tablet are treated the same,
         // since they use the same browsers (e.g., Chrome iOS is the same on iPhone as iPad)
         else if ( datapoint.client === "mobile" || datapoint.client === "tablet" ){
 
@@ -471,8 +471,8 @@ Note that we intentionally do not include interpretations of the data here, as t
           else {
             dictionaryToUse = unknownUAsWithCounts;
           }
-          
-          totalMobileCount_all += datapoint.count; 
+
+          totalMobileCount_all += datapoint.count;
         }
 
         let uaTracker = dictionaryToUse[ uaKey ];
@@ -520,7 +520,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       console.log("Unknown UAs with counts:", unknownUAsWithCounts);
 
       // use a global to make this easily accessible from showUsageDisclaimer
-      // TODO: refactor global use ;) 
+      // TODO: refactor global use ;)
       window.uas = {};
       window.uas.known = knownUAsWithCounts;
       window.uas.unknown = unknownUAsWithCounts;
@@ -535,7 +535,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       ];
 
       let baselineFeaturesPerYear = {};
-      for( let year = 2017; year <= 2024; year++ ) {
+      for( let year = 2016; year <= 2024; year++ ) {
         let yearFeatures = [];
         // baseline dates are for the baseline_low_date (means low availability, but year is correct)
         for ( let web_feature of Object.values(web_features) ) {
@@ -550,7 +550,7 @@ Note that we intentionally do not include interpretations of the data here, as t
           }
           else if ( !web_feature.status ) {
             // console.error("SANITY CHECK: web feature doesn't have status yet!", web_feature);
-            // APPARENTLY there are a great many features without a status yet... just skip them for now 
+            // APPARENTLY there are a great many features without a status yet... just skip them for now
           }
         }
 
@@ -564,7 +564,7 @@ Note that we intentionally do not include interpretations of the data here, as t
         const uamappings = baselineEntry.uamappings;
         const resultsPerYear = baselineEntry.yearCounts;
 
-        for( let year = 2017; year <= 2024; year++ ){
+        for( let year = 2016; year <= 2024; year++ ){
 
           if ( !resultsPerYear[""+year] ) {
             resultsPerYear[""+year] = 0;
@@ -597,7 +597,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
               let passesAll = true; // assume yes
               for( let webFeature of featuresForCurrentYear ) {
-                
+
                 if( !webFeature.status ) {
                   console.error("SANITY CHECK: NO STATUS KNOWN, WHY NOT?!?", webFeature);
                 }
@@ -637,7 +637,7 @@ Note that we intentionally do not include interpretations of the data here, as t
                         continue;
                       }
                     }
-                    
+
                     if ( guessedVersion ) {
                       // console.log("Transforming versions via BCD: ", datapoint.family, rumArchiveVersionRaw, guessedVersion);
                       rumArchiveVersionRaw = guessedVersion;
@@ -646,7 +646,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
                   // some browsers have their own version numbers, but are actually something else under the hood
                   // this is mainly iOS browsers, which map to their WebKit versions defined by the OS version rather than the browser version
-                  // i.e., Chrome Mobile v122 on iOS 17.3 should ACTUALLY be counted as Safari 17.3 
+                  // i.e., Chrome Mobile v122 on iOS 17.3 should ACTUALLY be counted as Safari 17.3
                   // so we use the OSVersion for those type of browser instead
                   if( clientType === "mobile" && thingsThatAreActuallyWebkit.includes(datapoint.family) ){
                     rumArchiveVersionRaw = datapoint.osversion;
@@ -659,11 +659,11 @@ Note that we intentionally do not include interpretations of the data here, as t
                   let baselineVersionFloat = parseFloat(webFeatureUAVersion, 10);
                   let rumArchiveVersionFloat = parseFloat(rumArchiveVersionRaw, 10);
 
-                  if ( rumArchiveVersionFloat < baselineVersionFloat ) {  
+                  if ( rumArchiveVersionFloat < baselineVersionFloat ) {
                     // console.warn("Feature was too new!", year, datapoint.family, datapoint.os, uamappings[datapoint.family], rumArchiveVersionFloat, "<", baselineVersionFloat, webFeature.name, (parseInt(datapoint.count) / baselineEntry.totalCount ) * 100 );
-        
+
                     passesAll = false;
-                    break; // we already know we failed, so we can do an early exit 
+                    break; // we already know we failed, so we can do an early exit
                   }
                 }
                 else {
@@ -672,7 +672,7 @@ Note that we intentionally do not include interpretations of the data here, as t
               }
 
               if ( passesAll ) {
-                resultsPerYear["" + year] += parseInt(datapoint.count); 
+                resultsPerYear["" + year] += parseInt(datapoint.count);
               }
             }
           }
@@ -738,7 +738,7 @@ Note that we intentionally do not include interpretations of the data here, as t
             console.error("outputTable:click : can't find the baseline-year... can't proceed", evt.target, evt.target.getAttribute("baseline-year"), evt);
             return;
           }
-          
+
           // make sure old element is deselected
           const currentlySelected = outputTable.getElementsByClassName("is-selected");
           for ( let cs of currentlySelected ) {
@@ -747,7 +747,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
           // select current row
           row.classList.add("is-selected");
-          
+
           const year = yearPercent.split("_")[0];
           const percentage = yearPercent.split("_")[1];
 
@@ -760,19 +760,19 @@ Note that we intentionally do not include interpretations of the data here, as t
 
             let detailsContent = `
               <p>
-                For the users represented in the RUM Archive, <b>${percentage}%</b> of ${baselineResult.clients[0]} visitors used a 
-                Tracked browser <img class="usageDisclaimerIcon" onclick="showUsageDisclaimer('${baselineResult.clients[0]}')" src="/assets/question_mark.png" /> 
+                For the users represented in the RUM Archive, <b>${percentage}%</b> of ${baselineResult.clients[0]} visitors used a
+                Tracked browser <img class="usageDisclaimerIcon" onclick="showUsageDisclaimer('${baselineResult.clients[0]}')" src="/assets/question_mark.png" />
                 version released after January 1st ${parseInt(year) + 1}, meaning they should support all features in Baseline ${year} and below.
-                Consider this the lower bound. 
+                Consider this the lower bound.
               </p>
               <p>
-                For the time being, we do not have a full list of features for Baseline ${year}. 
-                This is because we are dependent on the <a href="https://github.com/web-platform-dx/web-features">Web Features Project</a>, 
+                For the time being, we do not have a full list of features for Baseline ${year}.
+                This is because we are dependent on the <a href="https://github.com/web-platform-dx/web-features">Web Features Project</a>,
                 which is still hard at work backfilling the details for years prior to 2023.
               </p>
               <p>
-                For now, select 2023 or 2024 for more in-depth info on which features are included in those Baselines. 
-                Check back here later for more details for earlier years as they become available. 
+                For now, select 2023 or 2024 for more in-depth info on which features are included in those Baselines.
+                Check back here later for more details for earlier years as they become available.
               </p>
             `;
 
@@ -811,7 +811,7 @@ Note that we intentionally do not include interpretations of the data here, as t
             if( compat_features ){
 
               // compat_features can have multiple subfeatures listed, each belonging to a specific group
-              // e.g., you can have 
+              // e.g., you can have
               // [ "api.feature.1", "api.feature.2", "html.feature.x", "html.feature.y" ]
               // we only want to show the feature ONCE under a group (so for the example, we don't want to show both in API AND HTML, but only HTML)
               // so, we can't just look at the first one in the list, because APIs are a bit special
@@ -821,8 +821,8 @@ Note that we intentionally do not include interpretations of the data here, as t
               // check if all compat_features are in the same feature group
               let guessedGroup = null;
               let hasAPIgroup = false;
-              for ( let compat_feature of compat_features ){ 
-                let currentGroup = compat_feature.split(".")[0]; 
+              for ( let compat_feature of compat_features ){
+                let currentGroup = compat_feature.split(".")[0];
 
                 if ( currentGroup === "api" )
                   hasAPIgroup = true;
@@ -836,7 +836,7 @@ Note that we intentionally do not include interpretations of the data here, as t
                   else if (feature.name === "<dialog>") {
                     guessedGroup = "html";
                   }
-                  else 
+                  else
                     console.error("INCONSISTENT compat_features! ", currentGroup, "!=", guessedGroup, compat_features, feature);
                 }
               }
@@ -888,7 +888,7 @@ Note that we intentionally do not include interpretations of the data here, as t
               else if ( feature.compat_features && feature.compat_features.length > 0 ) {
                 // if the compat_features[0] is this: javascript.builtins.Array.fromAsync
                 // then the caniuse slug should be this: mdn-javascript_builtins_array_fromasync
-                
+
                 let slug = feature.compat_features[0].toLowerCase().replaceAll(".","_");
 
                 link += `mdn-${ slug }`;
@@ -931,7 +931,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       // make sure any currently selected rows in the output table is deselected
 
       let featuresTable = document.getElementById("baseline_"+ clientType +"_table").getElementsByTagName('tbody')[0];
-      
+
       // make sure old element is deselected
       const currentlySelected = featuresTable.getElementsByClassName("is-selected");
       for ( let cs of currentlySelected ) {
@@ -954,7 +954,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
         let uaName = ua.ua;
 
-        // FB and Insta are Tracked for iOS but not for Android at this point. Make this clearer, as they are in both lists ;) 
+        // FB and Insta are Tracked for iOS but not for Android at this point. Make this clearer, as they are in both lists ;)
         if ( clientType === "mobile" && uaName === "Facebook" ) {
           uaName = "Facebook (Android)";
         }
@@ -973,7 +973,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
         let uaName = ua.ua;
 
-        // FB and Insta are Tracked for iOS but not for Android at this point. Make this clearer, as they are in both lists ;) 
+        // FB and Insta are Tracked for iOS but not for Android at this point. Make this clearer, as they are in both lists ;)
         if ( clientType === "mobile" && uaName === "Facebook" ) {
           uaName = "Facebook (iOS)";
         }
@@ -989,17 +989,17 @@ Note that we intentionally do not include interpretations of the data here, as t
       // so todo is: figure that out :) for now, to not cause confusion, just do this instead:
       percentage_tracked = 100 - percentage_noise;
 
-      let detailsText = 
+      let detailsText =
           `<p>
-              We do not track feature support for every browser/User Agent. Some browsers are too old, or the information is not public, 
-              or they are bots/attacker traffic, which is present in the RUM Archive data but impossible to automatically filter out. 
-              The main results displayed in this table intentionally only take into account the tracked/known browsers and ignore the rest. 
+              We do not track feature support for every browser/User Agent. Some browsers are too old, or the information is not public,
+              or they are bots/attacker traffic, which is present in the RUM Archive data but impossible to automatically filter out.
+              The main results displayed in this table intentionally only take into account the tracked/known browsers and ignore the rest.
             </p>
             <p>
               For the current date, the unknown browsers account for <b>${ percentage_noise.toFixed(2) }%</b> of total ${clientType} beacons seen.
-              This means that ${percentage_tracked.toFixed(2)}% of all RUM beacons belong to a tracked browser. 
-              Put differently, if the table on the left shows 100% baseline support, it means that <i>at least</i> ${percentage_tracked.toFixed(2)}% of all the considered 
-              RUM Archive beacons were from browser types and versions that had support for those Baseline features. 
+              This means that ${percentage_tracked.toFixed(2)}% of all RUM beacons belong to a tracked browser.
+              Put differently, if the table on the left shows 100% baseline support, it means that <i>at least</i> ${percentage_tracked.toFixed(2)}% of all the considered
+              RUM Archive beacons were from browser types and versions that had support for those Baseline features.
               That does not mean that the remaining User Agents don't support a feature, it simply means that we can't tell whether they do or not.
             </p>
 
@@ -1022,14 +1022,14 @@ Note that we intentionally do not include interpretations of the data here, as t
           <details>
             <summary>Untracked User Agents for ${clientType}</summary>
             <ul>${unknownText}</ul>
-            <p>Note: some of these User Agents might seem at first glance like they could be tracked (e.g., named after one of the main browsers), 
+            <p>Note: some of these User Agents might seem at first glance like they could be tracked (e.g., named after one of the main browsers),
               but these often show up in impossible combinations (e.g., Chrome Mobile on Windows Desktop) and are likely bots that we intentionally exclude.
           </details>
         `;
 
       detailsText += `
         <br/>
-        <p>Note that the RUM Archive uses <a href="https://github.com/ua-parser/">the ua-parser</a> project to parse User Agent strings. 
+        <p>Note that the RUM Archive uses <a href="https://github.com/ua-parser/">the ua-parser</a> project to parse User Agent strings.
       `
 
       let textContainer = detailsContainer.getElementsByTagName("div")[0];
