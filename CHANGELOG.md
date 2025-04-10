@@ -1,3 +1,7 @@
+## Version 1.4 (2024-08)
+
+* [Unattributed Navigation Overhead (UNO)](https://calendar.perfplanet.com/2024/uno/) has been added to the Page Loads table
+
 ## Version 1.3 (2024-04)
 
 * Starting with `2024-04-01` onward, the mPulse Page Load and Third-Party Resource datasets now include minor version numbers for the following browsers:
