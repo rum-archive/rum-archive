@@ -1,0 +1,22 @@
+name: Create Pull Request on Push to insights-update
+
+on:
+  push:
+    branches:
+      - insights-update # Trigger on pushes to the insights-update branch
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create_pull_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Pull Request via API
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d '{"title":"[automated] New insights data","body":"Automated insights data update from gitlab CI","head":"insights-update","base":"main"}' \
+            https://api.github.com/repos/rum-archive/rum-archive/pulls
