@@ -108,9 +108,25 @@ Note that we intentionally do not include interpretations of the data here, as t
       because that would mean missing out on many already widely available features.
       In practice, you want to utilize features that <b>almost all of your users</b> will benefit from.
       To help you figure out which features those are and which Baseline year you should target,
-      below we show how many global visitors observed by the RUM Archive <b>on the first Tuesday of last month</b>
+      below we show how many visitors observed by the RUM Archive <b>on the first Tuesday of last month</b>
       had support for ALL the features in a particular Baseline year.
     </p>
+
+    <p>
+      You can assess baseline support on a global basis for all countries, 
+      or select one of the top 15 countries present in the RUM Archive dataset to get a more fine-grained idea of what's possible in a specific region.
+    </p>
+
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half control" style="text-align: center; vertical-align: middle;">
+          <div class="select">
+            <select id="baseline_country_select">
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <style>
       .table.is-hoverable tbody tr:not(.is-selected):hover {
@@ -549,10 +565,96 @@ Note that we intentionally do not include interpretations of the data here, as t
 
     // BEGIN: BASELINE SUPPORT LOGIC
 
-    async function populateBaselineInfo() {
+    const selectBox = document.getElementById("baseline_country_select");
+    // TODO: don't hardcode the countries, get a list from the backend
+    const countries = [
+      {
+        slug: "", // intentionally empty
+        name: "All countries"
+      },
+      {
+        slug: "US",
+        name: "United States"
+      },
+      {
+        slug: "GB",
+        name: "Great Britain"
+      },
+      {
+        slug: "JP",
+        name: "Japan"
+      },
+      {
+        slug: "IN",
+        name: "India"
+      },
+      {
+        slug: "CA",
+        name: "Canada"
+      },
+      {
+        slug: "FR",
+        name: "France"
+      },
+      {
+        slug: "MX",
+        name: "Mexico"
+      },
+      {
+        slug: "AU",
+        name: "Australia"
+      },
+      {
+        slug: "IT",
+        name: "Italy"
+      },
+      {
+        slug: "KR",
+        name: "South Korea"
+      },
+      {
+        slug: "ES",
+        name: "Spain"
+      },
+      {
+        slug: "NL",
+        name: "Netherlands"
+      },
+      {
+        slug: "BR",
+        name: "Brazil"
+      },
+      {
+        slug: "TR",
+        name: "Turkey"
+      },
+    ];
+
+    // make available in external functions
+    // TODO: refactor this so it's not longer needed
+    window.countries = countries;
+    window.selectedCountrySlug = "";
+
+    for ( let country of countries ) {
+      const option = document.createElement("option");
+      option.text = country.name;
+      option.value = country.slug;
+      selectBox.add(option);
+    }
+
+    selectBox.addEventListener("change", (event) => {
+      populateBaselineInfo( event.target.value );
+    });
+
+
+    async function populateBaselineInfo(countrySlug = "") {
+      window.selectedCountrySlug = countrySlug; // mainly for usageDisclaimer needs
+
+      // without suffix means fetch data for all countries
+      const suffix = countrySlug !== "" ? `_${countrySlug}` : "";
 
       const responses = await Promise.all([
-        fetch(Constants.getDataURL("recent_useragentversion_useragentfamily_devicetype")),
+        fetch(Constants.getDataURL(`recent_useragentversion_useragentfamily_devicetype${suffix}`)),
         fetch(Constants.getDataURL("web-features")),
         fetch(Constants.getDataURL("baseline-browser-mappings"))
       ]);
@@ -732,7 +834,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       ];
 
       let baselineFeaturesPerYear = {};
-      for( let year = 2016; year <= 2024; year++ ) {
+      for( let year = 2016; year <= 2025; year++ ) {
         let yearFeatures = [];
         // baseline dates are for the baseline_low_date (means low availability, but year is correct)
         for ( let web_feature of Object.values(web_features) ) {
@@ -763,7 +865,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
         let DEBUG_totalUnsupportedPercent = 0;
 
-        for( let year = 2016; year <= 2024; year++ ){
+        for( let year = 2016; year <= 2025; year++ ){
 
           if ( !resultsPerYear[""+year] ) {
             resultsPerYear[""+year] = 0;
@@ -883,8 +985,30 @@ Note that we intentionally do not include interpretations of the data here, as t
         }
       }
 
+      // now we actually show the results
+
       for( let baselineResult of baselineResults ) {
         let outputTable = document.getElementById("baseline_"+ baselineResult.clients[0] +"_table").getElementsByTagName('tbody')[0];
+
+        // want to prevent adding the event handler below more than once when updating the tables with the country selector
+        // TODO: refactor this so this type of hack isn't needed... we should really switch to an SPA thing for this I'm afraid
+        let eventHandlerWasAlreadyAdded = outputTable.childElementCount > 0;
+
+        outputTable.innerHTML = ""; // clear any previous results on the side (e.g., from other countries previously selected)
+
+        const country = window.countries.filter( c => c.slug === window.selectedCountrySlug )[0].name;
+
+        // reset details containers as well
+        const detailsText = `Click on a row in the table to get more information per Baseline year for ${country}`;
+
+        let detailsContainer = document.getElementById("baseline_desktop_details");
+        let textContainer = detailsContainer.getElementsByTagName("div")[0];
+        textContainer.innerHTML = detailsText;
+
+        detailsContainer = document.getElementById("baseline_mobile_details");
+        textContainer = detailsContainer.getElementsByTagName("div")[0];
+        textContainer.innerHTML = detailsText;
+
 
         for ( let year of Object.keys(baselineResult.yearCounts) ) {
           let counts = baselineResult.yearCounts[year];
@@ -919,174 +1043,180 @@ Note that we intentionally do not include interpretations of the data here, as t
           resultCell.innerHTML = "" + percentage_subset + "%";
         }
 
-        outputTable.addEventListener("click", (evt) => {
-          if ( !evt.target )
-            return;
+        if ( !eventHandlerWasAlreadyAdded ) {
+          outputTable.addEventListener("click", (evt) => {
+            if ( !evt.target )
+              return;
 
-          // the click is usually the year <th> or the percentage <td>
-          // we need to get parent tr if that's the case
-          let row = evt.target;
-          let yearPercent = evt.target.getAttribute("baseline-year");
+            console.log("outputTable event listener fired... probably multiple times")
 
-          if ( !yearPercent && evt.target.parentNode ){
-            yearPercent = evt.target.parentNode.getAttribute("baseline-year");
-            row = evt.target.parentNode;
-          }
+            // the click is usually the year <th> or the percentage <td>
+            // we need to get parent tr if that's the case
+            let row = evt.target;
+            let yearPercent = evt.target.getAttribute("baseline-year");
 
-          if ( !yearPercent ){ // can't find the baseline-year... nothing left to do
-            console.error("outputTable:click : can't find the baseline-year... can't proceed", evt.target, evt.target.getAttribute("baseline-year"), evt);
-            return;
-          }
+            if ( !yearPercent && evt.target.parentNode ){
+              yearPercent = evt.target.parentNode.getAttribute("baseline-year");
+              row = evt.target.parentNode;
+            }
 
-          // make sure old element is deselected
-          const currentlySelected = outputTable.getElementsByClassName("is-selected");
-          for ( let cs of currentlySelected ) {
-            cs.classList.remove("is-selected");
-          }
+            if ( !yearPercent ){ // can't find the baseline-year... nothing left to do
+              console.error("outputTable:click : can't find the baseline-year... can't proceed", evt.target, evt.target.getAttribute("baseline-year"), evt);
+              return;
+            }
 
-          // select current row
-          row.classList.add("is-selected");
+            // make sure old element is deselected
+            const currentlySelected = outputTable.getElementsByClassName("is-selected");
+            for ( let cs of currentlySelected ) {
+              cs.classList.remove("is-selected");
+            }
 
-          const year = yearPercent.split("_")[0];
-          const percentage = yearPercent.split("_")[1];
+            // select current row 
+            row.classList.add("is-selected");
 
-          let detailsContainer = document.getElementById("baseline_"+ baselineResult.clients[0] +"_details");
-          detailsContainer.getElementsByTagName("h4")[0].textContent = "Details for Baseline " + year;
+            const year = yearPercent.split("_")[0];
+            const percentage = yearPercent.split("_")[1];
 
-          let detailsContent = `If you target the following Web features for Baseline ${year}, <b>` + percentage + `%</b> of `+ baselineResult.clients[0] +` users in the RUM Archive for the Tracked browsers <img class="usageDisclaimerIcon" onclick="showUsageDisclaimer('${baselineResult.clients[0]}')" src="/assets/question_mark.png" /> would benefit:<br /><br />`;
+            let detailsContainer = document.getElementById("baseline_"+ baselineResult.clients[0] +"_details");
+            detailsContainer.getElementsByTagName("h4")[0].textContent = "Details for Baseline " + year;
 
-          // we want to group compat features by type (CSS, JS, HTML, API, Other)
-          let groups = {
-            "css": new Set(),
-            "javascript": new Set(),
-            "html": new Set(),
-            "api": new Set(),
-            "http": new Set(),
-            "svg": new Set(),
-            "other": new Set(),
-          };
+            const country = window.countries.filter( c => c.slug === window.selectedCountrySlug )[0].name;
 
-          // we want the groups to display properly capitalized etc.
-          let groupNames = {
-            "css": "CSS",
-            "javascript": "JavaScript",
-            "html": "HTML",
-            "api": "APIs",
-            "http": "HTTP",
-            "svg": "SVG",
-            "other": "Others",
-          };
+            let detailsContent = `If you target the following Web features for Baseline ${year}, <b>` + percentage + `%</b> of `+ baselineResult.clients[0] +` users from ${country} in the RUM Archive for the Tracked browsers <img class="usageDisclaimerIcon" onclick="showUsageDisclaimer('${baselineResult.clients[0]}')" src="/assets/question_mark.png" /> would benefit:<br /><br />`;
 
-          for ( let feature of baselineFeaturesPerYear[year] ) {
-            let compat_features = feature.compat_features;
-            if( compat_features ){
+            // we want to group compat features by type (CSS, JS, HTML, API, Other)
+            let groups = {
+              "css": new Set(),
+              "javascript": new Set(),
+              "html": new Set(),
+              "api": new Set(),
+              "http": new Set(),
+              "svg": new Set(),
+              "other": new Set(),
+            };
 
-              // compat_features can have multiple subfeatures listed, each belonging to a specific group
-              // e.g., you can have
-              // [ "api.feature.1", "api.feature.2", "html.feature.x", "html.feature.y" ]
-              // we only want to show the feature ONCE under a group (so for the example, we don't want to show both in API AND HTML, but only HTML)
-              // so, we can't just look at the first one in the list, because APIs are a bit special
-              // (most features will have an API subfeature... if there is any other grouping possible (e.g., HTML in the example) then that should be preferred)
-              // so, we special-case api.
+            // we want the groups to display properly capitalized etc.
+            let groupNames = {
+              "css": "CSS",
+              "javascript": "JavaScript",
+              "html": "HTML",
+              "api": "APIs",
+              "http": "HTTP",
+              "svg": "SVG",
+              "other": "Others",
+            };
 
-              // check if all compat_features are in the same feature group
-              let guessedGroup = null;
-              let hasAPIgroup = false;
-              for ( let compat_feature of compat_features ){
-                let currentGroup = compat_feature.split(".")[0];
+            for ( let feature of baselineFeaturesPerYear[year] ) {
+              let compat_features = feature.compat_features;
+              if( compat_features ){
 
-                if ( currentGroup === "api" )
-                  hasAPIgroup = true;
-                else if( guessedGroup === null )
-                  guessedGroup = currentGroup;
-                else if ( guessedGroup !== currentGroup ) {
-                  // some features are known to be inconsistent and we hardcode their mappings here for now
-                  if( feature.name === "Popover" ){
-                    guessedGroup = "html";
+                // compat_features can have multiple subfeatures listed, each belonging to a specific group
+                // e.g., you can have
+                // [ "api.feature.1", "api.feature.2", "html.feature.x", "html.feature.y" ]
+                // we only want to show the feature ONCE under a group (so for the example, we don't want to show both in API AND HTML, but only HTML)
+                // so, we can't just look at the first one in the list, because APIs are a bit special
+                // (most features will have an API subfeature... if there is any other grouping possible (e.g., HTML in the example) then that should be preferred)
+                // so, we special-case api.
+
+                // check if all compat_features are in the same feature group
+                let guessedGroup = null;
+                let hasAPIgroup = false;
+                for ( let compat_feature of compat_features ){
+                  let currentGroup = compat_feature.split(".")[0];
+
+                  if ( currentGroup === "api" )
+                    hasAPIgroup = true;
+                  else if( guessedGroup === null )
+                    guessedGroup = currentGroup;
+                  else if ( guessedGroup !== currentGroup ) {
+                    // some features are known to be inconsistent and we hardcode their mappings here for now
+                    if( feature.name === "Popover" ){
+                      guessedGroup = "html";
+                    }
+                    else if (feature.name === "<dialog>") {
+                      guessedGroup = "html";
+                    }
+                    else
+                      console.error("INCONSISTENT compat_features! ", currentGroup, "!=", guessedGroup, compat_features, feature);
                   }
-                  else if (feature.name === "<dialog>") {
-                    guessedGroup = "html";
-                  }
-                  else
-                    console.error("INCONSISTENT compat_features! ", currentGroup, "!=", guessedGroup, compat_features, feature);
                 }
-              }
 
-              if ( guessedGroup === null ) {
-                // no group found. Could mean 1 of 2 things
-                // 1. it is really an API feature: put into that group
-                // 2. it simply doesn't have a known group: put it as "other"
-                if ( hasAPIgroup ) {
-                  guessedGroup = "api";
+                if ( guessedGroup === null ) {
+                  // no group found. Could mean 1 of 2 things
+                  // 1. it is really an API feature: put into that group
+                  // 2. it simply doesn't have a known group: put it as "other"
+                  if ( hasAPIgroup ) {
+                    guessedGroup = "api";
+                  }
+                  else {
+                    guessedGroup = "other";
+                  }
                 }
-                else {
+
+                if ( !Object.keys(groups).includes(guessedGroup) ) {
+                  console.warn("New feature group found that we didn't know about yet! Putting it as 'other' for now", guessedGroup, feature);
                   guessedGroup = "other";
                 }
-              }
 
-              if ( !Object.keys(groups).includes(guessedGroup) ) {
-                console.warn("New feature group found that we didn't know about yet! Putting it as 'other' for now", guessedGroup, feature);
-                guessedGroup = "other";
-              }
-
-              groups[guessedGroup].add( feature );
-            }
-            else {
-              // e.g., AVIF support doesn't have compat_features
-              groups["other"].add( feature );
-            }
-          }
-
-          // console.log( groups );
-
-          for ( let group of Object.entries(groups) ) {
-            if( group[1].size === 0 )
-              continue;
-
-            detailsContent += "<h5>" + groupNames[ group[0] ] + "</h5><ul class=\"features-list\">";
-
-            for ( let feature of group[1] ) {
-
-              // some feature's name is a valid HTML element tag... LOOKING AT YOU <detail>... urgh
-              let name = feature.name.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-
-              // not everythin has a caniuse slag sadly...
-              // one way to work around that is to construct a caniuse from the first compat_features indicator
-              let link = "https://caniuse.com/";
-              if ( feature.caniuse ){
-                link += feature.caniuse;
-              }
-              else if ( feature.compat_features && feature.compat_features.length > 0 ) {
-                // if the compat_features[0] is this: javascript.builtins.Array.fromAsync
-                // then the caniuse slug should be this: mdn-javascript_builtins_array_fromasync
-
-                let slug = feature.compat_features[0].toLowerCase().replaceAll(".","_");
-
-                link += `mdn-${ slug }`;
-
-                // console.log("Feature without caniuse... trying to map directly via compat_features", link, feature);
-              }
-              else if ( feature.spec ) {
-                link = feature.spec;
+                groups[guessedGroup].add( feature );
               }
               else {
-                link = undefined;
-                console.error("Could not generate a link for feature... shouldn't happen: ", feature);
+                // e.g., AVIF support doesn't have compat_features
+                groups["other"].add( feature );
               }
-
-              if ( link )
-                detailsContent += `<li><a href="${link}" target="_blank">${name}</a></li>`;
-              else
-                detailsContent += `<li>${name}</li>`
             }
 
-            detailsContent += "</ul>"
-          }
+            // console.log( groups );
 
-          let textContainer = detailsContainer.getElementsByTagName("div")[0];
-          textContainer.innerHTML = detailsContent;
-        });
-      }
+            for ( let group of Object.entries(groups) ) {
+              if( group[1].size === 0 )
+                continue;
+
+              detailsContent += "<h5>" + groupNames[ group[0] ] + "</h5><ul class=\"features-list\">";
+
+              for ( let feature of group[1] ) {
+
+                // some feature's name is a valid HTML element tag... LOOKING AT YOU <detail>... urgh
+                let name = feature.name.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+
+                // not everythin has a caniuse slag sadly...
+                // one way to work around that is to construct a caniuse from the first compat_features indicator
+                let link = "https://caniuse.com/";
+                if ( feature.caniuse ){
+                  link += feature.caniuse;
+                }
+                else if ( feature.compat_features && feature.compat_features.length > 0 ) {
+                  // if the compat_features[0] is this: javascript.builtins.Array.fromAsync
+                  // then the caniuse slug should be this: mdn-javascript_builtins_array_fromasync
+
+                  let slug = feature.compat_features[0].toLowerCase().replaceAll(".","_");
+
+                  link += `mdn-${ slug }`;
+
+                  // console.log("Feature without caniuse... trying to map directly via compat_features", link, feature);
+                }
+                else if ( feature.spec ) {
+                  link = feature.spec;
+                }
+                else {
+                  link = undefined;
+                  console.error("Could not generate a link for feature... shouldn't happen: ", feature);
+                }
+
+                if ( link )
+                  detailsContent += `<li><a href="${link}" target="_blank">${name}</a></li>`;
+                else
+                  detailsContent += `<li>${name}</li>`
+              }
+
+              detailsContent += "</ul>"
+            }
+
+            let textContainer = detailsContainer.getElementsByTagName("div")[0];
+            textContainer.innerHTML = detailsContent;
+          });
+        } // end check if event handler was already added
+      } // done rendering results
 
       console.log( baselineResults );
     }
@@ -1338,6 +1468,9 @@ Note that we intentionally do not include interpretations of the data here, as t
         cs.classList.remove("is-selected");
       }
 
+      // find currently used country name
+      let country = window.countries.filter( c => c.slug === window.selectedCountrySlug )[0].name;
+
       let detailsContainer = document.getElementById("baseline_"+ clientType +"_details");
       detailsContainer.getElementsByTagName("h4")[0].textContent = "Disclaimer about usage tracking";
 
@@ -1396,10 +1529,10 @@ Note that we intentionally do not include interpretations of the data here, as t
               The main results displayed in this table intentionally only take into account the tracked/known browsers and ignore the rest.
             </p>
             <p>
-              For the current date, the unknown browsers account for <b>${ percentage_noise.toFixed(2) }%</b> of total ${clientType} beacons seen.
+              For the current date, the unknown browsers account for <b>${ percentage_noise.toFixed(2) }%</b> of total ${clientType} beacons seen in ${country}.
               This means that ${percentage_tracked.toFixed(2)}% of all RUM beacons belong to a tracked browser.
               Put differently, if the table on the left shows 100% baseline support, it means that <i>at least</i> ${percentage_tracked.toFixed(2)}% of all the considered
-              RUM Archive beacons were from browser types and versions that had support for those Baseline features.
+              RUM Archive beacons in ${country} were from browser types and versions that had support for those Baseline features.
               That does not mean that the remaining User Agents don't support a feature, it simply means that we can't tell whether they do or not.
             </p>
 

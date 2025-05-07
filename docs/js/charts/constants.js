@@ -3,8 +3,14 @@ class Constants {
 
     static FORCE_PRODUCTION_DATA = false; // to force getting data from the live site instead of local data when testing
 
-    static get DATA_BASE_URL() { 
-        return "/insights/data/";
+    static get DATA_BASE_URL() {
+        if ( !Constants.FORCE_PRODUCTION_DATA && window && window.location && window.location.href.includes("localhost") ) {
+            // allow for easy local testing
+            // launch a basic python http server in the rum-insights-data dir with `python3 -m http.server 9000`
+            return "http://localhost:9000/data-output/";
+        }
+        else 
+            return "/insights/data/";
     }
 
     static get QUERY_BASE_URL() {
