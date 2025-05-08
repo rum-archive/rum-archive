@@ -232,7 +232,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
     <p>
       You can assess baseline support on a global basis for all countries, 
-      or select one of the top 15 countries present in the RUM Archive dataset to get a more fine-grained idea of what's possible in a specific region.
+      or select one of <b>the top 15 countries</b> present in the RUM Archive dataset to get a more fine-grained idea of what's possible in a specific region.
     </p>
 
     <div class="container">
@@ -256,6 +256,7 @@ Note that we intentionally do not include interpretations of the data here, as t
         width: 15px;
       }
 
+      /* 
       ul.features-list {
         margin-left: 1em;
       }
@@ -267,7 +268,43 @@ Note that we intentionally do not include interpretations of the data here, as t
           background-repeat: no-repeat;
           background-position: left center;
           background-size: 30px;
+      } 
+      */
+
+      .features-list {
+        table-layout: fixed;
       }
+
+      .features-list td {
+        border: none !important;
+        line-height: 2;
+      }
+
+      .features-list td:first-of-type {
+        padding: 0px 40px;
+        background-image: url("/assets/baseline-blue-logo.svg");
+        background-repeat: no-repeat;
+        background-position: left center;
+        background-size: 30px;
+        vertical-align: middle;
+      }
+
+      .features-list .chrome-usage {
+        padding: 0px 25px;
+        background-image: url("/assets/chrome_logo.webp");
+        background-repeat: no-repeat;
+        background-position: left center;
+        background-size: 20px;
+        vertical-align: middle;
+
+        /* by default, these are not shown. Can be toggled manually by adding .show */
+        display: none;
+      }
+
+      .features-list .chrome-usage.show {
+        display: block;
+      }
+
     </style>
 
     <div class="container">
@@ -412,7 +449,9 @@ Note that we intentionally do not include interpretations of the data here, as t
     <p>
       The BigQuery queries used to generate data for these graphs and their outputs can be found in the separate <a href="https://github.com/rum-archive/rum-insights-data/tree/main/queries">rum-insights-data GitHub repository</a>.
     </p>
-
+    <p>
+      The Baseline Support section uses data published by the W3C WebDX Community Group under the Apache 2.0 License.
+    </p>
 
 </section>
 
@@ -682,6 +721,8 @@ Note that we intentionally do not include interpretations of the data here, as t
     }
 
     // BEGIN: BASELINE SUPPORT LOGIC
+
+    window.showChromeUsage = false; // TODO: mainly to be available outside of this script. Refactor this so it's not needed...
 
     const selectBox = document.getElementById("baseline_country_select");
     // TODO: don't hardcode the countries, get a list from the backend
@@ -955,10 +996,12 @@ Note that we intentionally do not include interpretations of the data here, as t
       for( let year = 2016; year <= 2025; year++ ) {
         let yearFeatures = [];
         // baseline dates are for the baseline_low_date (means low availability, but year is correct)
-        for ( let web_feature of Object.values(web_features) ) {
+        // for ( let web_feature of Object.values(web_features) ) {
+        for( const [web_feature_id, web_feature] of Object.entries(web_features) ) {
           if ( web_feature.status && web_feature.status.baseline_low_date ) {
             let featureYear = web_feature.status.baseline_low_date.split("-")[0]; // format: 2023-05-09
             if ( featureYear === ("" + year) ){
+              web_feature.id = web_feature_id; // need to add this manually; needed later to get Chrome usage numbers
               yearFeatures.push( web_feature );
             }
           }
@@ -1162,7 +1205,7 @@ Note that we intentionally do not include interpretations of the data here, as t
         }
 
         if ( !eventHandlerWasAlreadyAdded ) {
-          outputTable.addEventListener("click", (evt) => {
+          outputTable.addEventListener("click", async (evt) => {
             if ( !evt.target )
               return;
 
@@ -1200,7 +1243,10 @@ Note that we intentionally do not include interpretations of the data here, as t
 
             const country = window.countries.filter( c => c.slug === window.selectedCountrySlug )[0].name;
 
-            let detailsContent = `If you target the following Web features for Baseline ${year}, <b>` + percentage + `%</b> of `+ baselineResult.clients[0] +` users from ${country} in the RUM Archive for the Tracked browsers <img class="usageDisclaimerIcon" onclick="showUsageDisclaimer('${baselineResult.clients[0]}')" src="/assets/question_mark.png" /> would benefit:<br /><br />`;
+            let detailsContent = `If you target the following Web features for Baseline ${year}, <b>` + percentage + `%</b> of `+ baselineResult.clients[0] +` users from ${country} in the RUM Archive for the Tracked browsers <img class="usageDisclaimerIcon" onclick="showUsageDisclaimer('${baselineResult.clients[0]}')" src="/assets/question_mark.png" /> would benefit.<br /><br />`;
+
+            const checked = window.showChromeUsage ? "checked" : "";
+            detailsContent += `<input type="checkbox" ${checked} onclick="toggleChromeUsageInfo()">&nbsp;&nbsp;Show how often features are used in the wild (according to Google Chrome <img class="usageDisclaimerIcon" onclick="showChromeUsageDisclaimer('${baselineResult.clients[0]}')" src="/assets/question_mark.png" />)</a><br /><br />`;
 
             // we want to group compat features by type (CSS, JS, HTML, API, Other)
             let groups = {
@@ -1223,6 +1269,20 @@ Note that we intentionally do not include interpretations of the data here, as t
               "svg": "SVG",
               "other": "Others",
             };
+
+            const chromeUsageQuery = encodeURIComponent(`baseline_date:${year}-01-01..${year}-12-31`);
+
+            const chromeUsageResponse = await fetch(`https://api.webstatus.dev/v1/features?q=${chromeUsageQuery}`, {
+              signal: AbortSignal.timeout(1000) // never trust a 3rd party
+            });
+
+            let chromeUsageList = [];
+
+            if (chromeUsageResponse.ok) {
+              const rawResults = await chromeUsageResponse.json();
+              if ( rawResults.data )
+                chromeUsageList = rawResults.data;
+            }
 
             for ( let feature of baselineFeaturesPerYear[year] ) {
               let compat_features = feature.compat_features;
@@ -1290,7 +1350,8 @@ Note that we intentionally do not include interpretations of the data here, as t
               if( group[1].size === 0 )
                 continue;
 
-              detailsContent += "<h5>" + groupNames[ group[0] ] + "</h5><ul class=\"features-list\">";
+              // detailsContent += "<h5>" + groupNames[ group[0] ] + "</h5><ul class=\"features-list\">";
+              detailsContent += "<h5>" + groupNames[ group[0] ] + "</h5><table style=\"table-layout:fixed\" class=\"features-list\"><tbody>";
 
               for ( let feature of group[1] ) {
 
@@ -1322,12 +1383,32 @@ Note that we intentionally do not include interpretations of the data here, as t
                 }
 
                 if ( link )
-                  detailsContent += `<li><a href="${link}" target="_blank">${name}</a></li>`;
+                  detailsContent += `<tr><td><a href="${link}" target="_blank">${name}</a></td>`;
                 else
-                  detailsContent += `<li>${name}</li>`
+                  detailsContent += `<tr><td>${name}</td>`;
+
+                // see if we have chrome usage data for this feature
+                const usageEntry = chromeUsageList.find( f => f.feature_id === feature.id );
+                if ( usageEntry ) {
+                  let usagePercent = "<small>Usage unknown</small>";
+
+                  if ( usageEntry.usage && usageEntry.usage.chrome && usageEntry.usage.chrome.daily ) {
+                    usagePercent = usageEntry.usage.chrome.daily;
+                    usagePercent = (usagePercent * 100).toFixed(1) + "%";
+
+                    usagePercent = `Used on ${usagePercent} of pages`;
+                  }
+
+                  const showUsage = window.showChromeUsage ? " show" : "";
+
+                  detailsContent += `<td class="chrome-usage${showUsage}">${usagePercent}</td>`;
+                }
+
+                detailsContent += "</tr>";
               }
 
-              detailsContent += "</ul>"
+              // detailsContent += "</ul>"
+               detailsContent += "</tbody></table>";
             }
 
             let textContainer = detailsContainer.getElementsByTagName("div")[0];
@@ -1501,6 +1582,31 @@ Note that we intentionally do not include interpretations of the data here, as t
 
 <script>
 
+    function toggleChromeUsageInfo() {
+
+      window.showChromeUsage = !window.showChromeUsage;
+
+      console.log("Toggling chrome usage info " + window.showChromeUsage);
+
+      const chromeUsageCells = document.getElementsByClassName("chrome-usage");
+      for (let i = 0; i < chromeUsageCells.length; i++) {
+
+        if ( window.showChromeUsage ) {
+          chromeUsageCells[i].classList.add("show");
+        }
+        else {
+          chromeUsageCells[i].classList.remove("show");
+        }
+
+        /*
+        if ( chromeUsageCells[i].style.display === "none" )
+          chromeUsageCells[i].style.display = "block";
+        else 
+          chromeUsageCells[i].style.display = "none";
+        */
+      }
+    }
+
     // had to put this inside a separate script tag (that's NOT a module) so the button onclick event handlers in the HTML could find the function
     // TODO: fix this properly somehow
     function showUsageDisclaimer(clientType) {
@@ -1610,6 +1716,37 @@ Note that we intentionally do not include interpretations of the data here, as t
         <br/>
         <p>Note that the RUM Archive uses <a href="https://github.com/ua-parser/">the ua-parser</a> project to parse User Agent strings.
       `
+
+      let textContainer = detailsContainer.getElementsByTagName("div")[0];
+      textContainer.innerHTML = detailsText;
+    }
+
+    function showChromeUsageDisclaimer(clientType) {
+      // make sure any currently selected rows in the output table is deselected
+
+      let featuresTable = document.getElementById("baseline_"+ clientType +"_table").getElementsByTagName('tbody')[0];
+
+      // make sure old element is deselected
+      const currentlySelected = featuresTable.getElementsByClassName("is-selected");
+      for ( let cs of currentlySelected ) {
+        cs.classList.remove("is-selected");
+      }
+
+      let detailsContainer = document.getElementById("baseline_"+ clientType +"_details");
+      detailsContainer.getElementsByTagName("h4")[0].textContent = "Disclaimer about Chrome usage details";
+
+      let detailsText =
+          `<p>
+              Google collects telemetry from the Chrome browser to help estimate <b>how many websites/pages use particular Web platform features in the wild</b> on a daily basis. The percentage shown is an indication of how often the feature was seen on all pages visited by the Google Chrome browser, worldwide, in the last day. For many features, no usage numbers are known/published, and thus we mark them as "unknown".
+            </p>
+            <p>
+              We use their Google's directly via <a href="https://web.dev/articles/web-platform-dashboard-baseline">the webstatus.dev API</a> and provide no guarantees on completeness or correctness. 
+            </p>
+
+            <p>
+              Note: the Chrome usage numbers will always be worldwide / for all countries, even if you've selected just one country/region on top (as the usage API does not allow filtering per country).
+            </p>
+           `;
 
       let textContainer = detailsContainer.getElementsByTagName("div")[0];
       textContainer.innerHTML = detailsText;
