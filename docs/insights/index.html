@@ -787,6 +787,10 @@ Note that we intentionally do not include interpretations of the data here, as t
         slug: "TR",
         name: "Turkey"
       },
+      {
+        slug: "PL",
+        name: "Poland"
+      },
     ];
 
     // make available in external functions
@@ -1270,18 +1274,27 @@ Note that we intentionally do not include interpretations of the data here, as t
               "other": "Others",
             };
 
-            const chromeUsageQuery = encodeURIComponent(`baseline_date:${year}-01-01..${year}-12-31`);
 
-            const chromeUsageResponse = await fetch(`https://api.webstatus.dev/v1/features?q=${chromeUsageQuery}`, {
-              signal: AbortSignal.timeout(1000) // never trust a 3rd party
-            });
-
+            // Chrome daily usage info comes from a Google API
+            // this is nice-to-have data, so we timeout after 1s if it's slow coming in
             let chromeUsageList = [];
 
-            if (chromeUsageResponse.ok) {
-              const rawResults = await chromeUsageResponse.json();
-              if ( rawResults.data )
-                chromeUsageList = rawResults.data;
+            try {
+              const chromeUsageQuery = encodeURIComponent(`baseline_date:${year}-01-01..${year}-12-31`);
+
+              const chromeUsageResponse = await fetch(`https://api.webstatus.dev/v1/features?q=${chromeUsageQuery}`, {
+                signal: AbortSignal.timeout(1000) // never trust a 3rd party
+              });
+
+              if (chromeUsageResponse.ok) {
+                const rawResults = await chromeUsageResponse.json();
+                if ( rawResults.data )
+                  chromeUsageList = rawResults.data;
+              }
+            }
+            catch(err) {
+              // we don't really care if we fail to load this; it's an optional feature
+              console.error("Failed to load webstatus.dev chrome daily usage", err);
             }
 
             for ( let feature of baselineFeaturesPerYear[year] ) {
@@ -1402,6 +1415,9 @@ Note that we intentionally do not include interpretations of the data here, as t
                   const showUsage = window.showChromeUsage ? " show" : "";
 
                   detailsContent += `<td class="chrome-usage${showUsage}">${usagePercent}</td>`;
+                }
+                else {
+                  detailsContent += `<td class="chrome-usage${showUsage}">Failed to load data</td>`;
                 }
 
                 detailsContent += "</tr>";
