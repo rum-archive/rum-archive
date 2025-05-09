@@ -1417,6 +1417,7 @@ Note that we intentionally do not include interpretations of the data here, as t
                   detailsContent += `<td class="chrome-usage${showUsage}">${usagePercent}</td>`;
                 }
                 else {
+                  const showUsage = window.showChromeUsage ? " show" : "";
                   detailsContent += `<td class="chrome-usage${showUsage}">Failed to load data</td>`;
                 }
 
