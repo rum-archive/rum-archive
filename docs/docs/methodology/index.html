@@ -123,20 +123,19 @@
           
           <h2 id="overview" tabindex="-1">Overview</h2>
 <p>The RUM Archive datasets contain aggregated Real User Monitoring (RUM) data from one or more websites.</p>
-<p>Each public <a href="/datasets">dataset</a> publishes aggregated data to <a href="https://cloud.google.com/bigquery">Google BigQuery</a> tables.</p>
-<p>Two types of <a href="/docs/tables">tables</a> are described within the RUM Archive:</p>
+<p>Each <a href="/datasets">dataset</a> in the RUM Archive publishes aggregated RUM data to public <a href="https://cloud.google.com/bigquery">Google BigQuery</a> tables.</p>
+<p>There are two types of <a href="/docs/tables">tables</a> within the RUM Archive:</p>
 <ul>
 <li><strong>Page Loads</strong>: Browser page load experiences</li>
 <li><strong>Resources</strong>: Third party resource fetches</li>
 </ul>
 <p>The documentation on this page describes how this RUM data is aggregated, exported and made available for querying.</p>
 <h2 id="aggregation" tabindex="-1">Aggregation</h2>
-<p>All data published to the RUM Archive is <strong>aggregated</strong> -- that is, there are no individual user experiences, beacons,
-hits, page loads or fetches represented within the queryable data.</p>
+<p>All data published to the RUM Archive is <strong>sanitized</strong> and <strong>aggregated</strong>.</p>
 <p>The goal of aggregation is twofold:</p>
 <ul>
-<li>To protect the privacy of the individual user who generated the RUM data</li>
-<li>To reduce the amount of data that needs to be stored in the tables and accessed when queried, so that vast quantities of data can be represented</li>
+<li>To protect the privacy of individuals who visit a website</li>
+<li>To reduce the amount of data that needs to be stored in the tables, so that vast quantities of data can be represented</li>
 </ul>
 <p>In order to generate queryable aggregated data, each RUM Archive table shares a common pattern in the columns it contains:</p>
 <ul>
@@ -146,7 +145,7 @@ hits, page loads or fetches represented within the queryable data.</p>
 </ul>
 </li>
 <li>A <strong>Count</strong> of the number of datapoints that match that unique tuple</li>
-<li><strong>Timer or Metrics</strong> that are aggregated into Histograms and other statistics like Avg or SumLn</li>
+<li><strong>Timers or Metrics</strong> that are aggregated into Histograms and other statistics like Avg or SumLn</li>
 </ul>
 <p>With the data exported in this format, anyone wanting to combine, aggregate, slice, filter or group by any of the available
 dimensions can also calculate statistics about the Timers and Metrics for that group of data:</p>
@@ -163,8 +162,7 @@ dimensions can also calculate statistics about the Timers and Metrics for that g
 <p>Some datasets may have a Minimum Count Threshold for aggregated data.  For example, the mPulse <a href="/datasets">dataset</a> has
 a Minimum Count Threshold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by <strong>at least</strong> 5
 unique hits will be discarded.</p>
-<p>This threshold is intended to ensure individual experiences are not directly represented within the sample set.  If the
-Minimum Count Threshold was 1, rows with a Count of 1 would represent an individual experience.</p>
+<p>Other datasets may have a Minimum Count Threshold of 1, so all available data is represented in the dataset.  For example, the <a href="/datasets/#akamai-employee-individual-datasets">Akamai Employee Individual Datasets</a> contain all of the page load events for each day.</p>
 <p>The downside of applying a Minimum Count Threshold is that <strong>outliers</strong>, by definition, will be discarded and not represented
 in the queryable dataset.</p>
 <p>Discarding outliers <strong>will affect</strong> the accuracy of queries.  For example, in the mPulse dataset, we estimate that discarding any tuples with less than 5 hits could affect 50th percentile (median) calculations by around 2.9% and 95th percentile calculations by 7%.  Please take this into consideration when querying the data.</p>

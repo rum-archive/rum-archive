@@ -4,11 +4,38 @@
   <subtitle>RUM Archive Blog</subtitle>
   <link href="https://rumarchive.com/blog/feed.xml" rel="self"/>
   <link href="https://rumarchive.com/blog/"/>
-  <updated>2025-08-14T16:42:01Z</updated>
+  <updated>2025-08-14T19:33:55Z</updated>
   <id>https://rumarchive.com/blog/</id>
   <author>
     <name>mPulse Developers</name>
   </author>
+    <entry>
+        <title>Akamai Employee Individual Datasets</title>
+        <link href="https://rumarchive.com/blog/2025-08-akamai-employee-individual-datasets/"/>
+        <updated>2025-08-14T00:00:00Z</updated>
+        <id>https://rumarchive.com/blog/2025-08-akamai-employee-individual-datasets/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/blog/assets/authors/nic-jansma.jpg" alt="Akamai Employee Individual Datasets" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Nic Jansma (2025-08-14)
+          &lt;/p&gt;
+          &lt;p&gt;
+            Three new unsampled datasets have been added!
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2025-08-akamai-employee-individual-datasets/">Read More&lt;/a&gt;
+            
+            &lt;p&gt;TODO&lt;/p&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
     <entry>
         <title>Daily Uploads and a Two Year Review!</title>
         <link href="https://rumarchive.com/blog/2025-01-28-daily-uploads-and-two-year-review/"/>

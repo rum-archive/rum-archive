@@ -10,9 +10,9 @@ order: 0
 
 The RUM Archive datasets contain aggregated Real User Monitoring (RUM) data from one or more websites.
 
-Each public [dataset](/datasets) publishes aggregated data to [Google BigQuery](https://cloud.google.com/bigquery) tables.
+Each [dataset](/datasets) in the RUM Archive publishes aggregated RUM data to public [Google BigQuery](https://cloud.google.com/bigquery) tables.
 
-Two types of [tables](/docs/tables) are described within the RUM Archive:
+There are two types of [tables](/docs/tables) within the RUM Archive:
 
 * **Page Loads**: Browser page load experiences
 * **Resources**: Third party resource fetches
@@ -21,20 +21,19 @@ The documentation on this page describes how this RUM data is aggregated, export
 
 ## Aggregation
 
-All data published to the RUM Archive is **aggregated** -- that is, there are no individual user experiences, beacons,
-hits, page loads or fetches represented within the queryable data.
+All data published to the RUM Archive is **sanitized** and **aggregated**.
 
 The goal of aggregation is twofold:
 
-* To protect the privacy of the individual user who generated the RUM data
-* To reduce the amount of data that needs to be stored in the tables and accessed when queried, so that vast quantities of data can be represented
+* To protect the privacy of individuals who visit a website
+* To reduce the amount of data that needs to be stored in the tables, so that vast quantities of data can be represented
 
 In order to generate queryable aggregated data, each RUM Archive table shares a common pattern in the columns it contains:
 
 * Multiple **Dimensions** that describe the aggregate data, such as date, browser, geographic region, or protocol
   * Each row represents a unique tuple of those dimensions
 * A **Count** of the number of datapoints that match that unique tuple
-* **Timer or Metrics** that are aggregated into Histograms and other statistics like Avg or SumLn
+* **Timers or Metrics** that are aggregated into Histograms and other statistics like Avg or SumLn
 
 With the data exported in this format, anyone wanting to combine, aggregate, slice, filter or group by any of the available
 dimensions can also calculate statistics about the Timers and Metrics for that group of data:
@@ -57,8 +56,7 @@ Some datasets may have a Minimum Count Threshold for aggregated data.  For examp
 a Minimum Count Threshold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by **at least** 5
 unique hits will be discarded.
 
-This threshold is intended to ensure individual experiences are not directly represented within the sample set.  If the
-Minimum Count Threshold was 1, rows with a Count of 1 would represent an individual experience.
+Other datasets may have a Minimum Count Threshold of 1, so all available data is represented in the dataset.  For example, the [Akamai Employee Individual Datasets](/datasets/#akamai-employee-individual-datasets) contain all of the page load events for each day.
 
 The downside of applying a Minimum Count Threshold is that **outliers**, by definition, will be discarded and not represented
 in the queryable dataset.

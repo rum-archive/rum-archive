@@ -8,15 +8,17 @@ order: 4
 
 ## Data is sampled
 
-All of the data in the RUM Archive is **sampled**.
+Most of the data in the RUM Archive is **sampled**.
 
 The sampling rate may not be publicly disclosed, so `BEACONS` counts should only be used for [_relative_ weighting](#counts-should-only-be-used-for-relative-percentages) for that day.
 
 The sampling rate _may_ also change from day-to-day.
 
+Some [datasets](/datasets) may not be sampled. For example, the [Akamai Employee Individual Datasets](/datasets#akamai-employee-individual-datasets) contain all of the page load events for each day.
+
 ## Counts should only be used for relative percentages
 
-Since the [data is sampled](#data-is-sampled), absolute counts of `BEACONS` should only be used to compare data on the same `DATE` in a single dataset.
+When [data is sampled](#data-is-sampled), absolute counts of `BEACONS` should only be used to compare data on the same `DATE` in a single dataset.
 
 As the sampling rate may change from day-to-day, absolute count comparisons _between days_ should not be used, only _relative weights_.
 
@@ -24,12 +26,14 @@ See the [sample queries](/docs/samples/#dimension-popularity-(as-a-percentage-of
 
 ## Outliers are excluded
 
-All of the data in the RUM Archive is [sampled](#data-is-sampled), [aggregated](/docs/methodology/#aggregation), and only rows that meet the [Minimum Count Threshold](/docs/methodology/#minimum-count-threshold) are included.
+Most of the data in the RUM Archive is [sampled](#data-is-sampled), [aggregated](/docs/methodology/#aggregation), and only rows that meet the [Minimum Count Threshold](/docs/methodology/#minimum-count-threshold) are included.
 
 The downside of applying a Minimum Count Threshold is that **outliers**, by definition, will be discarded and not represented
 in the queryable dataset.
 
 Discarding outliers **will affect** the accuracy of queries.  For example, in the mPulse dataset, we estimate that discarding any tuples with less than 5 hits could affect 50th percentile (median) calculations by around 2.9% and 95th percentile calculations by 7%.  Please take this into consideration when querying the data.
+
+The [Akamai Employee Individual Datasets](/datasets#akamai-employee-individual-datasets) are not sampled, so "include" all outliers.
 
 ## Zeroes matter (or not)
 
@@ -47,6 +51,8 @@ For other Timers like DNS, you may want to include or exclude zeros:
 Each [dataset](/datasets) comes from a different website (or set of websites), and is using a different collection, sampling and aggregation methodology.
 
 As a result, datasets shouldn't be directly compared to one another unless you're looking at specific things that would not be affected by those caveats (such as understanding the relative weighting of Browser or Device Types seen).
+
+The [Akamai Employee Individual Datasets](/datasets#akamai-employee-individual-datasets) are individually identifiable, and you'd usually want to segregate your queries based on the `SITE` column.
 
 ## Limiting BigQuery costs
 
