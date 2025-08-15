@@ -14,7 +14,7 @@ The sampling rate may not be publicly disclosed, so `BEACONS` counts should only
 
 The sampling rate _may_ also change from day-to-day.
 
-Some [datasets](/datasets) may not be sampled. For example, the [Akamai Employee Individual Datasets](/datasets#akamai-employee-individual-datasets) contain all of the page load events for each day.
+Some [datasets](/datasets) may not be sampled. For example, the [Akamai Employee Individual Datasets](/datasets#akamai-employee-individual-websites-datasets) contain all of the page load events for each day.
 
 ## Counts should only be used for relative percentages
 
@@ -33,7 +33,7 @@ in the queryable dataset.
 
 Discarding outliers **will affect** the accuracy of queries.  For example, in the mPulse dataset, we estimate that discarding any tuples with less than 5 hits could affect 50th percentile (median) calculations by around 2.9% and 95th percentile calculations by 7%.  Please take this into consideration when querying the data.
 
-The [Akamai Employee Individual Datasets](/datasets#akamai-employee-individual-datasets) are not sampled, so "include" all outliers.
+The [Akamai Employee Individual Datasets](/datasets#akamai-employee-individual-websites-datasets) are not sampled, so "include" all outliers.
 
 ## Zeroes matter (or not)
 
@@ -52,7 +52,7 @@ Each [dataset](/datasets) comes from a different website (or set of websites), a
 
 As a result, datasets shouldn't be directly compared to one another unless you're looking at specific things that would not be affected by those caveats (such as understanding the relative weighting of Browser or Device Types seen).
 
-The [Akamai Employee Individual Datasets](/datasets#akamai-employee-individual-datasets) are individually identifiable, and you'd usually want to segregate your queries based on the `SITE` column.
+The [Akamai Employee Individual Datasets](/datasets#akamai-employee-individual-websites-datasets) are individually identifiable, and you'd usually want to segregate your queries based on the `SITE` column.
 
 ## Limiting BigQuery costs
 

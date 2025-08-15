@@ -1,6 +1,6 @@
 ## Version 1.5 (2025-08)
 
-* [Akamai Employee Individual Datasets](/datasets#akamai-employee-individual-datasets) have been added
+* [Akamai Employee Individual Websites Datasets](/datasets#akamai-employee-individual-websites-datasets) have been added
 
 ## Version 1.4 (2024-08)
 

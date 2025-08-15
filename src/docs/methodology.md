@@ -56,7 +56,7 @@ Some datasets may have a Minimum Count Threshold for aggregated data.  For examp
 a Minimum Count Threshold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by **at least** 5
 unique hits will be discarded.
 
-Other datasets may have a Minimum Count Threshold of 1, so all available data is represented in the dataset.  For example, the [Akamai Employee Individual Datasets](/datasets/#akamai-employee-individual-datasets) contain all of the page load events for each day.
+Other datasets may have a Minimum Count Threshold of 1, so all available data is represented in the dataset.  For example, the [Akamai Employee Individual Datasets](/datasets/#akamai-employee-individual-websites-datasets) contain all of the page load events for each day.
 
 The downside of applying a Minimum Count Threshold is that **outliers**, by definition, will be discarded and not represented
 in the queryable dataset.

@@ -162,7 +162,7 @@ dimensions can also calculate statistics about the Timers and Metrics for that g
 <p>Some datasets may have a Minimum Count Threshold for aggregated data.  For example, the mPulse <a href="/datasets">dataset</a> has
 a Minimum Count Threshold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by <strong>at least</strong> 5
 unique hits will be discarded.</p>
-<p>Other datasets may have a Minimum Count Threshold of 1, so all available data is represented in the dataset.  For example, the <a href="/datasets/#akamai-employee-individual-datasets">Akamai Employee Individual Datasets</a> contain all of the page load events for each day.</p>
+<p>Other datasets may have a Minimum Count Threshold of 1, so all available data is represented in the dataset.  For example, the <a href="/datasets/#akamai-employee-individual-websites-datasets">Akamai Employee Individual Datasets</a> contain all of the page load events for each day.</p>
 <p>The downside of applying a Minimum Count Threshold is that <strong>outliers</strong>, by definition, will be discarded and not represented
 in the queryable dataset.</p>
 <p>Discarding outliers <strong>will affect</strong> the accuracy of queries.  For example, in the mPulse dataset, we estimate that discarding any tuples with less than 5 hits could affect 50th percentile (median) calculations by around 2.9% and 95th percentile calculations by 7%.  Please take this into consideration when querying the data.</p>
