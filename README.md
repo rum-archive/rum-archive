@@ -1,6 +1,6 @@
 # RUM Archive
 
-The **RUM Archive** is a publicly available and [queryable](https://rumarchive.com/docs/querying) dataset of anonymized Real User Monitoring (RUM) page loads
+The **RUM Archive** is a free, publicly available, and [queryable](https://rumarchive.com/docs/querying) dataset of anonymized Real User Monitoring (RUM) page loads
 and third-party resource fetches.
 
 Taking inspiration from projects like the [Wayback Machine](https://archive.org) and the [HTTP Archive](https://httparchive.org),
