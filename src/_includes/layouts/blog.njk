@@ -27,6 +27,7 @@ layout: layouts/base.njk
     <hr>
     <div class="content m-10 has-text-centered m-5">
       {%- if previousBlog %}<a href="{{ previousBlog.url | url }}">&larr; {{ previousBlog.data.title }}</a>{% endif %}
+      {%- if (previousBlog and nextBlog) %} | {% endif %}
       {%- if nextBlog %}<a href="{{ nextBlog.url | url }}">{{ nextBlog.data.title }} &rarr;</a>{% endif %}
     </div>
     {%- endif %}
