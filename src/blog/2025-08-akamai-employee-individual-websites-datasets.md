@@ -70,6 +70,8 @@ ORDER BY SITE ASC, BEACONS DESC, DEVICETYPE
 | (multiple) | 2714540186 |     Mobile |
 | (multiple) |  193847403 |     Tablet |
 
+> _NOTE: This SQL calculates the DeviceType distribution seen across all samples over 31 days of mPulse RUM data (where each day is its own sample set).  A more accurate way to look at this data might be to calculate the DeviceType distribution for each day, then average those distributions.  That query is more complex, and in this case, rounded to the same percentages._
+
 Now let's compare those results to each individual website (note the table has changed):
 
 ```sql

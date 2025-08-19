@@ -4,7 +4,7 @@
   <subtitle>RUM Archive Blog</subtitle>
   <link href="https://rumarchive.com/blog/feed.xml" rel="self"/>
   <link href="https://rumarchive.com/blog/"/>
-  <updated>2025-08-15T14:57:55Z</updated>
+  <updated>2025-08-19T16:45:53Z</updated>
   <id>https://rumarchive.com/blog/</id>
   <author>
     <name>mPulse Developers</name>
@@ -99,6 +99,9 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;NOTE: This SQL calculates the DeviceType distribution seen across all samples over 31 days of mPulse RUM data (where each day is its own sample set).  A more accurate way to look at this data might be to calculate the DeviceType distribution for each day, then average those distributions.  That query is more complex, and in this case, rounded to the same percentages.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Now let&#39;s compare those results to each individual website (note the table has changed):&lt;/p&gt;
 &lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;-- Mobile vs. Desktop for Akamai employee websites in July 2025&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  SITE&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; BEACONS&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        DEVICETYPE&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;akamai-mpulse-rumarchive.rumarchive.rumarchive_page_loads_individual&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;  &lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;2025-07-01&#39;&lt;/span&gt;&lt;br /&gt;    &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;2025-07-31&#39;&lt;/span&gt; &lt;br /&gt;    &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt; DEVICETYPE &lt;span class=&quot;token operator&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;NULL&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; SITE&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; DEVICETYPE&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; SITE &lt;span class=&quot;token keyword&quot;&gt;ASC&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; BEACONS &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; DEVICETYPE&lt;/code&gt;&lt;/pre&gt;
 &lt;table&gt;
