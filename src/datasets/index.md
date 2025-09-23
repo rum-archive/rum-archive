@@ -42,7 +42,7 @@ Technical Details:
   * Resources table's `protocol` column is not set
 * Changelog: See the [release notes](/docs/release-notes/) for breaking changes
 
-## Akamai Employee Individual Datasets
+## Akamai Employee Individual Websites Datasets
 
 A few Akamai employees with personal websites have opted in to publishing their RUM data to the RUM Archive.
 
