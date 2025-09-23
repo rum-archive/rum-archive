@@ -25,6 +25,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/blog/**/*.png");
+  eleventyConfig.addPassthroughCopy("src/blog/**/*.jpg");
   eleventyConfig.addPassthroughCopy("src/blog/**/*.svg");
   eleventyConfig.addPassthroughCopy({ "src/_favicon": "/" })
   eleventyConfig.addPassthroughCopy("src/insights/data");

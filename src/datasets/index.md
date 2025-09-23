@@ -41,3 +41,29 @@ Technical Details:
 * Known issues:
   * Resources table's `protocol` column is not set
 * Changelog: See the [release notes](/docs/release-notes/) for breaking changes
+
+## Akamai Employee Individual Datasets
+
+A few Akamai employees with personal websites have opted in to publishing their RUM data to the RUM Archive.
+
+These websites are aggregated independently, and are individually identifiable via the `SITE` column.  Their data is published to the `rumarchive_page_loads_individual` table (instead of the `rumarchive_page_loads` table the regular mPulse Dataset is published to).
+
+Technical Details:
+
+* License: [CC BY SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
+* Collected via: [boomerang.js](https://github.com/akamai/boomerang) via mPulse
+* Aggregation cadence: **Daily**
+* Release cadence: **Daily** (automated, by 2pm GMT for previous day)
+* Websites:
+  * [sarna.net](https://www.sarna.net) - Nic Jansma
+  * [scalemates.com](https://scalemates.com) - Tim Vereecke
+  * [virtualglobetrotting.com](https://virtualglobetrotting.com) - Nic Jansma
+* Page Loads: **Yes**
+  * Sampling: No sampling
+  * Size: Approximately 300,000 page loads aggregated per day
+* Resources: **No**
+* Google BigQuery project: `akamai-mpulse-rumarchive`
+  * Dataset: `rumarchive`
+  * Page Loads table: `rumarchive_page_loads_individual`
+    * Available daily data:
+      * `2024-06-01` (onward, daily)

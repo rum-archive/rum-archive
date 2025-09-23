@@ -1,3 +1,7 @@
+## Version 1.5 (2025-09)
+
+* [Akamai Employee Individual Websites Datasets](/datasets#akamai-employee-individual-websites-datasets) have been added
+
 ## Version 1.4 (2024-08)
 
 * [Unattributed Navigation Overhead (UNO)](https://calendar.perfplanet.com/2024/uno/) has been added to the Page Loads table

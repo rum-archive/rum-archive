@@ -117,7 +117,7 @@ WHERE   DATE = "2022-09-01"
 }]
 ```
 
-So with the [Akamai mPulse RUM dataset](/datasets/#akamai-mpulse-rum) on `2022-09-01`, there are 1.5 million aggregation rows that represent 268 million page loads (from the **sampled** and **aggregated** data set).
+So with the [Akamai mPulse RUM dataset](/datasets/#akamai-mpulse-rum) on `2022-09-01`, there are 1.5 million aggregation rows that represent 268 million page loads (from the **sampled** and **aggregated** dataset).
 
 ### Grouping
 
