@@ -64,11 +64,11 @@ GROUP BY SITE, DEVICETYPE
 ORDER BY SITE ASC, BEACONS DESC, DEVICETYPE
 ```
 
-| SITE       |    BEACONS | DEVICETYPE |
-|------------|-----------:|-----------:|
-| (multiple) | 1562278602 |    Desktop |
-| (multiple) | 2714540186 |     Mobile |
-| (multiple) |  193847403 |     Tablet |
+| SITE       |       BEACONS | DEVICETYPE |
+|------------|--------------:|-----------:|
+| (multiple) | 1,562,278,602 |    Desktop |
+| (multiple) | 2,714,540,186 |     Mobile |
+| (multiple) |   193,847,403 |     Tablet |
 
 > _NOTE: This SQL calculates the DeviceType distribution seen across all samples over 31 days of mPulse RUM data (where each day is its own sample set).  A more accurate way to look at this data might be to calculate the DeviceType distribution for each day, then average those distributions.  That query is more complex, and in this case, rounded to the same percentages._
 
@@ -87,17 +87,17 @@ GROUP BY SITE, DEVICETYPE
 ORDER BY SITE ASC, BEACONS DESC, DEVICETYPE
 ```
 
-| SITE                     | BEACONS | DEVICETYPE |
-|--------------------------|--------:|-----------:|
-| sarna.net                | 1340556 |     Mobile |
-| sarna.net                | 1262629 |    Desktop |
-| sarna.net                |  129388 |     Tablet |
-| scalemates.com           | 3345773 |    Desktop |
-| scalemates.com           | 2524355 |     Mobile |
-| scalemates.com           |  575796 |     Tablet |
-| virtualglobetrotting.com |  486161 |     Mobile |
-| virtualglobetrotting.com |  282918 |    Desktop |
-| virtualglobetrotting.com |   50791 |     Tablet |
+| SITE                     |   BEACONS | DEVICETYPE |
+|--------------------------|----------:|-----------:|
+| sarna.net                | 1,340,556 |     Mobile |
+| sarna.net                | 1,262,629 |    Desktop |
+| sarna.net                |   129,388 |     Tablet |
+| scalemates.com           | 3,345,773 |    Desktop |
+| scalemates.com           | 2,524,355 |     Mobile |
+| scalemates.com           |   575,796 |     Tablet |
+| virtualglobetrotting.com |   486,161 |     Mobile |
+| virtualglobetrotting.com |   282,918 |    Desktop |
+| virtualglobetrotting.com |    50,791 |     Tablet |
 
 Pivoted by `DEVICETYPE`, we can see the differences in device distributions between the mPulse Top 100 dataset and each individual website:
 
