@@ -6,7 +6,7 @@ layout: layouts/blog.njk
 tags: blog
 author: Nic Jansma
 toc: false
-thumbnail: /blog/2025-08-akamai-employee-individual-websites-datasets/thumbnail.jpg
+thumbnail: /blog/2025-09-23-akamai-employee-individual-websites-datasets/thumbnail.jpg
 ---
 
 Today we are announcing a new dataset that has been added to the RUM Archive: [Akamai Employee Individual Websites](/datasets/#akamai-employee-individual-websites-datasets)
