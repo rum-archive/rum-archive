@@ -270,9 +270,14 @@ ORDER BY SUM(BEACONS) DESC
 
 ![Approximate Percentiles](/assets/querying-approximate-percentiles-1.jpg)
 
-`includeZero` determines whether or not to include `0` values in the percentile calculation.  If set to `false`, percentile calculations will start at values greater than `0`.
+`includeZero` determines whether or not to include `0` values in the percentile calculation.  If set to `false`, percentile calculations will start at values greater than `0`.  If set to `true`, percentile calculations will include all values that are `0` as well.
 
-For some timers or metrics, it may make sense ot include zeros, such as Cumulative Layout Shift (CLS), where a value of `0` is valid and considered "good".
+For some timers or metrics, it may make sense to include zeros, such as Cumulative Layout Shift (CLS), where a value of `0` is valid and considered "good".
+
+Another scenario for setting `includeZero=true` would be when you want to look at the "all visitors' experiences" in a certain metric (or not), such as `DNS`:
+
+* If you set `includeZero=false` for DNS, you would only calculate the duration of DNS _when it needed to be looked up_.
+* If you set `includeZero=true` for DNS, it would calculate _out of all experiences, including cached DNS, how long did it take to go through the DNS phase?_
 
 For example, setting `includeZero` for metrics like CLS will affect the results:
 
