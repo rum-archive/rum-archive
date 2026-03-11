@@ -1,3 +1,7 @@
+## 2026-03-11
+
+* The [Akamai mPulse Top 100](https://rumarchive.com/datasets/#akamai-mpulse-rum) and [Akamai Employee Individual Websites](/datasets#akamai-employee-individual-websites-datasets) Datasets had empty INP data from 2024-02-14 through 2026-03-09 due to a pipeline error.  This has been fixed in the 2026-03-10 data going forward.
+
 ## Version 1.5 (2025-09)
 
 * [Akamai Employee Individual Websites Datasets](/datasets#akamai-employee-individual-websites-datasets) have been added
