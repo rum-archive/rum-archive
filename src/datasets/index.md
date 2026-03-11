@@ -40,6 +40,7 @@ Technical Details:
   * User Agent parsing is done via the [`ua-parser`](https://github.com/ua-parser/) library, using the [`regexes.yaml`](https://github.com/ua-parser/uap-core/blob/master/regexes.yaml) rules
 * Known issues:
   * Resources table's `protocol` column is not set
+  * `INP*` data was not available from 2024-02-14 through 2026-03-09
 * Changelog: See the [release notes](/docs/release-notes/) for breaking changes
 
 ## Akamai Employee Individual Websites Datasets
