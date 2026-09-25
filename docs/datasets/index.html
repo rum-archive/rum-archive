@@ -117,7 +117,7 @@
             <h2>Table of Contents</h2>
             <aside>
               <div class="toc" >
-        <ul><li><a href="#contributing">Contributing</a></li><li><a href="#akamai-mpulse-rum">Akamai mPulse RUM</a></li><li><a href="#akamai-employee-individual-websites-datasets">Akamai Employee Individual Websites Datasets</a></li></ul>
+        <ul><li><a href="#contributing">Contributing</a></li><li><a href="#akamai-mpulse-rum">Akamai mPulse RUM</a></li><li><a href="#akamai-employee-individual-websites-datasets">Akamai Employee Individual Websites Datasets</a></li><li><a href="#cloudflare-beacon-dataset">Cloudflare BEACON Dataset</a></li></ul>
       </div>
             </aside>
           
@@ -162,24 +162,30 @@ across all of your page views to identify the root cause of latencies and lost r
 <li><code>2022-09-01</code> (onward, daily)</li>
 </ul>
 </li>
+<li><a href="/docs/release-notes">Schema version</a>: 1.5</li>
 </ul>
 </li>
 <li>Resources table: <code>rumarchive_resources</code>
 <ul>
 <li>Available dates: <code>2023-10-15</code> (onward, daily)</li>
+<li><a href="/docs/release-notes">Schema version</a>: 1.5</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Additional information:
 <ul>
+<li>Each website is capped at the same number of page loads (the volume of the 100th ranked website), so larger websites do not dominate the dataset sampling</li>
 <li>User Agent parsing is done via the <a href="https://github.com/ua-parser/"><code>ua-parser</code></a> library, using the <a href="https://github.com/ua-parser/uap-core/blob/master/regexes.yaml"><code>regexes.yaml</code></a> rules</li>
+<li>Page loads from known bot and automation User Agents are excluded</li>
+<li><code>SOURCE</code> is set to <code>mpulse</code> and <code>SITE</code> is set to <code>(multiple)</code></li>
 </ul>
 </li>
 <li>Known issues:
 <ul>
 <li>Resources table's <code>protocol</code> column is not set</li>
 <li><code>INP*</code> data was not available from 2024-02-14 through 2026-03-09</li>
+<li>The dimensions and timers added to the format in <a href="/docs/release-notes">version 1.6</a> (<code>USERAGENTENGINE</code>, <code>USERAGENTENGINEVERSION</code>, <code>INDUSTRY</code>, <code>TRANSFERSIZE*</code>, <code>INTERIMRESPONSE*</code>, <code>LCPLOADDELAY*</code>, <code>LCPLOADTIME*</code>, <code>LCPRENDERDELAY*</code>, <code>INPINPUTDELAY*</code>, <code>INPPROCESSINGDURATION*</code> and <code>INPPRESENTATIONDELAY*</code>) are not available in the mPulse datasets</li>
 </ul>
 </li>
 <li>Changelog: See the <a href="/docs/release-notes/">release notes</a> for breaking changes</li>
@@ -217,6 +223,59 @@ across all of your page views to identify the root cause of latencies and lost r
 <li><code>2024-06-01</code> (onward, daily)</li>
 </ul>
 </li>
+<li><a href="/docs/release-notes">Schema version</a>: 1.5</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="cloudflare-beacon-dataset" tabindex="-1">Cloudflare BEACON Dataset</h2>
+<p>The <strong>Cloudflare BEACON</strong> (Browser Experience Across Cloudflare's Observed Network) Dataset is an aggregation
+of Real User Monitoring data collected by <a href="https://www.cloudflare.com/web-analytics/">Cloudflare RUM</a>,
+Cloudflare's privacy-first RUM product.</p>
+<p>Technical Details:</p>
+<ul>
+<li>License: <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY SA 4.0</a></li>
+<li>Collected via: <a href="https://developers.cloudflare.com/web-analytics/">Cloudflare RUM</a></li>
+<li>Aggregation cadence: <strong>Daily</strong></li>
+<li>Release cadence: <strong>Daily</strong> (automated, for previous day)</li>
+<li>Page Loads: <strong>Yes</strong>
+<ul>
+<li>Sampling: A random percentage of normalized data from Cloudflare's top 10,000 websites (by daily page load volume)</li>
+<li>Size: Approximately 4.5 billion page loads aggregated per day</li>
+</ul>
+</li>
+<li>Resources: <strong>No</strong></li>
+<li>Google BigQuery project: <code>cf-open-web-performance</code>
+<ul>
+<li>Dataset: <code>rumarchive</code></li>
+<li>Page Loads table: <code>rumarchive_page_loads</code>
+<ul>
+<li>Available daily data:
+<ul>
+<li><code>2026-09-20</code> (onward, daily)</li>
+</ul>
+</li>
+<li><a href="/docs/release-notes">Schema version</a>: 1.6</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Additional information:
+<ul>
+<li>Each website is capped at the same number of page loads (the volume of the 10,000th ranked website), so larger websites do not dominate the dataset sampling</li>
+<li>Page loads from known bot and automation User Agents are excluded</li>
+<li><code>SOURCE</code> is set to <code>cloudflare</code> and <code>SITE</code> is set to <code>(multiple)</code></li>
+<li>User Agent, Operating System and Browser Engine names and versions are determined by Cloudflare's RUM pipeline (not the <a href="https://github.com/ua-parser/"><code>ua-parser</code></a> library used by the mPulse datasets), so values may differ slightly from the other datasets</li>
+</ul>
+</li>
+<li>Known issues:
+<ul>
+<li>Page Loads:
+<ul>
+<li>The following dimensions are always empty: <code>DEVICEMODEL</code>, <code>VISIBILITYSTATE</code> and <code>IPVERSION</code></li>
+<li>The following timers and metrics are always empty: <code>RTT</code>, <code>RAGECLICKS</code>, <code>FID</code>, <code>TBT</code>, <code>TTI</code> and <code>UNO</code></li>
+<li><code>BEACONTYPE</code> is limited to <code>page view</code>, <code>bfcache</code> and <code>spa</code> (not <code>spa hard</code>) as Cloudflare RUM does not measure SPA Hard Navigations</li>
 </ul>
 </li>
 </ul>

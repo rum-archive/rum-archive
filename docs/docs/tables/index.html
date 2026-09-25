@@ -132,10 +132,13 @@
 <p>Page Loads represent browser navigation experiences, whether from a traditional Multi-Page App (MPA) or Single-Page App (SPA).  SPA navigations can be broken down into both Hard Navigations (the first navigation to the page) and Soft Navigations (in-page route changes).</p>
 <p>Data is aggregated for each date.</p>
 <h3 id="schema" tabindex="-1">Schema</h3>
-<pre class="language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token identifier"><span class="token punctuation">`</span>%PROJECT%.%DATASET%.%PREFIX%_page_loads<span class="token punctuation">`</span></span><br><span class="token punctuation">(</span><br>    SOURCE STRING<span class="token punctuation">,</span><br>    SITE STRING<span class="token punctuation">,</span><br>    <span class="token keyword">DATE</span> <span class="token keyword">DATE</span><span class="token punctuation">,</span><br>    DEVICETYPE STRING<span class="token punctuation">,</span><br>    USERAGENTFAMILY STRING<span class="token punctuation">,</span><br>    USERAGENTVERSION STRING<span class="token punctuation">,</span><br>    DEVICEMODEL STRING<span class="token punctuation">,</span><br>    OS STRING<span class="token punctuation">,</span><br>    OSVERSION STRING<span class="token punctuation">,</span><br>    BEACONTYPE STRING<span class="token punctuation">,</span><br>    COUNTRY STRING<span class="token punctuation">,</span><br>    VISIBILITYSTATE STRING<span class="token punctuation">,</span><br>    NAVIGATIONTYPE STRING<span class="token punctuation">,</span><br>    PROTOCOL STRING<span class="token punctuation">,</span><br>    IPVERSION STRING<span class="token punctuation">,</span><br>    LANDINGPAGE <span class="token keyword">BOOLEAN</span><span class="token punctuation">,</span><br>    BEACONS <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    PLTHISTOGRAM STRING<span class="token punctuation">,</span><br>    PLTAVG FLOAT64<span class="token punctuation">,</span><br>    PLTSUMLN FLOAT64<span class="token punctuation">,</span><br>    PLTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    DNSHISTOGRAM STRING<span class="token punctuation">,</span><br>    DNSAVG FLOAT64<span class="token punctuation">,</span><br>    DNSSUMLN FLOAT64<span class="token punctuation">,</span><br>    DNSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    TCPAVG FLOAT64<span class="token punctuation">,</span><br>    TCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    TCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    TLSAVG FLOAT64<span class="token punctuation">,</span><br>    TLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    TLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTFBHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTFBAVG FLOAT64<span class="token punctuation">,</span><br>    TTFBSUMLN FLOAT64<span class="token punctuation">,</span><br>    TTFBCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    FCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    FCPAVG FLOAT64<span class="token punctuation">,</span><br>    FCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    FCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPAVG FLOAT64<span class="token punctuation">,</span><br>    LCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    RTTHISTOGRAM STRING<span class="token punctuation">,</span><br>    RTTAVG FLOAT64<span class="token punctuation">,</span><br>    RTTSUMLN FLOAT64<span class="token punctuation">,</span><br>    RTTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    RAGECLICKSHISTOGRAM STRING<span class="token punctuation">,</span><br>    RAGECLICKSAVG FLOAT64<span class="token punctuation">,</span><br>    RAGECLICKSSUMLN FLOAT64<span class="token punctuation">,</span><br>    RAGECLICKSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    CLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    CLSAVG FLOAT64<span class="token punctuation">,</span><br>    CLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    CLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    FIDHISTOGRAM STRING<span class="token punctuation">,</span><br>    FIDAVG FLOAT64<span class="token punctuation">,</span><br>    FIDSUMLN FLOAT64<span class="token punctuation">,</span><br>    FIDCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TBTHISTOGRAM STRING<span class="token punctuation">,</span><br>    TBTAVG FLOAT64<span class="token punctuation">,</span><br>    TBTSUMLN FLOAT64<span class="token punctuation">,</span><br>    TBTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTIHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTIAVG FLOAT64<span class="token punctuation">,</span><br>    TTISUMLN FLOAT64<span class="token punctuation">,</span><br>    TTICOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    REDIRECTHISTOGRAM STRING<span class="token punctuation">,</span><br>    REDIRECTAVG FLOAT64<span class="token punctuation">,</span><br>    REDIRECTSUMLN FLOAT64<span class="token punctuation">,</span><br>    REDIRECTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPAVG FLOAT64<span class="token punctuation">,</span><br>    INPSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    UNOHISTOGRAM STRING<span class="token punctuation">,</span><br>    UNOAVG FLOAT64<span class="token punctuation">,</span><br>    UNOSUMLN FLOAT64<span class="token punctuation">,</span><br>    UNOCOUNT <span class="token keyword">INTEGER</span><br><span class="token punctuation">)</span> <span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> <span class="token keyword">DATE</span><br><span class="token punctuation">;</span><br></code></pre>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token identifier"><span class="token punctuation">`</span>%PROJECT%.%DATASET%.%PREFIX%_page_loads<span class="token punctuation">`</span></span><br><span class="token punctuation">(</span><br>    SOURCE STRING<span class="token punctuation">,</span><br>    SITE STRING<span class="token punctuation">,</span><br>    <span class="token keyword">DATE</span> <span class="token keyword">DATE</span><span class="token punctuation">,</span><br>    DEVICETYPE STRING<span class="token punctuation">,</span><br>    USERAGENTFAMILY STRING<span class="token punctuation">,</span><br>    USERAGENTVERSION STRING<span class="token punctuation">,</span><br>    USERAGENTENGINE STRING<span class="token punctuation">,</span><br>    USERAGENTENGINEVERSION STRING<span class="token punctuation">,</span><br>    DEVICEMODEL STRING<span class="token punctuation">,</span><br>    OS STRING<span class="token punctuation">,</span><br>    OSVERSION STRING<span class="token punctuation">,</span><br>    BEACONTYPE STRING<span class="token punctuation">,</span><br>    COUNTRY STRING<span class="token punctuation">,</span><br>    VISIBILITYSTATE STRING<span class="token punctuation">,</span><br>    NAVIGATIONTYPE STRING<span class="token punctuation">,</span><br>    PROTOCOL STRING<span class="token punctuation">,</span><br>    IPVERSION STRING<span class="token punctuation">,</span><br>    LANDINGPAGE <span class="token keyword">BOOLEAN</span><span class="token punctuation">,</span><br>    INDUSTRY STRING<span class="token punctuation">,</span><br>    BEACONS <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    PLTHISTOGRAM STRING<span class="token punctuation">,</span><br>    PLTAVG FLOAT64<span class="token punctuation">,</span><br>    PLTSUMLN FLOAT64<span class="token punctuation">,</span><br>    PLTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    DNSHISTOGRAM STRING<span class="token punctuation">,</span><br>    DNSAVG FLOAT64<span class="token punctuation">,</span><br>    DNSSUMLN FLOAT64<span class="token punctuation">,</span><br>    DNSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    TCPAVG FLOAT64<span class="token punctuation">,</span><br>    TCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    TCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    TLSAVG FLOAT64<span class="token punctuation">,</span><br>    TLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    TLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTFBHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTFBAVG FLOAT64<span class="token punctuation">,</span><br>    TTFBSUMLN FLOAT64<span class="token punctuation">,</span><br>    TTFBCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    FCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    FCPAVG FLOAT64<span class="token punctuation">,</span><br>    FCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    FCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPAVG FLOAT64<span class="token punctuation">,</span><br>    LCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    RTTHISTOGRAM STRING<span class="token punctuation">,</span><br>    RTTAVG FLOAT64<span class="token punctuation">,</span><br>    RTTSUMLN FLOAT64<span class="token punctuation">,</span><br>    RTTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    RAGECLICKSHISTOGRAM STRING<span class="token punctuation">,</span><br>    RAGECLICKSAVG FLOAT64<span class="token punctuation">,</span><br>    RAGECLICKSSUMLN FLOAT64<span class="token punctuation">,</span><br>    RAGECLICKSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    CLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    CLSAVG FLOAT64<span class="token punctuation">,</span><br>    CLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    CLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    FIDHISTOGRAM STRING<span class="token punctuation">,</span><br>    FIDAVG FLOAT64<span class="token punctuation">,</span><br>    FIDSUMLN FLOAT64<span class="token punctuation">,</span><br>    FIDCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TBTHISTOGRAM STRING<span class="token punctuation">,</span><br>    TBTAVG FLOAT64<span class="token punctuation">,</span><br>    TBTSUMLN FLOAT64<span class="token punctuation">,</span><br>    TBTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTIHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTIAVG FLOAT64<span class="token punctuation">,</span><br>    TTISUMLN FLOAT64<span class="token punctuation">,</span><br>    TTICOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    REDIRECTHISTOGRAM STRING<span class="token punctuation">,</span><br>    REDIRECTAVG FLOAT64<span class="token punctuation">,</span><br>    REDIRECTSUMLN FLOAT64<span class="token punctuation">,</span><br>    REDIRECTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPAVG FLOAT64<span class="token punctuation">,</span><br>    INPSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    UNOHISTOGRAM STRING<span class="token punctuation">,</span><br>    UNOAVG FLOAT64<span class="token punctuation">,</span><br>    UNOSUMLN FLOAT64<span class="token punctuation">,</span><br>    UNOCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TRANSFERSIZEHISTOGRAM STRING<span class="token punctuation">,</span><br>    TRANSFERSIZEAVG FLOAT64<span class="token punctuation">,</span><br>    TRANSFERSIZESUMLN FLOAT64<span class="token punctuation">,</span><br>    TRANSFERSIZECOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INTERIMRESPONSEHISTOGRAM STRING<span class="token punctuation">,</span><br>    INTERIMRESPONSEAVG FLOAT64<span class="token punctuation">,</span><br>    INTERIMRESPONSESUMLN FLOAT64<span class="token punctuation">,</span><br>    INTERIMRESPONSECOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPLOADDELAYHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPLOADDELAYAVG FLOAT64<span class="token punctuation">,</span><br>    LCPLOADDELAYSUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPLOADDELAYCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPLOADTIMEHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPLOADTIMEAVG FLOAT64<span class="token punctuation">,</span><br>    LCPLOADTIMESUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPLOADTIMECOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPRENDERDELAYHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPRENDERDELAYAVG FLOAT64<span class="token punctuation">,</span><br>    LCPRENDERDELAYSUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPRENDERDELAYCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPINPUTDELAYHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPINPUTDELAYAVG FLOAT64<span class="token punctuation">,</span><br>    INPINPUTDELAYSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPINPUTDELAYCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPPROCESSINGDURATIONHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPPROCESSINGDURATIONAVG FLOAT64<span class="token punctuation">,</span><br>    INPPROCESSINGDURATIONSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPPROCESSINGDURATIONCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPPRESENTATIONDELAYHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPPRESENTATIONDELAYAVG FLOAT64<span class="token punctuation">,</span><br>    INPPRESENTATIONDELAYSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPPRESENTATIONDELAYCOUNT <span class="token keyword">INTEGER</span><br><span class="token punctuation">)</span> <span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> <span class="token keyword">DATE</span><br><span class="token punctuation">;</span><br></code></pre>
 <h3 id="dimensions" tabindex="-1">Dimensions</h3>
 <p>The dimensions below are characteristics of the Page Load experience.</p>
-<p>The <em>Cardinality</em> column is an estimate from the mPulse dataset.</p>
+<p>Not every <a href="/datasets">dataset</a> populates every dimension.  Dimensions a dataset does not have data for are exported as
+empty strings.</p>
+<p>The <em>Cardinality</em> column is an estimate from the mPulse dataset (or, for dimensions mPulse does not populate, the
+Cloudflare dataset).</p>
 <div class="table-container">
 <table>
 <thead>
@@ -150,7 +153,7 @@
 <tr>
 <td style="text-align:left"><code>SOURCE</code></td>
 <td style="text-align:left">Source of the data, e.g. provider</td>
-<td style="text-align:left"><code>mpulse</code></td>
+<td style="text-align:left"><code>mpulse</code> <code>cloudflare</code></td>
 <td style="text-align:right">1</td>
 </tr>
 <tr>
@@ -182,6 +185,18 @@
 <td style="text-align:left">User Agent major version</td>
 <td style="text-align:left"><code>124</code> <code>12</code> (Safari: <code>17.4</code>)</td>
 <td style="text-align:right">~350</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>USERAGENTENGINE</code></td>
+<td style="text-align:left">Browser engine family</td>
+<td style="text-align:left"><code>Blink</code> <code>WebKit</code> <code>Gecko</code></td>
+<td style="text-align:right">~3</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>USERAGENTENGINEVERSION</code></td>
+<td style="text-align:left">Browser engine major version</td>
+<td style="text-align:left"><code>139</code> <code>18.5</code></td>
+<td style="text-align:right">~900</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>DEVICEMODEL</code></td>
@@ -222,8 +237,8 @@
 <tr>
 <td style="text-align:left"><code>NAVIGATIONTYPE</code></td>
 <td style="text-align:left">Navigation type</td>
-<td style="text-align:left"><code>navigate</code> <code>back forward</code> <code>reload</code></td>
-<td style="text-align:right">3</td>
+<td style="text-align:left"><code>navigate</code> <code>back forward</code> <code>reload</code> <code>back forward cache</code></td>
+<td style="text-align:right">~8</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>PROTOCOL</code></td>
@@ -243,9 +258,25 @@
 <td style="text-align:left"><code>true</code> <code>false</code></td>
 <td style="text-align:right">3</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>INDUSTRY</code></td>
+<td style="text-align:left">Industry of the site <a href="#page-loads-dimensions-notes"><sup><em>1</em></sup></a></td>
+<td style="text-align:left"><code>Technology</code> <code>Shopping &amp; Auctions</code> <code>Sports</code> <code>Unknown</code></td>
+<td style="text-align:right">24</td>
+</tr>
 </tbody>
 </table>
 </div>
+<p><a name="page-loads-dimensions-notes"></a>
+Notes:</p>
+<ol>
+<li><code>INDUSTRY</code> is set by the dataset provider based on its own categorization of the site.  The Cloudflare dataset uses
+Cloudflare's domain categories, and reports <code>Unknown</code> for any site it cannot confidently categorize.  Possible values are
+<code>Ads</code>, <code>Adult Themes</code>, <code>Always Blocked</code>, <code>Business &amp; Economy</code>, <code>CIPA</code>, <code>Education</code>, <code>Entertainment</code>, <code>Government &amp; Politics</code>,
+<code>Health</code>, <code>Internet Communication</code>, <code>Job Search &amp; Careers</code>, <code>Miscellaneous</code>, <code>Real Estate</code>,
+<code>Religion</code>, <code>Safe for Kids</code>, <code>Shopping &amp; Auctions</code>, <code>Society &amp; Lifestyle</code>,
+<code>Sports</code>, <code>Technology</code>, <code>Travel</code>, <code>Vehicles</code>, <code>Violence</code>, <code>Weather</code> and <code>Unknown</code>.</li>
+</ol>
 <h3 id="timers-and-metrics" tabindex="-1">Timers and Metrics</h3>
 <p>The <code>BEACONS</code> column contains how many Page Loads that row represents.</p>
 <p>Each Timer or Metric has 4 columns:</p>
@@ -255,6 +286,8 @@
 <li><code>*SUMLN</code> (FLOAT64): Sum of the natural logarithms</li>
 <li><code>*COUNT</code> (INTEGER): Number of measurements taken for this timer or metric</li>
 </ul>
+<p>Not every <a href="/datasets">dataset</a> populates every Timer or Metric.  Those a dataset does not have data for are exported with
+an empty <code>*HISTOGRAM</code>, a <code>NULL</code> <code>*AVG</code> and <code>*SUMLN</code>, and a <code>*COUNT</code> of <code>0</code>.</p>
 <div class="table-container">
 <table>
 <thead>
@@ -328,9 +361,61 @@
 <td style="text-align:left">Unattributed Navigation Overhead</td>
 <td style="text-align:left"><code>UNO</code></td>
 </tr>
+<tr>
+<td style="text-align:left">Transfer Size (bytes) <a href="#page-loads-timers-notes"><sup><em>1</em></sup></a></td>
+<td style="text-align:left"><code>TRANSFERSIZE</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Time to First Interim Response <a href="#page-loads-timers-notes"><sup><em>2</em></sup></a></td>
+<td style="text-align:left"><code>INTERIMRESPONSE</code></td>
+</tr>
+<tr>
+<td style="text-align:left">LCP: Resource Load Delay <a href="#page-loads-timers-notes"><sup><em>3</em></sup></a></td>
+<td style="text-align:left"><code>LCPLOADDELAY</code></td>
+</tr>
+<tr>
+<td style="text-align:left">LCP: Resource Load Duration <a href="#page-loads-timers-notes"><sup><em>3</em></sup></a></td>
+<td style="text-align:left"><code>LCPLOADTIME</code></td>
+</tr>
+<tr>
+<td style="text-align:left">LCP: Element Render Delay <a href="#page-loads-timers-notes"><sup><em>3</em></sup></a></td>
+<td style="text-align:left"><code>LCPRENDERDELAY</code></td>
+</tr>
+<tr>
+<td style="text-align:left">INP: Input Delay <a href="#page-loads-timers-notes"><sup><em>4</em></sup></a></td>
+<td style="text-align:left"><code>INPINPUTDELAY</code></td>
+</tr>
+<tr>
+<td style="text-align:left">INP: Processing Duration <a href="#page-loads-timers-notes"><sup><em>4</em></sup></a></td>
+<td style="text-align:left"><code>INPPROCESSINGDURATION</code></td>
+</tr>
+<tr>
+<td style="text-align:left">INP: Presentation Delay <a href="#page-loads-timers-notes"><sup><em>4</em></sup></a></td>
+<td style="text-align:left"><code>INPPRESENTATIONDELAY</code></td>
+</tr>
 </tbody>
 </table>
 </div>
+<p><a name="page-loads-timers-notes"></a>
+Notes:</p>
+<ol>
+<li><code>TRANSFERSIZE</code> is the <a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/transferSize"><code>transferSize</code></a>
+of the HTML document itself (in <strong>bytes</strong>, not milliseconds), so it reflects how much the browser had to download for
+the main document.</li>
+<li><code>INTERIMRESPONSE</code> is the time to
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming/firstInterimResponseStart"><code>firstInterimResponseStart</code></a>,
+i.e. the first <code>1xx</code> informational response such as
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/103"><code>103 Early Hints</code></a>.  It is only measured for
+navigations that received an interim response.</li>
+<li>The three <code>LCP*</code> sub-parts break Largest Contentful Paint down into the phases that produced it, as defined by the
+<a href="https://github.com/GoogleChrome/web-vitals#lcpattribution"><code>web-vitals</code> LCP attribution</a> contract:
+<code>TTFB</code> + <code>LCPLOADDELAY</code> + <code>LCPLOADTIME</code> + <code>LCPRENDERDELAY</code> rougly equals <code>LCP</code> for a given page load.</li>
+<li>The three <code>INP*</code> sub-parts break Interaction to Next Paint down into the phases that produced it, as defined by the
+<a href="https://github.com/GoogleChrome/web-vitals#inpattribution"><code>web-vitals</code> INP attribution</a> contract:
+<code>INPINPUTDELAY</code> + <code>INPPROCESSINGDURATION</code> + <code>INPPRESENTATIONDELAY</code> equals <code>INP</code> for a given interaction.  Unlike the
+other paint and interaction timers, <code>0</code> is a <strong>valid measurement</strong> for these sub-parts (for example, an interaction
+with no JavaScript handler has a <code>0</code> Processing Duration), so zeros are kept rather than treated as &quot;not measured&quot;.</li>
+</ol>
 <h2 id="third-party-resources" tabindex="-1">Third-Party Resources</h2>
 <p>Third-Party Resources represent URLs (such as JavaScript, CSS, images, etc) have been seen across multiple websites and are third-party components such as libraries, analytics scripts, widgets, fonts, etc.</p>
 <p>Data is aggregated for each date.</p>
@@ -522,6 +607,7 @@
 </tbody>
 </table>
 </div>
+
         </div>
       </div>
     </div>

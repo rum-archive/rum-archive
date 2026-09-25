@@ -159,8 +159,8 @@ dimensions can also calculate statistics about the Timers and Metrics for that g
 <p>Looking at a few further columns for the same rows, you can see the Page Load Time columns (<code>PLT*</code>) show a Histogram, Avg, SumLn and Count of those aggregated datapoints.</p>
 <p><img src="/assets/methodology-timers.png" alt="BigQuery example of Page Load Rows"></p>
 <h3 id="minimum-count-threshold" tabindex="-1">Minimum Count Threshold</h3>
-<p>Some datasets may have a Minimum Count Threshold for aggregated data.  For example, the mPulse <a href="/datasets">dataset</a> has
-a Minimum Count Threshold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by <strong>at least</strong> 5
+<p>Some datasets may have a Minimum Count Threshold for aggregated data.  For example, the mPulse and Cloudflare
+<a href="/datasets">datasets</a> have a Minimum Count Threshold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by <strong>at least</strong> 5
 unique hits will be discarded.</p>
 <p>Other datasets may have a Minimum Count Threshold of 1, so all available data is represented in the dataset.  For example, the <a href="/datasets/#akamai-employee-individual-websites-datasets">Akamai Employee Individual Datasets</a> contain all of the page load events for each day.</p>
 <p>The downside of applying a Minimum Count Threshold is that <strong>outliers</strong>, by definition, will be discarded and not represented
@@ -209,12 +209,12 @@ on the combined Histograms, one can calculate the approximate percentile for any
 <tr>
 <th style="text-align:left">Metric</th>
 <th style="text-align:left">Column Name</th>
-<th style="text-align:right">High Width (ms)</th>
-<th style="text-align:right">High Min (ms)</th>
-<th style="text-align:right">High Max (ms)</th>
-<th style="text-align:right">Low Width (ms)</th>
-<th style="text-align:right">Low Min (ms)</th>
-<th style="text-align:right">Low Max (ms)</th>
+<th style="text-align:right">High Width (ms/b)</th>
+<th style="text-align:right">High Min (ms/b)</th>
+<th style="text-align:right">High Max (ms/b)</th>
+<th style="text-align:right">Low Width (ms/b)</th>
+<th style="text-align:right">Low Min (ms/b)</th>
+<th style="text-align:right">Low Max (ms/b)</th>
 </tr>
 </thead>
 <tbody>
@@ -378,13 +378,94 @@ on the combined Histograms, one can calculate the approximate percentile for any
 <td style="text-align:right">1,001</td>
 <td style="text-align:right">6,000</td>
 </tr>
+<tr>
+<td style="text-align:left">Transfer Size <a href="#page-loads-histogram-buckets-notes"><sup><em>2</em></sup></a></td>
+<td style="text-align:left"><code>TRANSFERSIZEHISTOGRAM</code></td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">100,000</td>
+<td style="text-align:right">10,000</td>
+<td style="text-align:right">100,001</td>
+<td style="text-align:right">600,000</td>
+</tr>
+<tr>
+<td style="text-align:left">Time to First Interim Response</td>
+<td style="text-align:left"><code>INTERIMRESPONSEHISTOGRAM</code></td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">1,001</td>
+<td style="text-align:right">6,000</td>
+</tr>
+<tr>
+<td style="text-align:left">LCP: Resource Load Delay</td>
+<td style="text-align:left"><code>LCPLOADDELAYHISTOGRAM</code></td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">10,000</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">10,001</td>
+<td style="text-align:right">60,000</td>
+</tr>
+<tr>
+<td style="text-align:left">LCP: Resource Load Duration</td>
+<td style="text-align:left"><code>LCPLOADTIMEHISTOGRAM</code></td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">10,000</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">10,001</td>
+<td style="text-align:right">60,000</td>
+</tr>
+<tr>
+<td style="text-align:left">LCP: Element Render Delay</td>
+<td style="text-align:left"><code>LCPRENDERDELAYHISTOGRAM</code></td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">10,000</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">10,001</td>
+<td style="text-align:right">60,000</td>
+</tr>
+<tr>
+<td style="text-align:left">INP: Input Delay</td>
+<td style="text-align:left"><code>INPINPUTDELAYHISTOGRAM</code></td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">1,001</td>
+<td style="text-align:right">6,000</td>
+</tr>
+<tr>
+<td style="text-align:left">INP: Processing Duration</td>
+<td style="text-align:left"><code>INPPROCESSINGDURATIONHISTOGRAM</code></td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">1,001</td>
+<td style="text-align:right">6,000</td>
+</tr>
+<tr>
+<td style="text-align:left">INP: Presentation Delay</td>
+<td style="text-align:left"><code>INPPRESENTATIONDELAYHISTOGRAM</code></td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">1,001</td>
+<td style="text-align:right">6,000</td>
+</tr>
 </tbody>
 </table>
 </div>
 <p><a name="page-loads-histogram-buckets-notes"></a>
 Notes:</p>
 <ol>
-<li><code>rageClicksHistogram</code> was changed on 2023-01-01, see the <a href="/blog/2023-03-16-mpulse-january-data-rage-clicks-change">blog post</a> for details.</li>
+<li><code>RAGECLICKSHISTOGRAM</code> was changed on 2023-01-01, see the <a href="/blog/2023-03-16-mpulse-january-data-rage-clicks-change">blog post</a> for details.</li>
+<li><code>TRANSFERSIZEHISTOGRAM</code> buckets are <strong>bytes</strong>, not milliseconds.</li>
 </ol>
 <h3 id="third-party-resource-histogram-buckets" tabindex="-1">Third-Party Resource Histogram Buckets</h3>
 <p>Third-Party Resource fetches have following bucket histogram definitions:</p>
@@ -506,7 +587,7 @@ Notes:</p>
 <tr>
 <td style="text-align:left">Encoded Body Size</td>
 <td style="text-align:left"><code>ENCODEDSIZEHISTOGRAM</code></td>
-<td style="text-align:right">1000</td>
+<td style="text-align:right">1,000</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">100,000</td>
 <td style="text-align:right">10,000</td>
@@ -516,7 +597,7 @@ Notes:</p>
 <tr>
 <td style="text-align:left">Decoded Body Size</td>
 <td style="text-align:left"><code>DECODEDSIZEHISTOGRAM</code></td>
-<td style="text-align:right">1000</td>
+<td style="text-align:right">1,000</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">100,000</td>
 <td style="text-align:right">10,000</td>
@@ -526,7 +607,7 @@ Notes:</p>
 <tr>
 <td style="text-align:left">Transfer Size</td>
 <td style="text-align:left"><code>TRANSFERSIZEHISTOGRAM</code></td>
-<td style="text-align:right">1000</td>
+<td style="text-align:right">1,000</td>
 <td style="text-align:right">0</td>
 <td style="text-align:right">100,000</td>
 <td style="text-align:right">10,000</td>
@@ -550,7 +631,7 @@ Notes:</p>
 <p>A convenient way to import TSV files into BigQuery is by uploading those files to a Google Cloud Storage bucket:</p>
 <pre class="language-bash"><code class="language-bash">gsutil <span class="token parameter variable">-m</span> <span class="token function">cp</span> <span class="token parameter variable">-Z</span> <span class="token parameter variable">-n</span> *.tsv gs://%BUCKET%/</code></pre>
 <p>Then executing a BigQuery <code>LOAD DATA INTO</code> command:</p>
-<pre class="language-sql"><code class="language-sql"><span class="token keyword">LOAD</span> <span class="token keyword">DATA</span> <span class="token keyword">INTO</span> <span class="token identifier"><span class="token punctuation">`</span>%PROJECT%.%DATASET%.%PREFIX%_page_loads<span class="token punctuation">`</span></span><br><span class="token punctuation">(</span><br>    SOURCE STRING<span class="token punctuation">,</span><br>    SITE STRING<span class="token punctuation">,</span><br>    <span class="token keyword">DATE</span> <span class="token keyword">DATE</span><span class="token punctuation">,</span><br>    DEVICETYPE STRING<span class="token punctuation">,</span><br>    USERAGENTFAMILY STRING<span class="token punctuation">,</span><br>    USERAGENTVERSION STRING<span class="token punctuation">,</span><br>    DEVICEMODEL STRING<span class="token punctuation">,</span><br>    OS STRING<span class="token punctuation">,</span><br>    OSVERSION STRING<span class="token punctuation">,</span><br>    BEACONTYPE STRING<span class="token punctuation">,</span><br>    COUNTRY STRING<span class="token punctuation">,</span><br>    VISIBILITYSTATE STRING<span class="token punctuation">,</span><br>    NAVIGATIONTYPE STRING<span class="token punctuation">,</span><br>    PROTOCOL STRING<span class="token punctuation">,</span><br>    IPVERSION STRING<span class="token punctuation">,</span><br>    LANDINGPAGE <span class="token keyword">BOOLEAN</span><span class="token punctuation">,</span><br>    BEACONS <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    PLTHISTOGRAM STRING<span class="token punctuation">,</span><br>    PLTAVG FLOAT64<span class="token punctuation">,</span><br>    PLTSUMLN FLOAT64<span class="token punctuation">,</span><br>    PLTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    DNSHISTOGRAM STRING<span class="token punctuation">,</span><br>    DNSAVG FLOAT64<span class="token punctuation">,</span><br>    DNSSUMLN FLOAT64<span class="token punctuation">,</span><br>    DNSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    TCPAVG FLOAT64<span class="token punctuation">,</span><br>    TCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    TCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    TLSAVG FLOAT64<span class="token punctuation">,</span><br>    TLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    TLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTFBHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTFBAVG FLOAT64<span class="token punctuation">,</span><br>    TTFBSUMLN FLOAT64<span class="token punctuation">,</span><br>    TTFBCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    FCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    FCPAVG FLOAT64<span class="token punctuation">,</span><br>    FCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    FCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPAVG FLOAT64<span class="token punctuation">,</span><br>    LCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    RTTHISTOGRAM STRING<span class="token punctuation">,</span><br>    RTTAVG FLOAT64<span class="token punctuation">,</span><br>    RTTSUMLN FLOAT64<span class="token punctuation">,</span><br>    RTTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    RAGECLICKSHISTOGRAM STRING<span class="token punctuation">,</span><br>    RAGECLICKSAVG FLOAT64<span class="token punctuation">,</span><br>    RAGECLICKSSUMLN FLOAT64<span class="token punctuation">,</span><br>    RAGECLICKSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    CLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    CLSAVG FLOAT64<span class="token punctuation">,</span><br>    CLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    CLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    FIDHISTOGRAM STRING<span class="token punctuation">,</span><br>    FIDAVG FLOAT64<span class="token punctuation">,</span><br>    FIDSUMLN FLOAT64<span class="token punctuation">,</span><br>    FIDCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TBTHISTOGRAM STRING<span class="token punctuation">,</span><br>    TBTAVG FLOAT64<span class="token punctuation">,</span><br>    TBTSUMLN FLOAT64<span class="token punctuation">,</span><br>    TBTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTIHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTIAVG FLOAT64<span class="token punctuation">,</span><br>    TTISUMLN FLOAT64<span class="token punctuation">,</span><br>    TTICOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    REDIRECTHISTOGRAM STRING<span class="token punctuation">,</span><br>    REDIRECTAVG FLOAT64<span class="token punctuation">,</span><br>    REDIRECTSUMLN FLOAT64<span class="token punctuation">,</span><br>    REDIRECTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPAVG FLOAT64<span class="token punctuation">,</span><br>    INPSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    UNOHISTOGRAM STRING<span class="token punctuation">,</span><br>    UNOAVG FLOAT64<span class="token punctuation">,</span><br>    UNOSUMLN FLOAT64<span class="token punctuation">,</span><br>    UNOCOUNT <span class="token keyword">INTEGER</span><br><span class="token punctuation">)</span><br><span class="token keyword">FROM</span> FILES <span class="token punctuation">(</span><br>  format <span class="token operator">=</span> <span class="token string">'CSV'</span><span class="token punctuation">,</span><br>  field_delimiter <span class="token operator">=</span> <span class="token string">'\t'</span><span class="token punctuation">,</span><br>  skip_leading_rows <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span><br>  uris <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'gs://%BUCKET%/%FILE%.tsv'</span><span class="token punctuation">]</span><br><span class="token punctuation">)</span><br><span class="token punctuation">;</span><br></code></pre>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">LOAD</span> <span class="token keyword">DATA</span> <span class="token keyword">INTO</span> <span class="token identifier"><span class="token punctuation">`</span>%PROJECT%.%DATASET%.%PREFIX%_page_loads<span class="token punctuation">`</span></span><br><span class="token punctuation">(</span><br>    SOURCE STRING<span class="token punctuation">,</span><br>    SITE STRING<span class="token punctuation">,</span><br>    <span class="token keyword">DATE</span> <span class="token keyword">DATE</span><span class="token punctuation">,</span><br>    DEVICETYPE STRING<span class="token punctuation">,</span><br>    USERAGENTFAMILY STRING<span class="token punctuation">,</span><br>    USERAGENTVERSION STRING<span class="token punctuation">,</span><br>    USERAGENTENGINE STRING<span class="token punctuation">,</span><br>    USERAGENTENGINEVERSION STRING<span class="token punctuation">,</span><br>    DEVICEMODEL STRING<span class="token punctuation">,</span><br>    OS STRING<span class="token punctuation">,</span><br>    OSVERSION STRING<span class="token punctuation">,</span><br>    BEACONTYPE STRING<span class="token punctuation">,</span><br>    COUNTRY STRING<span class="token punctuation">,</span><br>    VISIBILITYSTATE STRING<span class="token punctuation">,</span><br>    NAVIGATIONTYPE STRING<span class="token punctuation">,</span><br>    PROTOCOL STRING<span class="token punctuation">,</span><br>    IPVERSION STRING<span class="token punctuation">,</span><br>    LANDINGPAGE <span class="token keyword">BOOLEAN</span><span class="token punctuation">,</span><br>    INDUSTRY STRING<span class="token punctuation">,</span><br>    BEACONS <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    PLTHISTOGRAM STRING<span class="token punctuation">,</span><br>    PLTAVG FLOAT64<span class="token punctuation">,</span><br>    PLTSUMLN FLOAT64<span class="token punctuation">,</span><br>    PLTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    DNSHISTOGRAM STRING<span class="token punctuation">,</span><br>    DNSAVG FLOAT64<span class="token punctuation">,</span><br>    DNSSUMLN FLOAT64<span class="token punctuation">,</span><br>    DNSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    TCPAVG FLOAT64<span class="token punctuation">,</span><br>    TCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    TCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    TLSAVG FLOAT64<span class="token punctuation">,</span><br>    TLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    TLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTFBHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTFBAVG FLOAT64<span class="token punctuation">,</span><br>    TTFBSUMLN FLOAT64<span class="token punctuation">,</span><br>    TTFBCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    FCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    FCPAVG FLOAT64<span class="token punctuation">,</span><br>    FCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    FCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPAVG FLOAT64<span class="token punctuation">,</span><br>    LCPSUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    RTTHISTOGRAM STRING<span class="token punctuation">,</span><br>    RTTAVG FLOAT64<span class="token punctuation">,</span><br>    RTTSUMLN FLOAT64<span class="token punctuation">,</span><br>    RTTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    RAGECLICKSHISTOGRAM STRING<span class="token punctuation">,</span><br>    RAGECLICKSAVG FLOAT64<span class="token punctuation">,</span><br>    RAGECLICKSSUMLN FLOAT64<span class="token punctuation">,</span><br>    RAGECLICKSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    CLSHISTOGRAM STRING<span class="token punctuation">,</span><br>    CLSAVG FLOAT64<span class="token punctuation">,</span><br>    CLSSUMLN FLOAT64<span class="token punctuation">,</span><br>    CLSCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    FIDHISTOGRAM STRING<span class="token punctuation">,</span><br>    FIDAVG FLOAT64<span class="token punctuation">,</span><br>    FIDSUMLN FLOAT64<span class="token punctuation">,</span><br>    FIDCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TBTHISTOGRAM STRING<span class="token punctuation">,</span><br>    TBTAVG FLOAT64<span class="token punctuation">,</span><br>    TBTSUMLN FLOAT64<span class="token punctuation">,</span><br>    TBTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TTIHISTOGRAM STRING<span class="token punctuation">,</span><br>    TTIAVG FLOAT64<span class="token punctuation">,</span><br>    TTISUMLN FLOAT64<span class="token punctuation">,</span><br>    TTICOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    REDIRECTHISTOGRAM STRING<span class="token punctuation">,</span><br>    REDIRECTAVG FLOAT64<span class="token punctuation">,</span><br>    REDIRECTSUMLN FLOAT64<span class="token punctuation">,</span><br>    REDIRECTCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPAVG FLOAT64<span class="token punctuation">,</span><br>    INPSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    UNOHISTOGRAM STRING<span class="token punctuation">,</span><br>    UNOAVG FLOAT64<span class="token punctuation">,</span><br>    UNOSUMLN FLOAT64<span class="token punctuation">,</span><br>    UNOCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    TRANSFERSIZEHISTOGRAM STRING<span class="token punctuation">,</span><br>    TRANSFERSIZEAVG FLOAT64<span class="token punctuation">,</span><br>    TRANSFERSIZESUMLN FLOAT64<span class="token punctuation">,</span><br>    TRANSFERSIZECOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INTERIMRESPONSEHISTOGRAM STRING<span class="token punctuation">,</span><br>    INTERIMRESPONSEAVG FLOAT64<span class="token punctuation">,</span><br>    INTERIMRESPONSESUMLN FLOAT64<span class="token punctuation">,</span><br>    INTERIMRESPONSECOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPLOADDELAYHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPLOADDELAYAVG FLOAT64<span class="token punctuation">,</span><br>    LCPLOADDELAYSUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPLOADDELAYCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPLOADTIMEHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPLOADTIMEAVG FLOAT64<span class="token punctuation">,</span><br>    LCPLOADTIMESUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPLOADTIMECOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    LCPRENDERDELAYHISTOGRAM STRING<span class="token punctuation">,</span><br>    LCPRENDERDELAYAVG FLOAT64<span class="token punctuation">,</span><br>    LCPRENDERDELAYSUMLN FLOAT64<span class="token punctuation">,</span><br>    LCPRENDERDELAYCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPINPUTDELAYHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPINPUTDELAYAVG FLOAT64<span class="token punctuation">,</span><br>    INPINPUTDELAYSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPINPUTDELAYCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPPROCESSINGDURATIONHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPPROCESSINGDURATIONAVG FLOAT64<span class="token punctuation">,</span><br>    INPPROCESSINGDURATIONSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPPROCESSINGDURATIONCOUNT <span class="token keyword">INTEGER</span><span class="token punctuation">,</span><br>    INPPRESENTATIONDELAYHISTOGRAM STRING<span class="token punctuation">,</span><br>    INPPRESENTATIONDELAYAVG FLOAT64<span class="token punctuation">,</span><br>    INPPRESENTATIONDELAYSUMLN FLOAT64<span class="token punctuation">,</span><br>    INPPRESENTATIONDELAYCOUNT <span class="token keyword">INTEGER</span><br><span class="token punctuation">)</span><br><span class="token keyword">FROM</span> FILES <span class="token punctuation">(</span><br>  format <span class="token operator">=</span> <span class="token string">'CSV'</span><span class="token punctuation">,</span><br>  field_delimiter <span class="token operator">=</span> <span class="token string">'\t'</span><span class="token punctuation">,</span><br>  skip_leading_rows <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span><br>  uris <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'gs://%BUCKET%/%FILE%.tsv'</span><span class="token punctuation">]</span><br><span class="token punctuation">)</span><br><span class="token punctuation">;</span><br></code></pre>
 <h2 id="querying" tabindex="-1">Querying</h2>
 <p>Please see the <a href="/docs/querying">Querying</a> guide for how to query RUM Archive data.</p>
 

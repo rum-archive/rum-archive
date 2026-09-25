@@ -12,4 +12,13 @@ Interested in contributing your own RUM data to the public dataset?  Read the [c
 
 RUM data currently provided by:
 
-- <img src="assets/mpulse-logo.svg" alt="mPulse logo" style="height:20px; position:relative; top:4px; right:2px">[mPulse](https://www.akamai.com/products/mpulse-real-user-monitoring)
+<div style="display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap; margin:1rem 0">
+  <a href="https://www.akamai.com/products/mpulse-real-user-monitoring" style="display:flex; align-items:center; gap:0.5rem">
+    <img src="assets/mpulse-logo.svg" alt="mPulse logo" width="100" height="100">
+    <span>mPulse</span>
+  </a>
+  <a href="https://www.cloudflare.com/web-analytics/" style="display:flex; align-items:center; gap:0.5rem">
+    <img src="assets/cloudflare-logo.svg" alt="Cloudflare logo" width="150" height="150">
+    <span>Cloudflare RUM</span>
+  </a>
+</div>

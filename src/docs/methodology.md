@@ -52,8 +52,8 @@ Looking at a few further columns for the same rows, you can see the Page Load Ti
 
 ### Minimum Count Threshold
 
-Some datasets may have a Minimum Count Threshold for aggregated data.  For example, the mPulse [dataset](/datasets) has
-a Minimum Count Threshold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by **at least** 5
+Some datasets may have a Minimum Count Threshold for aggregated data.  For example, the mPulse and Cloudflare
+[datasets](/datasets) have a Minimum Count Threshold for the Page Loads table of 5, so all tuples in the exported data that aren't represented by **at least** 5
 unique hits will be discarded.
 
 Other datasets may have a Minimum Count Threshold of 1, so all available data is represented in the dataset.  For example, the [Akamai Employee Individual Datasets](/datasets/#akamai-employee-individual-websites-datasets) contain all of the page load events for each day.
@@ -123,31 +123,40 @@ Page Loads have following bucket histogram definitions:
 ​
 <div class="table-container">
 
-| Metric                                                            | Column Name           | High Width (ms) | High Min (ms) | High Max (ms) | Low Width (ms) | Low Min (ms) | Low Max (ms) |
-|:------------------------------------------------------------------|:----------------------|----------------:|--------------:|--------------:|---------------:|-------------:|-------------:|
-| Page Load Time                                                    | `PLTHISTOGRAM`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
-| DNS                                                               | `DNSHISTOGRAM`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| TCP                                                               | `TCPHISTOGRAM`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| TLS                                                               | `TLSHISTOGRAM`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| Time to First Byte                                                | `TTFBHISTOGRAM`       |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| First Contentful Paint                                            | `FCPHISTOGRAM`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
-| Largest Contentful Paint                                          | `LCPHISTOGRAM`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
-| Round Trip Time                                                   | `RTTHISTOGRAM`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| Rage Clicks [<sup>_1_</sup>](#page-loads-histogram-buckets-notes) | `RAGECLICKSHISTOGRAM` |               1 |             0 |           100 |             10 |          101 |          600 |
-| Cumulative Layout Shift (*1000)                                   | `CLSHISTOGRAM`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| First Input Delay                                                 | `FIDHISTOGRAM`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| Interaction to Next Paint                                         | `INPHISTOGRAM`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| Total Blocking Time                                               | `TBTHISTOGRAM`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
-| Time to Interactive                                               | `TTIHISTOGRAM`        |             100 |             0 |        10,000 |          1,000 |       10,001 |       60,000 |
-| Redirect                                                          | `REDIRECTHISTOGRAM`   |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
-| Unattributed Navigation Overhead                                  | `UNOHISTOGRAM`        |              10 |             0 |         1,000 |            100 |        1,001 |        6,000 |
+| Metric                                                              | Column Name                      | High Width (ms/b) | High Min (ms/b) | High Max (ms/b) | Low Width (ms/b) | Low Min (ms/b) | Low Max (ms/b) |
+|:--------------------------------------------------------------------|:---------------------------------|------------------:|----------------:|----------------:|-----------------:|---------------:|---------------:|
+| Page Load Time                                                      | `PLTHISTOGRAM`                   |               100 |               0 |          10,000 |            1,000 |         10,001 |         60,000 |
+| DNS                                                                 | `DNSHISTOGRAM`                   |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| TCP                                                                 | `TCPHISTOGRAM`                   |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| TLS                                                                 | `TLSHISTOGRAM`                   |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| Time to First Byte                                                  | `TTFBHISTOGRAM`                  |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| First Contentful Paint                                              | `FCPHISTOGRAM`                   |               100 |               0 |          10,000 |            1,000 |         10,001 |         60,000 |
+| Largest Contentful Paint                                            | `LCPHISTOGRAM`                   |               100 |               0 |          10,000 |            1,000 |         10,001 |         60,000 |
+| Round Trip Time                                                     | `RTTHISTOGRAM`                   |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| Rage Clicks [<sup>_1_</sup>](#page-loads-histogram-buckets-notes)   | `RAGECLICKSHISTOGRAM`            |                 1 |               0 |             100 |               10 |            101 |            600 |
+| Cumulative Layout Shift (*1000)                                     | `CLSHISTOGRAM`                   |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| First Input Delay                                                   | `FIDHISTOGRAM`                   |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| Interaction to Next Paint                                           | `INPHISTOGRAM`                   |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| Total Blocking Time                                                 | `TBTHISTOGRAM`                   |               100 |               0 |          10,000 |            1,000 |         10,001 |         60,000 |
+| Time to Interactive                                                 | `TTIHISTOGRAM`                   |               100 |               0 |          10,000 |            1,000 |         10,001 |         60,000 |
+| Redirect                                                            | `REDIRECTHISTOGRAM`              |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| Unattributed Navigation Overhead                                    | `UNOHISTOGRAM`                   |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| Transfer Size [<sup>_2_</sup>](#page-loads-histogram-buckets-notes) | `TRANSFERSIZEHISTOGRAM`          |             1,000 |               0 |         100,000 |           10,000 |        100,001 |        600,000 |
+| Time to First Interim Response                                      | `INTERIMRESPONSEHISTOGRAM`       |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| LCP: Resource Load Delay                                            | `LCPLOADDELAYHISTOGRAM`          |               100 |               0 |          10,000 |            1,000 |         10,001 |         60,000 |
+| LCP: Resource Load Duration                                         | `LCPLOADTIMEHISTOGRAM`           |               100 |               0 |          10,000 |            1,000 |         10,001 |         60,000 |
+| LCP: Element Render Delay                                           | `LCPRENDERDELAYHISTOGRAM`        |               100 |               0 |          10,000 |            1,000 |         10,001 |         60,000 |
+| INP: Input Delay                                                    | `INPINPUTDELAYHISTOGRAM`         |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| INP: Processing Duration                                            | `INPPROCESSINGDURATIONHISTOGRAM` |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
+| INP: Presentation Delay                                             | `INPPRESENTATIONDELAYHISTOGRAM`  |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
 
 </div>
 
 <a name="page-loads-histogram-buckets-notes"></a>
 Notes:
 
-1. `rageClicksHistogram` was changed on 2023-01-01, see the [blog post](/blog/2023-03-16-mpulse-january-data-rage-clicks-change) for details.
+1. `RAGECLICKSHISTOGRAM` was changed on 2023-01-01, see the [blog post](/blog/2023-03-16-mpulse-january-data-rage-clicks-change) for details.
+2. `TRANSFERSIZEHISTOGRAM` buckets are **bytes**, not milliseconds.
 
 ### Third-Party Resource Histogram Buckets
 
@@ -167,9 +176,9 @@ Third-Party Resource fetches have following bucket histogram definitions:
 | Download Time                                              | `DOWNLOADHISTOGRAM`     |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
 | Redirect Time                                              | `REDIRECTHISTOGRAM`     |                10 |               0 |           1,000 |              100 |          1,001 |          6,000 |
 | Cached[<sup>_1_</sup>](#resources-histogram-buckets-notes) | `CACHEDHISTOGRAM`       |                 - |               - |               - |                - |              - |              - |
-| Encoded Body Size                                          | `ENCODEDSIZEHISTOGRAM`  |              1000 |               0 |         100,000 |           10,000 |        100,001 |        600,000 |
-| Decoded Body Size                                          | `DECODEDSIZEHISTOGRAM`  |              1000 |               0 |         100,000 |           10,000 |        100,001 |        600,000 |
-| Transfer Size                                              | `TRANSFERSIZEHISTOGRAM` |              1000 |               0 |         100,000 |           10,000 |        100,001 |        600,000 |
+| Encoded Body Size                                          | `ENCODEDSIZEHISTOGRAM`  |             1,000 |               0 |         100,000 |           10,000 |        100,001 |        600,000 |
+| Decoded Body Size                                          | `DECODEDSIZEHISTOGRAM`  |             1,000 |               0 |         100,000 |           10,000 |        100,001 |        600,000 |
+| Transfer Size                                              | `TRANSFERSIZEHISTOGRAM` |             1,000 |               0 |         100,000 |           10,000 |        100,001 |        600,000 |
 
 </div>
 

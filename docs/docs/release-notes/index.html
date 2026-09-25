@@ -117,11 +117,29 @@
             <h2>Table of Contents</h2>
             <aside>
               <div class="toc" >
-        <ul><li><a href="#2026-03-11">2026-03-11</a></li><li><a href="#version-1.5-(2025-09)">Version 1.5 (2025-09)</a></li><li><a href="#version-1.4-(2024-08)">Version 1.4 (2024-08)</a></li><li><a href="#version-1.3-(2024-04)">Version 1.3 (2024-04)</a></li><li><a href="#version-1.2-(2023-11)">Version 1.2 (2023-11)</a></li><li><a href="#version-1.1-(2023-01)">Version 1.1 (2023-01)</a></li><li><a href="#version-1.0-(2022-10)">Version 1.0 (2022-10)</a></li></ul>
+        <ul><li><a href="#version-1.6-(2026-09)">Version 1.6 (2026-09)</a></li><li><a href="#2026-03-11">2026-03-11</a></li><li><a href="#version-1.5-(2025-09)">Version 1.5 (2025-09)</a></li><li><a href="#version-1.4-(2024-08)">Version 1.4 (2024-08)</a></li><li><a href="#version-1.3-(2024-04)">Version 1.3 (2024-04)</a></li><li><a href="#version-1.2-(2023-11)">Version 1.2 (2023-11)</a></li><li><a href="#version-1.1-(2023-01)">Version 1.1 (2023-01)</a></li><li><a href="#version-1.0-(2022-10)">Version 1.0 (2022-10)</a></li></ul>
       </div>
             </aside>
           
-          <h2 id="2026-03-11" tabindex="-1">2026-03-11</h2>
+          <h2 id="version-1.6-(2026-09)" tabindex="-1">Version 1.6 (2026-09)</h2>
+<ul>
+<li>The <a href="/datasets#cloudflare-beacon-dataset">Cloudflare BEACON Dataset</a> has been added</li>
+<li>The Page Loads table gained 3 new <a href="/docs/tables#dimensions">dimensions</a> in the Cloudflare dataset:
+<ul>
+<li><code>USERAGENTENGINE</code> and <code>USERAGENTENGINEVERSION</code>: the browser engine family and version</li>
+<li><code>INDUSTRY</code>: the industry category of the site</li>
+</ul>
+</li>
+<li>The Page Loads table gained 8 new <a href="/docs/tables#timers-and-metrics">timers and metrics</a> in the Cloudflare dataset:
+<ul>
+<li><code>TRANSFERSIZE</code>: the transfer size (in bytes) of the HTML document</li>
+<li><code>INTERIMRESPONSE</code>: the time to the first interim (<code>1xx</code>) response, such as <code>103 Early Hints</code></li>
+<li><code>LCPLOADDELAY</code>, <code>LCPLOADTIME</code> and <code>LCPRENDERDELAY</code>: the Largest Contentful Paint sub-parts</li>
+<li><code>INPINPUTDELAY</code>, <code>INPPROCESSINGDURATION</code> and <code>INPPRESENTATIONDELAY</code>: the Interaction to Next Paint sub-parts</li>
+</ul>
+</li>
+</ul>
+<h2 id="2026-03-11" tabindex="-1">2026-03-11</h2>
 <ul>
 <li>The <a href="https://rumarchive.com/datasets/#akamai-mpulse-rum">Akamai mPulse Top 100</a> and <a href="/datasets#akamai-employee-individual-websites-datasets">Akamai Employee Individual Websites</a> Datasets had empty INP data from 2024-02-14 through 2026-03-09 due to a pipeline error.  This has been fixed in the 2026-03-10 data going forward.</li>
 </ul>

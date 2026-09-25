@@ -4,11 +4,163 @@
   <subtitle>RUM Archive Blog</subtitle>
   <link href="https://rumarchive.com/blog/feed.xml" rel="self"/>
   <link href="https://rumarchive.com/blog/"/>
-  <updated>2026-09-19T17:37:06Z</updated>
+  <updated>2026-09-25T15:08:29Z</updated>
   <id>https://rumarchive.com/blog/</id>
   <author>
     <name>mPulse Developers</name>
   </author>
+    <entry>
+        <title>The Cloudflare BEACON Dataset</title>
+        <link href="https://rumarchive.com/blog/2026-09-28-cloudflare-open-web-performance-dataset/"/>
+        <updated>2026-09-28T00:00:00Z</updated>
+        <id>https://rumarchive.com/blog/2026-09-28-cloudflare-open-web-performance-dataset/</id>
+        <content xml:lang="en" type="html">
+          
+          
+          
+          
+          &lt;img src="https://rumarchive.com/assets/cloudflare-logo.svg" alt="The Cloudflare BEACON Dataset" width="256" height="256" style="max-width: 256px" /&gt;
+
+          &lt;p&gt;
+            By Nic Jansma (2026-09-28)
+          &lt;/p&gt;
+          &lt;p&gt;
+            Cloudflare is contributing a new cross-browser, internet-scale dataset to the RUM Archive!
+          &lt;/p&gt;
+          &lt;p&gt;
+            
+              &lt;a href="https://rumarchive.com/blog/2026-09-28-cloudflare-open-web-performance-dataset/">Read More&lt;/a&gt;
+            
+            &lt;p&gt;&lt;img src=&quot;https://rumarchive.com/assets/cloudflare-logo.png&quot; alt=&quot;Cloudflare Logo&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Today we&#39;re announcing the largest addition to the RUM Archive since the project began: the
+&lt;a href=&quot;https://rumarchive.com/datasets/#cloudflare-beacon-dataset&quot;&gt;&lt;strong&gt;Cloudflare BEACON Dataset&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.cloudflare.com/&quot;&gt;Cloudflare&lt;/a&gt; is contributing daily, aggregated and anonymized Real User Monitoring data
+collected by &lt;a href=&quot;https://www.cloudflare.com/web-analytics/&quot;&gt;Cloudflare RUM&lt;/a&gt; to the RUM Archive, under the same
+&lt;a href=&quot;http://creativecommons.org/licenses/by-sa/4.0/&quot;&gt;CC BY SA 4.0&lt;/a&gt; license and in the same
+&lt;a href=&quot;https://rumarchive.com/docs/tables&quot;&gt;format&lt;/a&gt; as the existing datasets.&lt;/p&gt;
+&lt;p&gt;Along with the data, Cloudflare is contributing &lt;strong&gt;11 new columns&lt;/strong&gt; to the RUM Archive Page Loads format, including
+Industry and Browser Engine dimensions, and Largest Contentful Paint and Interaction to Next Paint sub-parts metrics.&lt;/p&gt;
+&lt;h2 id=&quot;why-another-dataset%3F&quot; tabindex=&quot;-1&quot;&gt;Why another dataset?&lt;/h2&gt;
+&lt;p&gt;The RUM Archive has always had two goals: to publish real user data, and to define a &lt;strong&gt;shared format&lt;/strong&gt; that anyone can
+publish real user data in.  Each new dataset makes the project more useful, because each one brings a different view of
+the web.&lt;/p&gt;
+&lt;p&gt;Until today, the only page load data in the RUM Archive came from &lt;a href=&quot;https://rumarchive.com/datasets/#akamai-mpulse-rum&quot;&gt;Akamai mPulse&lt;/a&gt;: a
+sample of mPulse&#39;s top 100 (by volume) customers.&lt;/p&gt;
+&lt;p&gt;The most widely-used public performance dataset outside of the RUM Archive is Google&#39;s
+&lt;a href=&quot;https://developer.chrome.com/docs/crux&quot;&gt;Chrome User Experience Report&lt;/a&gt; (CrUX), which covers millions of websites but, by
+design, only reports data from &lt;strong&gt;Chrome&lt;/strong&gt;.  If you want to know how Safari on an older iPhone performs, or how Firefox
+compares to Chrome on the same websites, CrUX can&#39;t tell you.&lt;/p&gt;
+&lt;p&gt;Cloudflare sits in front of millions of websites and measures page loads from &lt;strong&gt;every&lt;/strong&gt; browser that visits them, so
+this dataset fills in the part of the picture the other two can&#39;t:&lt;/p&gt;
+&lt;div class=&quot;table-container&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Dataset&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Scale&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Browsers&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Google CrUX&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Millions of websites&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Chrome only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Akamai mPulse (in the RUM Archive)&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Top 100 websites&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;All browsers&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Cloudflare (in the RUM Archive)&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Top 10,000 websites&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;All browsers&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;what&#39;s-in-the-dataset&quot; tabindex=&quot;-1&quot;&gt;What&#39;s in the dataset&lt;/h2&gt;
+&lt;p&gt;The full details are on the &lt;a href=&quot;https://rumarchive.com/datasets/#cloudflare-beacon-dataset&quot;&gt;datasets&lt;/a&gt; page, but the highlights:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It&#39;s published daily to the public &lt;code&gt;cf-open-web-performance.rumarchive.rumarchive_page_loads&lt;/code&gt; BigQuery table, starting
+with &lt;code&gt;2026-09-20&lt;/code&gt; data&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SOURCE&lt;/code&gt; is &lt;code&gt;cloudflare&lt;/code&gt; and &lt;code&gt;SITE&lt;/code&gt; is &lt;code&gt;(multiple)&lt;/code&gt;, so the websites are &lt;strong&gt;not&lt;/strong&gt; individually identifiable&lt;/li&gt;
+&lt;li&gt;Each day, up to the top 10,000 Cloudflare websites (by page load volume) are aggregated
+&lt;ul&gt;
+&lt;li&gt;Every website is capped at the &lt;strong&gt;same&lt;/strong&gt; number of page loads, so no single large website can dominate the dataset --
+a query for &amp;quot;median LCP in Germany&amp;quot; reflects thousands of websites, not just the biggest one&lt;/li&gt;
+&lt;li&gt;Page loads from known bot and automation User Agents are excluded&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;A &lt;a href=&quot;https://rumarchive.com/docs/methodology/#minimum-count-threshold&quot;&gt;Minimum Count Threshold&lt;/a&gt; of 5 is applied, same as mPulse&lt;/li&gt;
+&lt;li&gt;The schema and histogram &lt;a href=&quot;https://rumarchive.com/docs/methodology/#histogram-bucketing&quot;&gt;bucketing&lt;/a&gt; are identical to the mPulse dataset,
+so &lt;strong&gt;your existing queries work&lt;/strong&gt; with just a table name change&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are some gaps to be aware of.  The &lt;code&gt;DEVICEMODEL&lt;/code&gt;, &lt;code&gt;VISIBILITYSTATE&lt;/code&gt; and &lt;code&gt;IPVERSION&lt;/code&gt; dimensions and the &lt;code&gt;RTT&lt;/code&gt;,
+&lt;code&gt;RAGECLICKS&lt;/code&gt;, &lt;code&gt;FID&lt;/code&gt;, &lt;code&gt;TBT&lt;/code&gt;, &lt;code&gt;TTI&lt;/code&gt; and &lt;code&gt;UNO&lt;/code&gt; metrics aren&#39;t measured by Cloudflare RUM today, so they&#39;re
+exported empty.  Single Page App navigations aren&#39;t reported yet either, so &lt;code&gt;BEACONTYPE&lt;/code&gt; is limited to &lt;code&gt;page view&lt;/code&gt; and
+&lt;code&gt;bfcache&lt;/code&gt;.  We&#39;re looking into publishing some of those dimensions and metrics in the future.&lt;/p&gt;
+&lt;h2 id=&quot;11-new-columns&quot; tabindex=&quot;-1&quot;&gt;11 new columns&lt;/h2&gt;
+&lt;p&gt;The more interesting contribution may be to the format itself.  Version
+&lt;a href=&quot;https://rumarchive.com/docs/release-notes&quot;&gt;1.6&lt;/a&gt; of the RUM Archive adds 3 new &lt;a href=&quot;https://rumarchive.com/docs/tables#dimensions&quot;&gt;dimensions&lt;/a&gt; and 8 new
+&lt;a href=&quot;https://rumarchive.com/docs/tables#timers-and-metrics&quot;&gt;timers and metrics&lt;/a&gt;.  All of them are additive, and datasets that don&#39;t have data for
+them export empty values, so &lt;strong&gt;existing queries keep working&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;new-dimensions&quot; tabindex=&quot;-1&quot;&gt;New dimensions&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;USERAGENTENGINE&lt;/code&gt; and &lt;code&gt;USERAGENTENGINEVERSION&lt;/code&gt;: the browser &lt;strong&gt;engine&lt;/strong&gt; family and major version (&lt;code&gt;Blink&lt;/code&gt;, &lt;code&gt;WebKit&lt;/code&gt;,
+&lt;code&gt;Gecko&lt;/code&gt;).  Browser engines are often what actually determines behaviour -- every browser on
+iOS is WebKit, and Edge, Chrome and Opera are all Blink.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;INDUSTRY&lt;/code&gt;: the industry category of the website (&lt;code&gt;Technology&lt;/code&gt;, &lt;code&gt;Shopping &amp;amp; Auctions&lt;/code&gt;, &lt;code&gt;Sports&lt;/code&gt;, ...).  Web performance
+expectations are not the same for a news site and a checkout flow, and this makes it possible to compare like with
+like.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;new-timers-and-metrics&quot; tabindex=&quot;-1&quot;&gt;New timers and metrics&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;TRANSFERSIZE&lt;/code&gt;: how many &lt;strong&gt;bytes&lt;/strong&gt; the browser downloaded for the HTML document itself&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;INTERIMRESPONSE&lt;/code&gt;: the time to the first interim (&lt;code&gt;1xx&lt;/code&gt;) response, such as
+&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/103&quot;&gt;&lt;code&gt;103 Early Hints&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LCPLOADDELAY&lt;/code&gt;, &lt;code&gt;LCPLOADTIME&lt;/code&gt;, &lt;code&gt;LCPRENDERDELAY&lt;/code&gt;: the Largest Contentful Paint &lt;strong&gt;sub-parts&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;INPINPUTDELAY&lt;/code&gt;, &lt;code&gt;INPPROCESSINGDURATION&lt;/code&gt;, &lt;code&gt;INPPRESENTATIONDELAY&lt;/code&gt;: the Interaction to Next Paint &lt;strong&gt;sub-parts&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The sub-parts are the ones we&#39;re most excited about.  Core Web Vitals tell you &lt;em&gt;that&lt;/em&gt; a page is slow or unresponsive; the
+sub-parts tell you &lt;em&gt;why&lt;/em&gt;, and each one points at a different fix.  A high &lt;code&gt;LCPLOADDELAY&lt;/code&gt; means the hero image was
+discovered late.  A high &lt;code&gt;LCPLOADTIME&lt;/code&gt; means it&#39;s too big.  A high &lt;code&gt;LCPRENDERDELAY&lt;/code&gt; means something blocked rendering
+after it arrived.  Same for interactivity: &lt;code&gt;INPINPUTDELAY&lt;/code&gt; means the main thread was already busy, and
+&lt;code&gt;INPPROCESSINGDURATION&lt;/code&gt; means the event handler itself ran long.&lt;/p&gt;
+&lt;p&gt;Both breakdowns are additive, per the
+&lt;a href=&quot;https://github.com/GoogleChrome/web-vitals#inpattribution&quot;&gt;&lt;code&gt;web-vitals&lt;/code&gt; attribution&lt;/a&gt; contract:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;TTFB&lt;/code&gt; + &lt;code&gt;LCPLOADDELAY&lt;/code&gt; + &lt;code&gt;LCPLOADTIME&lt;/code&gt; + &lt;code&gt;LCPRENDERDELAY&lt;/code&gt; ~= &lt;code&gt;LCP&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;INPINPUTDELAY&lt;/code&gt; + &lt;code&gt;INPPROCESSINGDURATION&lt;/code&gt; + &lt;code&gt;INPPRESENTATIONDELAY&lt;/code&gt; ~= &lt;code&gt;INP&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;One important detail if you query the INP sub-parts: unlike the other paint and interaction timers, &lt;code&gt;0&lt;/code&gt; is a &lt;strong&gt;valid
+measurement&lt;/strong&gt; here.  An interaction with no JavaScript handler attached legitimately has a &lt;code&gt;0&lt;/code&gt; Processing Duration, and
+that&#39;s the &lt;em&gt;best&lt;/em&gt; possible outcome, so zeros are kept in the data rather than being treated as &amp;quot;not measured&amp;quot;.  Pass
+&lt;code&gt;includeZero = true&lt;/code&gt; to &lt;code&gt;PERCENTILE_APPROX()&lt;/code&gt; when calculating percentiles for these columns, or you&#39;ll throw away the
+fastest interactions.&lt;/p&gt;
+&lt;h2 id=&quot;querying-it&quot; tabindex=&quot;-1&quot;&gt;Querying it&lt;/h2&gt;
+&lt;p&gt;The &lt;a href=&quot;https://rumarchive.com/docs/querying&quot;&gt;querying guide&lt;/a&gt; applies as-is.  Star the &lt;code&gt;cf-open-web-performance&lt;/code&gt; project in your BigQuery console
+instead of (or in addition to) &lt;code&gt;akamai-mpulse-rumarchive&lt;/code&gt;, then query away.&lt;/p&gt;
+&lt;p&gt;For example, here&#39;s the P75 LCP by browser engine, for mobile devices, in the Netherlands, for a single day:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  USERAGENTENGINE&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; BEACONCOUNT&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        CAST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;cf-open-web-performance.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;            ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;LCPHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTEGER&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; LCP_P75&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;cf-open-web-performance.rumarchive.rumarchive_page_loads&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2026-09-28&quot;&lt;/span&gt;&lt;br /&gt;  &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt;   DEVICETYPE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Mobile&quot;&lt;/span&gt;&lt;br /&gt;  &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt;   USERAGENTENGINE &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;br /&gt;  &lt;span class=&quot;token operator&quot;&gt;AND&lt;/span&gt;   COUNTRY &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;NL&quot;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; USERAGENTENGINE&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And here&#39;s where Largest Contentful Paint time actually goes, by country:&lt;/p&gt;
+&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt;  COUNTRY&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; BEACONCOUNT&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        CAST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;cf-open-web-performance.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;            ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;LCPHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTEGER&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; LCP_P75&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        CAST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;cf-open-web-performance.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;            ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;TTFBHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTEGER&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; TTFB_P75&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        CAST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;cf-open-web-performance.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;            ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;LCPLOADDELAYHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTEGER&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; LOADDELAY_P75&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        CAST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;cf-open-web-performance.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;            ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;LCPLOADTIMEHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTEGER&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; LOADTIME_P75&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;br /&gt;        CAST&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;cf-open-web-performance.rumarchive.PERCENTILE_APPROX&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;br /&gt;            ARRAY_AGG&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;LCPRENDERDELAYHISTOGRAM&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTEGER&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;AS&lt;/span&gt; RENDERDELAY_P75&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt;    &lt;span class=&quot;token identifier&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;cf-open-web-performance.rumarchive.rumarchive_page_loads&lt;span class=&quot;token punctuation&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt;   &lt;span class=&quot;token keyword&quot;&gt;DATE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2026-09-28&quot;&lt;/span&gt;&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; COUNTRY&lt;br /&gt;&lt;span class=&quot;token keyword&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;BEACONS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;DESC&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Remember to always filter on &lt;code&gt;DATE&lt;/code&gt; -- it&#39;s the partitioning column, and it&#39;s the easiest way to keep your BigQuery
+costs down.  See our &lt;a href=&quot;https://rumarchive.com/docs/tips&quot;&gt;tips&lt;/a&gt; for more.&lt;/p&gt;
+&lt;h2 id=&quot;what&#39;s-next&quot; tabindex=&quot;-1&quot;&gt;What&#39;s next&lt;/h2&gt;
+&lt;p&gt;This is the first release, and it won&#39;t be the last.  On the roadmap:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Filling in the dimensions and metrics that are currently empty&lt;/li&gt;
+&lt;li&gt;Higher-cardinality companion tables (for example, per-User-Agent-version and per-network/ASN breakdowns) that would
+split the main table too finely&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you build something with this data, we&#39;d love to hear about it -- and if you have RUM data of your own to share,
+please &lt;a href=&quot;https://rumarchive.com/contribute&quot;&gt;contribute&lt;/a&gt;!&lt;/p&gt;
+
+          &lt;/p&gt;
+        </content>
+    </entry>
     <entry>
         <title>Akamai Employee Individual Websites Datasets</title>
         <link href="https://rumarchive.com/blog/2025-09-23-akamai-employee-individual-websites-datasets/"/>
