@@ -7,7 +7,11 @@ history to see individual contributions.
 
 * Buddy Brewer
 * Paul Calvano
+* Sergey Chernyshev (Cloudflare, Inc.)
+* Chisara Duru (Cloudflare, Inc.)
 * Simon Hearne
-* Nic Jansma (Akamai Technologies, Inc.)
+* Nic Jansma (Cloudflare, Inc.)
 * Philip Tellis (Akamai Technologies, Inc.)
+* Ryan Townsend (Cloudflare, Inc.)
 * Tim Vereecke (Akamai Technologies, Inc.)
+* Tong Zhou (Cloudflare, Inc.)
