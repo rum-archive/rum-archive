@@ -1,0 +1,23 @@
+samples/bigquery/schemas/create-table-page-loads-individual.sql
+  s_ad43b50720138a::t_3c500b11997688 9-10,21,86-118
+samples/bigquery/schemas/create-table-page-loads.sql
+  s_ad43b50720138a::t_317c21c25a181d 9-10,21,86-118
+samples/bigquery/schemas/load-data-page-loads.sql
+  s_ad43b50720138a::t_faa1fb8e6272c1 9-10,21,86-118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "3a3ea62dc0c89d0a2d0982764cf2a2e48a32c75f",
+  "prompts": {},
+  "sessions": {
+    "s_ad43b50720138a": {
+      "agent_id": {
+        "tool": "windsurf",
+        "id": "tiny-orbit",
+        "model": "unknown"
+      },
+      "human_author": "Nic Jansma <njansma@cloudflare.com>"
+    }
+  }
+}
