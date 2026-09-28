@@ -191,8 +191,9 @@ so <strong>your existing queries work</strong> with just a table name change</li
 </ul>
 <p>There are some gaps to be aware of.  The <code>DEVICEMODEL</code>, <code>VISIBILITYSTATE</code> and <code>IPVERSION</code> dimensions and the <code>RTT</code>,
 <code>RAGECLICKS</code>, <code>FID</code>, <code>TBT</code>, <code>TTI</code> and <code>UNO</code> metrics aren't measured by Cloudflare RUM today, so they're
-exported empty.  Single Page App navigations aren't reported yet either, so <code>BEACONTYPE</code> is limited to <code>page view</code> and
-<code>bfcache</code>.  We're looking into publishing some of those dimensions and metrics in the future.</p>
+exported empty.  While Cloudflare RUM track SPA soft navigations, SPA <em>hard</em> navigations aren't reported yet,
+so <code>BEACONTYPE</code> is limited to <code>page view</code>, <code>bfcache</code> and <code>spa</code>.  We're looking into publishing some of those
+dimensions and metrics in the future.</p>
 <h2 id="11-new-columns" tabindex="-1">11 new columns</h2>
 <p>The more interesting contribution may be to the format itself.  Version
 <a href="/docs/release-notes">1.6</a> of the RUM Archive adds 3 new <a href="/docs/tables#dimensions">dimensions</a> and 8 new

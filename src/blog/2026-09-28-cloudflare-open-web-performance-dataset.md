@@ -66,8 +66,9 @@ The full details are on the [datasets](/datasets/#cloudflare-beacon-dataset) pag
 
 There are some gaps to be aware of.  The `DEVICEMODEL`, `VISIBILITYSTATE` and `IPVERSION` dimensions and the `RTT`,
 `RAGECLICKS`, `FID`, `TBT`, `TTI` and `UNO` metrics aren't measured by Cloudflare RUM today, so they're
-exported empty.  Single Page App navigations aren't reported yet either, so `BEACONTYPE` is limited to `page view` and
-`bfcache`.  We're looking into publishing some of those dimensions and metrics in the future.
+exported empty.  While Cloudflare RUM track SPA soft navigations, SPA _hard_ navigations aren't reported yet,
+so `BEACONTYPE` is limited to `page view`, `bfcache` and `spa`.  We're looking into publishing some of those
+dimensions and metrics in the future.
 
 ## 11 new columns
 
