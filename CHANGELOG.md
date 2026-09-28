@@ -1,3 +1,15 @@
+## Version 1.6 (2026-09)
+
+* The [Cloudflare BEACON Dataset](/datasets#cloudflare-beacon-dataset) has been added
+* The Page Loads table gained 3 new [dimensions](/docs/tables#dimensions) in the Cloudflare dataset:
+  * `USERAGENTENGINE` and `USERAGENTENGINEVERSION`: the browser engine family and version
+  * `INDUSTRY`: the industry category of the site
+* The Page Loads table gained 8 new [timers and metrics](/docs/tables#timers-and-metrics) in the Cloudflare dataset:
+  * `TRANSFERSIZE`: the transfer size (in bytes) of the HTML document
+  * `INTERIMRESPONSE`: the time to the first interim (`1xx`) response, such as `103 Early Hints`
+  * `LCPLOADDELAY`, `LCPLOADTIME` and `LCPRENDERDELAY`: the Largest Contentful Paint sub-parts
+  * `INPINPUTDELAY`, `INPPROCESSINGDURATION` and `INPPRESENTATIONDELAY`: the Interaction to Next Paint sub-parts
+
 ## 2026-03-11
 
 * The [Akamai mPulse Top 100](https://rumarchive.com/datasets/#akamai-mpulse-rum) and [Akamai Employee Individual Websites](/datasets#akamai-employee-individual-websites-datasets) Datasets had empty INP data from 2024-02-14 through 2026-03-09 due to a pipeline error.  This has been fixed in the 2026-03-10 data going forward.
