@@ -4,7 +4,7 @@
   <subtitle>RUM Archive Blog</subtitle>
   <link href="https://rumarchive.com/blog/feed.xml" rel="self"/>
   <link href="https://rumarchive.com/blog/"/>
-  <updated>2026-09-28T14:18:40Z</updated>
+  <updated>2026-09-28T15:20:39Z</updated>
   <id>https://rumarchive.com/blog/</id>
   <author>
     <name>mPulse Developers</name>
@@ -99,8 +99,9 @@ so &lt;strong&gt;your existing queries work&lt;/strong&gt; with just a table nam
 &lt;/ul&gt;
 &lt;p&gt;There are some gaps to be aware of.  The &lt;code&gt;DEVICEMODEL&lt;/code&gt;, &lt;code&gt;VISIBILITYSTATE&lt;/code&gt; and &lt;code&gt;IPVERSION&lt;/code&gt; dimensions and the &lt;code&gt;RTT&lt;/code&gt;,
 &lt;code&gt;RAGECLICKS&lt;/code&gt;, &lt;code&gt;FID&lt;/code&gt;, &lt;code&gt;TBT&lt;/code&gt;, &lt;code&gt;TTI&lt;/code&gt; and &lt;code&gt;UNO&lt;/code&gt; metrics aren&#39;t measured by Cloudflare RUM today, so they&#39;re
-exported empty.  Single Page App navigations aren&#39;t reported yet either, so &lt;code&gt;BEACONTYPE&lt;/code&gt; is limited to &lt;code&gt;page view&lt;/code&gt; and
-&lt;code&gt;bfcache&lt;/code&gt;.  We&#39;re looking into publishing some of those dimensions and metrics in the future.&lt;/p&gt;
+exported empty.  While Cloudflare RUM track SPA soft navigations, SPA &lt;em&gt;hard&lt;/em&gt; navigations aren&#39;t reported yet,
+so &lt;code&gt;BEACONTYPE&lt;/code&gt; is limited to &lt;code&gt;page view&lt;/code&gt;, &lt;code&gt;bfcache&lt;/code&gt; and &lt;code&gt;spa&lt;/code&gt;.  We&#39;re looking into publishing some of those
+dimensions and metrics in the future.&lt;/p&gt;
 &lt;h2 id=&quot;11-new-columns&quot; tabindex=&quot;-1&quot;&gt;11 new columns&lt;/h2&gt;
 &lt;p&gt;The more interesting contribution may be to the format itself.  Version
 &lt;a href=&quot;https://rumarchive.com/docs/release-notes&quot;&gt;1.6&lt;/a&gt; of the RUM Archive adds 3 new &lt;a href=&quot;https://rumarchive.com/docs/tables#dimensions&quot;&gt;dimensions&lt;/a&gt; and 8 new

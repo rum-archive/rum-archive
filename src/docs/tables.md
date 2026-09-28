@@ -38,27 +38,27 @@ The _Cardinality_ column is an estimate from the largest value in either the mPu
 
 <div class="table-container">
 
-| Dimension                | Description                                                         | Example values                                          |      Cardinality |
-|:-------------------------|:--------------------------------------------------------------------|:--------------------------------------------------------|-----------------:|
-| `SOURCE`                 | Source of the data, e.g. provider                                   | `mpulse` `cloudflare`                                   |                1 |
-| `SITE`                   | Site being measured                                                 | `example.com` `(multiple)`                              |                1 |
-| `DATE`                   | Date of aggregation                                                 | `2022-01-01`                                            | (grows each day) |
-| `DEVICETYPE`             | Device type                                                         | `Mobile` `Desktop` `Tablet`                             |                3 |
-| `USERAGENTFAMILY`        | User Agent family                                                   | `Chrome` `Mobile Safari`                                |             ~100 |
-| `USERAGENTVERSION`       | User Agent major version                                            | `124` `12` (Safari: `17.4`)                             |             ~600 |
-| `USERAGENTENGINE`        | Browser engine family                                               | `Blink` `WebKit` `Gecko`                                |               ~3 |
-| `USERAGENTENGINEVERSION` | Browser engine major version                                        | `139` `18.5`                                            |             ~900 |
-| `DEVICEMODEL`            | Device model                                                        | `Apple iPhone` `Samsung Android 11`                     |            ~2000 |
-| `OS`                     | Operating System family                                             | `Android OS` `Windows` `iOS`                            |              ~30 |
-| `OSVERSION`              | Operation System major version                                      | `10` `15` (iOS: `17.4`)                                 |             ~250 |
-| `BEACONTYPE`             | Beacon type                                                         | `page view` `spa hard` `spa` `bfcache`                  |                4 |
-| `COUNTRY`                | Country                                                             | `US` `GB` `GB`                                          |             ~230 |
-| `VISIBILITYSTATE`        | Visibility state                                                    | `visible` `hidden` `partial`                            |                3 |
-| `NAVIGATIONTYPE`         | Navigation type                                                     | `navigate` `back forward` `reload` `back forward cache` |               ~9 |
-| `PROTOCOL`               | HTTP protocol                                                       | `h2` `http/1.1` `h3`                                    |               ~6 |
-| `IPVERSION`              | IP version                                                          | `IPv4` `IPv6`                                           |                3 |
-| `LANDINGPAGE`            | Landing page                                                        | `true` `false`                                          |                3 |
-| `INDUSTRY`               | Industry of the site [<sup>_1_</sup>](#page-loads-dimensions-notes) | `Technology` `Shopping & Auctions` `Sports` `Unknown`   |               24 |
+| Dimension                | Description                                                         | Example values                                          |      Cardinality | Datasets[<sup>_2_</sup>](#page-loads-dimensions-notes) |
+|:-------------------------|:--------------------------------------------------------------------|:--------------------------------------------------------|-----------------:|:------------------------------------------------------:|
+| `SOURCE`                 | Source of the data, e.g. provider                                   | `mpulse` `cloudflare`                                   |                1 |                         (both)                         |
+| `SITE`                   | Site being measured                                                 | `example.com` `(multiple)`                              |                1 |                         (both)                         |
+| `DATE`                   | Date of aggregation                                                 | `2022-01-01`                                            | (grows each day) |                         (both)                         |
+| `DEVICETYPE`             | Device type                                                         | `Mobile` `Desktop` `Tablet`                             |                3 |                         (both)                         |
+| `USERAGENTFAMILY`        | User Agent family                                                   | `Chrome` `Mobile Safari`                                |             ~100 |                         (both)                         |
+| `USERAGENTVERSION`       | User Agent major version                                            | `124` `12` (Safari: `17.4`)                             |             ~600 |                         (both)                         |
+| `USERAGENTENGINE`        | Browser engine family                                               | `Blink` `WebKit` `Gecko`                                |               ~3 |                           CF                           |
+| `USERAGENTENGINEVERSION` | Browser engine major version                                        | `139` `18.5`                                            |             ~900 |                           CF                           |
+| `DEVICEMODEL`            | Device model                                                        | `Apple iPhone` `Samsung Android 11`                     |            ~2000 |                           MP                           |
+| `OS`                     | Operating System family                                             | `Android OS` `Windows` `iOS`                            |              ~30 |                         (both)                         |
+| `OSVERSION`              | Operation System major version                                      | `10` `15` (iOS: `17.4`)                                 |             ~250 |                         (both)                         |
+| `BEACONTYPE`             | Beacon type                                                         | `page view` `spa hard` `spa` `bfcache`                  |                4 |                         (both)                         |
+| `COUNTRY`                | Country                                                             | `US` `GB` `GB`                                          |             ~230 |                         (both)                         |
+| `VISIBILITYSTATE`        | Visibility state                                                    | `visible` `hidden` `partial`                            |                3 |                           MP                           |
+| `NAVIGATIONTYPE`         | Navigation type                                                     | `navigate` `back forward` `reload` `back forward cache` |               ~9 |                         (both)                         |
+| `PROTOCOL`               | HTTP protocol                                                       | `h2` `http/1.1` `h3`                                    |               ~6 |                         (both)                         |
+| `IPVERSION`              | IP version                                                          | `IPv4` `IPv6`                                           |                3 |                           MP                           |
+| `LANDINGPAGE`            | Landing page                                                        | `true` `false`                                          |                3 |                         (both)                         |
+| `INDUSTRY`               | Industry of the site [<sup>_1_</sup>](#page-loads-dimensions-notes) | `Technology` `Shopping & Auctions` `Sports` `Unknown`   |               24 |                           CF                           |
 
 </div>
 
@@ -71,6 +71,7 @@ Notes:
    `Health`, `Internet Communication`, `Job Search & Careers`, `Miscellaneous`, `Real Estate`,
    `Religion`, `Safe for Kids`, `Shopping & Auctions`, `Society & Lifestyle`,
    `Sports`, `Technology`, `Travel`, `Vehicles`, `Violence`, `Weather` and `Unknown`.
+2.  MP = [mPulse](/datasets/#akamai-mpulse-rum), CF = [Cloudflare](/datasets/#cloudflare-beacon-dataset).
 
 ### Timers and Metrics
 
@@ -88,32 +89,32 @@ an empty `*HISTOGRAM`, a `NULL` `*AVG` and `*SUMLN`, and a `*COUNT` of `0`.
 
 <div class="table-container">
 
-| Timer or Metric                                                           | Column Name Prefix      |
-|:--------------------------------------------------------------------------|:------------------------|
-| Page Load Time                                                            | `PLT`                   |
-| DNS                                                                       | `DNS`                   |
-| TCP                                                                       | `TCP`                   |
-| TLS                                                                       | `TLS`                   |
-| Time to First Byte                                                        | `TTFB`                  |
-| First Contentful Paint                                                    | `FCP`                   |
-| Largest Contentful Paint                                                  | `LCP`                   |
-| Round Trip Time                                                           | `RTT`                   |
-| Rage Clicks                                                               | `RAGECLICKS`            |
-| Cumulative Layout Shift (*1000)                                           | `CLS`                   |
-| First Input Delay                                                         | `FID`                   |
-| Interaction to Next Paint                                                 | `INP`                   |
-| Total Blocking Time                                                       | `TBT`                   |
-| Time to Interactive                                                       | `TTI`                   |
-| Redirect                                                                  | `REDIRECT`              |
-| Unattributed Navigation Overhead                                          | `UNO`                   |
-| Transfer Size (bytes) [<sup>_1_</sup>](#page-loads-timers-notes)          | `TRANSFERSIZE`          |
-| Time to First Interim Response [<sup>_2_</sup>](#page-loads-timers-notes) | `INTERIMRESPONSE`       |
-| LCP: Resource Load Delay [<sup>_3_</sup>](#page-loads-timers-notes)       | `LCPLOADDELAY`          |
-| LCP: Resource Load Duration [<sup>_3_</sup>](#page-loads-timers-notes)    | `LCPLOADTIME`           |
-| LCP: Element Render Delay [<sup>_3_</sup>](#page-loads-timers-notes)      | `LCPRENDERDELAY`        |
-| INP: Input Delay [<sup>_4_</sup>](#page-loads-timers-notes)               | `INPINPUTDELAY`         |
-| INP: Processing Duration [<sup>_4_</sup>](#page-loads-timers-notes)       | `INPPROCESSINGDURATION` |
-| INP: Presentation Delay [<sup>_4_</sup>](#page-loads-timers-notes)        | `INPPRESENTATIONDELAY`  |
+| Timer or Metric                                                           | Column Name Prefix      | Datasets[<sup>_5_</sup>](#page-loads-timers-notes) |
+|:--------------------------------------------------------------------------|:------------------------|:------------------------------------------------------:|
+| Page Load Time                                                            | `PLT`                   |                         (both)                         |
+| DNS                                                                       | `DNS`                   |                         (both)                         |
+| TCP                                                                       | `TCP`                   |                         (both)                         |
+| TLS                                                                       | `TLS`                   |                         (both)                         |
+| Time to First Byte                                                        | `TTFB`                  |                         (both)                         |
+| First Contentful Paint                                                    | `FCP`                   |                         (both)                         |
+| Largest Contentful Paint                                                  | `LCP`                   |                         (both)                         |
+| Round Trip Time                                                           | `RTT`                   |                           MP                           |
+| Rage Clicks                                                               | `RAGECLICKS`            |                           MP                           |
+| Cumulative Layout Shift (*1000)                                           | `CLS`                   |                         (both)                         |
+| First Input Delay                                                         | `FID`                   |                           MP                           |
+| Interaction to Next Paint                                                 | `INP`                   |                         (both)                         |
+| Total Blocking Time                                                       | `TBT`                   |                           MP                           |
+| Time to Interactive                                                       | `TTI`                   |                           MP                           |
+| Redirect                                                                  | `REDIRECT`              |                         (both)                         |
+| Unattributed Navigation Overhead                                          | `UNO`                   |                           MP                           |
+| Transfer Size (bytes) [<sup>_1_</sup>](#page-loads-timers-notes)          | `TRANSFERSIZE`          |                           CF                           |
+| Time to First Interim Response [<sup>_2_</sup>](#page-loads-timers-notes) | `INTERIMRESPONSE`       |                           CF                           |
+| LCP: Resource Load Delay [<sup>_3_</sup>](#page-loads-timers-notes)       | `LCPLOADDELAY`          |                           CF                           |
+| LCP: Resource Load Duration [<sup>_3_</sup>](#page-loads-timers-notes)    | `LCPLOADTIME`           |                           CF                           |
+| LCP: Element Render Delay [<sup>_3_</sup>](#page-loads-timers-notes)      | `LCPRENDERDELAY`        |                           CF                           |
+| INP: Input Delay [<sup>_4_</sup>](#page-loads-timers-notes)               | `INPINPUTDELAY`         |                           CF                           |
+| INP: Processing Duration [<sup>_4_</sup>](#page-loads-timers-notes)       | `INPPROCESSINGDURATION` |                           CF                           |
+| INP: Presentation Delay [<sup>_4_</sup>](#page-loads-timers-notes)        | `INPPRESENTATIONDELAY`  |                           CF                           |
 
 </div>
 
@@ -130,12 +131,13 @@ Notes:
    navigations that received an interim response.
 3. The three `LCP*` sub-parts break Largest Contentful Paint down into the phases that produced it, as defined by the
    [`web-vitals` LCP attribution](https://github.com/GoogleChrome/web-vitals#lcpattribution) contract:
-   `TTFB` + `LCPLOADDELAY` + `LCPLOADTIME` + `LCPRENDERDELAY` rougly equals `LCP` for a given page load.
+   `TTFB` + `LCPLOADDELAY` + `LCPLOADTIME` + `LCPRENDERDELAY` roughly equals `LCP` for a given page load.
 4. The three `INP*` sub-parts break Interaction to Next Paint down into the phases that produced it, as defined by the
    [`web-vitals` INP attribution](https://github.com/GoogleChrome/web-vitals#inpattribution) contract:
    `INPINPUTDELAY` + `INPPROCESSINGDURATION` + `INPPRESENTATIONDELAY` equals `INP` for a given interaction.  Unlike the
    other paint and interaction timers, `0` is a **valid measurement** for these sub-parts (for example, an interaction
    with no JavaScript handler has a `0` Processing Duration), so zeros are kept rather than treated as "not measured".
+5.  MP = [mPulse](/datasets/#akamai-mpulse-rum), CF = [Cloudflare](/datasets/#cloudflare-beacon-dataset).
 
 ## Third-Party Resources
 

@@ -24,7 +24,7 @@ The rest of this guide will assume you're querying against the [Akamai mPulse RU
 
 The `COMBINE_HISTOGRAMS()` and `PERCENTILE_APPROX()` helper functions described below are provided by each dataset's own
 BigQuery project, so to run the same queries against the
-[Cloudflare Open Web Performance Dataset](/datasets/#cloudflare-open-web-performance-dataset) you would swap
+[Cloudflare BEACON Dataset](/datasets/#cloudflare-beacon-dataset) you would swap
 `akamai-mpulse-rumarchive.rumarchive` for `cf-open-web-performance.rumarchive`.
 
 ## Accessing BigQuery

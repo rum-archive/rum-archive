@@ -146,6 +146,7 @@ empty strings.</p>
 <th style="text-align:left">Description</th>
 <th style="text-align:left">Example values</th>
 <th style="text-align:right">Cardinality</th>
+<th style="text-align:center">Datasets<a href="#page-loads-dimensions-notes"><sup><em>2</em></sup></a></th>
 </tr>
 </thead>
 <tbody>
@@ -154,114 +155,133 @@ empty strings.</p>
 <td style="text-align:left">Source of the data, e.g. provider</td>
 <td style="text-align:left"><code>mpulse</code> <code>cloudflare</code></td>
 <td style="text-align:right">1</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>SITE</code></td>
 <td style="text-align:left">Site being measured</td>
 <td style="text-align:left"><code>example.com</code> <code>(multiple)</code></td>
 <td style="text-align:right">1</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>DATE</code></td>
 <td style="text-align:left">Date of aggregation</td>
 <td style="text-align:left"><code>2022-01-01</code></td>
 <td style="text-align:right">(grows each day)</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>DEVICETYPE</code></td>
 <td style="text-align:left">Device type</td>
 <td style="text-align:left"><code>Mobile</code> <code>Desktop</code> <code>Tablet</code></td>
 <td style="text-align:right">3</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>USERAGENTFAMILY</code></td>
 <td style="text-align:left">User Agent family</td>
 <td style="text-align:left"><code>Chrome</code> <code>Mobile Safari</code></td>
 <td style="text-align:right">~100</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>USERAGENTVERSION</code></td>
 <td style="text-align:left">User Agent major version</td>
 <td style="text-align:left"><code>124</code> <code>12</code> (Safari: <code>17.4</code>)</td>
 <td style="text-align:right">~600</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>USERAGENTENGINE</code></td>
 <td style="text-align:left">Browser engine family</td>
 <td style="text-align:left"><code>Blink</code> <code>WebKit</code> <code>Gecko</code></td>
 <td style="text-align:right">~3</td>
+<td style="text-align:center">CF</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>USERAGENTENGINEVERSION</code></td>
 <td style="text-align:left">Browser engine major version</td>
 <td style="text-align:left"><code>139</code> <code>18.5</code></td>
 <td style="text-align:right">~900</td>
+<td style="text-align:center">CF</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>DEVICEMODEL</code></td>
 <td style="text-align:left">Device model</td>
 <td style="text-align:left"><code>Apple iPhone</code> <code>Samsung Android 11</code></td>
 <td style="text-align:right">~2000</td>
+<td style="text-align:center">MP</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>OS</code></td>
 <td style="text-align:left">Operating System family</td>
 <td style="text-align:left"><code>Android OS</code> <code>Windows</code> <code>iOS</code></td>
 <td style="text-align:right">~30</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>OSVERSION</code></td>
 <td style="text-align:left">Operation System major version</td>
 <td style="text-align:left"><code>10</code> <code>15</code> (iOS: <code>17.4</code>)</td>
 <td style="text-align:right">~250</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>BEACONTYPE</code></td>
 <td style="text-align:left">Beacon type</td>
 <td style="text-align:left"><code>page view</code> <code>spa hard</code> <code>spa</code> <code>bfcache</code></td>
 <td style="text-align:right">4</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>COUNTRY</code></td>
 <td style="text-align:left">Country</td>
 <td style="text-align:left"><code>US</code> <code>GB</code> <code>GB</code></td>
 <td style="text-align:right">~230</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>VISIBILITYSTATE</code></td>
 <td style="text-align:left">Visibility state</td>
 <td style="text-align:left"><code>visible</code> <code>hidden</code> <code>partial</code></td>
 <td style="text-align:right">3</td>
+<td style="text-align:center">MP</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>NAVIGATIONTYPE</code></td>
 <td style="text-align:left">Navigation type</td>
 <td style="text-align:left"><code>navigate</code> <code>back forward</code> <code>reload</code> <code>back forward cache</code></td>
 <td style="text-align:right">~9</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>PROTOCOL</code></td>
 <td style="text-align:left">HTTP protocol</td>
 <td style="text-align:left"><code>h2</code> <code>http/1.1</code> <code>h3</code></td>
 <td style="text-align:right">~6</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>IPVERSION</code></td>
 <td style="text-align:left">IP version</td>
 <td style="text-align:left"><code>IPv4</code> <code>IPv6</code></td>
 <td style="text-align:right">3</td>
+<td style="text-align:center">MP</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>LANDINGPAGE</code></td>
 <td style="text-align:left">Landing page</td>
 <td style="text-align:left"><code>true</code> <code>false</code></td>
 <td style="text-align:right">3</td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>INDUSTRY</code></td>
 <td style="text-align:left">Industry of the site <a href="#page-loads-dimensions-notes"><sup><em>1</em></sup></a></td>
 <td style="text-align:left"><code>Technology</code> <code>Shopping &amp; Auctions</code> <code>Sports</code> <code>Unknown</code></td>
 <td style="text-align:right">24</td>
+<td style="text-align:center">CF</td>
 </tr>
 </tbody>
 </table>
@@ -275,6 +295,7 @@ Cloudflare's domain categories, and reports <code>Unknown</code> for any site it
 <code>Health</code>, <code>Internet Communication</code>, <code>Job Search &amp; Careers</code>, <code>Miscellaneous</code>, <code>Real Estate</code>,
 <code>Religion</code>, <code>Safe for Kids</code>, <code>Shopping &amp; Auctions</code>, <code>Society &amp; Lifestyle</code>,
 <code>Sports</code>, <code>Technology</code>, <code>Travel</code>, <code>Vehicles</code>, <code>Violence</code>, <code>Weather</code> and <code>Unknown</code>.</li>
+<li>MP = <a href="/datasets/#akamai-mpulse-rum">mPulse</a>, CF = <a href="/datasets/#cloudflare-beacon-dataset">Cloudflare</a>.</li>
 </ol>
 <h3 id="timers-and-metrics" tabindex="-1">Timers and Metrics</h3>
 <p>The <code>BEACONS</code> column contains how many Page Loads that row represents.</p>
@@ -293,104 +314,129 @@ an empty <code>*HISTOGRAM</code>, a <code>NULL</code> <code>*AVG</code> and <cod
 <tr>
 <th style="text-align:left">Timer or Metric</th>
 <th style="text-align:left">Column Name Prefix</th>
+<th style="text-align:center">Datasets<a href="#page-loads-timers-notes"><sup><em>5</em></sup></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left">Page Load Time</td>
 <td style="text-align:left"><code>PLT</code></td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left">DNS</td>
 <td style="text-align:left"><code>DNS</code></td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left">TCP</td>
 <td style="text-align:left"><code>TCP</code></td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left">TLS</td>
 <td style="text-align:left"><code>TLS</code></td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left">Time to First Byte</td>
 <td style="text-align:left"><code>TTFB</code></td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left">First Contentful Paint</td>
 <td style="text-align:left"><code>FCP</code></td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left">Largest Contentful Paint</td>
 <td style="text-align:left"><code>LCP</code></td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left">Round Trip Time</td>
 <td style="text-align:left"><code>RTT</code></td>
+<td style="text-align:center">MP</td>
 </tr>
 <tr>
 <td style="text-align:left">Rage Clicks</td>
 <td style="text-align:left"><code>RAGECLICKS</code></td>
+<td style="text-align:center">MP</td>
 </tr>
 <tr>
 <td style="text-align:left">Cumulative Layout Shift (*1000)</td>
 <td style="text-align:left"><code>CLS</code></td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left">First Input Delay</td>
 <td style="text-align:left"><code>FID</code></td>
+<td style="text-align:center">MP</td>
 </tr>
 <tr>
 <td style="text-align:left">Interaction to Next Paint</td>
 <td style="text-align:left"><code>INP</code></td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left">Total Blocking Time</td>
 <td style="text-align:left"><code>TBT</code></td>
+<td style="text-align:center">MP</td>
 </tr>
 <tr>
 <td style="text-align:left">Time to Interactive</td>
 <td style="text-align:left"><code>TTI</code></td>
+<td style="text-align:center">MP</td>
 </tr>
 <tr>
 <td style="text-align:left">Redirect</td>
 <td style="text-align:left"><code>REDIRECT</code></td>
+<td style="text-align:center">(both)</td>
 </tr>
 <tr>
 <td style="text-align:left">Unattributed Navigation Overhead</td>
 <td style="text-align:left"><code>UNO</code></td>
+<td style="text-align:center">MP</td>
 </tr>
 <tr>
 <td style="text-align:left">Transfer Size (bytes) <a href="#page-loads-timers-notes"><sup><em>1</em></sup></a></td>
 <td style="text-align:left"><code>TRANSFERSIZE</code></td>
+<td style="text-align:center">CF</td>
 </tr>
 <tr>
 <td style="text-align:left">Time to First Interim Response <a href="#page-loads-timers-notes"><sup><em>2</em></sup></a></td>
 <td style="text-align:left"><code>INTERIMRESPONSE</code></td>
+<td style="text-align:center">CF</td>
 </tr>
 <tr>
 <td style="text-align:left">LCP: Resource Load Delay <a href="#page-loads-timers-notes"><sup><em>3</em></sup></a></td>
 <td style="text-align:left"><code>LCPLOADDELAY</code></td>
+<td style="text-align:center">CF</td>
 </tr>
 <tr>
 <td style="text-align:left">LCP: Resource Load Duration <a href="#page-loads-timers-notes"><sup><em>3</em></sup></a></td>
 <td style="text-align:left"><code>LCPLOADTIME</code></td>
+<td style="text-align:center">CF</td>
 </tr>
 <tr>
 <td style="text-align:left">LCP: Element Render Delay <a href="#page-loads-timers-notes"><sup><em>3</em></sup></a></td>
 <td style="text-align:left"><code>LCPRENDERDELAY</code></td>
+<td style="text-align:center">CF</td>
 </tr>
 <tr>
 <td style="text-align:left">INP: Input Delay <a href="#page-loads-timers-notes"><sup><em>4</em></sup></a></td>
 <td style="text-align:left"><code>INPINPUTDELAY</code></td>
+<td style="text-align:center">CF</td>
 </tr>
 <tr>
 <td style="text-align:left">INP: Processing Duration <a href="#page-loads-timers-notes"><sup><em>4</em></sup></a></td>
 <td style="text-align:left"><code>INPPROCESSINGDURATION</code></td>
+<td style="text-align:center">CF</td>
 </tr>
 <tr>
 <td style="text-align:left">INP: Presentation Delay <a href="#page-loads-timers-notes"><sup><em>4</em></sup></a></td>
 <td style="text-align:left"><code>INPPRESENTATIONDELAY</code></td>
+<td style="text-align:center">CF</td>
 </tr>
 </tbody>
 </table>
@@ -408,12 +454,13 @@ i.e. the first <code>1xx</code> informational response such as
 navigations that received an interim response.</li>
 <li>The three <code>LCP*</code> sub-parts break Largest Contentful Paint down into the phases that produced it, as defined by the
 <a href="https://github.com/GoogleChrome/web-vitals#lcpattribution"><code>web-vitals</code> LCP attribution</a> contract:
-<code>TTFB</code> + <code>LCPLOADDELAY</code> + <code>LCPLOADTIME</code> + <code>LCPRENDERDELAY</code> rougly equals <code>LCP</code> for a given page load.</li>
+<code>TTFB</code> + <code>LCPLOADDELAY</code> + <code>LCPLOADTIME</code> + <code>LCPRENDERDELAY</code> roughly equals <code>LCP</code> for a given page load.</li>
 <li>The three <code>INP*</code> sub-parts break Interaction to Next Paint down into the phases that produced it, as defined by the
 <a href="https://github.com/GoogleChrome/web-vitals#inpattribution"><code>web-vitals</code> INP attribution</a> contract:
 <code>INPINPUTDELAY</code> + <code>INPPROCESSINGDURATION</code> + <code>INPPRESENTATIONDELAY</code> equals <code>INP</code> for a given interaction.  Unlike the
 other paint and interaction timers, <code>0</code> is a <strong>valid measurement</strong> for these sub-parts (for example, an interaction
 with no JavaScript handler has a <code>0</code> Processing Duration), so zeros are kept rather than treated as &quot;not measured&quot;.</li>
+<li>MP = <a href="/datasets/#akamai-mpulse-rum">mPulse</a>, CF = <a href="/datasets/#cloudflare-beacon-dataset">Cloudflare</a>.</li>
 </ol>
 <h2 id="third-party-resources" tabindex="-1">Third-Party Resources</h2>
 <p>Third-Party Resources represent URLs (such as JavaScript, CSS, images, etc) have been seen across multiple websites and are third-party components such as libraries, analytics scripts, widgets, fonts, etc.</p>
