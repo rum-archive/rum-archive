@@ -117,12 +117,55 @@
             <h2>Table of Contents</h2>
             <aside>
               <div class="toc" >
-        <ul><li><a href="#contributing">Contributing</a></li><li><a href="#akamai-mpulse-rum">Akamai mPulse RUM</a></li><li><a href="#akamai-employee-individual-websites-datasets">Akamai Employee Individual Websites Datasets</a></li><li><a href="#cloudflare-beacon-dataset">Cloudflare BEACON Dataset</a></li></ul>
+        <ul><li><a href="#contributing">Contributing</a></li><li><a href="#overview">Overview</a></li><li><a href="#akamai-mpulse-rum">Akamai mPulse RUM</a></li><li><a href="#cloudflare-beacon-dataset">Cloudflare BEACON Dataset</a></li><li><a href="#individual-websites-datasets">Individual Websites Datasets</a></li></ul>
       </div>
             </aside>
           
           <h2 id="contributing" tabindex="-1">Contributing</h2>
 <p>Want to contribute your own data to the RUM Archive?  See the <a href="/contribute">contributing guide</a>.</p>
+<h2 id="overview" tabindex="-1">Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>GCP project name</th>
+<th>Page Loads (per day)</th>
+<th>Daily Data since</th>
+<th>Schema version</th>
+<th>Page Loads</th>
+<th>Resources</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Akamai mPulse</td>
+<td><code>akamai-mpulse-rumarchive</code></td>
+<td>~200 M</td>
+<td>2022-09-01</td>
+<td>1.5</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Cloudflare BEACON</td>
+<td><code>cf-open-web-performance</code></td>
+<td>~4.5 B</td>
+<td>2026-09-20</td>
+<td>1.6</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Individual Websites</td>
+<td><code>akamai-mpulse-rumarchive</code></td>
+<td>~300 K</td>
+<td>2024-06-01</td>
+<td>1.5</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
 <h2 id="akamai-mpulse-rum" tabindex="-1">Akamai mPulse RUM</h2>
 <p><a href="https://www.akamai.com/products/mpulse-real-user-monitoring">Akamai mPulse</a> is a RUM product that maps user behavior
 to business performance as it's happening. With mPulse you can collect detailed business and performance data directly
@@ -190,45 +233,6 @@ across all of your page views to identify the root cause of latencies and lost r
 </li>
 <li>Changelog: See the <a href="/docs/release-notes/">release notes</a> for breaking changes</li>
 </ul>
-<h2 id="akamai-employee-individual-websites-datasets" tabindex="-1">Akamai Employee Individual Websites Datasets</h2>
-<p>A few Akamai employees with personal websites have opted in to publishing their RUM data to the RUM Archive.</p>
-<p>These websites are aggregated independently, and are individually identifiable via the <code>SITE</code> column.  Their data is published to the <code>rumarchive_page_loads_individual</code> table (instead of the <code>rumarchive_page_loads</code> table the regular mPulse Dataset is published to).</p>
-<p>Technical Details:</p>
-<ul>
-<li>License: <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY SA 4.0</a></li>
-<li>Collected via: <a href="https://github.com/akamai/boomerang">boomerang.js</a> via mPulse</li>
-<li>Aggregation cadence: <strong>Daily</strong></li>
-<li>Release cadence: <strong>Daily</strong> (automated, by 2pm GMT for previous day)</li>
-<li>Websites:
-<ul>
-<li><a href="https://www.sarna.net">sarna.net</a> - Nic Jansma</li>
-<li><a href="https://scalemates.com">scalemates.com</a> - Tim Vereecke</li>
-<li><a href="https://virtualglobetrotting.com">virtualglobetrotting.com</a> - Nic Jansma</li>
-</ul>
-</li>
-<li>Page Loads: <strong>Yes</strong>
-<ul>
-<li>Sampling: No sampling</li>
-<li>Size: Approximately 300,000 page loads aggregated per day</li>
-</ul>
-</li>
-<li>Resources: <strong>No</strong></li>
-<li>Google BigQuery project: <code>akamai-mpulse-rumarchive</code>
-<ul>
-<li>Dataset: <code>rumarchive</code></li>
-<li>Page Loads table: <code>rumarchive_page_loads_individual</code>
-<ul>
-<li>Available daily data:
-<ul>
-<li><code>2024-06-01</code> (onward, daily)</li>
-</ul>
-</li>
-<li><a href="/docs/release-notes">Schema version</a>: 1.5</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 <h2 id="cloudflare-beacon-dataset" tabindex="-1">Cloudflare BEACON Dataset</h2>
 <p>The <strong>Cloudflare BEACON</strong> (Browser Experience Across Cloudflare's Observed Network) Dataset is an aggregation
 of Real User Monitoring data collected by <a href="https://www.cloudflare.com/web-analytics/">Cloudflare RUM</a>,
@@ -276,6 +280,45 @@ Cloudflare's privacy-first RUM product.</p>
 <li>The following dimensions are always empty: <code>DEVICEMODEL</code>, <code>VISIBILITYSTATE</code> and <code>IPVERSION</code></li>
 <li>The following timers and metrics are always empty: <code>RTT</code>, <code>RAGECLICKS</code>, <code>FID</code>, <code>TBT</code>, <code>TTI</code> and <code>UNO</code></li>
 <li><code>BEACONTYPE</code> is limited to <code>page view</code>, <code>bfcache</code> and <code>spa</code> (not <code>spa hard</code>) as Cloudflare RUM does not measure SPA Hard Navigations</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="individual-websites-datasets" tabindex="-1">Individual Websites Datasets</h2>
+<p>Personal website owners can opt in to publishing their RUM data to the RUM Archive.  If you're using mPulse, this can be done in an opt-in basis via the mPulse RUM Archive pipeline.</p>
+<p>These websites are aggregated independently, and are individually identifiable via the <code>SITE</code> column.  Their data is published to the <code>rumarchive_page_loads_individual</code> table (instead of the <code>rumarchive_page_loads</code> table).</p>
+<p>Technical Details:</p>
+<ul>
+<li>License: <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY SA 4.0</a></li>
+<li>Collected via: <a href="https://github.com/akamai/boomerang">boomerang.js</a> via mPulse</li>
+<li>Aggregation cadence: <strong>Daily</strong></li>
+<li>Release cadence: <strong>Daily</strong> (automated, by 2pm GMT for previous day)</li>
+<li>Websites:
+<ul>
+<li><a href="https://www.sarna.net">sarna.net</a> - Nic Jansma</li>
+<li><a href="https://scalemates.com">scalemates.com</a> - Tim Vereecke</li>
+<li><a href="https://virtualglobetrotting.com">virtualglobetrotting.com</a> - Nic Jansma</li>
+</ul>
+</li>
+<li>Page Loads: <strong>Yes</strong>
+<ul>
+<li>Sampling: No sampling</li>
+<li>Size: Approximately 300,000 page loads aggregated per day</li>
+</ul>
+</li>
+<li>Resources: <strong>No</strong></li>
+<li>Google BigQuery project: <code>akamai-mpulse-rumarchive</code>
+<ul>
+<li>Dataset: <code>rumarchive</code></li>
+<li>Page Loads table: <code>rumarchive_page_loads_individual</code>
+<ul>
+<li>Available daily data:
+<ul>
+<li><code>2024-06-01</code> (onward, daily)</li>
+</ul>
+</li>
+<li><a href="/docs/release-notes">Schema version</a>: 1.5</li>
 </ul>
 </li>
 </ul>
