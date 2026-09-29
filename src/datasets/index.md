@@ -7,6 +7,14 @@ layout: layouts/page.njk
 
 Want to contribute your own data to the RUM Archive?  See the [contributing guide](/contribute).
 
+## Overview
+
+| Name                | GCP project name           | Page Loads (per day) | Daily Data since | Schema version | Page Loads | Resources |
+| ------------------- | -------------------------- | -------------------- | ---------------- | -------------- | ---------- | --------- |
+| Akamai mPulse       | `akamai-mpulse-rumarchive` | ~200 M               | 2022-09-01       | 1.5            | Yes        | Yes       |
+| Cloudflare BEACON   | `cf-open-web-performance`  | ~4.5 B               | 2026-09-20       | 1.6            | Yes        | No        |
+| Individual Websites | `akamai-mpulse-rumarchive` | ~300 K               | 2024-06-01       | 1.5            | Yes        | No        |
+
 ## Akamai mPulse RUM
 
 [Akamai mPulse](https://www.akamai.com/products/mpulse-real-user-monitoring) is a RUM product that maps user behavior
