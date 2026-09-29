@@ -49,33 +49,6 @@ Technical Details:
   * The dimensions and timers added to the format in [version 1.6](/docs/release-notes) (`USERAGENTENGINE`, `USERAGENTENGINEVERSION`, `INDUSTRY`, `TRANSFERSIZE*`, `INTERIMRESPONSE*`, `LCPLOADDELAY*`, `LCPLOADTIME*`, `LCPRENDERDELAY*`, `INPINPUTDELAY*`, `INPPROCESSINGDURATION*` and `INPPRESENTATIONDELAY*`) are not available in the mPulse datasets
 * Changelog: See the [release notes](/docs/release-notes/) for breaking changes
 
-## Akamai Employee Individual Websites Datasets
-
-A few Akamai employees with personal websites have opted in to publishing their RUM data to the RUM Archive.
-
-These websites are aggregated independently, and are individually identifiable via the `SITE` column.  Their data is published to the `rumarchive_page_loads_individual` table (instead of the `rumarchive_page_loads` table the regular mPulse Dataset is published to).
-
-Technical Details:
-
-* License: [CC BY SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
-* Collected via: [boomerang.js](https://github.com/akamai/boomerang) via mPulse
-* Aggregation cadence: **Daily**
-* Release cadence: **Daily** (automated, by 2pm GMT for previous day)
-* Websites:
-  * [sarna.net](https://www.sarna.net) - Nic Jansma
-  * [scalemates.com](https://scalemates.com) - Tim Vereecke
-  * [virtualglobetrotting.com](https://virtualglobetrotting.com) - Nic Jansma
-* Page Loads: **Yes**
-  * Sampling: No sampling
-  * Size: Approximately 300,000 page loads aggregated per day
-* Resources: **No**
-* Google BigQuery project: `akamai-mpulse-rumarchive`
-  * Dataset: `rumarchive`
-  * Page Loads table: `rumarchive_page_loads_individual`
-    * Available daily data:
-      * `2024-06-01` (onward, daily)
-    * [Schema version](/docs/release-notes): 1.5
-
 ## Cloudflare BEACON Dataset
 
 The **Cloudflare BEACON** (Browser Experience Across Cloudflare's Observed Network) Dataset is an aggregation
@@ -109,3 +82,29 @@ Technical Details:
     * The following timers and metrics are always empty: `RTT`, `RAGECLICKS`, `FID`, `TBT`, `TTI` and `UNO`
     * `BEACONTYPE` is limited to `page view`, `bfcache` and `spa` (not `spa hard`) as Cloudflare RUM does not measure SPA Hard Navigations
 
+## Individual Websites Datasets
+
+Personal website owners can opt in to publishing their RUM data to the RUM Archive.  If you're using mPulse, this can be done in an opt-in basis via the mPulse RUM Archive pipeline.
+
+These websites are aggregated independently, and are individually identifiable via the `SITE` column.  Their data is published to the `rumarchive_page_loads_individual` table (instead of the `rumarchive_page_loads` table).
+
+Technical Details:
+
+* License: [CC BY SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
+* Collected via: [boomerang.js](https://github.com/akamai/boomerang) via mPulse
+* Aggregation cadence: **Daily**
+* Release cadence: **Daily** (automated, by 2pm GMT for previous day)
+* Websites:
+  * [sarna.net](https://www.sarna.net) - Nic Jansma
+  * [scalemates.com](https://scalemates.com) - Tim Vereecke
+  * [virtualglobetrotting.com](https://virtualglobetrotting.com) - Nic Jansma
+* Page Loads: **Yes**
+  * Sampling: No sampling
+  * Size: Approximately 300,000 page loads aggregated per day
+* Resources: **No**
+* Google BigQuery project: `akamai-mpulse-rumarchive`
+  * Dataset: `rumarchive`
+  * Page Loads table: `rumarchive_page_loads_individual`
+    * Available daily data:
+      * `2024-06-01` (onward, daily)
+    * [Schema version](/docs/release-notes): 1.5
